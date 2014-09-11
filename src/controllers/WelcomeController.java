@@ -1,4 +1,4 @@
-package java.controllers;
+package controllers;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -8,7 +8,7 @@ package java.controllers;
 
 
 
-import java.spacetradermain.SpaceTraderMain;
+import main.SpaceTraderMain;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

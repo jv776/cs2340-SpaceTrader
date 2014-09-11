@@ -1,4 +1,4 @@
-package java.controllers;
+package controllers;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

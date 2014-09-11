@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.WelcomeController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WelcomeController">
    <children>
       <Button fx:id="newGameButton" layoutX="254.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handleNewGame" text="New Game" />
       <Button fx:id="loadGameButton" layoutX="253.0" layoutY="242.0" mnemonicParsing="false" text="Load Game" />

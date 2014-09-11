@@ -1,4 +1,4 @@
-package java.spacetradermain;
+package main;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,7 +6,7 @@ package java.spacetradermain;
  * and open the template in the editor.
  */
 
-import java.controllers.ScreensController;
+import controllers.ScreensController;
 import java.util.HashMap;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -22,9 +22,9 @@ public class SpaceTraderMain extends Application {
     
     public static final HashMap<String, String> SCREENS = new HashMap<>();
     public static final String WELCOME_SCREEN = "Welcome"; 
-    public static final String WELCOME_SCREEN_FXML = "/main/java/views/Welcome.fxml"; 
+    public static final String WELCOME_SCREEN_FXML = "/views/Welcome.fxml"; 
     public static final String CUSTOMIZATION_SCREEN = "Customization"; 
-    public static final String CUSTOMIZATION_SCREEN_FXML = "/main/java/views/Customization.fxml"; 
+    public static final String CUSTOMIZATION_SCREEN_FXML = "/views/Customization.fxml"; 
 
      @Override 
      public void start(Stage primaryStage) { 

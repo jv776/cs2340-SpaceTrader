@@ -1,6 +1,6 @@
-package java.controllers;
+package controllers;
 
-import java.spacetradermain.SpaceTraderMain;
+import main.SpaceTraderMain;
 import java.io.IOException;
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
