@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import models.Player;
 
 /**
  * Customization FXML Controller class
@@ -91,7 +92,12 @@ public class CustomizationController implements Initializable, ControlledScreen 
      * a name to their character.
      */
     public void handleContinue() {
-        // After customization screen.
+        Player player = new Player(nameField.getText(),
+            Integer.parseInt(pilotSkillPoints.getText()),
+            Integer.parseInt(fighterSkillPoints.getText()),
+            Integer.parseInt(traderSkillPoints.getText()),
+            Integer.parseInt(engineerSkillPoints.getText()),
+            Integer.parseInt(investorSkillPoints.getText()));
     }
     
     /**
