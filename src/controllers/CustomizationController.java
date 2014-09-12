@@ -100,6 +100,7 @@ public class CustomizationController implements Initializable, ControlledScreen 
             Integer.parseInt(engineerSkillPoints.getText()),
             Integer.parseInt(investorSkillPoints.getText()));
         Universe universe = new Universe();
+        System.out.println(player);
     }
     
     /**

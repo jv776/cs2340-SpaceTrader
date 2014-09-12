@@ -177,6 +177,7 @@ public class Universe {
                 TECH_LEVELS[r.nextInt(TECH_LEVELS.length)],
                 RESOURCES[r.nextInt(RESOURCES.length)]);
         }
+        // DELETE AFTER DEBUGGING
         for (SolarSystem s : solarSystems) {
             System.out.println(s);
         }
