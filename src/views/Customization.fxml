@@ -29,7 +29,7 @@
   </rowConstraints>
    <children>
       <Label text="Name:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-      <TextField fx:id="nameField" onKeyTyped="#handleNameInput" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+      <TextField fx:id="nameField" onKeyReleased="#handleNameInput" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <Label text="Pilot:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="Fighter:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Label text="Trader:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -92,7 +92,7 @@
       <Label fx:id="engineerSkillPoints" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Label fx:id="investorSkillPoints" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
       <Label fx:id="skillPointsRemaining" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-      <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancel" text="Cancel" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-      <Button fx:id="continueButton" mnemonicParsing="false" onMouseClicked="#handleContinue" text="Continue" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+      <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancel" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+      <Button fx:id="continueButton" mnemonicParsing="false" onMouseClicked="#handleContinue" text="Continue" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
    </children>
 </GridPane>

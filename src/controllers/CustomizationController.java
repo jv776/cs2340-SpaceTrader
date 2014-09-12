@@ -141,11 +141,6 @@ public class CustomizationController implements Initializable, ControlledScreen 
                 skillPointsRemaining.setText(++skillPoints + "");
             }
         }
-        
-        if (skillPoints == 0 && !nameField.getText().isEmpty()) {
-            continueButton.setDisable(false);
-        } else {
-            continueButton.setDisable(true);
-        }
+        handleNameInput();
     }
 }
