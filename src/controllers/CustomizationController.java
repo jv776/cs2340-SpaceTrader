@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Player;
+import models.Universe;
 
 /**
  * Customization FXML Controller class
@@ -98,6 +99,7 @@ public class CustomizationController implements Initializable, ControlledScreen 
             Integer.parseInt(traderSkillPoints.getText()),
             Integer.parseInt(engineerSkillPoints.getText()),
             Integer.parseInt(investorSkillPoints.getText()));
+        Universe universe = new Universe();
     }
     
     /**

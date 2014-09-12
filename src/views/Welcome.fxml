@@ -20,6 +20,6 @@
             <Glow level="1.0" />
          </effect>
       </Label>
-      <Label layoutX="253.0" layoutY="129.0" text="The Hitchikers" textAlignment="CENTER" />
+      <Label layoutX="249.0" layoutY="136.0" text="The Hitchhikers" textAlignment="CENTER" />
    </children>
 </AnchorPane>
