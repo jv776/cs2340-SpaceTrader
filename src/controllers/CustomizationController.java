@@ -136,7 +136,7 @@ public class CustomizationController implements Initializable, ControlledScreen 
                 skillPointsRemaining.setText(--skillPoints + "");
             }
         } else if (direction.equals("decrease")) {
-            if (skillPoints < SKILL_POINT_MAX && Integer.parseInt(attributePoints.getText()) > 0) {
+            if (Integer.parseInt(attributePoints.getText()) > 0) {
                 attributePoints.setText(Integer.parseInt(attributePoints.getText()) - 1 + "");
                 skillPointsRemaining.setText(++skillPoints + "");
             }
