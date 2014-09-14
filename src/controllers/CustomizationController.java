@@ -100,6 +100,7 @@ public class CustomizationController implements Initializable, ControlledScreen 
             Integer.parseInt(engineerSkillPoints.getText()),
             Integer.parseInt(investorSkillPoints.getText()));
         Universe universe = new Universe();
+        System.out.println(player);
     }
     
     /**
@@ -141,11 +142,6 @@ public class CustomizationController implements Initializable, ControlledScreen 
                 skillPointsRemaining.setText(++skillPoints + "");
             }
         }
-        
-        if (skillPoints == 0 && !nameField.getText().isEmpty()) {
-            continueButton.setDisable(false);
-        } else {
-            continueButton.setDisable(true);
-        }
+        handleNameInput();
     }
 }

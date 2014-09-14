@@ -13,11 +13,11 @@ package models;
  * @author John
  */
 abstract class CrewMember {
-    private int pilotSkillPoints;
-    private int fighterSkillPoints;
-    private int traderSkillPoints;
-    private int engineerSkillPoints;
-    private int investorSkillPoints;
+    protected int pilotSkillPoints;
+    protected int fighterSkillPoints;
+    protected int traderSkillPoints;
+    protected int engineerSkillPoints;
+    protected int investorSkillPoints;
     
     public CrewMember(int pilotSP, int fighterSP, int traderSP,
             int engineerSP, int investorSP) {

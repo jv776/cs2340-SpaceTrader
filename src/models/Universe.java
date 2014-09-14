@@ -245,7 +245,8 @@ public class Universe {
                 randomResource()
             );
         }
-        
+
+        // DELETE AFTER DEBUGGING
         for (SolarSystem s : solarSystems) {
             System.out.println(s);
         }
