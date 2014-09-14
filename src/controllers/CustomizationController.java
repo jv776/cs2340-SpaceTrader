@@ -7,10 +7,12 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import models.Player;
 import models.Universe;
 
@@ -40,6 +42,14 @@ public class CustomizationController implements Initializable, ControlledScreen 
         skillPoints = SKILL_POINT_MAX;
         skillPointsRemaining.setText("" + skillPoints);
         continueButton.setDisable(true);
+        nameField.addEventFilter(KeyEvent.KEY_TYPED,
+                new EventHandler<KeyEvent>() {
+                    public void handle(KeyEvent event) {
+                        if (nameField.getText().length() >= 30) {
+                            event.consume();
+                        }
+                    }
+                });
     }    
     
     @Override
@@ -50,43 +60,68 @@ public class CustomizationController implements Initializable, ControlledScreen 
     /**
      * Increments "Pilot" label counter if any skill points are left.
      */
-    public void pilotIncrease() { updateSkillPoints(pilotSkillPoints, "increase"); }
+    public void pilotIncrease() {
+        updateSkillPoints(pilotSkillPoints, "increase");
+    }
     /**
      * Decrements "Pilot" label counter if any skill points are allocated there.
      */
-    public void pilotDecrease() { updateSkillPoints(pilotSkillPoints, "decrease"); }
+    public void pilotDecrease() {
+        updateSkillPoints(pilotSkillPoints, "decrease");
+    }
     /**
      * Increments "Fighter" label counter if any skill points are left.
      */
-    public void fighterIncrease() { updateSkillPoints(fighterSkillPoints, "increase"); }
+    public void fighterIncrease() {
+        updateSkillPoints(fighterSkillPoints, "increase");
+    }
     /**
      * Decrements "Fighter" label counter if any skill points are allocated there.
      */
-    public void fighterDecrease() { updateSkillPoints(fighterSkillPoints, "decrease"); }
+    public void fighterDecrease() {
+        updateSkillPoints(fighterSkillPoints, "decrease");
+    }
     /**
      * Increments "Trader" label counter if any skill points are left.
      */
-    public void traderIncrease() { updateSkillPoints(traderSkillPoints, "increase"); }
+    public void traderIncrease() {
+        updateSkillPoints(traderSkillPoints, "increase");
+    }
+    
     /**
      * Decrements "Trader" label counter if any skill points are allocated there.
      */
-    public void traderDecrease() { updateSkillPoints(traderSkillPoints, "decrease"); }
+    public void traderDecrease() {
+        updateSkillPoints(traderSkillPoints, "decrease");
+    }
+    
     /**
      * Increments "Engineer" label counter if any skill points are left.
      */
-    public void engineerIncrease() { updateSkillPoints(engineerSkillPoints, "increase"); }
+    public void engineerIncrease() {
+        updateSkillPoints(engineerSkillPoints, "increase");
+    }
+    
     /**
      * Decrements "Engineer" label counter if any skill points are allocated there.
      */
-    public void engineerDecrease() { updateSkillPoints(engineerSkillPoints, "decrease"); }
+    public void engineerDecrease() {
+        updateSkillPoints(engineerSkillPoints, "decrease");
+    }
+    
     /**
      * Increments "Investor" label counter if any skill points are left.
      */
-    public void investorIncrease() { updateSkillPoints(investorSkillPoints, "increase"); }
+    public void investorIncrease() {
+        updateSkillPoints(investorSkillPoints, "increase");
+    }
+    
     /**
      * Decrements "Investor" label counter if any skill points are allocated there.
      */
-    public void investorDecrease() { updateSkillPoints(investorSkillPoints, "decrease"); }
+    public void investorDecrease() {
+        updateSkillPoints(investorSkillPoints, "decrease");
+    }
     
     /**
      * Handles what occurs after player has allocated skill points and given
@@ -99,6 +134,7 @@ public class CustomizationController implements Initializable, ControlledScreen 
             Integer.parseInt(traderSkillPoints.getText()),
             Integer.parseInt(engineerSkillPoints.getText()),
             Integer.parseInt(investorSkillPoints.getText()));
+        
         Universe universe = new Universe();
         System.out.println(player);
     }
@@ -142,6 +178,7 @@ public class CustomizationController implements Initializable, ControlledScreen 
                 skillPointsRemaining.setText(++skillPoints + "");
             }
         }
+        
         handleNameInput();
     }
 }

@@ -11,11 +11,11 @@ package models;
  * @author Alex
  */
 public class SolarSystem {
-    private String name;
-    private int x;
-    private int y;
-    private TechLevel tech;
-    private Resource resource;
+    private final String name;
+    private final int x;
+    private final int y;
+    private final TechLevel tech;
+    private final Resource resource;
     
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel, Resource resource) {
         this.name = name;
