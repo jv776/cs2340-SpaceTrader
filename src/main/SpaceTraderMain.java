@@ -21,30 +21,30 @@ import javafx.stage.Stage;
 public class SpaceTraderMain extends Application {
     
     public static final HashMap<String, String> SCREENS = new HashMap<>();
-    public static final String WELCOME_SCREEN = "Welcome"; 
-    public static final String WELCOME_SCREEN_FXML = "/views/Welcome.fxml"; 
-    public static final String CUSTOMIZATION_SCREEN = "Customization"; 
-    public static final String CUSTOMIZATION_SCREEN_FXML = "/views/Customization.fxml"; 
+    public static final String WELCOME_SCREEN = "Welcome";
+    public static final String WELCOME_SCREEN_FXML = "/views/Welcome.fxml";
+    public static final String CUSTOMIZATION_SCREEN = "Customization";
+    public static final String CUSTOMIZATION_SCREEN_FXML = "/views/Customization.fxml";
 
      @Override 
-     public void start(Stage primaryStage) { 
+     public void start(Stage primaryStage) {
         
         SCREENS.put(WELCOME_SCREEN, WELCOME_SCREEN_FXML);
         SCREENS.put(CUSTOMIZATION_SCREEN, CUSTOMIZATION_SCREEN_FXML);
        
-        ScreensController mainContainer = new ScreensController(); 
+        ScreensController mainContainer = new ScreensController();
         
         for (String key : SCREENS.keySet()) {
             mainContainer.loadScreen(key, SCREENS.get(key));
-        }      
+        }
         
-        mainContainer.setScreen(SpaceTraderMain.WELCOME_SCREEN); 
+        mainContainer.setScreen(SpaceTraderMain.WELCOME_SCREEN);
 
-        Group root = new Group(); 
-        root.getChildren().addAll(mainContainer); 
-        Scene scene = new Scene(root); 
-        primaryStage.setScene(scene); 
-        primaryStage.show(); 
+        Group root = new Group();
+        root.getChildren().addAll(mainContainer);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
      } 
 
     /**

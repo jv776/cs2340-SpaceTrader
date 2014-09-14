@@ -14,10 +14,10 @@ public class SolarSystem {
     private String name;
     private int x;
     private int y;
-    private String tech;
-    private String resource;
+    private TechLevel tech;
+    private Resource resource;
     
-    public SolarSystem(String name, int xLoc, int yLoc, String techLevel, String resource) {
+    public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel, Resource resource) {
         this.name = name;
         x = xLoc;
         y = yLoc;

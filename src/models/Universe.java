@@ -8,12 +8,41 @@ package models;
 
 import java.util.Random;
 
+//Moved the TechLevels enum out of Universe so that other classes won't have to
+//access it as Universe.TechLevel (which seems a bit unintuitive to me).
+enum TechLevel {
+    PRE_AGRICULTURE,
+    AGRICULTURE,
+    MEDIEVAL,
+    RENAISSANCE,
+    EARLY_INDUSTRIAL,
+    POST_INDUSTRIAL,
+    HI_TECH;
+}
+
+//also moved Resource enum, see comment on tech levels above
+enum Resource {
+    NO_SPECIAL_RESOURCES,
+    MINERAL_RICH,
+    MINERAL_POOR,
+    DESERT,
+    LOTS_OF_WATER,
+    RICH_SOIL,
+    POOR_SOIL,
+    RICH_FAUNA,
+    LIFELESS,
+    WEIRD_MUSHROOMS,
+    LOTS_OF_HERBS,
+    ARTISTIC,
+    WARLIKE;
+}
+
 /**
  *
- * @author Alex
+ * @author Alex, John
  */
 public class Universe {
-    private final String[] SOLAR_SYSTEM_NAMES =  {
+    private static final String[] SOLAR_SYSTEM_NAMES =  {
         "Acamar",
         "Adahn",		// The alternate personality for The Nameless One in "Planescape: Torment"
         "Aldea",
@@ -136,31 +165,68 @@ public class Universe {
         "Zuul"			// From the first Ghostbusters movie
     };
     
-    public final String[] TECH_LEVELS = {
-        "PRE_AGRICULTURE",
-        "AGRICULTURE",
-        "MEDIEVAL",
-        "RENAISSANCE",
-        "EARLY_INDUSTRIAL",
-        "POST_INDUSTRIAL",
-        "HI_TECH"
-    };
+    /*
+     * Very ugly helper function to semi-randomly choose tech levels for
+     * planets. Feel free to adjust the numbers (I chose them somewhat
+     * arbitrarily). Chances of a certain tech level being chosen are rough
+     * estimates based on the assumption that Math.random() is relatively
+     * uniform on the interval [0, 1].
+     */
+    private static TechLevel randomTechLevel() {
+        double r = Math.random();
+
+        if (0.0 <= r && r < 0.15) {
+            return TechLevel.PRE_AGRICULTURE; //15% chance
+        } else if (0.15 <= r && r < 0.3) {
+            return TechLevel.AGRICULTURE; //15% chance
+        } else if (0.3 <= r && r < 0.4) {
+            return TechLevel.MEDIEVAL; //10% chance
+        } else if (0.4 <= r && r < 0.5) {
+            return TechLevel.RENAISSANCE; //10% chance
+        } else if (0.5 <= r && r < 0.65) {
+            return TechLevel.EARLY_INDUSTRIAL; //15% chance
+        } else if (0.65 <= r && r < 0.85) {
+            return TechLevel.POST_INDUSTRIAL; //20% chance
+        } else {
+            return TechLevel.HI_TECH; //15% chance
+        }
+    }
     
-    public final String[] RESOURCES = {
-        "NO_SPECIAL_RESOURCES",
-        "MINERAL_RICH",
-        "MINERAL_POOR",
-        "DESERT",
-        "LOTS_OF_WATER",
-        "RICH_SOIL",
-        "POOR_SOIL",
-        "RICH_FAUNA",
-        "LIFELESS",
-        "WEIRD_MUSHROOMS",
-        "LOTS_OF_HERBS",
-        "ARTISTIC",
-        "WARLIKE"
-    };
+    /*
+     * Another ugly helper function for randomly choosing resources on each
+     * planet. Feel free to adjust probabilities or rewrite entirely.
+     */
+    private static Resource randomResource() {
+        double r = Math.random();
+
+        if (0.0 <= r && r < 0.3) {
+            return Resource.NO_SPECIAL_RESOURCES; //30% chance
+        } else if (0.3 <= r && r < 0.35) {
+            return Resource.MINERAL_RICH; //5% chance
+        } else if (0.35 <= r && r < 0.4) {
+            return Resource.MINERAL_POOR; //5% chance
+        } else if (0.4 <= r && r < 0.5) {
+            return Resource.DESERT; //10% chance
+        } else if (0.5 <= r && r < 0.55) {
+            return Resource.LOTS_OF_WATER; //5% chance
+        } else if (0.55 <= r && r < 0.6) {
+            return Resource.RICH_SOIL; //5% chance
+        } else if (0.6 <= r && r < 0.65) {
+            return Resource.POOR_SOIL; //5% chance
+        } else if (0.65 <= r && r < 0.7) {
+            return Resource.RICH_FAUNA; //5% chance
+        } else if (0.7 <= r && r < 0.85) {
+            return Resource.LIFELESS; //15% chance
+        } else if (0.85 <= r && r < 0.87) {
+            return Resource.WEIRD_MUSHROOMS; //2% chance
+        } else if (0.87 <= r && r < 0.9) {
+            return Resource.LOTS_OF_HERBS; //3% chance
+        } else if (0.9 <= r && r < 0.95) {
+            return Resource.ARTISTIC; //5% chance
+        } else {
+            return Resource.WARLIKE; //5% chance
+        }
+    }
     
     public final int MAX_X = 500;
     public final int MAX_Y = 500;
@@ -170,13 +236,16 @@ public class Universe {
     public Universe() {
         solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];
         Random r = new Random();
+        
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
             solarSystems[i] = new SolarSystem(SOLAR_SYSTEM_NAMES[i],
                 r.nextInt(MAX_X),
                 r.nextInt(MAX_Y),
-                TECH_LEVELS[r.nextInt(TECH_LEVELS.length)],
-                RESOURCES[r.nextInt(RESOURCES.length)]);
+                randomTechLevel(),
+                randomResource()
+            );
         }
+        
         for (SolarSystem s : solarSystems) {
             System.out.println(s);
         }
