@@ -16,16 +16,21 @@ public class SolarSystem {
     private final int y;
     private final TechLevel tech;
     private final Resource resource;
+    private final Government government;
     
-    public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel, Resource resource) {
+    public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
+            Resource specialResource, Government governmentType) {
         this.name = name;
         x = xLoc;
         y = yLoc;
         tech = techLevel;
-        this.resource = resource;
+        resource = specialResource;
+        government = governmentType;
     }
     
+    @Override
     public String toString() {
-        return name + ": " + x + ", " + y + ", " + tech + ", " + resource;
+        return name + ": " + x + ", " + y + ", " + tech + ", " + resource +
+                ", " + government;
     }
 }
