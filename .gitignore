@@ -3,14 +3,22 @@ nbproject/
 build.xml
 manifest.mf
 
+#ignore idea stuff
+.idea/
+out/
+*.iml
+
+#ignore Eclipse stuff
+.settings/
+bin/
+.classpath
+.project
+
 #assuming we still use gradle
 .gradle/
 build/
 
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
 # Package Files #
 *.jar
