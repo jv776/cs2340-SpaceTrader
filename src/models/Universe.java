@@ -8,35 +8,6 @@ package models;
 
 import java.util.Random;
 
-//Moved the TechLevels enum out of Universe so that other classes won't have to
-//access it as Universe.TechLevel (which seems a bit unintuitive to me).
-enum TechLevel {
-    PRE_AGRICULTURE,
-    AGRICULTURE,
-    MEDIEVAL,
-    RENAISSANCE,
-    EARLY_INDUSTRIAL,
-    POST_INDUSTRIAL,
-    HI_TECH;
-}
-
-//also moved Resource enum, see comment on tech levels above
-enum Resource {
-    NO_SPECIAL_RESOURCES,
-    MINERAL_RICH,
-    MINERAL_POOR,
-    DESERT,
-    LOTS_OF_WATER,
-    RICH_SOIL,
-    POOR_SOIL,
-    RICH_FAUNA,
-    LIFELESS,
-    WEIRD_MUSHROOMS,
-    LOTS_OF_HERBS,
-    ARTISTIC,
-    WARLIKE;
-}
-
 /**
  *
  * @author Alex, John
