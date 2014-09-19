@@ -137,6 +137,9 @@ public class CustomizationController implements Initializable, ControlledScreen 
         
         Universe universe = new Universe();
         System.out.println(player);
+        parent.setPlayer(player);
+        parent.resetScreen("Market");
+        parent.setScreen("Market");
     }
     
     /**

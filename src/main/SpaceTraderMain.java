@@ -25,12 +25,15 @@ public class SpaceTraderMain extends Application {
     public static final String WELCOME_SCREEN_FXML = "/views/Welcome.fxml";
     public static final String CUSTOMIZATION_SCREEN = "Customization";
     public static final String CUSTOMIZATION_SCREEN_FXML = "/views/Customization.fxml";
+    public static final String MARKET_SCREEN = "Market";
+    public static final String MARKET_SCREEN_FXML = "/views/Market.fxml";
 
      @Override 
      public void start(Stage primaryStage) {
         
         SCREENS.put(WELCOME_SCREEN, WELCOME_SCREEN_FXML);
         SCREENS.put(CUSTOMIZATION_SCREEN, CUSTOMIZATION_SCREEN_FXML);
+        SCREENS.put(MARKET_SCREEN, MARKET_SCREEN_FXML);
        
         ScreensController mainContainer = new ScreensController();
         

@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import models.Player;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,6 +29,7 @@ import javafx.util.Duration;
  */
 public class ScreensController extends StackPane {
     private HashMap<String, Node> screens = new HashMap<>();
+    private Player player;
     
     /**
      * Adds the screen to the HashMap of existing screens.
@@ -49,8 +51,8 @@ public class ScreensController extends StackPane {
         try { 
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource)); 
             Parent loadScreen = (Parent) myLoader.load(); 
-            ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController()); 
-            myScreenControler.setScreenParent(this); 
+            ControlledScreen myScreenController = ((ControlledScreen) myLoader.getController()); 
+            myScreenController.setScreenParent(this); 
             addScreen(name, loadScreen); 
             return true; 
         } catch(IOException e) { 
@@ -143,4 +145,12 @@ public class ScreensController extends StackPane {
             return true;
         }
     } 
+    
+    public void setPlayer(Player p) {
+        player = p;
+    }
+    
+    public Player getPlayer() {
+        return player;
+    }
 }
