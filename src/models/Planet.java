@@ -57,7 +57,7 @@ public class Planet {
     }
 
     private int generateTemperature(int sunTemp){ //units
-        float temp = (float)Math.pow((sunTemp*1000/(float)Math.pow(distance,2)),.75);
+        float temp = (float)Math.pow((sunTemp*1000/(float)Math.pow(distance,2)),.50);
         temp -= temp*(atmosphere/100f);
         return (int)(temp*1000);
     }
