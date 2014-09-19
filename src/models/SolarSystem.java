@@ -16,21 +16,50 @@ public class SolarSystem {
     private final int y;
     private final TechLevel tech;
     private final Resource resource;
-    private final Government government;
+    private final PoliticalSystem government;
+    private final Star sun;
+    private final Planet[] planets;
     
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
-            Resource specialResource, Government governmentType) {
+            Resource specialResource, PoliticalSystem governmentType) {
         this.name = name;
         x = xLoc;
         y = yLoc;
         tech = techLevel;
         resource = specialResource;
         government = governmentType;
+        sun = new Star(""); //add name
+        planets = generatePlanets();
+    }
+    
+    /*
+    public SolarSystem(String name, int xLoc, int yLoc) {
+        this.name = name;
+        x = xLoc;
+        y = yLoc;
+        sun = new Star(""); //add name
+        planets = generatePlanets();
+    }
+    */
+
+    private Planet[] generatePlanets(){
+        Planet [] planetArray = new Planet[7];
+        int dist = 40;
+        for (int i = 0; i<planetArray.length; i++){
+            dist += (i+0.25)*50*(.76+(.24*Math.random()));
+            planetArray[i] = new Planet("", dist, sun.getTemperature()); //add name
+        }
+        return planetArray;
     }
     
     @Override
     public String toString() {
-        return name + ": " + x + ", " + y + ", " + tech + ", " + resource +
-                ", " + government;
+        String temp = name+  "\n";
+        temp += "Sun:\n" + sun +"\n\nPlanets:\n";
+        
+        for(Planet p:planets){
+            temp += p +"\n~~~~~\n";
+        }
+        return temp;
     }
 }
