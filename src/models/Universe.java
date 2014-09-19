@@ -211,9 +211,7 @@ public class Universe {
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
             solarSystems[i] = new SolarSystem(SOLAR_SYSTEM_NAMES[i],
                 r.nextInt(MAX_X),
-                r.nextInt(MAX_Y),
-                randomTechLevel(),
-                randomResource()
+                r.nextInt(MAX_Y)
             );
         }
 

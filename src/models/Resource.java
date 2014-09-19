@@ -1,8 +1,9 @@
 package models;
 
 /**
- * Created by limbic on 9/18/14.
- */ //also moved Resource enum, see comment on tech levels above
+ * Created by Taylor on 9/18/14.
+ */ //Moved the TechLevels enum out of Universe so that other classes won't have to
+//access it as Universe.Resources
 enum Resource {
     NO_SPECIAL_RESOURCES,
     MINERAL_RICH,
