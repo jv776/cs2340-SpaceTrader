@@ -53,7 +53,7 @@ public class Planet {
         if (nitrogen){ atm += 15;}
         if (carbon){ atm += 7;}
         if (oxygen){ atm += 5;}
-        return (int)(atm * (.75*(Math.random()*.50)));
+        return (int)(atm - atm * (.50*(Math.random())));
     }
 
     private int generateTemperature(int sunTemp){ //units
@@ -75,7 +75,7 @@ public class Planet {
     }
 
     public String toString(){
-        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: "+ temperature + "K \tM: "+ metals + " \tN: "+ nitrogen + " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+ hydrogen + " \tLife: "+ supportsLife;
+        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: "+ (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen + " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+ hydrogen + " \tLife: "+ supportsLife;
     }
 
 }
