@@ -6,12 +6,11 @@
 package models;
 
 /**
- *
+ * Interface used by anything which can be bought (not just trade goods, but
+ * ships, upgrades, etc. as well).
+ * 
  * @author John Varela
  */
-public class Water extends TradeGood {
-    public Water() {
-        super(TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
-                TechLevel.MEDIEVAL, 30, 3, 4, 30, 50);
-    }
+public interface Purchasable {
+    public int computeCost(SolarSystem marketLocation);
 }

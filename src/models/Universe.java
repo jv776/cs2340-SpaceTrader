@@ -6,6 +6,7 @@
 
 package models;
 
+import java.util.function.Function;
 import java.util.Random;
 
 /**
@@ -145,7 +146,7 @@ public class Universe {
      */
     private static TechLevel randomTechLevel() {
         double r = Math.random();
-
+        
         if (0.0 <= r && r < 0.15) {
             return TechLevel.PRE_AGRICULTURE; //15% chance
         } else if (0.15 <= r && r < 0.3) {

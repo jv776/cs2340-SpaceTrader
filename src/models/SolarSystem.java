@@ -42,11 +42,11 @@ public class SolarSystem {
     }
     */
 
-    private Planet[] generatePlanets(){
+    private Planet[] generatePlanets() {
         Planet [] planetArray = new Planet[7];
         int dist = 40;
-        for (int i = 0; i<planetArray.length; i++){
-            dist += (i+0.25)*50*(.76+(.24*Math.random()));
+        for (int i = 0; i < planetArray.length; i++){
+            dist += (i + 0.25) * 50 * (0.76 + (0.24 * Math.random()));
             planetArray[i] = new Planet("", dist, sun.getTemperature()); //add name
         }
         return planetArray;
@@ -61,5 +61,9 @@ public class SolarSystem {
             temp += p +"\n~~~~~\n";
         }
         return temp;
+    }
+    
+    TechLevel getTechLevel() {
+        return tech;
     }
 }

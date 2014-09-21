@@ -9,9 +9,12 @@ package models;
  *
  * @author John Varela
  */
-public class Robot extends TradeGood {
-    public Robot() {
-        super(TechLevel.POST_INDUSTRIAL, TechLevel.EARLY_INDUSTRIAL,
-                TechLevel.HI_TECH, 5000, -150, 100, 3500, 5000);
-    }
+public enum PriceEvent {
+    DROUGHT,
+    COLD,
+    CROP_FAILURE,
+    WAR,
+    PLAGUE,
+    LACK_OF_WORKERS,
+    BOREDOM
 }

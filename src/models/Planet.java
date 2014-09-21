@@ -75,7 +75,10 @@ public class Planet {
     }
 
     public String toString(){
-        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: "+ (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen + " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+ hydrogen + " \tLife: "+ supportsLife;
+        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: " +
+                (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen +
+                " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+
+                hydrogen + " \tLife: "+ supportsLife;
     }
 
 }
