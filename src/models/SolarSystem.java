@@ -54,8 +54,9 @@ public class SolarSystem {
     
     @Override
     public String toString() {
-        String temp = name+  "\n";
-        temp += "Sun:\n" + sun +"\n\nPlanets:\n";
+        String temp = "System name: " + name + "\n";
+        temp += "Sun:\n" + sun + "\nResources:\t" + resource + "\nTech Level:\t" +
+                tech + "\nGovernment:\t" + government + "\n\nPlanets:\n";
         
         for(Planet p:planets){
             temp += p +"\n~~~~~\n";
