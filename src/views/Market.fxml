@@ -11,20 +11,9 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MarketController">
    <children>
-      <Label text="THIS IS DA MARKET YO">
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="#ffcf00" offset="0.2546177891446434" />
-                  <Stop color="#dbff00" offset="0.49680306905370847" />
-                  <Stop color="#00ff1b" offset="0.7483660130718954" />
-                  <Stop color="#008aff" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </textFill>
+      <Label text="Marketplace (temp. placeholder GUI)">
          <font>
-            <Font name="Comic Sans MS" size="48.0" />
+            <Font size="36.0" />
          </font>
       </Label>
       <Label fx:id="playerInfoLabel" alignment="BOTTOM_CENTER" text="Player Info" textAlignment="CENTER" StackPane.alignment="BOTTOM_CENTER">
