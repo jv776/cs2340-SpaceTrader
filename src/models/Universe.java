@@ -6,36 +6,8 @@
 
 package models;
 
+import java.util.function.Function;
 import java.util.Random;
-
-//Moved the TechLevels enum out of Universe so that other classes won't have to
-//access it as Universe.TechLevel (which seems a bit unintuitive to me).
-enum TechLevel {
-    PRE_AGRICULTURE,
-    AGRICULTURE,
-    MEDIEVAL,
-    RENAISSANCE,
-    EARLY_INDUSTRIAL,
-    POST_INDUSTRIAL,
-    HI_TECH;
-}
-
-//also moved Resource enum, see comment on tech levels above
-enum Resource {
-    NO_SPECIAL_RESOURCES,
-    MINERAL_RICH,
-    MINERAL_POOR,
-    DESERT,
-    LOTS_OF_WATER,
-    RICH_SOIL,
-    POOR_SOIL,
-    RICH_FAUNA,
-    LIFELESS,
-    WEIRD_MUSHROOMS,
-    LOTS_OF_HERBS,
-    ARTISTIC,
-    WARLIKE;
-}
 
 /**
  *
@@ -174,7 +146,7 @@ public class Universe {
      */
     private static TechLevel randomTechLevel() {
         double r = Math.random();
-
+        
         if (0.0 <= r && r < 0.15) {
             return TechLevel.PRE_AGRICULTURE; //15% chance
         } else if (0.15 <= r && r < 0.3) {
@@ -185,10 +157,12 @@ public class Universe {
             return TechLevel.RENAISSANCE; //10% chance
         } else if (0.5 <= r && r < 0.65) {
             return TechLevel.EARLY_INDUSTRIAL; //15% chance
-        } else if (0.65 <= r && r < 0.85) {
-            return TechLevel.POST_INDUSTRIAL; //20% chance
+        } else if (0.65 <= r && r < 0.8) {
+            return TechLevel.INDUSTRIAL; //15% chance
+        } else if (0.8 <= r && r < 0.9) {
+            return TechLevel.POST_INDUSTRIAL; //10% chance
         } else {
-            return TechLevel.HI_TECH; //15% chance
+            return TechLevel.HI_TECH; //10% chance
         }
     }
     
@@ -228,6 +202,145 @@ public class Universe {
         }
     }
     
+    //Chooses a random government based on a given TechLevel
+    private static PoliticalSystem randomGovernment(TechLevel level) {
+        double r = Math.random();
+        
+        if (level == TechLevel.PRE_AGRICULTURE) {
+            if (0.0 <= r && r < 0.9) {
+                return PoliticalSystem.ANARCHY;
+            } else if (0.9 <= r && r < 0.98) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else {
+                return PoliticalSystem.STATE_OF_SATORI;
+            }
+        } else if (level == TechLevel.AGRICULTURE) {
+            if (0.0 <= r && r < 0.4) {
+                return PoliticalSystem.ANARCHY;
+            } else if (0.4 <= r && r < 0.6) {
+                return PoliticalSystem.FEUDAL_STATE;
+            } else if (0.6 <= r && r < 0.7) {
+                return PoliticalSystem.MILITARY_STATE;
+            } else if (0.7 <= r && r < 0.8) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else if (0.8 <= r && r < 0.98) {
+                return PoliticalSystem.THEOCRACY;
+            } else {
+                return PoliticalSystem.STATE_OF_SATORI;
+            }
+        } else if (level == TechLevel.MEDIEVAL) {
+            if (0.0 <= r && r < 0.05) {
+                return PoliticalSystem.ANARCHY;
+            } else if (0.05 <= r && r < 0.15) {
+                return PoliticalSystem.DICTATORSHIP;
+            } else if (0.15 <= r && r < 0.35) {
+                return PoliticalSystem.FEUDAL_STATE;
+            } else if (0.35 <= r && r < 0.4) {
+                return PoliticalSystem.MILITARY_STATE;
+            } else if (0.4 <= r && r < 0.8) {
+                return PoliticalSystem.MONARCHY;
+            } else if (0.8 <= r && r < 0.9) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else if (0.9 <= r && r < 0.99) {
+                return PoliticalSystem.THEOCRACY;
+            } else {
+                return PoliticalSystem.STATE_OF_SATORI;
+            }
+        } else if (level == TechLevel.RENAISSANCE) {
+            if (0.0 <= r && r < 0.15) {
+                return PoliticalSystem.CONFEDERACY;
+            } else if (0.15 <= r && r < 0.25) {
+                return PoliticalSystem.DEMOCRACY;
+            } else if (0.25 <= r && r < 0.35) {
+                return PoliticalSystem.DICTATORSHIP;
+            } else if (0.35 <= r && r < 0.45) {
+                return PoliticalSystem.MILITARY_STATE;
+            } else if (0.45 <= r && r < 0.8) {
+                return PoliticalSystem.MONARCHY;
+            } else if (0.8 <= r && r < 0.9) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else {
+                return PoliticalSystem.THEOCRACY;
+            }
+        } else if (level == TechLevel.EARLY_INDUSTRIAL) {
+            if (0.0 <= r && r < 0.2) {
+                return PoliticalSystem.CAPITALIST_STATE;
+            } else if (0.2 <= r && r < 0.3) {
+                return PoliticalSystem.COMMUNIST_STATE;
+            } else if (0.3 <= r && r < 0.5) {
+                return PoliticalSystem.DEMOCRACY;
+            } else if (0.5 <= r && r < 0.55) {
+                return PoliticalSystem.DICTATORSHIP;
+            } else if (0.55 <= r && r < 0.6) {
+                return PoliticalSystem.FASCIST_STATE;
+            } else if (0.6 <= r && r < 0.7) {
+                return PoliticalSystem.MILITARY_STATE;
+            } else if (0.7 <= r && r < 0.8) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else if (0.8 <= r && r < 0.9) {
+                return PoliticalSystem.SOCIALIST_STATE;
+            } else {
+                return PoliticalSystem.TECHNOCRACY;
+            }
+        } else if (level == TechLevel.INDUSTRIAL) {
+            if (0.0 <= r && r < 0.3) {
+                return PoliticalSystem.CAPITALIST_STATE;
+            } else if (0.3 <= r && r < 0.4) {
+                return PoliticalSystem.COMMUNIST_STATE;
+            } else if (0.4 <= r && r < 0.6) {
+                return PoliticalSystem.DEMOCRACY;
+            } else if (0.6 <= r && r < 0.65) {
+                return PoliticalSystem.DICTATORSHIP;
+            } else if (0.65 <= r && r < 0.7) {
+                return PoliticalSystem.FASCIST_STATE;
+            } else if (0.7 <= r && r < 0.8) {
+                return PoliticalSystem.MILITARY_STATE;
+            } else if (0.8 <= r && r < 0.85) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else if (0.85 <= r && r < 0.95) {
+                return PoliticalSystem.SOCIALIST_STATE;
+            } else {
+                return PoliticalSystem.TECHNOCRACY;
+            }
+        } else if (level == TechLevel.POST_INDUSTRIAL) {
+            if (0.0 <= r && r < 0.25) {
+                return PoliticalSystem.CAPITALIST_STATE;
+            } else if (0.25 <= r && r < 0.3) {
+                return PoliticalSystem.COMMUNIST_STATE;
+            } else if (0.3 <= r && r < 0.6) {
+                return PoliticalSystem.DEMOCRACY;
+            } else if (0.6 <= r && r < 0.65) {
+                return PoliticalSystem.DICTATORSHIP;
+            } else if (0.65 <= r && r < 0.7) {
+                return PoliticalSystem.FASCIST_STATE;
+            } else if (0.7 <= r && r < 0.75) {
+                return PoliticalSystem.MILITARY_STATE;
+            } else if (0.75 <= r && r < 0.85) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else if (0.85 <= r && r < 0.9) {
+                return PoliticalSystem.SOCIALIST_STATE;
+            } else {
+                return PoliticalSystem.TECHNOCRACY;
+            }
+        } else {
+            if (0.0 <= r && r < 0.1) {
+                return PoliticalSystem.CAPITALIST_STATE;
+            } else if (0.1 <= r && r < 0.3) {
+                return PoliticalSystem.DEMOCRACY;
+            } else if (0.3 <= r && r < 0.4) {
+                return PoliticalSystem.DICTATORSHIP;
+            } else if (0.4 <= r && r < 0.45) {
+                return PoliticalSystem.MILITARY_STATE;
+            } else if (0.45 <= r && r < 0.55) {
+                return PoliticalSystem.PACIFIST_STATE;
+            } else if (0.55 <= r && r < 0.7) {
+                return PoliticalSystem.TECHNOCRACY;
+            } else {
+                return PoliticalSystem.CYBERNETIC_STATE;
+            }
+        }
+    }
+    
     public final int MAX_X = 500;
     public final int MAX_Y = 500;
     
@@ -238,11 +351,14 @@ public class Universe {
         Random r = new Random();
         
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
+            TechLevel tech = randomTechLevel();
+            
             solarSystems[i] = new SolarSystem(SOLAR_SYSTEM_NAMES[i],
                 r.nextInt(MAX_X),
                 r.nextInt(MAX_Y),
-                randomTechLevel(),
-                randomResource()
+                tech,
+                randomResource(),
+                randomGovernment(tech)
             );
         }
 
