@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package models;
+
 import java.util.Random;
 
 /**
- *
  * @author Alex
  */
 public class Planet {
@@ -29,7 +29,7 @@ public class Planet {
 
     private boolean colonized;
 
-    public Planet(String name, int distance, int sunTemperature){
+    public Planet(String name, int distance, int sunTemperature) {
         Random rand = new Random();
         this.name = name;
         this.distance = distance;
@@ -47,38 +47,43 @@ public class Planet {
     }
 
 
-
-    private int generateAtmosphere(){
+    private int generateAtmosphere() {
         double atm = 0;
-        if (nitrogen){ atm += 15;}
-        if (carbon){ atm += 7;}
-        if (oxygen){ atm += 5;}
-        return (int)(atm - atm * (.50*(Math.random())));
+        if (nitrogen) {
+            atm += 15;
+        }
+        if (carbon) {
+            atm += 7;
+        }
+        if (oxygen) {
+            atm += 5;
+        }
+        return (int) (atm - atm * (.50 * (Math.random())));
     }
 
-    private int generateTemperature(int sunTemp){ //units
-        float temp = (float)Math.pow((sunTemp*1000/(float)Math.pow(distance,2)),.50);
-        temp -= temp*(atmosphere/100f);
-        return (int)(temp*1000);
+    private int generateTemperature(int sunTemp) { //units
+        float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(distance, 2)), .50);
+        temp -= temp * (atmosphere / 100f);
+        return (int) (temp * 1000);
     }
 
-    private boolean generateWater(){
+    private boolean generateWater() {
         return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
     }
 
-    private boolean generateLife(){
-        if(nitrogen && carbon && water&&metals){
+    private boolean generateLife() {
+        if (nitrogen && carbon && water && metals) {
             return true;
         } else {
             return (Math.random() < 0.01);
         }
     }
 
-    public String toString(){
-        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: " +
-                (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen +
-                " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+
-                hydrogen + " \tLife: "+ supportsLife;
+    public String toString() {
+        return "Dist: " + distance + "kmE6 \tAtm: " + atmosphere + "% \tTemp: " +
+                (temperature - 273) + "C \tM: " + metals + " \tN: " + nitrogen +
+                " \tC: " + carbon + " \tO: " + oxygen + " \tW: " + water + " \tH: " +
+                hydrogen + " \tLife: " + supportsLife;
     }
 
 }

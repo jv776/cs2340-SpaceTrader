@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MarketController">
-   <children>
-      <Label text="Marketplace (temp. placeholder GUI)">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="playerInfoLabel" alignment="BOTTOM_CENTER" text="Player Info" textAlignment="CENTER" StackPane.alignment="BOTTOM_CENTER">
-         <StackPane.margin>
-            <Insets bottom="100.0" />
-         </StackPane.margin>
-      </Label>
-   </children>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+           prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controllers.MarketController">
+    <children>
+        <Label text="Marketplace (temp. placeholder GUI)">
+            <font>
+                <Font size="36.0"/>
+            </font>
+        </Label>
+        <Label fx:id="playerInfoLabel" alignment="BOTTOM_CENTER" text="Player Info" textAlignment="CENTER"
+               StackPane.alignment="BOTTOM_CENTER">
+            <StackPane.margin>
+                <Insets bottom="100.0"/>
+            </StackPane.margin>
+        </Label>
+    </children>
 </StackPane>

@@ -7,12 +7,12 @@ package controllers;
  */
 
 
-
-import main.SpaceTraderMain;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import main.SpaceTraderMain;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 /**

@@ -8,7 +8,7 @@ package models;
 /**
  * Interface used by anything which can be bought (not just trade goods, but
  * ships, upgrades, etc. as well).
- * 
+ *
  * @author John Varela
  */
 public interface Purchasable {

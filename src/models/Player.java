@@ -7,21 +7,20 @@
 package models;
 
 /**
- *
  * @author Alex
  */
 public class Player extends CrewMember {
     private String name;
-    
-    public Player (String name, int pilotSP, int fighterSP, int traderSP, int engineerSP, int investorSP) {
+
+    public Player(String name, int pilotSP, int fighterSP, int traderSP, int engineerSP, int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         this.name = name;
     }
-    
+
     @Override
     public String toString() {
         return name + ": Pilot: " + pilotSkillPoints + ", Fighter: "
-                + fighterSkillPoints + ", Trader: " + traderSkillPoints 
+                + fighterSkillPoints + ", Trader: " + traderSkillPoints
                 + ", Engineer: " + engineerSkillPoints + ", Investor: " + investorSkillPoints;
     }
 }

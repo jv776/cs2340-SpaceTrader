@@ -6,11 +6,12 @@
 
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import models.Player;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -25,7 +26,7 @@ public class MarketController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     @Override
@@ -36,5 +37,5 @@ public class MarketController implements Initializable, ControlledScreen {
             playerInfoLabel.setText(player.toString());
         }
     }
-    
+
 }
