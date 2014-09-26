@@ -14,7 +14,7 @@ import java.util.Random;
  * 
  * @author John Varela
  */
-public enum TradeGood implements Purchasable {
+public enum TradeGood implements Purchasable, CargoItem {
     WATER      (TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
                 TechLevel.MEDIEVAL, 30, 3, 4, 30, 50, PriceEvent.DROUGHT,
                 Optional.of(Resource.LOTS_OF_WATER),
@@ -139,5 +139,13 @@ public enum TradeGood implements Purchasable {
         
         return (int) ((basePrice + techLevelFactor) * variance * scarcityFactor
                 * abundanceFactor * eventFactor);
+    }
+
+    /**
+     * @return This item's name, as specified by the enum value.
+     */
+    @Override
+    public String getItemName() {
+        return this.toString();
     }
 }

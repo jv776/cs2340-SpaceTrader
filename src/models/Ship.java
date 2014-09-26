@@ -34,6 +34,7 @@ public enum Ship {
     private final int maxHullStrength;
     private int hullStrength;
     private final int repairCost;
+    private CargoHold cargoHold;
     
     private Ship(int cargoHolds, int weaponSlots, int shieldSlots,
             int gadgetSlots, int crewMembers, int fuelTankSize,
