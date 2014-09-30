@@ -62,17 +62,17 @@ public enum TradeGood implements Purchasable, CargoItem {
                 TechLevel.HI_TECH, 5000, -150, 100, 3500, 5000,
                 PriceEvent.LACK_OF_WORKERS, Optional.empty(), Optional.empty());
     
-    private final TechLevel minTechLevelBuy;
-    private final TechLevel minTechLevelSell;
-    private final TechLevel preferredTechLevel;
-    private final int basePrice;
-    private final int priceChangePerTechLevel;
-    private final int priceVariance;
-    private final int minTraderPrice;
-    private final int maxTraderPrice;
-    private final PriceEvent priceIncreaseEvent;
-    private final Optional<Resource> cheapConditions;
-    private final Optional<Resource> expensiveConditions;
+    final TechLevel minTechLevelBuy;
+    final TechLevel minTechLevelSell;
+    final TechLevel preferredTechLevel;
+    final int basePrice;
+    final int priceChangePerTechLevel;
+    final int priceVariance;
+    final int minTraderPrice;
+    final int maxTraderPrice;
+    final PriceEvent priceIncreaseEvent;
+    final Optional<Resource> cheapConditions;
+    final Optional<Resource> expensiveConditions;
     
     private TradeGood(TechLevel minTechBuy, TechLevel minTechSell,
             TechLevel preferred, int base, int priceChange, int variance,

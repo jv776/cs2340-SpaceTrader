@@ -12,6 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import models.Player;
 
+//remove - test code
+import models.TradeGood;
+
 /**
  * FXML Controller class
  *

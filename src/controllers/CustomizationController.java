@@ -128,18 +128,21 @@ public class CustomizationController implements Initializable, ControlledScreen 
      * a name to their character.
      */
     public void handleContinue() {
+        Universe universe = new Universe();
+        
         Player player = new Player(nameField.getText(),
             Integer.parseInt(pilotSkillPoints.getText()),
             Integer.parseInt(fighterSkillPoints.getText()),
             Integer.parseInt(traderSkillPoints.getText()),
             Integer.parseInt(engineerSkillPoints.getText()),
-            Integer.parseInt(investorSkillPoints.getText()));
+            Integer.parseInt(investorSkillPoints.getText())
+        );
         
-        Universe universe = new Universe();
+        
         System.out.println(player);
         parent.setPlayer(player);
-        parent.resetScreen("Market");
-        parent.setScreen("Market");
+        //parent.resetScreen("Market");
+        //parent.setScreen("Market");
     }
     
     /**
