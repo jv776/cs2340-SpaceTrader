@@ -9,7 +9,7 @@ package models;
  *
  * @author John Varela
  */
-public class Ship implements Purchasable {
+public class Ship {
     private final ShipType type;
     private int currentFuel;
     private int hullStrength;
@@ -28,9 +28,5 @@ public class Ship implements Purchasable {
         //weapons = new Weapon[type.weaponSlots];
         //shields = new Shield[type.shieldSlots];
         //gadgets = new Gadget[type.gadgetSlots];
-    }
-    
-    public int computeCost(SolarSystem marketLocation) {
-        return type.price;
     }
 }

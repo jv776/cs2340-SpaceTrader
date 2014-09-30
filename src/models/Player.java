@@ -26,12 +26,6 @@ public class Player extends CrewMember {
                 * Universe.solarSystems.length)];
         currentPlanet = currentSystem.planets[(int) (Math.random()
                 * currentSystem.planets.length)];
-        
-        //test code - please remove
-        System.out.println(currentPlanet.system.tech);
-        for (TradeGood t : currentPlanet.market.productSupply.keySet()) {
-            System.out.println(t + ":\t" + currentPlanet.market.productSupply.get(t));
-        }
     }
     
     @Override

@@ -6,7 +6,6 @@
 package models;
 
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * Enumeration of every possible type of trading good that can be purchased
@@ -14,7 +13,7 @@ import java.util.Random;
  * 
  * @author John Varela
  */
-public enum TradeGood implements Purchasable, CargoItem {
+public enum TradeGood implements CargoItem {
     WATER      (TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
                 TechLevel.MEDIEVAL, 30, 3, 4, 30, 50, PriceEvent.DROUGHT,
                 Optional.of(Resource.LOTS_OF_WATER),
@@ -91,61 +90,8 @@ public enum TradeGood implements Purchasable, CargoItem {
         expensiveConditions = expensiveResource;
     }
     
-    private static int techLevelToInt(TechLevel tl) {
-        switch(tl) {
-            case PRE_AGRICULTURE: return 0;
-            case AGRICULTURE: return 1;
-            case MEDIEVAL: return 2;
-            case RENAISSANCE: return 3;
-            case EARLY_INDUSTRIAL: return 4;
-            case INDUSTRIAL: return 5;
-            case POST_INDUSTRIAL: return 6;
-            default: return 7; //HI_TECH
-        }
-    }
-    
-    /**
-     * Calculate the cost of a good based on the base price of the good,
-     * the technology available in the market where it is being sold,
-     * the natural resources and conditions on the planet that might
-     * affect its price, and whether or not any special events that might
-     * temporarily drive up the price are occurring.
-     * 
-     * @param marketLocation The location where the good is being purchased
-     * @return The total price for the good
-     */
-    @Override
-    public int computeCost(SolarSystem marketLocation) {
-        Random r = new Random();
-        
-        int techLevelFactor = priceChangePerTechLevel *
-                (techLevelToInt(marketLocation.getTechLevel()) -
-                techLevelToInt(minTechLevelBuy));
-        
-        int variance = 1 + r.nextInt(priceVariance) / 100;
-        
-        double scarcityFactor = 1;
-        if (expensiveConditions.isPresent()) {
-            scarcityFactor = 1.25; //25% more expensive
-        }
-        
-        double abundanceFactor = 1;
-        if (cheapConditions.isPresent()) {
-            abundanceFactor = 0.75; //25% cheaper
-        }
-        
-        double eventFactor = 1;
-        //need way to test if a special event is occurring in a system/planet
-        
-        return (int) ((basePrice + techLevelFactor) * variance * scarcityFactor
-                * abundanceFactor * eventFactor);
-    }
-
-    /**
-     * @return This item's name, as specified by the enum value.
-     */
     @Override
     public String getItemName() {
-        return this.toString();
+        return this.toString().toLowerCase();
     }
 }

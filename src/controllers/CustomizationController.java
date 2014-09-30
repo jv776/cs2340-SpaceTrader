@@ -141,8 +141,8 @@ public class CustomizationController implements Initializable, ControlledScreen 
         
         System.out.println(player);
         parent.setPlayer(player);
-        //parent.resetScreen("Market");
-        //parent.setScreen("Market");
+        parent.resetScreen("Market");
+        parent.setScreen("Market");
     }
     
     /**

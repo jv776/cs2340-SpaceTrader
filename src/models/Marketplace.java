@@ -6,6 +6,7 @@
 package models;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -15,12 +16,14 @@ import java.util.Random;
  */
 public class Marketplace {
     private final Planet location;
-    public HashMap<TradeGood, Integer> productSupply;
+    private HashMap<TradeGood, Integer> productSupply;
+    private HashMap<TradeGood, Integer> prices;
     private HashMap<TradeGood, Integer> basket; //keeps track of quantities of goods marked for purchase
     
     public Marketplace(Planet marketLocation) {
         location = marketLocation;
         productSupply = generateSupplies();
+        prices = generatePrices();
         basket = new HashMap<>();
         
         for (TradeGood good : TradeGood.values()) {
@@ -30,7 +33,6 @@ public class Marketplace {
     
     private HashMap<TradeGood, Integer> generateSupplies() {
         HashMap<TradeGood, Integer> goods = new HashMap<>();
-        Random r = new Random();
         
         for (TradeGood good : TradeGood.values()) {
             int localTechFactor = location.system.getTechLevel().toInt();
@@ -48,6 +50,50 @@ public class Marketplace {
         }
         
         return goods;
+    }
+    
+    private HashMap<TradeGood, Integer> generatePrices() {
+        HashMap<TradeGood, Integer> priceMap = new HashMap<>();
+        
+        for (TradeGood good : TradeGood.values()) {
+            Random r = new Random();
+        
+            int techLevelFactor = good.priceChangePerTechLevel *
+                    (location.system.getTechLevel().toInt() -
+                    good.minTechLevelBuy.toInt());
+        
+            int variance = 1 + r.nextInt(good.priceVariance) / 100;
+        
+            double scarcityFactor = 1;
+            Optional<Resource> expensiveResource = good.expensiveConditions;
+            
+            if (expensiveResource.isPresent()) {
+                scarcityFactor = (expensiveResource.get() == location.resource)
+                        ? 0.75 : 1;
+            }
+
+            double abundanceFactor = 1;
+            Optional<Resource> cheapResource = good.cheapConditions;
+            
+            if (cheapResource.isPresent()) {
+                abundanceFactor = (cheapResource.get() == location.resource)
+                        ? 0.75 : 1;
+            }
+            
+            double eventFactor = 1;
+            Optional<PriceEvent> currentEvent = location.getCurrentEvent();
+            
+            if (currentEvent.isPresent()) {
+                eventFactor = (currentEvent.get() == good.priceIncreaseEvent)
+                        ? 1.5 : 1;
+            }
+            
+            priceMap.put(good, (int) ((good.basePrice + techLevelFactor)
+                    * variance * scarcityFactor * abundanceFactor
+                    * eventFactor));
+        }
+        
+        return priceMap;
     }
     
     public void markForPurchase() {

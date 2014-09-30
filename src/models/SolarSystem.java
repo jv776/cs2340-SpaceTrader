@@ -14,7 +14,7 @@ public class SolarSystem {
     final String name;
     private final int x;
     private final int y;
-    public final TechLevel tech;
+    private final TechLevel tech;
     private final PoliticalSystem government;
     private final Star sun;
     final Planet[] planets;

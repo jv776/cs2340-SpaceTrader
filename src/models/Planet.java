@@ -4,18 +4,22 @@
  * and open the template in the editor.
  */
 package models;
+
+import java.util.Optional;
 import java.util.Random;
 
 /**
- *
- * @author Alex
+ * Models various aspects of a Planet (currently its atmosphere, natural
+ * resources, and trading market).
+ * 
+ * @author Alex, John
  */
 public class Planet {
     final String name;
-    public final SolarSystem system;
+    final SolarSystem system;
     private final int distance; //Representing radial distance from the sun in kmE6
     //private final int radius; //Radius of the planet in km
-    private final Resource resource;
+    final Resource resource;
     private final boolean nitrogen; //N, O, C, and H dont really need to be instance variable
     private final boolean oxygen;
     private final boolean carbon;
@@ -29,7 +33,8 @@ public class Planet {
 
     private boolean colonized;
     
-    public Marketplace market;
+    private Marketplace market;
+    private Optional<PriceEvent> currentEvent;
 
     public Planet(String name, SolarSystem location, int distance,
             int sunTemperature, Resource specialResource){
@@ -38,6 +43,7 @@ public class Planet {
         system = location;
         this.distance = distance;
         resource = specialResource;
+        
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
         oxygen = (Math.random() < 0.85);
@@ -48,6 +54,8 @@ public class Planet {
         temperature = generateTemperature(sunTemperature);
         water = generateWater();
         supportsLife = generateLife();
+        
+        currentEvent = Optional.empty();
         market = new Marketplace(this);
     }
 
@@ -86,6 +94,7 @@ public class Planet {
         }
     }
 
+    @Override
     public String toString(){
         return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: " +
                 (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen +
@@ -94,4 +103,7 @@ public class Planet {
                 + resource;
     }
 
+    Optional<PriceEvent> getCurrentEvent() {
+        return currentEvent;
+    } 
 }
