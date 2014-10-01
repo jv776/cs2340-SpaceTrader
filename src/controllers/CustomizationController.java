@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import main.SpaceTraderMain;
 import models.Player;
 import models.Universe;
 
@@ -42,14 +43,11 @@ public class CustomizationController implements Initializable, ControlledScreen 
         skillPoints = SKILL_POINT_MAX;
         skillPointsRemaining.setText("" + skillPoints);
         continueButton.setDisable(true);
-        nameField.addEventFilter(KeyEvent.KEY_TYPED,
-                new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent event) {
-                        if (nameField.getText().length() >= 30) {
-                            event.consume();
-                        }
-                    }
-                });
+        nameField.addEventFilter(KeyEvent.KEY_TYPED, (KeyEvent event) -> {
+            if (nameField.getText().length() >= 30) {
+                event.consume();
+            }
+        });
     }    
     
     @Override
@@ -141,8 +139,8 @@ public class CustomizationController implements Initializable, ControlledScreen 
         
         System.out.println(player);
         parent.setPlayer(player);
-        parent.resetScreen("Market");
-        parent.setScreen("Market");
+        parent.resetScreen(SpaceTraderMain.MARKET_SCREEN);
+        parent.setScreen(SpaceTraderMain.MARKET_SCREEN);
     }
     
     /**

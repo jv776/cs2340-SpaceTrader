@@ -12,10 +12,11 @@ package models;
  * @author Alex, John
  */
 public class Player extends CrewMember {
-    private final String name;
+    public final String name;
     private Ship ship;
     private SolarSystem currentSystem;
     private Planet currentPlanet;
+    private int credits;
     
     public Player (String playerName, int pilotSP, int fighterSP, int traderSP,
             int engineerSP, int investorSP) {
@@ -39,5 +40,13 @@ public class Player extends CrewMember {
     
     public Planet getCurrentPlanet() {
         return currentPlanet;
+    }
+    
+    public int getCredits() {
+        return credits;
+    }
+    
+    public String shipType() {
+        return ship.type.toString().toLowerCase();
     }
 }

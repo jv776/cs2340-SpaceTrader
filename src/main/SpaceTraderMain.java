@@ -34,7 +34,9 @@ public class SpaceTraderMain extends Application {
         SCREENS.put(WELCOME_SCREEN, WELCOME_SCREEN_FXML);
         SCREENS.put(CUSTOMIZATION_SCREEN, CUSTOMIZATION_SCREEN_FXML);
         SCREENS.put(MARKET_SCREEN, MARKET_SCREEN_FXML);
-       
+        
+        //System.out.println(SCREENS.get(MARKET_SCREEN));
+        
         ScreensController mainContainer = new ScreensController();
         
         for (String key : SCREENS.keySet()) {

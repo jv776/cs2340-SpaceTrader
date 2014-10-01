@@ -11,11 +11,11 @@ package models;
  * @author Alex
  */
 public class SolarSystem {
-    final String name;
+    public final String name;
     private final int x;
     private final int y;
-    private final TechLevel tech;
-    private final PoliticalSystem government;
+    final TechLevel tech;
+    final PoliticalSystem government;
     private final Star sun;
     final Planet[] planets;
     

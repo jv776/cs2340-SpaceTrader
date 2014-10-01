@@ -8,23 +8,52 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import models.Player;
-
-//remove - test code
-import models.TradeGood;
+import models.Planet;
 
 /**
  * FXML Controller class
  *
- * @author Alex
+ * @author Alex, John
  */
 public class MarketController implements Initializable, ControlledScreen {
 
     private ScreensController parent;
     private Player player;
-    public Label playerInfoLabel;
+    
+    @FXML
+    private Label systemGovernmentLabel;
+
+    @FXML
+    private Label systemNameLabel;
+
+    @FXML
+    private Label planetNameLabel;
+
+    @FXML
+    private Label shipTypeLabel;
+
+    @FXML
+    private Label planetEventLabel;
+
+    @FXML
+    private Label planetResourcesLabel;
+
+    @FXML
+    private Label systemTechLevelLabel;
+
+    @FXML
+    private Label playerNameLabel;
+
+    @FXML
+    private Label creditsLabel;
+
+    @FXML
+    private ComboBox<?> waterQuantityBox;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -35,9 +64,21 @@ public class MarketController implements Initializable, ControlledScreen {
     public void setScreenParent(ScreensController screenParent) {
         parent = screenParent;
         player = parent.getPlayer();
+        
         if (player != null) {
-            playerInfoLabel.setText(player.toString());
+            Planet p = player.getCurrentPlanet();
+            
+            systemGovernmentLabel.setText(p.governmentType());
+            systemNameLabel.setText(p.system.name);
+            planetNameLabel.setText(p.name);
+            shipTypeLabel.setText(player.shipType());
+            planetEventLabel.setText(p.currentEvent());
+            planetResourcesLabel.setText(p.resourceType());
+            systemTechLevelLabel.setText(p.technologyLevel());
+            playerNameLabel.setText(player.name);
+            creditsLabel.setText(Integer.toString(player.getCredits()));
+            //waterQuantityBox.
         }
     }
-    
+
 }

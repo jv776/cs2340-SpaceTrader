@@ -109,7 +109,7 @@ public class ScreensController extends StackPane {
             } 
             return true; 
         } else { 
-            System.out.println("screen hasn't been loaded!\n"); 
+            System.out.println("Set screen: screen " + name + " hasn't been loaded!\n"); 
             return false; 
         }
     } 
@@ -121,7 +121,7 @@ public class ScreensController extends StackPane {
      */
     public boolean unloadScreen(String name) { 
         if(screens.remove(name) == null) { 
-            System.out.println("Screen didn't exist"); 
+            System.out.println("Unload screen: Screen " + name + " didn't exist"); 
             return false; 
         } else { 
             return true; 
@@ -138,7 +138,7 @@ public class ScreensController extends StackPane {
     public boolean resetScreen(String name) { 
         Node screen = screens.get(name);
         if (screens.remove(name) == null) {
-            System.out.println("Screen didn't exist");
+            System.out.println("Reset screen: Screen " + name + " didn't exist");
             return false;
         } else {
             loadScreen(name, SpaceTraderMain.SCREENS.get(name));

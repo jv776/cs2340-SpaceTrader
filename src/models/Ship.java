@@ -10,7 +10,7 @@ package models;
  * @author John Varela
  */
 public class Ship {
-    private final ShipType type;
+    final ShipType type;
     private int currentFuel;
     private int hullStrength;
     private int bounty;
@@ -24,7 +24,7 @@ public class Ship {
         currentFuel = type.fuelCapacity;
         hullStrength = type.maxHullStrength;
         bounty = 0; //bounty on ship starts at 0 by default (?)
-        cargoHold = new CargoHold();
+        cargoHold = new CargoHold(type.cargoCapacity);
         //weapons = new Weapon[type.weaponSlots];
         //shields = new Shield[type.shieldSlots];
         //gadgets = new Gadget[type.gadgetSlots];

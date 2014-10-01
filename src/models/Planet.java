@@ -15,8 +15,8 @@ import java.util.Random;
  * @author Alex, John
  */
 public class Planet {
-    final String name;
-    final SolarSystem system;
+    public final String name;
+    public final SolarSystem system;
     private final int distance; //Representing radial distance from the sun in kmE6
     //private final int radius; //Radius of the planet in km
     final Resource resource;
@@ -103,7 +103,53 @@ public class Planet {
                 + resource;
     }
 
+    /**
+     * Get the event (if any) currently happening on the planet.
+     * 
+     * @return The current planetary event, if any
+     */
     Optional<PriceEvent> getCurrentEvent() {
         return currentEvent;
-    } 
+    }
+    
+    /**
+     * Get a description of the current event on the planet.
+     * 
+     * @return The type of event on this planet, if any
+     */
+    public String currentEvent() {
+        if (currentEvent.isPresent()) {
+            return currentEvent.get().toString().toLowerCase();
+        } else {
+            return "No major event";
+        }
+    }
+    
+    /**
+     * Get a string containing the type of government ruling the planet.
+     * 
+     * @return The type of government on the planet
+     */
+    public String governmentType() {
+        return system.government.toString().toLowerCase();
+    }
+    
+    /**
+     * Get a string containing the level of technology in the planet's
+     * solar system.
+     * 
+     * @return The technology available on the planet
+     */
+    public String technologyLevel() {
+        return system.tech.toString().toLowerCase();
+    }
+    
+    /**
+     * Get a string containing the special resources on this planet.
+     * 
+     * @return The 
+     */
+    public String resourceType() {
+        return resource.toString().toLowerCase();
+    }
 }

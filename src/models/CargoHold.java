@@ -13,5 +13,19 @@ import java.util.ArrayList;
  * @author Kevin Gibby
  */
 public class CargoHold extends ArrayList<CargoItem> {
+    private final int capacity;
     
+    public CargoHold(int cargoCapacity) {
+        super(cargoCapacity);
+        capacity = cargoCapacity;
+    }
+    
+    @Override
+    public boolean add(CargoItem item) {
+        if (this.size() < capacity) {
+            return this.add(item);
+        }
+        
+        return false;
+    }
 }
