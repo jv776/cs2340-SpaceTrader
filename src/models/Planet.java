@@ -147,7 +147,7 @@ public class Planet {
     /**
      * Get a string containing the special resources on this planet.
      * 
-     * @return The 
+     * @return Description of available resources
      */
     public String resourceType() {
         return resource.toString().toLowerCase();
