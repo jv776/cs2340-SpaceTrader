@@ -12,5 +12,5 @@ package models;
  * @author John Varela
  */
 public interface Purchasable {
-    public int computeCost(SolarSystem marketLocation);
+    public int computeCost(Planet marketLocation);
 }

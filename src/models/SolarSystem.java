@@ -15,18 +15,16 @@ public class SolarSystem {
     private final int x;
     private final int y;
     private final TechLevel tech;
-    private final Resource resource;
     private final PoliticalSystem government;
     private final Star sun;
-    private final Planet[] planets;
+    public final Planet[] planets;
     
-    public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
-            Resource specialResource, PoliticalSystem governmentType) {
+    public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel, 
+            PoliticalSystem governmentType) {
         this.name = name;
         x = xLoc;
         y = yLoc;
         tech = techLevel;
-        resource = specialResource;
         government = governmentType;
         sun = new Star(""); //add name
         planets = generatePlanets();
@@ -43,11 +41,11 @@ public class SolarSystem {
     */
 
     private Planet[] generatePlanets() {
-        Planet [] planetArray = new Planet[7];
+        Planet [] planetArray = new Planet[(int)(Math.random() * 4.0 + 4.0)];
         int dist = 40;
         for (int i = 0; i < planetArray.length; i++){
             dist += (i + 0.25) * 50 * (0.76 + (0.24 * Math.random()));
-            planetArray[i] = new Planet("", dist, sun.getTemperature()); //add name
+            planetArray[i] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
         return planetArray;
     }
@@ -55,7 +53,7 @@ public class SolarSystem {
     @Override
     public String toString() {
         String temp = "System name: " + name + "\n";
-        temp += "Sun:\n" + sun + "\nResources:\t" + resource + "\nTech Level:\t" +
+        temp += "Sun:\n" + sun + "\nTech Level:\t" +
                 tech + "\nGovernment:\t" + government + "\n\nPlanets:\n";
         
         for(Planet p:planets){
@@ -66,5 +64,17 @@ public class SolarSystem {
     
     TechLevel getTechLevel() {
         return tech;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
+    }
+    
+    public String getName() {
+        return name;
     }
 }

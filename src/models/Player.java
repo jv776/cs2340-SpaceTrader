@@ -12,10 +12,12 @@ package models;
  */
 public class Player extends CrewMember {
     private String name;
+    private int money;
     
     public Player (String name, int pilotSP, int fighterSP, int traderSP, int engineerSP, int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         this.name = name;
+        money = 1930823048;
     }
     
     @Override
@@ -23,5 +25,17 @@ public class Player extends CrewMember {
         return name + ": Pilot: " + pilotSkillPoints + ", Fighter: "
                 + fighterSkillPoints + ", Trader: " + traderSkillPoints 
                 + ", Engineer: " + engineerSkillPoints + ", Investor: " + investorSkillPoints;
+    }
+    
+    public void spend(int amount) {
+        money -= amount;
+    }
+    
+    public void earn(int amount) {
+        money += amount;
+    }
+    
+    public int getMoney() {
+        return money;
     }
 }
