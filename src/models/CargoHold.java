@@ -10,34 +10,43 @@ import java.util.HashMap;
 /**
  * Wrapper class for cargo items.
  * 
- * @author Kevin Gibby
+ * @author Kevin Gibby, Alex, John
  */
-public class CargoHold extends HashMap<CargoItem, Integer> {
+public class CargoHold {
+    private final int capacity;
+    private HashMap<CargoItem, Integer> cargo;
+    
+    public CargoHold(int maxCapacity) {
+        capacity = maxCapacity;
+        cargo = new HashMap<>();
+    }
     
     public void addItem(CargoItem item) {
-        boolean isNew = !keySet().contains(item);
-        if (isNew) {
-            put(item, 1);
-        } else {
-            put(item, get(item) + 1);
+        if (cargo.size() < capacity) {
+            boolean isNew = !cargo.keySet().contains(item);
+            if (isNew) {
+                cargo.put(item, 1);
+            } else {
+                cargo.put(item, cargo.get(item) + 1);
+            }
         }
     }
     
     public void addItemQuantity(CargoItem item, int amount) {
-        boolean isNew = !keySet().contains(item);
+        boolean isNew = !cargo.keySet().contains(item);
         if (isNew) {
-            put(item, amount);
+            cargo.put(item, amount);
         } else {
-            put(item, get(item) + amount);
+            cargo.put(item, cargo.get(item) + amount);
         }
     }
     
     public boolean removeItem(CargoItem item) {
-        if (keySet().contains(item)) {
-            if (get(item) == 1) {
-                remove(item);
+        if (cargo.keySet().contains(item)) {
+            if (cargo.get(item) == 1) {
+                cargo.remove(item);
             } else {
-                put(item, get(item) - 1);
+                cargo.put(item, cargo.get(item) - 1);
             }
             return true;
         } else {
@@ -48,7 +57,7 @@ public class CargoHold extends HashMap<CargoItem, Integer> {
     public TradeGood[] getTradeGoods() {
         TradeGood[] goods = new TradeGood[10];
         int count = 0;
-        for (CargoItem item : keySet()) {
+        for (CargoItem item : cargo.keySet()) {
             if (item instanceof TradeGood) {
                 goods[count] = (TradeGood)item;
                 count++;
@@ -62,10 +71,19 @@ public class CargoHold extends HashMap<CargoItem, Integer> {
     }
     
     public int getQuantity(CargoItem item) {
-        if (keySet().contains(item)) {
-            return get(item);            
+        if (cargo.keySet().contains(item)) {
+            return cargo.get(item);            
         } else {
             return 0;
         }
+    }
+    
+    public boolean hasSpace() {
+        int size = 0;
+        for (CargoItem item : cargo.keySet()) {
+            size += getQuantity(item);
+        }
+        
+        return size < capacity;
     }
 }

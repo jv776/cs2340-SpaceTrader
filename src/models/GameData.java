@@ -10,13 +10,14 @@ package models;
  *
  * @author Alex
  */
-public class GameData {
+public enum GameData {
+    DATA;
+    
     private Player player;
     private Universe universe;
     private SolarSystem solarSystem;
     private Planet planet;
     private CargoHold cargo;
-    private Ship ship;
     
     public Player getPlayer() {
         return player;
@@ -59,10 +60,10 @@ public class GameData {
     }
     
     public Ship getShip() {
-        return ship;
+        return player.getShip();
     }
     
     public void setShip(Ship s){
-        ship = s;
+        //will need code for buying ships to implement properly
     }
 }

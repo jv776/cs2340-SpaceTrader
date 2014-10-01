@@ -6,7 +6,6 @@
 
 package models;
 
-import java.util.function.Function;
 import java.util.Random;
 
 /**
@@ -309,7 +308,7 @@ public class Universe {
     public final int MAX_X = 600;
     public final int MAX_Y = 400;
     
-    public SolarSystem[] solarSystems;
+    public static SolarSystem[] solarSystems;
     
     public Universe() {
         solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];

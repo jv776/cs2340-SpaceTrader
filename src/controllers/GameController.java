@@ -32,7 +32,7 @@ public class GameController extends StackPane {
     protected GameController control;
     
     public GameController() {
-        gameData = new GameData();
+        gameData = GameData.DATA;
     }
     
     public void initData(GameData data, GameController controller) {

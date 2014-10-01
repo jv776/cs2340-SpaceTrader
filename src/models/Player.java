@@ -7,35 +7,64 @@
 package models;
 
 /**
- *
- * @author Alex
+ * Class representing the player's character.
+ * 
+ * @author Alex, John
  */
 public class Player extends CrewMember {
-    private String name;
-    private int money;
+    public final String name;
+    private Ship ship;
+    //private SolarSystem currentSystem;
+    private Planet currentPlanet;
+    private int credits;
     
-    public Player (String name, int pilotSP, int fighterSP, int traderSP, int engineerSP, int investorSP) {
+    public Player (String playerName, int pilotSP, int fighterSP, int traderSP,
+            int engineerSP, int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
-        this.name = name;
-        money = 1930823048;
+        name = playerName;
+        
+        //starting goods/equipment, can be changed
+        ship = new Ship(ShipType.Gnat);
+        credits = 10000;
+        
+        
+        SolarSystem currentSystem = Universe.solarSystems[(int) (Math.random()
+                * Universe.solarSystems.length)];
+        currentPlanet = currentSystem.planets[(int) (Math.random()
+                * currentSystem.planets.length)];
     }
     
     @Override
     public String toString() {
         return name + ": Pilot: " + pilotSkillPoints + ", Fighter: "
                 + fighterSkillPoints + ", Trader: " + traderSkillPoints 
-                + ", Engineer: " + engineerSkillPoints + ", Investor: " + investorSkillPoints;
+                + ", Engineer: " + engineerSkillPoints + ", Investor: "
+                + investorSkillPoints + "\nCurrently in the "
+                + currentPlanet.solarSystem.name + " system on planet "
+                + currentPlanet.name;
+    }
+    
+    public Ship getShip() {
+        return ship;
+    }
+    
+    public Planet getCurrentPlanet() {
+        return currentPlanet;
+    }
+    
+    public int getCredits() {
+        return credits;
+    }
+    
+    public String shipType() {
+        return ship.type.toString().toLowerCase();
     }
     
     public void spend(int amount) {
-        money -= amount;
+        credits -= amount;
     }
     
     public void earn(int amount) {
-        money += amount;
-    }
-    
-    public int getMoney() {
-        return money;
+        credits += amount;
     }
 }

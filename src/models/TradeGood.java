@@ -6,7 +6,6 @@
 package models;
 
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * Enumeration of every possible type of trading good that can be purchased
@@ -14,7 +13,8 @@ import java.util.Random;
  * 
  * @author John Varela
  */
-public enum TradeGood implements Purchasable, CargoItem {
+
+public enum TradeGood implements CargoItem {
     WATER      (TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
                 TechLevel.MEDIEVAL, 30, 3, 4, 30, 50, PriceEvent.DROUGHT,
                 Optional.of(Resource.LOTS_OF_WATER),
@@ -62,17 +62,17 @@ public enum TradeGood implements Purchasable, CargoItem {
                 TechLevel.HI_TECH, 5000, -150, 100, 3500, 5000,
                 PriceEvent.LACK_OF_WORKERS, Optional.empty(), Optional.empty());
     
-    private final TechLevel minTechLevelBuy;
-    private final TechLevel minTechLevelSell;
-    private final TechLevel preferredTechLevel;
-    private final int basePrice;
-    private final int priceChangePerTechLevel;
-    private final int priceVariance;
-    private final int minTraderPrice;
-    private final int maxTraderPrice;
-    private final PriceEvent priceIncreaseEvent;
-    private final Optional<Resource> cheapConditions;
-    private final Optional<Resource> expensiveConditions;
+    final TechLevel minTechLevelBuy;
+    final TechLevel minTechLevelSell;
+    final TechLevel preferredTechLevel;
+    final int basePrice;
+    final int priceChangePerTechLevel;
+    final int priceVariance;
+    final int minTraderPrice;
+    final int maxTraderPrice;
+    final PriceEvent priceIncreaseEvent;
+    final Optional<Resource> cheapConditions;
+    final Optional<Resource> expensiveConditions;
     
     private TradeGood(TechLevel minTechBuy, TechLevel minTechSell,
             TechLevel preferred, int base, int priceChange, int variance,
@@ -91,58 +91,6 @@ public enum TradeGood implements Purchasable, CargoItem {
         expensiveConditions = expensiveResource;
     }
     
-    private static int techLevelToInt(TechLevel tl) {
-        switch(tl) {
-            case PRE_AGRICULTURE: return 0;
-            case AGRICULTURE: return 1;
-            case MEDIEVAL: return 2;
-            case RENAISSANCE: return 3;
-            case EARLY_INDUSTRIAL: return 4;
-            case INDUSTRIAL: return 5;
-            case POST_INDUSTRIAL: return 6;
-            default: return 7; //HI_TECH
-        }
-    }
-    
-    /**
-     * Calculate the cost of a good based on the base price of the good,
-     * the technology available in the market where it is being sold,
-     * the natural resources and conditions on the planet that might
-     * affect its price, and whether or not any special events that might
-     * temporarily drive up the price are occurring.
-     * 
-     * @param marketLocation The location where the good is being purchased
-     * @return The total price for the good
-     */
-    @Override
-    public int computeCost(Planet marketLocation) {
-        Random r = new Random();
-        
-        int techLevelFactor = priceChangePerTechLevel *
-                (techLevelToInt(marketLocation.getSolarSystem().getTechLevel()) -
-                techLevelToInt(minTechLevelBuy));
-        
-        int variance = 1 + r.nextInt(priceVariance) / 100;
-        
-        double scarcityFactor = 1;
-        if (expensiveConditions.isPresent() 
-                && marketLocation.getResource() == expensiveConditions.get()) {
-            scarcityFactor = 1.25; //25% more expensive
-        }
-        
-        double abundanceFactor = 1;
-        if (cheapConditions.isPresent()
-                && marketLocation.getResource() == cheapConditions.get()) {
-            abundanceFactor = 0.75; //25% cheaper
-        }
-        
-        double eventFactor = 1;
-        //need way to test if a special event is occurring in a system/planet
-        
-        return (int) ((basePrice + techLevelFactor) * variance * scarcityFactor
-                * abundanceFactor * eventFactor);
-    }
-    
     /**
      * @return This item's name, as specified by the enum value.
      */
@@ -151,13 +99,5 @@ public enum TradeGood implements Purchasable, CargoItem {
         String s = this.toString();
         char c = s.charAt(0);
         return Character.toUpperCase(c) + s.substring(1).toLowerCase();
-    }
-    
-    public TechLevel getMinTechLevelBuy() {
-        return minTechLevelBuy;
-    }
-    
-    public TechLevel getMinTechLevelSell() {
-        return minTechLevelSell;
     }
 }

@@ -11,7 +11,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.GameData;
 
 /**
  * Main class for FXProject. Initializes various screens
