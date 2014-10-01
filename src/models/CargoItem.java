@@ -17,3 +17,4 @@ public interface CargoItem {
      */
     public String getItemName();
 }
+

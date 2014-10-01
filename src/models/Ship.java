@@ -33,8 +33,8 @@ public enum Ship {
     private int occurrence; //Once again not sure what this affects
     private final int maxHullStrength;
     private int hullStrength;
-    private final int repairCost;
     private CargoHold cargoHold;
+    private final int repairCost;
     
     private Ship(int cargoHolds, int weaponSlots, int shieldSlots,
             int gadgetSlots, int crewMembers, int fuelTankSize,

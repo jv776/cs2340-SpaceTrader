@@ -115,22 +115,24 @@ public enum TradeGood implements Purchasable, CargoItem {
      * @return The total price for the good
      */
     @Override
-    public int computeCost(SolarSystem marketLocation) {
+    public int computeCost(Planet marketLocation) {
         Random r = new Random();
         
         int techLevelFactor = priceChangePerTechLevel *
-                (techLevelToInt(marketLocation.getTechLevel()) -
+                (techLevelToInt(marketLocation.getSolarSystem().getTechLevel()) -
                 techLevelToInt(minTechLevelBuy));
         
         int variance = 1 + r.nextInt(priceVariance) / 100;
         
         double scarcityFactor = 1;
-        if (expensiveConditions.isPresent()) {
+        if (expensiveConditions.isPresent() 
+                && marketLocation.getResource() == expensiveConditions.get()) {
             scarcityFactor = 1.25; //25% more expensive
         }
         
         double abundanceFactor = 1;
-        if (cheapConditions.isPresent()) {
+        if (cheapConditions.isPresent()
+                && marketLocation.getResource() == cheapConditions.get()) {
             abundanceFactor = 0.75; //25% cheaper
         }
         
@@ -140,12 +142,22 @@ public enum TradeGood implements Purchasable, CargoItem {
         return (int) ((basePrice + techLevelFactor) * variance * scarcityFactor
                 * abundanceFactor * eventFactor);
     }
-
+    
     /**
      * @return This item's name, as specified by the enum value.
      */
     @Override
     public String getItemName() {
-        return this.toString();
+        String s = this.toString();
+        char c = s.charAt(0);
+        return Character.toUpperCase(c) + s.substring(1).toLowerCase();
+    }
+    
+    public TechLevel getMinTechLevelBuy() {
+        return minTechLevelBuy;
+    }
+    
+    public TechLevel getMinTechLevelSell() {
+        return minTechLevelSell;
     }
 }

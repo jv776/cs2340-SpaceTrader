@@ -13,7 +13,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import models.CargoHold;
+import models.Planet;
 import models.Player;
+import models.Ship;
+import models.SolarSystem;
+import models.TradeGood;
 import models.Universe;
 
 /**
@@ -21,7 +26,7 @@ import models.Universe;
  *
  * @author Alex
  */
-public class CustomizationController implements Initializable, ControlledScreen {
+public class CustomizationController extends GameController implements Initializable {
 
     public final int SKILL_POINT_MAX = 15;
     
@@ -33,9 +38,8 @@ public class CustomizationController implements Initializable, ControlledScreen 
     public Label investorSkillPoints;
     public Label skillPointsRemaining;
     public Button continueButton;
-    
-    private ScreensController parent;
     private int skillPoints;
+   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,11 +55,6 @@ public class CustomizationController implements Initializable, ControlledScreen 
                     }
                 });
     }    
-    
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
-        parent = screenParent;
-    }
     
     /**
      * Increments "Pilot" label counter if any skill points are left.
@@ -136,17 +135,36 @@ public class CustomizationController implements Initializable, ControlledScreen 
             Integer.parseInt(investorSkillPoints.getText()));
         
         Universe universe = new Universe();
-        System.out.println(player);
-        parent.setPlayer(player);
-        parent.resetScreen("Market");
-        parent.setScreen("Market");
+        
+        gameData.setPlayer(player);
+        gameData.setUniverse(universe);
+        for (SolarSystem s : universe.solarSystems) {
+            for (Planet p : s.planets) {
+                if (p.supportsLife()) {
+                    gameData.setSolarSystem(s);
+                    gameData.setPlanet(p);
+                    break;
+                }
+            }
+            if (gameData.getPlanet() != null) {
+                break;
+            }
+        }
+        CargoHold cargo = new CargoHold();
+        
+        cargo.addItemQuantity(TradeGood.WATER, 3365);
+        cargo.addItemQuantity(TradeGood.ROBOTS, 14005);
+        
+        gameData.setCargoHold(cargo);
+        gameData.setShip(Ship.Flea);
+        control.setScreen("Market");
     }
     
     /**
      * Returns to the home screen upon clicking the "Cancel" button.
      */
     public void handleCancel() {
-        parent.setScreen("Welcome");
+        control.setScreen("Welcome");
     }
     
     /**
