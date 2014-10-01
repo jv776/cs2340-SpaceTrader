@@ -7,14 +7,14 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import main.SpaceTraderMain;
+import models.Planet;
 import models.Player;
+import models.SolarSystem;
 import models.Universe;
 
 /**
@@ -22,7 +22,7 @@ import models.Universe;
  *
  * @author Alex
  */
-public class CustomizationController implements Initializable, ControlledScreen {
+public class CustomizationController extends GameController implements Initializable {
 
     public final int SKILL_POINT_MAX = 15;
     
@@ -34,9 +34,8 @@ public class CustomizationController implements Initializable, ControlledScreen 
     public Label investorSkillPoints;
     public Label skillPointsRemaining;
     public Button continueButton;
-    
-    private ScreensController parent;
     private int skillPoints;
+   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,11 +48,6 @@ public class CustomizationController implements Initializable, ControlledScreen 
             }
         });
     }    
-    
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
-        parent = screenParent;
-    }
     
     /**
      * Increments "Pilot" label counter if any skill points are left.
@@ -136,18 +130,30 @@ public class CustomizationController implements Initializable, ControlledScreen 
             Integer.parseInt(investorSkillPoints.getText())
         );
         
+        gameData.setPlayer(player);
+        gameData.setUniverse(universe);
         
-        System.out.println(player);
-        parent.setPlayer(player);
-        parent.resetScreen(SpaceTraderMain.MARKET_SCREEN);
-        parent.setScreen(SpaceTraderMain.MARKET_SCREEN);
+        for (SolarSystem s : universe.solarSystems) {
+            for (Planet p : s.planets) {
+                if (p.supportsLife()) {
+                    gameData.setSolarSystem(s);
+                    gameData.setPlanet(p);
+                    break;
+                }
+            }
+            if (gameData.getPlanet() != null) {
+                break;
+            }
+        }
+        
+        control.setScreen("Market");
     }
     
     /**
      * Returns to the home screen upon clicking the "Cancel" button.
      */
     public void handleCancel() {
-        parent.setScreen("Welcome");
+        control.setScreen("Welcome");
     }
     
     /**

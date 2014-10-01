@@ -29,4 +29,8 @@ public class Ship {
         //shields = new Shield[type.shieldSlots];
         //gadgets = new Gadget[type.gadgetSlots];
     }
+    
+    public CargoHold getCargoHold() {
+        return cargoHold;
+    }
 }

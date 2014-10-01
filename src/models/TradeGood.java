@@ -13,6 +13,7 @@ import java.util.Optional;
  * 
  * @author John Varela
  */
+
 public enum TradeGood implements CargoItem {
     WATER      (TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
                 TechLevel.MEDIEVAL, 30, 3, 4, 30, 50, PriceEvent.DROUGHT,
@@ -90,8 +91,13 @@ public enum TradeGood implements CargoItem {
         expensiveConditions = expensiveResource;
     }
     
+    /**
+     * @return This item's name, as specified by the enum value.
+     */
     @Override
     public String getItemName() {
-        return this.toString().toLowerCase();
+        String s = this.toString();
+        char c = s.charAt(0);
+        return Character.toUpperCase(c) + s.substring(1).toLowerCase();
     }
 }

@@ -19,12 +19,14 @@ public class Marketplace {
     private HashMap<TradeGood, Integer> productSupply;
     private HashMap<TradeGood, Integer> prices;
     private HashMap<TradeGood, Integer> basket; //keeps track of quantities of goods marked for purchase
+    private int transactionValue;
     
     public Marketplace(Planet marketLocation) {
         location = marketLocation;
         productSupply = generateSupplies();
         prices = generatePrices();
         basket = new HashMap<>();
+        transactionValue = 0;
         
         for (TradeGood good : TradeGood.values()) {
             basket.put(good, 0);
@@ -35,7 +37,7 @@ public class Marketplace {
         HashMap<TradeGood, Integer> goods = new HashMap<>();
         
         for (TradeGood good : TradeGood.values()) {
-            int localTechFactor = location.system.getTechLevel().toInt();
+            int localTechFactor = location.solarSystem.getTechLevel().toInt();
             
             int minTechFactor = (localTechFactor < good.minTechLevelBuy.toInt())
                     ? 0 : (localTechFactor - good.minTechLevelBuy.toInt() + 1);
@@ -46,7 +48,7 @@ public class Marketplace {
             double quantityFactor =  Math.exp(-Math.pow(preferredTechFactor
                     / (Math.random() + 1), 0.5));
             
-            goods.put(good, (int) (100 * quantityFactor * minTechFactor));
+            goods.put(good, (int) (100 * quantityFactor) * minTechFactor);
         }
         
         return goods;
@@ -59,7 +61,7 @@ public class Marketplace {
             Random r = new Random();
         
             int techLevelFactor = good.priceChangePerTechLevel *
-                    (location.system.getTechLevel().toInt() -
+                    (location.solarSystem.getTechLevel().toInt() -
                     good.minTechLevelBuy.toInt());
         
             int variance = 1 + r.nextInt(good.priceVariance) / 100;
@@ -96,7 +98,66 @@ public class Marketplace {
         return priceMap;
     }
     
-    public void markForPurchase() {
+    public int getPrice(TradeGood good) {
+        return prices.get(good);
+    }
+    
+    public int getResalePrice(TradeGood good) {
+        return (int) (0.7 * prices.get(good));
+    }
+    
+    public int getSupply(TradeGood good) {
+        return productSupply.get(good);
+    }
+    
+    /**
+     * Buy a good from the market.
+     * 
+     * @param good The good being purchased.
+     * @return Whether or not the purchase was successful
+     */
+    public boolean buyGood(TradeGood good) {
+        Player p = GameData.DATA.getPlayer();
+        
+        if (p.getCredits() >= getPrice(good) && getSupply(good) > 0
+                && p.getShip().getCargoHold().hasSpace()) {
+            p.spend(getPrice(good));
+            productSupply.put(good, getSupply(good) - 1);
+            p.getShip().getCargoHold().addItem(good);
+            return true;
+        } else {
+            // do something here?
+            return false;
+        }
+    }
+    
+    /**
+     * Sell a good at the market.
+     * 
+     * @param good The good being sold.
+     * @return Whether or not the sale was successful
+     */
+    public boolean sellGood(TradeGood good) {
+        Player p = GameData.DATA.getPlayer();
+        
+        if (p.getShip().getCargoHold().getQuantity(good) > 0) {
+            p.earn(getResalePrice(good));
+            productSupply.put(good, getSupply(good) + 1);
+            p.getShip().getCargoHold().removeItem(good);
+            return true;
+        } else {
+            // do something here?
+            return false;
+        }
+    }
+    
+    /*
+    public void addPurchase(TradeGood good) {
+        //basket.put(good, basket.get(good));
+    }
+    
+    public void addSale(TradeGood good) {
         
     }
+    */
 }

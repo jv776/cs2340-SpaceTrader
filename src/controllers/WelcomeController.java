@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import models.GameData;
 
 
 /**
@@ -20,21 +21,14 @@ import javafx.scene.control.Button;
  *
  * @author Alex
  */
-public class WelcomeController implements Initializable, ControlledScreen {
+public class WelcomeController extends GameController implements Initializable {
 
     public Button newGameButton;
     public Button loadGameButton; //implement later
-
-    private ScreensController parent;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-    }
-
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
-        parent = screenParent;
+        
     }
 
     /**
@@ -43,7 +37,6 @@ public class WelcomeController implements Initializable, ControlledScreen {
      * remembering previous output when clicking new game again.
      */
     public void handleNewGame() {
-        parent.resetScreen(SpaceTraderMain.CUSTOMIZATION_SCREEN);
-        parent.setScreen(SpaceTraderMain.CUSTOMIZATION_SCREEN);
+        control.setScreen("Customization");
     }
 }

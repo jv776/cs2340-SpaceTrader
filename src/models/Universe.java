@@ -146,22 +146,22 @@ public class Universe {
     private static TechLevel randomTechLevel() {
         double r = Math.random();
         
-        if (0.0 <= r && r < 0.15) {
-            return TechLevel.PRE_AGRICULTURE; //15% chance
-        } else if (0.15 <= r && r < 0.3) {
-            return TechLevel.AGRICULTURE; //15% chance
-        } else if (0.3 <= r && r < 0.4) {
-            return TechLevel.MEDIEVAL; //10% chance
-        } else if (0.4 <= r && r < 0.5) {
+        if (0.0 <= r && r < 0.25) {
+            return TechLevel.PRE_AGRICULTURE; //25% chance
+        } else if (0.25 <= r && r < 0.45) {
+            return TechLevel.AGRICULTURE; //20% chance
+        } else if (0.45 <= r && r < 0.6) {
+            return TechLevel.MEDIEVAL; //15% chance
+        } else if (0.6 <= r && r < 0.7) {
             return TechLevel.RENAISSANCE; //10% chance
-        } else if (0.5 <= r && r < 0.65) {
-            return TechLevel.EARLY_INDUSTRIAL; //15% chance
-        } else if (0.65 <= r && r < 0.8) {
-            return TechLevel.INDUSTRIAL; //15% chance
-        } else if (0.8 <= r && r < 0.9) {
-            return TechLevel.POST_INDUSTRIAL; //10% chance
+        } else if (0.7 <= r && r < 0.8) {
+            return TechLevel.EARLY_INDUSTRIAL; //10% chance
+        } else if (0.8 <= r && r < 0.875) {
+            return TechLevel.INDUSTRIAL; //7.5% chance
+        } else if (0.875 <= r && r < 0.95) {
+            return TechLevel.POST_INDUSTRIAL; //7.5% chance
         } else {
-            return TechLevel.HI_TECH; //10% chance
+            return TechLevel.HI_TECH; //5% chance
         }
     }
     
@@ -304,10 +304,10 @@ public class Universe {
         }
     }
     
-    final int MAX_X = 500;
-    final int MAX_Y = 500;
+    public final int MAX_X = 600;
+    public final int MAX_Y = 400;
     
-    static SolarSystem[] solarSystems;
+    public static SolarSystem[] solarSystems;
     
     public Universe() {
         solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];

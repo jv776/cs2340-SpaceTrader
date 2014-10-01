@@ -14,7 +14,7 @@ package models;
 public class Player extends CrewMember {
     public final String name;
     private Ship ship;
-    private SolarSystem currentSystem;
+    //private SolarSystem currentSystem;
     private Planet currentPlanet;
     private int credits;
     
@@ -22,8 +22,13 @@ public class Player extends CrewMember {
             int engineerSP, int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         name = playerName;
+        
+        //starting goods/equipment, can be changed
         ship = new Ship(ShipType.Gnat);
-        currentSystem = Universe.solarSystems[(int) (Math.random()
+        credits = 10000;
+        
+        
+        SolarSystem currentSystem = Universe.solarSystems[(int) (Math.random()
                 * Universe.solarSystems.length)];
         currentPlanet = currentSystem.planets[(int) (Math.random()
                 * currentSystem.planets.length)];
@@ -35,7 +40,12 @@ public class Player extends CrewMember {
                 + fighterSkillPoints + ", Trader: " + traderSkillPoints 
                 + ", Engineer: " + engineerSkillPoints + ", Investor: "
                 + investorSkillPoints + "\nCurrently in the "
-                + currentSystem.name + " system on planet " + currentPlanet.name;
+                + currentPlanet.solarSystem.name + " system on planet "
+                + currentPlanet.name;
+    }
+    
+    public Ship getShip() {
+        return ship;
     }
     
     public Planet getCurrentPlanet() {
@@ -48,5 +58,13 @@ public class Player extends CrewMember {
     
     public String shipType() {
         return ship.type.toString().toLowerCase();
+    }
+    
+    public void spend(int amount) {
+        credits -= amount;
+    }
+    
+    public void earn(int amount) {
+        credits += amount;
     }
 }

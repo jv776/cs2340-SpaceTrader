@@ -17,7 +17,7 @@ public class SolarSystem {
     final TechLevel tech;
     final PoliticalSystem government;
     private final Star sun;
-    final Planet[] planets;
+    public final Planet[] planets;
     
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
             PoliticalSystem governmentType) {
@@ -77,13 +77,12 @@ public class SolarSystem {
     }
 
     private Planet[] generatePlanets() {
-        Planet [] planetArray = new Planet[7];
+        Planet [] planetArray = new Planet[(int)(Math.random() * 4.0 + 4.0)];
         int dist = 40;
         
         for (int i = 0; i < planetArray.length; i++){
             dist += (i + 0.25) * 50 * (0.76 + (0.24 * Math.random()));
-            planetArray[i] = new Planet("", this, dist, sun.getTemperature(),
-                randomResource()); //add name
+            planetArray[i] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
         
         return planetArray;
@@ -104,5 +103,17 @@ public class SolarSystem {
     
     TechLevel getTechLevel() {
         return tech;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
+    }
+    
+    public String getName() {
+        return name;
     }
 }
