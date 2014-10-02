@@ -19,8 +19,8 @@ public class Player extends CrewMember {
 
     @Override
     public String toString() {
-        return name + ": Pilot: " + pilotSkillPoints + ", Fighter: "
-                + fighterSkillPoints + ", Trader: " + traderSkillPoints
-                + ", Engineer: " + engineerSkillPoints + ", Investor: " + investorSkillPoints;
+        return name + ": Pilot: " + getPilotSkillPoints() + ", Fighter: "
+                + getFighterSkillPoints() + ", Trader: " + getTraderSkillPoints()
+                + ", Engineer: " + getEngineerSkillPoints() + ", Investor: " + getInvestorSkillPoints();
     }
 }

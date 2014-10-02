@@ -2,8 +2,10 @@ package models;
 
 /**
  * Created by Taylor on 9/18/14.
- */ //Moved the TechLevels enum out of Universe so that other classes won't have to
-//access it as Universe.Resources
+ * 
+ * Moved the TechLevels enum out of Universe so that other classes won't have to
+ * access it as Universe.Resources
+ */
 enum Resource {
     NO_SPECIAL_RESOURCES,
     MINERAL_RICH,
