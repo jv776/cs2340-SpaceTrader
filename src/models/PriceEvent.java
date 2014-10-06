@@ -6,7 +6,6 @@
 package models;
 
 /**
- *
  * @author John Varela
  */
 public enum PriceEvent {

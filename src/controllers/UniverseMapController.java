@@ -86,7 +86,7 @@ public class UniverseMapController extends GameController implements Initializab
         
         for (SolarSystem s : gameData.getUniverse().solarSystems) {
             if (s != currentSystem && distance(gameData.getSolarSystem(), s)
-                        < gameData.getShip().getCurrentFuel()) {
+                        < gameData.getShip().getFuelAmount()) {
                 gc.setFill(computeStarColor(s));
                 gc.fillOval(s.getX(), s.getY(), 5, 5);
             } else if (s != currentSystem) {
@@ -127,7 +127,7 @@ public class UniverseMapController extends GameController implements Initializab
                 System.out.println("You clicked on: " + s.getName());
                 
                 if (distance(gameData.getSolarSystem(), s)
-                        < gameData.getShip().getCurrentFuel()) {
+                        < gameData.getShip().getFuelAmount()) {
                     gameData.setPlanet(s.planets[0]);
                     drawSolarSystems();
                     break;

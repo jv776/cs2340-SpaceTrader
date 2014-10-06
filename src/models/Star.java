@@ -20,20 +20,19 @@ public class Star {
     private final int temperature; //In KelvenE3
     //private final StarType type;
 
-    public Star(String name){
+    public Star(String name) {
         this.name = name;
-        temperature = (int)( 5+(10*(Math.pow(Math.random(), 2))));
+        temperature = (int) (5 + (10 * (Math.pow(Math.random(), 2))));
     }
 
     /**
      * @return The star's temperature
      */
-    public int getTemperature(){
+    public int getTemperature() {
         return temperature;
     }
 
-    @Override
-    public String toString(){
+    public String toString() {
         return name + "\t " + temperature + "KE3";
     }
 

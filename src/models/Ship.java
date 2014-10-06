@@ -6,24 +6,24 @@
 package models;
 
 /**
- *
  * @author John Varela
  */
 public class Ship {
+    /**
+     * @return The ship's cargo holds
+     */
+    
     final ShipType type;
-    private int currentFuel;
+    private int fuelAmount;
     private int hullStrength;
-    private int bounty;
+    private int cargoCapacity;
     private CargoHold cargoHold;
-    //private Weapon[] weapons;
-    //private Shield[] shields;
-    //private Gadget[] gadgets;
     
     public Ship(ShipType model) {
         type = model;
-        currentFuel = type.fuelCapacity;
+        fuelAmount = type.fuelCapacity;
         hullStrength = type.maxHullStrength;
-        bounty = 0; //bounty on ship starts at 0 by default (?)
+        //bounty = 0; //bounty on ship starts at 0 by default (?)
         cargoHold = new CargoHold(type.cargoCapacity);
         //weapons = new Weapon[type.weaponSlots];
         //shields = new Shield[type.shieldSlots];
@@ -31,16 +31,13 @@ public class Ship {
     }
     
     /**
-     * @return The ship's cargo holds
-     */
-    public CargoHold getCargoHold() {
-        return cargoHold;
-    }
-    
-    /**
      * @return The amount of fuel currently in the ship
      */
-    public int getCurrentFuel() {
-        return currentFuel;
+    public int getFuelAmount() {
+        return fuelAmount;
+    }
+    
+    public CargoHold getCargoHold() {
+        return cargoHold;
     }
 }
