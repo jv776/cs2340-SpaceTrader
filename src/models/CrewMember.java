@@ -9,24 +9,61 @@ package models;
 /**
  * Abstract class to store information and methods common to all characters
  * capable of running a ship in some capacity (players, mercenaries, etc.).
- * 
+ *
  * @author John
  */
-abstract class CrewMember {
-    protected int pilotSkillPoints;
-    protected int fighterSkillPoints;
-    protected int traderSkillPoints;
-    protected int engineerSkillPoints;
-    protected int investorSkillPoints;
-    
-    public CrewMember(int pilotSP, int fighterSP, int traderSP,
-            int engineerSP, int investorSP) {
-        pilotSkillPoints = pilotSP;
-        fighterSkillPoints = fighterSP;
-        traderSkillPoints = traderSP;
-        engineerSkillPoints = engineerSP;
-        investorSkillPoints = investorSP;
+public abstract class CrewMember {
+    private int pilotSkillPoints;
+    private int fighterSkillPoints;
+    private int traderSkillPoints;
+    private int engineerSkillPoints;
+    private int investorSkillPoints;
+
+    public CrewMember(int pilotSP, int fighterSP, int traderSP, int engineerSP, int investorSP) {
+        setPilotSkillPoints(pilotSP);
+        setFighterSkillPoints(fighterSP);
+        setTraderSkillPoints(traderSP);
+        setEngineerSkillPoints(engineerSP);
+        setInvestorSkillPoints(investorSP);
     }
-    
-    //methods common to players, mercenaries, pirates, etc. can go here
+
+    public int getPilotSkillPoints() {
+        return pilotSkillPoints;
+    }
+
+    public void setPilotSkillPoints(int pilotSkillPoints) {
+        this.pilotSkillPoints = pilotSkillPoints;
+    }
+
+    public int getFighterSkillPoints() {
+        return fighterSkillPoints;
+    }
+
+    public void setFighterSkillPoints(int fighterSkillPoints) {
+        this.fighterSkillPoints = fighterSkillPoints;
+    }
+
+    public int getTraderSkillPoints() {
+        return traderSkillPoints;
+    }
+
+    public void setTraderSkillPoints(int traderSkillPoints) {
+        this.traderSkillPoints = traderSkillPoints;
+    }
+
+    public int getEngineerSkillPoints() {
+        return engineerSkillPoints;
+    }
+
+    public void setEngineerSkillPoints(int engineerSkillPoints) {
+        this.engineerSkillPoints = engineerSkillPoints;
+    }
+
+    public int getInvestorSkillPoints() {
+        return investorSkillPoints;
+    }
+
+    public void setInvestorSkillPoints(int investorSkillPoints) {
+        this.investorSkillPoints = investorSkillPoints;
+    }
 }
