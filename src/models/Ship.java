@@ -59,19 +59,40 @@ public class Ship {
             this.size = size;
         }
     }
-    
+
     private Type type;
     private Player owner;
+    private CargoHold cargoHold;
+
     private int fuelAmount;
     private int hullStrength;
-    private int cargoCapacity;
-    
+
     public Ship(Type type, Player owner) {
         this.type = type;
         this.fuelAmount = type.fuelCapacity;
         this.hullStrength = type.hullStrength;
-        this.cargoCapacity = type.cargoCapacity;
-        
+        this.cargoHold = new CargoHold(type.cargoCapacity);
+
         this.owner = owner;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public CargoHold getCargoHold() {
+        return cargoHold;
+    }
+
+    public int getFuelAmount() {
+        return fuelAmount;
+    }
+
+    public int getHullStrength() {
+        return hullStrength;
     }
 }

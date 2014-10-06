@@ -36,54 +36,54 @@
       <Label text="Engineer:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Label text="Investor:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <Label text="Skill Points Remaining:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-      <Button fx:id="pilotIncreaseButton" mnemonicParsing="false" onMouseClicked="#pilotIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets left="30.0" />
-         </GridPane.margin>
-      </Button>
-      <Button fx:id="pilotDecreaseButton" mnemonicParsing="false" onMouseClicked="#pilotDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Button fx:id="pilotIncreaseButton" mnemonicParsing="false" onMouseClicked="#pilotIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="fighterIncreaseButton" mnemonicParsing="false" onMouseClicked="#fighterIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+      <Button fx:id="pilotDecreaseButton" mnemonicParsing="false" onMouseClicked="#pilotDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="fighterDecreaseButton" mnemonicParsing="false" onMouseClicked="#fighterDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      <Button fx:id="fighterIncreaseButton" mnemonicParsing="false" onMouseClicked="#fighterIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="traderIncreaseButton" mnemonicParsing="false" onMouseClicked="#traderIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+      <Button fx:id="fighterDecreaseButton" mnemonicParsing="false" onMouseClicked="#fighterDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="traderDecreaseButton" mnemonicParsing="false" onMouseClicked="#traderDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+      <Button fx:id="traderIncreaseButton" mnemonicParsing="false" onMouseClicked="#traderIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="engineerIncreaseButton" mnemonicParsing="false" onMouseClicked="#engineerIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+      <Button fx:id="traderDecreaseButton" mnemonicParsing="false" onMouseClicked="#traderDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="engineerDecreaseButton" mnemonicParsing="false" onMouseClicked="#engineerDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+      <Button fx:id="engineerIncreaseButton" mnemonicParsing="false" onMouseClicked="#engineerIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets right="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="investorIncreaseButton" mnemonicParsing="false" onMouseClicked="#investorIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+      <Button fx:id="engineerDecreaseButton" mnemonicParsing="false" onMouseClicked="#engineerDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="investorDecreaseButton" mnemonicParsing="false" onMouseClicked="#investorDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+      <Button fx:id="investorIncreaseButton" mnemonicParsing="false" onMouseClicked="#investorIncrease" text="+" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets right="30.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="investorDecreaseButton" mnemonicParsing="false" onMouseClicked="#investorDecrease" text="-" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="30.0" />
          </GridPane.margin>
       </Button>
       <Label fx:id="pilotSkillPoints" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />

@@ -24,9 +24,8 @@ public class Player extends CrewMember {
         name = playerName;
         
         //starting goods/equipment, can be changed
-        ship = new Ship(ShipType.Gnat);
+        ship = new Ship(Ship.Type.Gnat, this);
         credits = 10000;
-        
         
         SolarSystem currentSystem = Universe.solarSystems[(int) (Math.random()
                 * Universe.solarSystems.length)];
@@ -57,7 +56,7 @@ public class Player extends CrewMember {
     }
     
     public String shipType() {
-        return ship.type.toString().toLowerCase();
+        return ship.getType().toString().toLowerCase();
     }
     
     public void spend(int amount) {
