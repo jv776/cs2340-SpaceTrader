@@ -304,6 +304,26 @@ public class Universe {
             }
         }
     }
+    /*
+     * http://en.wikipedia.org/wiki/Van_der_Corput_sequence
+     * 
+     * Compute the nth term in the Van der Corput sequence, which happens
+     * to look pseudo-random and be non-repeating. The numbers from the
+     * sequence can then be used to give solar systems unique and reasonably
+     * distributed locations throughout the universe.
+     */
+    private double vanDerCorput(int n) {
+        double result = 0;
+        int denominator = 2;
+        
+        while (n > 0) {
+            result += n % 2.0 / (denominator);
+            denominator *= 2;
+            n /= 2;
+        }
+        
+        return result;
+    }
     
     public final int MAX_X = 600;
     public final int MAX_Y = 400;
@@ -317,17 +337,13 @@ public class Universe {
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
             TechLevel tech = randomTechLevel();
             
-            solarSystems[i] = new SolarSystem(SOLAR_SYSTEM_NAMES[i],
-                r.nextInt(MAX_X),
-                r.nextInt(MAX_Y),
-                tech,
-                randomGovernment(tech)
+            solarSystems[i] = new SolarSystem(
+                    SOLAR_SYSTEM_NAMES[i],
+                    (int) (vanDerCorput(i) * MAX_X),
+                    (int) (vanDerCorput((int) (vanDerCorput(i) * MAX_X)) * MAX_Y),
+                    tech,
+                    randomGovernment(tech)
             );
-        }
-
-        // DELETE AFTER DEBUGGING
-        for (SolarSystem s : solarSystems) {
-            System.out.println(s);
         }
     }
 }

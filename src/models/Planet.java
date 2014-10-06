@@ -154,22 +154,37 @@ public class Planet {
         return resource.toString().toLowerCase().replace('_', ' ');
     }
     
+    /**
+     * @return The most abundant resource on the planet
+     */
     public Resource getResource() {
         return resource;
     }
     
+    /**
+     * @return The solar system in which the planet is located
+     */
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
     
+    /**
+     * @return The name of the planet
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * @return Whether or not the planet naturally supports life
+     */
     public boolean supportsLife() {
         return supportsLife;
     }
     
+    /**
+     * @return The marketplace located on the planet
+     */
     public Marketplace getMarket() {
         return market;
     }
