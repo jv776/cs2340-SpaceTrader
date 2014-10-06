@@ -6,10 +6,9 @@
 
 package controllers;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.lang.reflect.InvocationTargetException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -41,8 +40,7 @@ public class GameController extends StackPane {
     }
     
     public boolean setScreen(String screenName) {
-        try { 
-            
+        try {
             String resource = "/views/" + screenName + ".fxml";
             System.out.println(resource);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
@@ -89,11 +87,12 @@ public class GameController extends StackPane {
                 fadeIn.play(); 
             } 
             return true; 
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | NoSuchMethodException |
+                SecurityException | InstantiationException |
+                IllegalAccessException | IllegalArgumentException |
+                InvocationTargetException | IOException e) {
             e.printStackTrace();
             return false; 
         }
-        
-        
     }
 }

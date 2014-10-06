@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 /**
  * Main class for FXProject. Initializes various screens
  * and starts the game.
+ * 
  * @author Alex
  */
 public class SpaceTraderMain extends Application {

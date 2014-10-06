@@ -136,7 +136,6 @@ public class CustomizationController extends GameController implements Initializ
         for (SolarSystem s : universe.solarSystems) {
             for (Planet p : s.planets) {
                 if (p.supportsLife()) {
-                    gameData.setSolarSystem(s);
                     gameData.setPlanet(p);
                     break;
                 }
@@ -146,7 +145,8 @@ public class CustomizationController extends GameController implements Initializ
             }
         }
         
-        control.setScreen("Market");
+        //control.setScreen("Market");
+        control.setScreen("UniverseMap");
     }
     
     /**

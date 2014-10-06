@@ -30,7 +30,17 @@ public class Ship {
         //gadgets = new Gadget[type.gadgetSlots];
     }
     
+    /**
+     * @return The ship's cargo holds
+     */
     public CargoHold getCargoHold() {
         return cargoHold;
+    }
+    
+    /**
+     * @return The amount of fuel currently in the ship
+     */
+    public int getCurrentFuel() {
+        return currentFuel;
     }
 }

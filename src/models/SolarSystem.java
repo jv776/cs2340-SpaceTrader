@@ -116,4 +116,8 @@ public class SolarSystem {
     public String getName() {
         return name;
     }
+    
+    public Star getSun() {
+        return sun;
+    }
 }

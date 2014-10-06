@@ -44,26 +44,57 @@ public class Player extends CrewMember {
                 + currentPlanet.name;
     }
     
+    /**
+     * @return The player's ship
+     */
     public Ship getShip() {
         return ship;
     }
     
+    /**
+     * @return The planet on which the player is currently located
+     */
     public Planet getCurrentPlanet() {
         return currentPlanet;
     }
     
+    /**
+     * @return The number of credits currently possessed by the player
+     */
     public int getCredits() {
         return credits;
     }
     
+    /**
+     * Set the location of the player to a different planet.
+     * 
+     * @param planet The player's new location
+     */
+    public void setCurrentPlanet(Planet planet) {
+        currentPlanet = planet;
+    }
+    
+    /**
+     * @return A string representation of the type of ship owned by the player
+     */
     public String shipType() {
         return ship.type.toString().toLowerCase();
     }
     
+    /**
+     * Spend a certain amount of money.
+     * 
+     * @param amount How much money to spend
+     */
     public void spend(int amount) {
         credits -= amount;
     }
     
+    /**
+     * Earn money.
+     * 
+     * @param amount The amount the player has earned
+     */
     public void earn(int amount) {
         credits += amount;
     }
