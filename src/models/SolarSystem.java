@@ -6,6 +6,8 @@
 
 package models;
 
+import java.util.Random;
+
 /**
  *
  * @author Alex
@@ -16,14 +18,17 @@ public class SolarSystem {
     private final int y;
     private final TechLevel tech;
     private final PoliticalSystem government;
+    private final int size;
     private final Star sun;
-    public final Planet[] planets;
+    private final Planet[] planets;
     
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel, 
-            PoliticalSystem governmentType) {
+            PoliticalSystem governmentType, int size) {
         this.name = name;
         x = xLoc;
         y = yLoc;
+        Random random = new Random();
+        this.size = size;
         tech = techLevel;
         government = governmentType;
         sun = new Star(""); //add name
@@ -62,7 +67,7 @@ public class SolarSystem {
         return temp;
     }
     
-    TechLevel getTechLevel() {
+    public TechLevel getTechLevel() {
         return tech;
     }
     
@@ -76,5 +81,13 @@ public class SolarSystem {
     
     public String getName() {
         return name;
+    }
+    
+    public Planet[] getPlanets() {
+        return planets;
+    }
+    
+    public int getSize() {
+        return size;
     }
 }

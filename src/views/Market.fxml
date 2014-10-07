@@ -18,6 +18,7 @@
             <Button fx:id="sellButton" layoutX="79.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handleSellButton" prefWidth="50.0" text="Sell" />
             <Label alignment="BOTTOM_RIGHT" layoutX="14.0" layoutY="336.0" prefHeight="21.0" prefWidth="88.0" text="MOOLAH: " />
             <Label fx:id="moneyLabel" alignment="CENTER_RIGHT" layoutX="105.0" layoutY="336.0" prefHeight="21.0" prefWidth="88.0" text="0" />
+            <Button fx:id="returnButton" layoutY="-1.0" mnemonicParsing="false" onMouseClicked="#returnToSolarSystem" text="Return to SolarSystem" />
          </children>
       </AnchorPane>
       <GridPane fx:id="buyPane" gridLinesVisible="true" layoutX="236.0" layoutY="56.0">

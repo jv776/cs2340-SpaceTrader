@@ -6,7 +6,7 @@
 
 package models;
 
-import java.util.function.Function;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -314,15 +314,31 @@ public class Universe {
     public Universe() {
         solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];
         Random r = new Random();
+        int sizeOfGrid = 40;
+        
+        ArrayList<Integer> list = new ArrayList<Integer>(150);
+        for(int i = 1; i <= 150; i++) {
+            list.add(i);
+        }
         
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
             TechLevel tech = randomTechLevel();
             
+            int grid = list.remove(r.nextInt(list.size()));
+            int x = (grid % (600 / sizeOfGrid)) * sizeOfGrid;
+            int y = (grid / (600 / sizeOfGrid)) * sizeOfGrid;
+            
+            int sizeOfPlanet = r.nextInt(11) + 10;
+            
+            x += r.nextInt(sizeOfGrid - sizeOfPlanet);
+            y += r.nextInt(sizeOfGrid - sizeOfPlanet);
+            
             solarSystems[i] = new SolarSystem(SOLAR_SYSTEM_NAMES[i],
-                r.nextInt(MAX_X),
-                r.nextInt(MAX_Y),
+                x,
+                y,
                 tech,
-                randomGovernment(tech)
+                randomGovernment(tech),
+                sizeOfPlanet
             );
         }
 

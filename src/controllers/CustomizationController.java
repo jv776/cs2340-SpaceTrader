@@ -139,7 +139,7 @@ public class CustomizationController extends GameController implements Initializ
         gameData.setPlayer(player);
         gameData.setUniverse(universe);
         for (SolarSystem s : universe.solarSystems) {
-            for (Planet p : s.planets) {
+            for (Planet p : s.getPlanets()) {
                 if (p.supportsLife()) {
                     gameData.setSolarSystem(s);
                     gameData.setPlanet(p);
@@ -157,7 +157,7 @@ public class CustomizationController extends GameController implements Initializ
         
         gameData.setCargoHold(cargo);
         gameData.setShip(Ship.Flea);
-        control.setScreen("Market");
+        control.setScreen("UniverseMap");
     }
     
     /**

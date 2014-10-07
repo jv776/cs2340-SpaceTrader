@@ -14,7 +14,11 @@ public class Planet {
     private final SolarSystem solarSystem;
     private final String name;
     private final Resource resource;
-    private final int distance; //Representing radial distance from the sun in kmE6
+    private double x;
+    private double y;
+    private final double distance; //Representing radial distance from the sun in kmE6
+    private double radians; // Total radians as a measurement of orbit location
+    private final double speed; // Radians per second
     //private final int radius; //Radius of the planet in km
     //private final TechLevel tech;
     //private final Resource resource;
@@ -31,7 +35,7 @@ public class Planet {
 
     private boolean colonized;
 
-    public Planet(SolarSystem s, String name, int distance, int sunTemperature){
+    public Planet(SolarSystem s, String name, double distance, int sunTemperature){
         Random rand = new Random();
         this.solarSystem = s;
         this.name = name;
@@ -47,7 +51,10 @@ public class Planet {
         temperature = generateTemperature(sunTemperature);
         water = generateWater();
         supportsLife = generateLife();
-
+        radians = Math.random() * 2.0 * Math.PI;
+        speed = Math.random() / 1000000.0;
+        x = distance * Math.cos(radians);
+        y = distance * Math.sin(radians);
     }
 
 
@@ -99,6 +106,24 @@ public class Planet {
     
     public boolean supportsLife() {
         return supportsLife;
+    }
+    
+    public double getDistance() {
+        return distance;
+    }
+    
+    public double getX() {
+        return x;
+    }
+    
+    public double getY() {
+        return y;
+    }
+    
+    public void calcLocation(double ms) {
+        radians = ms / 1000.0 * speed;
+        x = Math.cos(radians) * distance;
+        y = Math.sin(radians) * distance;
     }
 
     /*

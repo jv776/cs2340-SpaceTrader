@@ -27,7 +27,7 @@ public class MarketController extends GameController implements Initializable {
     public GridPane buyPane;
     public GridPane sellPane;
     
-    public Button buyButton, sellButton;
+    public Button buyButton, sellButton, returnButton;
     
     public Label marketNameLabel;
     public Label moneyLabel;
@@ -63,6 +63,7 @@ public class MarketController extends GameController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        returnButton.setText("Return to " + gameData.getSolarSystem().getName());
         buyList = new ArrayList();
         sellList = new ArrayList();
         cargo = gameData.getCargoHold();
@@ -123,6 +124,11 @@ public class MarketController extends GameController implements Initializable {
         sellPane.setVisible(true);
         buyButton.setDisable(false);
         sellButton.setDisable(true);
+    }
+    
+    public void returnToSolarSystem() {
+        gameData.setPlanet(null);
+        control.setScreen("SolarSystemMap");
     }
     
     public void buyGood1() { buyGood(buyList.get(0), buyValue1, buyQuantity1); }
@@ -259,23 +265,5 @@ public class MarketController extends GameController implements Initializable {
     
     private void updateMoney() {
         moneyLabel.setText("" + gameData.getPlayer().getMoney());
-    }
-    
-    class CargoItem {
-        private TradeGood good;
-        private int quantity;
-        
-        public CargoItem(TradeGood tg, int q) {
-            good = tg;
-            quantity = q;
-        }
-        
-        public TradeGood getTradeGood() {
-            return good;
-        }
-        
-        public int getQuantity() {
-            return quantity;
-        }
     }
 }
