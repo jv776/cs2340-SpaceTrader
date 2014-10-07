@@ -176,6 +176,13 @@ public class Planet {
     }
     
     /**
+     * @return The distance between the planet and its sun
+     */
+    public int getDistance() {
+        return distance;
+    }
+    
+    /**
      * @return Whether or not the planet naturally supports life
      */
     public boolean supportsLife() {

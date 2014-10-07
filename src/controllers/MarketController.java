@@ -294,7 +294,7 @@ public class MarketController extends GameController implements Initializable {
         this.sellValues = sellValues;
         
         for (int i = 0; i < sellValues.length; i++) {
-            int price = market.getResalePrice(TradeGood.values()[i]);
+            int price = market.getSalePrice(TradeGood.values()[i]);
             sellValues[i].setText(Integer.toString(price));
         }
         

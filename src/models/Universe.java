@@ -333,14 +333,17 @@ public class Universe {
     public Universe() {
         solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];
         Random r = new Random();
+        int offset = r.nextInt();
         
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
             TechLevel tech = randomTechLevel();
+            int x = (int) (vanDerCorput(Math.abs(i + offset)) * MAX_X);
+            int y = (int) (vanDerCorput(Math.abs(x + offset)) * MAX_Y);
             
             solarSystems[i] = new SolarSystem(
                     SOLAR_SYSTEM_NAMES[i],
-                    (int) (vanDerCorput(i) * MAX_X),
-                    (int) (vanDerCorput((int) (vanDerCorput(i) * MAX_X)) * MAX_Y),
+                    x,
+                    y,
                     tech,
                     randomGovernment(tech)
             );

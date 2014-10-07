@@ -63,16 +63,19 @@ public enum GameData {
      * @return The solar system in which the player is located
      */
     public SolarSystem getSolarSystem() {
-        return player.getCurrentPlanet().getSolarSystem();
+        //return player.getCurrentPlanet().getSolarSystem();
+        return player.getCurrentSystem();
     }
     
-    //Do we really need a setSolarSystem method? Since every planet has a
-    //solar system, setting the planet implicitly sets the solar system.
-    /*
+
+    /**
+     * Specify the solar system in which the player should be located.
+     * 
+     * @param s The solar system where the player will be located
+     */
     public void setSolarSystem(SolarSystem s){
-        solarSystem = s;
+        player.setCurrentSystem(s);
     }
-    */
     
     /**
      * @return The planet the player is currently on

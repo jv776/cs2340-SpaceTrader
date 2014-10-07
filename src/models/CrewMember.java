@@ -19,7 +19,8 @@ public abstract class CrewMember {
     protected int engineerSkillPoints;
     protected int investorSkillPoints;
 
-    public CrewMember(int pilotSP, int fighterSP, int traderSP, int engineerSP, int investorSP) {
+    public CrewMember(int pilotSP, int fighterSP, int traderSP, int engineerSP,
+            int investorSP) {
         pilotSkillPoints = pilotSP;
         fighterSkillPoints = fighterSP;
         traderSkillPoints = traderSP;

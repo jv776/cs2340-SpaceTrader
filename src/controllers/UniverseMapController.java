@@ -15,6 +15,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import models.Planet;
 import models.SolarSystem;
 
 /**
@@ -24,6 +25,7 @@ import models.SolarSystem;
 public class UniverseMapController extends GameController implements Initializable {
     
     public Canvas canvas;
+    private boolean inSolarSystem;
     
     //linear interpolation
     private double lerp(double x, double x0, double y0, double x1, double y1) {
@@ -73,7 +75,11 @@ public class UniverseMapController extends GameController implements Initializab
         return new Color(r/255, g/255, b/255, 1.0);
     }
     
-    private void drawSolarSystems() {
+    private int kmE6ToPixels(int dist) {
+        return (int) (dist / 2.5);
+    }
+    
+    private void drawCanvas() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.BLACK);
         gc.fillRect(0,0,600,400);
@@ -81,30 +87,50 @@ public class UniverseMapController extends GameController implements Initializab
         
         SolarSystem currentSystem = gameData.getSolarSystem();
         
-        gc.setFill(Color.GREENYELLOW);
-        gc.fillOval(currentSystem.getX(), currentSystem.getY(), 8, 8);
-        
-        for (SolarSystem s : gameData.getUniverse().solarSystems) {
-            if (s != currentSystem && distance(gameData.getSolarSystem(), s)
-                        < gameData.getShip().getFuelAmount()) {
-                gc.setFill(computeStarColor(s));
-                gc.fillOval(s.getX(), s.getY(), 5, 5);
-            } else if (s != currentSystem) {
-                gc.setFill(Color.GRAY);
-                gc.fillOval(s.getX(), s.getY(), 5, 5);
+        if (inSolarSystem) {
+            int x = 300;
+            int y = 200;
+            
+            gc.setFill(computeStarColor(currentSystem));
+            gc.fillOval(x, y, 20, 20);
+            
+            for (Planet p : currentSystem.planets) {
+                double theta = Math.random() * 2 * Math.PI;
+                int radius = kmE6ToPixels(p.getDistance());
+                System.out.println("" + radius);
+                
+                gc.setFill(Color.DIMGRAY); //right now every planet looks like a wasteland
+                gc.fillOval(x + Math.cos(theta) * radius, y + Math.sin(theta) * radius,
+                        8, 8);
+            }
+        } else {
+            gc.setFill(Color.GREENYELLOW);
+            gc.fillOval(currentSystem.getX(), currentSystem.getY(), 8, 8);
+
+            for (SolarSystem s : gameData.getUniverse().solarSystems) {
+                if (s != currentSystem && distance(gameData.getSolarSystem(), s)
+                            < gameData.getShip().getFuelAmount()) {
+                    gc.setFill(computeStarColor(s));
+                    gc.fillOval(s.getX(), s.getY(), 5, 5);
+                } else if (s != currentSystem) {
+                    gc.setFill(Color.GRAY);
+                    gc.fillOval(s.getX(), s.getY(), 5, 5);
+                }
             }
         }
     }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        inSolarSystem = false;
+        
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 handleClick(e.getX(), e.getY());
             }
         });
         
-        drawSolarSystems();
+        drawCanvas();
     }
 
     //convert a distance in pixels to a distance in light years
@@ -121,20 +147,33 @@ public class UniverseMapController extends GameController implements Initializab
     }
     
     private void handleClick(double x, double y) {
-        //very inefficient collision test (could be optimized)
-        for (SolarSystem s : gameData.getUniverse().solarSystems) {
-            if ((Math.abs(s.getX() - x) <= 5) && (Math.abs(s.getY() - y) <= 5)) {
-                System.out.println("You clicked on: " + s.getName());
-                
-                if (distance(gameData.getSolarSystem(), s)
-                        < gameData.getShip().getFuelAmount()) {
-                    gameData.setPlanet(s.planets[0]);
-                    drawSolarSystems();
-                    break;
-                } else {
-                    System.out.println("Too far away");
+        if (inSolarSystem) {
+            for (Planet p : gameData.getSolarSystem().planets) {
+                //if ((Math.abs(s.getX() - x) <= 5) && (Math.abs(s.getY() - y) <= 5)) {
+                    
+                //}
+            }
+        } else {
+            //very inefficient collision test (could be optimized)
+            for (SolarSystem s : gameData.getUniverse().solarSystems) {
+                if ((Math.abs(s.getX() - x) <= 5) && (Math.abs(s.getY() - y) <= 5)) {
+                    System.out.println("You clicked on: " + s.getName());
+
+                    if (distance(gameData.getSolarSystem(), s)
+                            < gameData.getShip().getFuelAmount()) {
+                        //gameData.setPlanet(s.planets[0]);
+                        gameData.setSolarSystem(s);
+                        inSolarSystem = true;
+                        drawCanvas();
+                        break;
+                    } else {
+                        System.out.println("Too far away");
+                    }
                 }
             }
         }
+        
+        
+        
     }
 }

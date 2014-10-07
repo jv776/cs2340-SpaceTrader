@@ -18,21 +18,24 @@ public class Marketplace {
     private final Planet location;
     private HashMap<TradeGood, Integer> productSupply;
     private HashMap<TradeGood, Integer> prices;
-    private HashMap<TradeGood, Integer> basket; //keeps track of quantities of goods marked for purchase
-    private int transactionValue;
+    //private HashMap<TradeGood, Integer> basket; //keeps track of quantities of goods marked for purchase
+    //private int transactionValue;
     
     public Marketplace(Planet marketLocation) {
         location = marketLocation;
         productSupply = generateSupplies();
         prices = generatePrices();
-        basket = new HashMap<>();
-        transactionValue = 0;
+        //basket = new HashMap<>();
+        //transactionValue = 0;
         
+        /*
         for (TradeGood good : TradeGood.values()) {
             basket.put(good, 0);
         }
+        */
     }
     
+    //Determine the number of goods available on a planet
     private HashMap<TradeGood, Integer> generateSupplies() {
         HashMap<TradeGood, Integer> goods = new HashMap<>();
         
@@ -54,6 +57,7 @@ public class Marketplace {
         return goods;
     }
     
+    //Determine the price of each good
     private HashMap<TradeGood, Integer> generatePrices() {
         HashMap<TradeGood, Integer> priceMap = new HashMap<>();
         
@@ -98,14 +102,32 @@ public class Marketplace {
         return priceMap;
     }
     
+    /**
+     * Find the price of a specific good.
+     * 
+     * @param good The good being checked for its price
+     * @return The price of the specified trade good
+     */
     public int getPrice(TradeGood good) {
         return prices.get(good);
     }
     
-    public int getResalePrice(TradeGood good) {
+    /**
+     * Find the sale price of a specific good.
+     * 
+     * @param good The good being checked for its sale price
+     * @return The price for this good when sold in this market
+     */
+    public int getSalePrice(TradeGood good) {
         return (int) (0.7 * prices.get(good));
     }
     
+    /**
+     * Find the supply of particular trade good.
+     * 
+     * @param good The good being checked for its supply
+     * @return The quantity of the good available in this market
+     */
     public int getSupply(TradeGood good) {
         return productSupply.get(good);
     }
@@ -141,7 +163,7 @@ public class Marketplace {
         Player p = GameData.DATA.getPlayer();
         
         if (p.getShip().getCargoHold().getQuantity(good) > 0) {
-            p.earn(getResalePrice(good));
+            p.earn(getSalePrice(good));
             productSupply.put(good, getSupply(good) + 1);
             p.getShip().getCargoHold().removeItem(good);
             return true;

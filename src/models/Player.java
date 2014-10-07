@@ -14,7 +14,7 @@ package models;
 public class Player extends CrewMember {
     public final String name;
     private Ship ship;
-    //private SolarSystem currentSystem;
+    private SolarSystem currentSystem;
     private Planet currentPlanet;
     private int credits;
     
@@ -28,7 +28,7 @@ public class Player extends CrewMember {
         credits = 10000;
         
         
-        SolarSystem currentSystem = Universe.solarSystems[(int) (Math.random()
+        currentSystem = Universe.solarSystems[(int) (Math.random()
                 * Universe.solarSystems.length)];
         currentPlanet = currentSystem.planets[(int) (Math.random()
                 * currentSystem.planets.length)];
@@ -59,6 +59,13 @@ public class Player extends CrewMember {
     }
     
     /**
+     * @return The solar system in which the player is currently located
+     */
+    public SolarSystem getCurrentSystem() {
+        return currentSystem;
+    }
+    
+    /**
      * @return The number of credits currently possessed by the player
      */
     public int getCredits() {
@@ -72,6 +79,18 @@ public class Player extends CrewMember {
      */
     public void setCurrentPlanet(Planet planet) {
         currentPlanet = planet;
+        currentSystem = planet.solarSystem;
+    }
+    
+    /**
+     * Sets the solar system in which the player is located. Be sure
+     * to change the planet the player is located on as well (so that they
+     * aren't on a planet in a different system).
+     * 
+     * @param system 
+     */
+    public void setCurrentSystem(SolarSystem system) {
+        currentSystem = system;
     }
     
     /**
