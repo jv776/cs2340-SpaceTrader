@@ -19,10 +19,8 @@ import javafx.stage.Stage;
  * @author Alex
  */
 public class SpaceTraderMain extends Application {
-   
      @Override 
      public void start(Stage primaryStage) {       
-         
         GameController mainContainer = new GameController();
                
         mainContainer.setScreen("Welcome");
@@ -40,5 +38,5 @@ public class SpaceTraderMain extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
 }
+
