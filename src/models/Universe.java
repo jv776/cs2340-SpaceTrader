@@ -6,7 +6,6 @@
 
 package models;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -305,46 +304,49 @@ public class Universe {
             }
         }
     }
+    /*
+     * http://en.wikipedia.org/wiki/Van_der_Corput_sequence
+     * 
+     * Compute the nth term in the Van der Corput sequence, which happens
+     * to look pseudo-random and be non-repeating. The numbers from the
+     * sequence can then be used to give solar systems unique and reasonably
+     * distributed locations throughout the universe.
+     */
+    private double vanDerCorput(int n) {
+        double result = 0;
+        int denominator = 2;
+        
+        while (n > 0) {
+            result += n % 2.0 / (denominator);
+            denominator *= 2;
+            n /= 2;
+        }
+        
+        return result;
+    }
     
-    public final int MAX_X = 600;
-    public final int MAX_Y = 400;
+    public final int MAX_X = 590;
+    public final int MAX_Y = 390;
     
-    public SolarSystem[] solarSystems;
+    public static SolarSystem[] solarSystems;
     
     public Universe() {
         solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];
         Random r = new Random();
-        int sizeOfGrid = 40;
-        
-        ArrayList<Integer> list = new ArrayList<Integer>(150);
-        for(int i = 1; i <= 150; i++) {
-            list.add(i);
-        }
+        int offset = r.nextInt();
         
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
             TechLevel tech = randomTechLevel();
+            int x = (int) (vanDerCorput(Math.abs(i + offset)) * MAX_X);
+            int y = (int) (vanDerCorput(Math.abs(x + offset)) * MAX_Y);
             
-            int grid = list.remove(r.nextInt(list.size()));
-            int x = (grid % (600 / sizeOfGrid)) * sizeOfGrid;
-            int y = (grid / (600 / sizeOfGrid)) * sizeOfGrid;
-            
-            int sizeOfPlanet = r.nextInt(11) + 10;
-            
-            x += r.nextInt(sizeOfGrid - sizeOfPlanet);
-            y += r.nextInt(sizeOfGrid - sizeOfPlanet);
-            
-            solarSystems[i] = new SolarSystem(SOLAR_SYSTEM_NAMES[i],
-                x,
-                y,
-                tech,
-                randomGovernment(tech),
-                sizeOfPlanet
+            solarSystems[i] = new SolarSystem(
+                    SOLAR_SYSTEM_NAMES[i],
+                    x,
+                    y,
+                    tech,
+                    randomGovernment(tech)
             );
-        }
-
-        // DELETE AFTER DEBUGGING
-        for (SolarSystem s : solarSystems) {
-            System.out.println(s);
         }
     }
 }

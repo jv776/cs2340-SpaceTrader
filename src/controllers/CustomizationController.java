@@ -7,18 +7,14 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import models.CargoHold;
 import models.Planet;
 import models.Player;
-import models.Ship;
 import models.SolarSystem;
-import models.TradeGood;
 import models.Universe;
 
 /**
@@ -46,14 +42,11 @@ public class CustomizationController extends GameController implements Initializ
         skillPoints = SKILL_POINT_MAX;
         skillPointsRemaining.setText("" + skillPoints);
         continueButton.setDisable(true);
-        nameField.addEventFilter(KeyEvent.KEY_TYPED,
-                new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent event) {
-                        if (nameField.getText().length() >= 30) {
-                            event.consume();
-                        }
-                    }
-                });
+        nameField.addEventFilter(KeyEvent.KEY_TYPED, (KeyEvent event) -> {
+            if (nameField.getText().length() >= 30) {
+                event.consume();
+            }
+        });
     }    
     
     /**
@@ -127,21 +120,22 @@ public class CustomizationController extends GameController implements Initializ
      * a name to their character.
      */
     public void handleContinue() {
+        Universe universe = new Universe();
+        
         Player player = new Player(nameField.getText(),
             Integer.parseInt(pilotSkillPoints.getText()),
             Integer.parseInt(fighterSkillPoints.getText()),
             Integer.parseInt(traderSkillPoints.getText()),
             Integer.parseInt(engineerSkillPoints.getText()),
-            Integer.parseInt(investorSkillPoints.getText()));
-        
-        Universe universe = new Universe();
+            Integer.parseInt(investorSkillPoints.getText())
+        );
         
         gameData.setPlayer(player);
         gameData.setUniverse(universe);
+        
         for (SolarSystem s : universe.solarSystems) {
-            for (Planet p : s.getPlanets()) {
+            for (Planet p : s.planets) {
                 if (p.supportsLife()) {
-                    gameData.setSolarSystem(s);
                     gameData.setPlanet(p);
                     break;
                 }
@@ -150,13 +144,8 @@ public class CustomizationController extends GameController implements Initializ
                 break;
             }
         }
-        CargoHold cargo = new CargoHold();
         
-        cargo.addItemQuantity(TradeGood.WATER, 3365);
-        cargo.addItemQuantity(TradeGood.ROBOTS, 14005);
-        
-        gameData.setCargoHold(cargo);
-        gameData.setShip(Ship.Flea);
+        //control.setScreen("Market");
         control.setScreen("UniverseMap");
     }
     

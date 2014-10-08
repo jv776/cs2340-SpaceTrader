@@ -4,24 +4,23 @@
  * and open the template in the editor.
  */
 package models;
+
+import java.util.Optional;
 import java.util.Random;
 
 /**
- *
- * @author Alex
+ * Models various aspects of a Planet (currently its atmosphere, natural
+ * resources, and trading market).
+ * 
+ * @author Alex, John
  */
 public class Planet {
-    private final SolarSystem solarSystem;
-    private final String name;
-    private final Resource resource;
-    private double x;
-    private double y;
-    private final double distance; //Representing radial distance from the sun in kmE6
-    private double radians; // Total radians as a measurement of orbit location
-    private final double speed; // Radians per second
-    //private final int radius; //Radius of the planet in km
-    //private final TechLevel tech;
-    //private final Resource resource;
+    final SolarSystem solarSystem;
+    final String name;
+    final Resource resource;
+    
+    private final int distance; //Representing radial distance from the sun in kmE6
+    private final int radius; //Radius of the planet in km * 10^3
     private final boolean nitrogen; //N, O, C, and H dont really need to be instance variable
     private final boolean oxygen;
     private final boolean carbon;
@@ -34,13 +33,19 @@ public class Planet {
     private final boolean supportsLife; //Whether a planet can support native life
 
     private boolean colonized;
+    
+    private Marketplace market;
+    private Optional<PriceEvent> currentEvent;
 
-    public Planet(SolarSystem s, String name, double distance, int sunTemperature){
+    public Planet(SolarSystem s, String name, int distance, int sunTemperature){
         Random rand = new Random();
+        
         this.solarSystem = s;
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
+        radius = (int)(3 + Math.random() * 15 + Math.pow(Math.random(), 3) * 80);
+        
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
         oxygen = (Math.random() < 0.85);
@@ -51,19 +56,25 @@ public class Planet {
         temperature = generateTemperature(sunTemperature);
         water = generateWater();
         supportsLife = generateLife();
-        radians = Math.random() * 2.0 * Math.PI;
-        speed = Math.random() / 1000000.0;
-        x = distance * Math.cos(radians);
-        y = distance * Math.sin(radians);
+        
+        currentEvent = Optional.empty();
+        market = new Marketplace(this);
     }
-
-
 
     private int generateAtmosphere(){
         double atm = 0;
-        if (nitrogen){ atm += 15;}
-        if (carbon){ atm += 7;}
-        if (oxygen){ atm += 5;}
+        
+        if (nitrogen) {
+            atm += 15;
+        }
+        
+        if (carbon) {
+            atm += 7;
+        }
+        
+        if (oxygen) {
+            atm += 5;
+        }
         return (int)(atm - atm * (.50*(Math.random())));
     }
 
@@ -85,45 +96,112 @@ public class Planet {
         }
     }
 
+    @Override
     public String toString(){
-        return "Dist: " + distance + "kmE6 | Resource: " + resource + " | Atm: "+ atmosphere + "% | Temp: " +
-                (temperature - 273) + "C | M: "+ metals + " | N: "+ nitrogen +
-                " | C: "+ carbon +" | O: "+ oxygen +" | W: "+ water +" | H: "+
-                hydrogen + " | Life: "+ supportsLife;
+        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: " +
+                (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen +
+                " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+
+                hydrogen + " \tLife: "+ supportsLife + " \tResources: "
+                + resource;
+    }
+
+    /**
+     * Get the event (if any) currently happening on the planet.
+     * 
+     * @return The current planetary event, if any
+     */
+    Optional<PriceEvent> getCurrentEvent() {
+        return currentEvent;
     }
     
+    /**
+     * Get a description of the current event on the planet.
+     * 
+     * @return The type of event on this planet, if any
+     */
+    public String currentEvent() {
+        if (currentEvent.isPresent()) {
+            return currentEvent.get().toString().toLowerCase();
+        } else {
+            return "No major event";
+        }
+    }
+    
+    /**
+     * Get a string containing the type of government ruling the planet.
+     * 
+     * @return The type of government on the planet
+     */
+    public String governmentType() {
+        return solarSystem.government.toString().toLowerCase().replace('_', ' ');
+    }
+    
+    /**
+     * Get a string containing the level of technology in the planet's
+     * solar system.
+     * 
+     * @return The technology available on the planet
+     */
+    public String technologyLevel() {
+        return solarSystem.tech.toString().toLowerCase().replace('_', ' ');
+    }
+    
+    /**
+     * Get a string containing the special resources on this planet.
+     * 
+     * @return Description of available resources
+     */
+    public String resourceType() {
+        return resource.toString().toLowerCase().replace('_', ' ');
+    }
+    
+    /**
+     * @return The most abundant resource on the planet
+     */
     public Resource getResource() {
         return resource;
     }
     
+    /**
+     * @return The solar system in which the planet is located
+     */
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
     
+    /**
+     * @return The name of the planet
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * @return The distance between the planet and its sun
+     */
+    public int getDistance() {
+        return distance;
+    }
+    
+    /**
+     * @return The radius of the planet in thousands of kilometers
+     */
+    public int getRadius() {
+        return radius;
+    }
+    
+    /**
+     * @return Whether or not the planet naturally supports life
+     */
     public boolean supportsLife() {
         return supportsLife;
     }
     
-    public double getDistance() {
-        return distance;
-    }
-    
-    public double getX() {
-        return x;
-    }
-    
-    public double getY() {
-        return y;
-    }
-    
-    public void calcLocation(double ms) {
-        radians = ms / 1000.0 * speed;
-        x = Math.cos(radians) * distance;
-        y = Math.sin(radians) * distance;
+    /**
+     * @return The marketplace located on the planet
+     */
+    public Marketplace getMarket() {
+        return market;
     }
 
     /*
@@ -132,7 +210,7 @@ public class Planet {
      */
     private static Resource randomResource() {
         double r = Math.random();
-
+        
         if (0.0 <= r && r < 0.3) {
             return Resource.NO_SPECIAL_RESOURCES; //30% chance
         } else if (0.3 <= r && r < 0.35) {

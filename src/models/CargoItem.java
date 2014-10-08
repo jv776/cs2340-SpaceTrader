@@ -15,5 +15,6 @@ public interface CargoItem {
      * Get the item's name.
      * @return The item's name.
      */
-    abstract String getItemName();
+    public String getItemName();
 }
+

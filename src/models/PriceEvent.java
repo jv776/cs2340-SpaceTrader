@@ -6,7 +6,6 @@
 package models;
 
 /**
- *
  * @author John Varela
  */
 public enum PriceEvent {
@@ -16,5 +15,5 @@ public enum PriceEvent {
     WAR,
     PLAGUE,
     LACK_OF_WORKERS,
-    BOREDOM
+    BOREDOM;
 }

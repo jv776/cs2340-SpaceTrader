@@ -29,7 +29,7 @@ public class Market {
     public TradeGood[] getBuyableGoods() {
         ArrayList<TradeGood> list = new ArrayList(Arrays.asList(TradeGood.values()));
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getMinTechLevelBuy().ordinal() 
+            if (list.get(i).minTechLevelBuy.ordinal() 
               > solarSystem.getTechLevel().ordinal()) {
                 list.remove(i);
                 i--;
@@ -41,7 +41,7 @@ public class Market {
     public TradeGood[] getSellableGoods() {
         ArrayList<TradeGood> list = new ArrayList(Arrays.asList(TradeGood.values()));
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getMinTechLevelSell().ordinal() 
+            if (list.get(i).minTechLevelSell.ordinal() 
               > solarSystem.getTechLevel().ordinal()) {
                 list.remove(i);
                 i--;

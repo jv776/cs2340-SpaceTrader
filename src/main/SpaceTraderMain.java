@@ -11,18 +11,16 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.GameData;
 
 /**
  * Main class for FXProject. Initializes various screens
  * and starts the game.
+ * 
  * @author Alex
  */
 public class SpaceTraderMain extends Application {
-   
      @Override 
-     public void start(Stage primaryStage) {       
-         
+     public void start(Stage primaryStage) {
         GameController mainContainer = new GameController();
                
         mainContainer.setScreen("Welcome");
@@ -40,5 +38,5 @@ public class SpaceTraderMain extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
 }
+

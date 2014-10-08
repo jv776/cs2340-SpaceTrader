@@ -16,9 +16,9 @@
          <children>
             <Button fx:id="buyButton" alignment="CENTER" layoutX="79.0" layoutY="137.0" mnemonicParsing="false" onMouseClicked="#handleBuyButton" prefWidth="50.0" text="Buy" />
             <Button fx:id="sellButton" layoutX="79.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handleSellButton" prefWidth="50.0" text="Sell" />
-            <Label alignment="BOTTOM_RIGHT" layoutX="14.0" layoutY="336.0" prefHeight="21.0" prefWidth="88.0" text="MOOLAH: " />
+            <Label alignment="BOTTOM_RIGHT" layoutX="14.0" layoutY="336.0" prefHeight="21.0" prefWidth="88.0" text="Credits:" />
             <Label fx:id="moneyLabel" alignment="CENTER_RIGHT" layoutX="105.0" layoutY="336.0" prefHeight="21.0" prefWidth="88.0" text="0" />
-            <Button fx:id="returnButton" layoutY="-1.0" mnemonicParsing="false" onMouseClicked="#returnToSolarSystem" text="Return to SolarSystem" />
+            <Button fx:id="returnButton" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#returnToUniverse" text="Return to SolarSystem" />
          </children>
       </AnchorPane>
       <GridPane fx:id="buyPane" gridLinesVisible="true" layoutX="236.0" layoutY="56.0">
@@ -53,36 +53,36 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <Button fx:id="buyGood2" mnemonicParsing="false" onMouseClicked="#buyGood2" prefWidth="150.0" GridPane.rowIndex="2" />
-            <Button fx:id="buyGood1" mnemonicParsing="false" onMouseClicked="#buyGood1" prefWidth="150.0" GridPane.rowIndex="1" />
-            <Button fx:id="buyGood3" mnemonicParsing="false" onMouseClicked="#buyGood3" prefWidth="150.0" GridPane.rowIndex="3" />
-            <Button fx:id="buyGood4" mnemonicParsing="false" onMouseClicked="#buyGood4" prefWidth="150.0" GridPane.rowIndex="4" />
-            <Button fx:id="buyGood5" mnemonicParsing="false" onMouseClicked="#buyGood5" prefWidth="150.0" GridPane.rowIndex="5" />
-            <Button fx:id="buyGood6" mnemonicParsing="false" onMouseClicked="#buyGood6" prefWidth="150.0" GridPane.rowIndex="6" />
-            <Button fx:id="buyGood7" mnemonicParsing="false" onMouseClicked="#buyGood7" prefWidth="150.0" GridPane.rowIndex="7" />
-            <Button fx:id="buyGood8" mnemonicParsing="false" onMouseClicked="#buyGood8" prefWidth="150.0" GridPane.rowIndex="8" />
-            <Button fx:id="buyGood9" mnemonicParsing="false" onMouseClicked="#buyGood9" prefWidth="150.0" GridPane.rowIndex="9" />
-            <Button fx:id="buyGood10" mnemonicParsing="false" onMouseClicked="#buyGood10" prefWidth="150.0" GridPane.rowIndex="10" />
-            <Label fx:id="buyValue1" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="buyValue2" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="buyValue3" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="buyValue4" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="buyValue5" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label fx:id="buyValue6" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label fx:id="buyValue7" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="buyValue8" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label fx:id="buyValue9" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label fx:id="buyValue10" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label fx:id="buyQuantity1" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="buyQuantity2" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="buyQuantity3" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="buyQuantity4" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Label fx:id="buyQuantity5" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label fx:id="buyQuantity6" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label fx:id="buyQuantity7" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Label fx:id="buyQuantity8" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Label fx:id="buyQuantity9" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <Label fx:id="buyQuantity10" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <Button fx:id="buyFoodButton" mnemonicParsing="false" onMouseClicked="#buyFood" prefWidth="150.0" text="Food" GridPane.rowIndex="2" />
+            <Button fx:id="buyWaterButton" mnemonicParsing="false" onMouseClicked="#buyWater" prefWidth="150.0" text="Water" GridPane.rowIndex="1" />
+            <Button fx:id="buyFursButton" mnemonicParsing="false" onMouseClicked="#buyFurs" prefWidth="150.0" text="Furs" GridPane.rowIndex="3" />
+            <Button fx:id="buyOreButton" mnemonicParsing="false" onMouseClicked="#buyOre" prefWidth="150.0" text="Ore" GridPane.rowIndex="4" />
+            <Button fx:id="buyGamesButton" mnemonicParsing="false" onMouseClicked="#buyGames" prefWidth="150.0" text="Games" GridPane.rowIndex="5" />
+            <Button fx:id="buyFirearmsButton" mnemonicParsing="false" onMouseClicked="#buyFirearms" prefWidth="150.0" text="Firearms" GridPane.rowIndex="6" />
+            <Button fx:id="buyMedicineButton" mnemonicParsing="false" onMouseClicked="#buyMedicine" prefWidth="150.0" text="Medicine" GridPane.rowIndex="7" />
+            <Button fx:id="buyMachinesButton" mnemonicParsing="false" onMouseClicked="#buyMachines" prefWidth="150.0" text="Machines" GridPane.rowIndex="8" />
+            <Button fx:id="buyNarcoticsButton" mnemonicParsing="false" onMouseClicked="#buyNarcotics" prefWidth="150.0" text="Narcotics" GridPane.rowIndex="9" />
+            <Button fx:id="buyRobotsButton" mnemonicParsing="false" onMouseClicked="#buyRobots" prefWidth="150.0" text="Robots" GridPane.rowIndex="10" />
+            <Label fx:id="buyWaterValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="buyFoodValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="buyFursValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="buyOreValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="buyGamesValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="buyFirearmsValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="buyMedicineValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="buyMachinesValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="buyNarcoticsValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label fx:id="buyRobotsValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="buyWaterQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="buyFoodQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="buyFursQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="buyOreQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label fx:id="buyGamesQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="buyFirearmsQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label fx:id="buyMedicineQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Label fx:id="buyMachinesQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Label fx:id="buyNarcoticsQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <Label fx:id="buyRobotsQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
          </children>
       </GridPane>
       <GridPane fx:id="sellPane" gridLinesVisible="true" layoutX="236.0" layoutY="56.0">
@@ -102,36 +102,36 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="sellGood2" mnemonicParsing="false" onMouseClicked="#sellGood2" prefWidth="150.0" GridPane.rowIndex="2" />
-            <Button fx:id="sellGood1" mnemonicParsing="false" onMouseClicked="#sellGood1" prefWidth="150.0" GridPane.rowIndex="1" />
-            <Button fx:id="sellGood3" mnemonicParsing="false" onMouseClicked="#sellGood3" prefWidth="150.0" GridPane.rowIndex="3" />
-            <Button fx:id="sellGood4" mnemonicParsing="false" onMouseClicked="#sellGood4" prefWidth="150.0" GridPane.rowIndex="4" />
-            <Button fx:id="sellGood5" mnemonicParsing="false" onMouseClicked="#sellGood5" prefWidth="150.0" GridPane.rowIndex="5" />
-            <Button fx:id="sellGood6" mnemonicParsing="false" onMouseClicked="#sellGood6" prefWidth="150.0" GridPane.rowIndex="6" />
-            <Button fx:id="sellGood7" mnemonicParsing="false" onMouseClicked="#sellGood7" prefWidth="150.0" GridPane.rowIndex="7" />
-            <Button fx:id="sellGood8" mnemonicParsing="false" onMouseClicked="#sellGood8" prefWidth="150.0" GridPane.rowIndex="8" />
-            <Button fx:id="sellGood9" mnemonicParsing="false" onMouseClicked="#sellGood9" prefWidth="150.0" GridPane.rowIndex="9" />
-            <Button fx:id="sellGood10" mnemonicParsing="false" onMouseClicked="#sellGood10" prefWidth="150.0" GridPane.rowIndex="10" />
-            <Label fx:id="sellValue1" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="sellValue2" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="sellValue3" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="sellValue4" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="sellValue5" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label fx:id="sellValue6" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label fx:id="sellValue7" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="sellValue8" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label fx:id="sellValue9" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label fx:id="sellValue10" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label fx:id="sellQuantity1" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="sellQuantity2" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="sellQuantity3" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="sellQuantity4" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Label fx:id="sellQuantity5" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label fx:id="sellQuantity6" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label fx:id="sellQuantity7" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Label fx:id="sellQuantity8" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Label fx:id="sellQuantity9" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <Label fx:id="sellQuantity10" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <Button fx:id="sellFoodButton" mnemonicParsing="false" onMouseClicked="#sellFood" prefWidth="150.0" text="Food" GridPane.rowIndex="2" />
+            <Button fx:id="sellWaterButton" mnemonicParsing="false" onMouseClicked="#sellWater" prefWidth="150.0" text="Water" GridPane.rowIndex="1" />
+            <Button fx:id="sellFursButton" mnemonicParsing="false" onMouseClicked="#sellFurs" prefWidth="150.0" text="Furs" GridPane.rowIndex="3" />
+            <Button fx:id="sellOreButton" mnemonicParsing="false" onMouseClicked="#sellOre" prefWidth="150.0" text="Ore" GridPane.rowIndex="4" />
+            <Button fx:id="sellGamesButton" mnemonicParsing="false" onMouseClicked="#sellGames" prefWidth="150.0" text="Games" GridPane.rowIndex="5" />
+            <Button fx:id="sellFirearmsButton" mnemonicParsing="false" onMouseClicked="#sellFirearms" prefWidth="150.0" text="Firearms" GridPane.rowIndex="6" />
+            <Button fx:id="sellMedicineButton" mnemonicParsing="false" onMouseClicked="#sellMedicine" prefWidth="150.0" text="Medicine" GridPane.rowIndex="7" />
+            <Button fx:id="sellMachinesButton" mnemonicParsing="false" onMouseClicked="#sellMachines" prefWidth="150.0" text="Machines" GridPane.rowIndex="8" />
+            <Button fx:id="sellNarcoticsButton" mnemonicParsing="false" onMouseClicked="#sellNarcotics" prefWidth="150.0" text="Narcotics" GridPane.rowIndex="9" />
+            <Button fx:id="sellRobotsButton" mnemonicParsing="false" onMouseClicked="#sellRobots" prefWidth="150.0" text="Robots" GridPane.rowIndex="10" />
+            <Label fx:id="sellWaterValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="sellFoodValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="sellFursValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="sellOreValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="sellGamesValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="sellFirearmsValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="sellMedicineValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="sellMachinesValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="sellNarcoticsValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label fx:id="sellRobotsValueLabel" alignment="CENTER" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="sellWaterQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="sellFoodQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="sellFursQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="sellOreQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label fx:id="sellGamesQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="sellFirearmsQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label fx:id="sellMedicineQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Label fx:id="sellMachinesQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Label fx:id="sellNarcoticsQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <Label fx:id="sellRobotsQuantityLabel" alignment="CENTER" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
