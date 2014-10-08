@@ -66,7 +66,7 @@ public class Ship {
     private CrewMember owner; //in case the owner is an NPC (i.e. pirates/police)
     private CargoHold cargoHold;
 
-    private int fuelAmount;
+    private double fuelAmount;
     private int hullStrength;
 
     public Ship(Type type, CrewMember owner) {
@@ -102,7 +102,7 @@ public class Ship {
     /**
      * @return The amount of fuel currently available in the ship
      */
-    public int getFuelAmount() {
+    public double getFuelAmount() {
         return fuelAmount;
     }
 
@@ -111,5 +111,14 @@ public class Ship {
      */
     public int getHullStrength() {
         return hullStrength;
+    }
+    
+    /**
+     * Expend the amount of fuel necessary to travel a given distance.
+     * 
+     * @param distance The distance traveled
+     */
+    public void expendFuel(double distance) {
+        fuelAmount -= distance;
     }
 }

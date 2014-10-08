@@ -78,10 +78,10 @@ public class SolarSystem {
 
     private Planet[] generatePlanets() {
         Planet [] planetArray = new Planet[(int)(Math.random() * 4.0 + 4.0)];
-        int dist = 40;
+        int dist = sun.getRadius() + 40;
         
         for (int i = 0; i < planetArray.length; i++){
-            dist += (i + 0.25) * 50 * (0.76 + (0.24 * Math.random()));
+            dist += (i + 0.25) * 6.5 * (0.76 + (0.24 * Math.random()));
             planetArray[i] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
         

@@ -20,7 +20,7 @@ public class Planet {
     final Resource resource;
     
     private final int distance; //Representing radial distance from the sun in kmE6
-    //private final int radius; //Radius of the planet in km
+    private final int radius; //Radius of the planet in km * 10^3
     private final boolean nitrogen; //N, O, C, and H dont really need to be instance variable
     private final boolean oxygen;
     private final boolean carbon;
@@ -44,6 +44,7 @@ public class Planet {
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
+        radius = (int)(3 + Math.random() * 15 + Math.pow(Math.random(), 3) * 80);
         
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
@@ -180,6 +181,13 @@ public class Planet {
      */
     public int getDistance() {
         return distance;
+    }
+    
+    /**
+     * @return The radius of the planet in thousands of kilometers
+     */
+    public int getRadius() {
+        return radius;
     }
     
     /**
