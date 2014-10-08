@@ -325,8 +325,8 @@ public class Universe {
         return result;
     }
     
-    public final int MAX_X = 600;
-    public final int MAX_Y = 400;
+    public final int MAX_X = 590;
+    public final int MAX_Y = 390;
     
     public static SolarSystem[] solarSystems;
     

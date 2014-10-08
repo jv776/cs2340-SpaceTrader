@@ -8,6 +8,7 @@ package models;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.Random;
+import javafx.scene.control.Button;
 
 /**
  * Model of a planet's marketplace.
@@ -15,6 +16,8 @@ import java.util.Random;
  * @author John Varela
  */
 public class Marketplace {
+    public Button returnButton;
+    
     private final Planet location;
     private HashMap<TradeGood, Integer> productSupply;
     private HashMap<TradeGood, Integer> prices;

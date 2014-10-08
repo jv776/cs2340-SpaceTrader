@@ -228,6 +228,9 @@ public class MarketController extends GameController implements Initializable {
 
     @FXML
     private Button sellMachinesButton;
+    
+    @FXML
+    private Button returnButton;
 
     private Button[] buyButtons;
     private Button[] sellButtons;
@@ -243,6 +246,8 @@ public class MarketController extends GameController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         player = gameData.getPlayer();
         market = player.getCurrentPlanet().getMarket();
+        
+        returnButton.setText("Return to " + gameData.getSolarSystem().getName());
         
         Label[] buyQuantities = {
             buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
@@ -491,5 +496,10 @@ public class MarketController extends GameController implements Initializable {
     void sellRobots() {
         market.sellGood(TradeGood.ROBOTS);
         update();
+    }
+    
+    @FXML
+    void returnToUniverse() {
+        control.setScreen("SolarSystemMap");
     }
 }

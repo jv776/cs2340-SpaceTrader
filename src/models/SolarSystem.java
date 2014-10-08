@@ -101,7 +101,7 @@ public class SolarSystem {
         return temp;
     }
     
-    TechLevel getTechLevel() {
+    public TechLevel getTechLevel() {
         return tech;
     }
     
