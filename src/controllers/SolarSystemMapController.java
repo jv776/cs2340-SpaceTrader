@@ -21,6 +21,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
+import javafx.scene.shape.*;
 import models.Planet;
 import models.SolarSystem;
 
@@ -66,15 +67,30 @@ public class SolarSystemMapController extends GameController implements Initiali
 
         Planet currentPlanet = gameData.getPlanet();
 
+        //draws orbits
+        for (Planet p : currentSystem.planets) {
+            Ellipse orbit = EllipseBuilder.create() //depreciated!
+                    .centerX(image.impl_getPivotX()) //depreciated!
+                    .centerY(image.impl_getPivotY()) //depreciated!
+                    .radiusX(p.getDistance())
+                    .radiusY(p.getDistance())
+                    .strokeWidth(1)
+                    .stroke(Color.DARKGRAY)
+                    .fill(Color.TRANSPARENT)
+                    .build();
+
+            anchor.getChildren().add(orbit);
+        }
         for (Planet p : currentSystem.planets) {
             ImageView planet = new ImageView("/images/star.png");
             if (p == currentPlanet) {
                 planet.setEffect(new ColorAdjust(0, 0, 1, 0));
             }
-            planet.setX(x + Math.cos(Math.random() * 2 * Math.PI) * currentPlanet.getDistance());
-            planet.setY(y + Math.sin(Math.random() * 2 * Math.PI) * currentPlanet.getDistance());
             planet.setScaleX(10.0 / planet.getImage().getWidth());
             planet.setScaleY(10.0 / planet.getImage().getWidth());
+            double angleFactor = Math.random();
+            planet.setX(x + Math.cos(angleFactor * 2 * Math.PI) * p.getDistance());
+            planet.setY(y + Math.sin(angleFactor * 2 * Math.PI) * p.getDistance());
             Tooltip planetName = new Tooltip(p.getName());
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
@@ -82,6 +98,7 @@ public class SolarSystemMapController extends GameController implements Initiali
                 control.setScreen("Market");
             });
             anchor.getChildren().add(planet);
+
         }
     }
 
