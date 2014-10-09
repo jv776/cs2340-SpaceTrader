@@ -7,8 +7,10 @@
 package models;
 
 /**
+ * Models various solar-system-wide aspects of a solar system and contains solar bodies such as
+ * planets and stars
  *
- * @author Alex
+ * @author Alex, Taylor
  */
 public class SolarSystem {
     public final String name;
@@ -18,7 +20,7 @@ public class SolarSystem {
     final PoliticalSystem government;
     private final Star sun;
     public final Planet[] planets;
-    
+
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
             PoliticalSystem governmentType) {
         this.name = name;
@@ -29,7 +31,7 @@ public class SolarSystem {
         sun = new Star(""); //add name
         planets = generatePlanets();
     }
-    
+
     /*
     public SolarSystem(String name, int xLoc, int yLoc) {
         this.name = name;
@@ -39,7 +41,7 @@ public class SolarSystem {
         planets = generatePlanets();
     }
     */
-    
+
     /*
      * Ugly helper function for randomly choosing resources on each
      * planet. Feel free to adjust probabilities or rewrite entirely.
@@ -79,44 +81,44 @@ public class SolarSystem {
     private Planet[] generatePlanets() {
         Planet [] planetArray = new Planet[(int)(Math.random() * 4.0 + 4.0)];
         int dist = sun.getRadius() + 40;
-        
+
         for (int i = 0; i < planetArray.length; i++){
             dist += (i + 0.25) * 6.5 * (0.76 + (0.24 * Math.random()));
             planetArray[i] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
-        
+
         return planetArray;
     }
-    
+
     @Override
     public String toString() {
         String temp = "System name: " + name + "\n";
         temp += "Sun:\n" + sun + "\nTech Level:\t" + tech + "\nGovernment:\t"
                 + government + "\n\nPlanets:\n";
-        
+
         for(Planet p:planets){
             temp += p +"\n~~~~~\n";
         }
-        
+
         return temp;
     }
-    
+
     public TechLevel getTechLevel() {
         return tech;
     }
-    
+
     public int getX() {
         return x;
     }
-    
+
     public int getY() {
         return y;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public Star getSun() {
         return sun;
     }

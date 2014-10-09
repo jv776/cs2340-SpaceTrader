@@ -26,8 +26,9 @@ import models.Planet;
 import models.SolarSystem;
 
 /**
- *
- * @author Alex
+ * Displays and manages the map of the Solar System.
+ * 
+ * @author Alex, Taylor
  */
 public class SolarSystemMapController extends GameController implements Initializable {
 
