@@ -7,9 +7,11 @@
 package controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,17 +25,17 @@ import models.SolarSystem;
 
 /**
  * Displays and manages the map of the universe.
- * 
+ *
  * @author Alex, John
  */
 public class UniverseMapController extends GameController implements Initializable {
-    
+
     public AnchorPane anchor;
     private boolean inSolarSystem;
-       
-    private void drawSolarSystems() {        
+
+    private void drawSolarSystems() {
         SolarSystem currentSystem = gameData.getSolarSystem();
-        
+
         for (SolarSystem s : gameData.getUniverse().solarSystems) {
             ImageView image = new ImageView();
             if (s != currentSystem && distance(gameData.getSolarSystem(), s)
@@ -58,8 +60,8 @@ public class UniverseMapController extends GameController implements Initializab
             image.setY(s.getY());
             image.setScaleX((double) s.getSun().getRadius() * 2.0 / image.getImage().getWidth());
             image.setScaleY((double) s.getSun().getRadius() * 2.0 / image.getImage().getHeight());
+            double dist = distance(gameData.getSolarSystem(), s);
             image.setOnMouseClicked((MouseEvent t) -> {
-                double dist = distance(gameData.getSolarSystem(), s);
                 if (dist < gameData.getShip().getFuelAmount()) {
                         gameData.getShip().expendFuel(dist);
                         System.out.println(s.name);
@@ -67,10 +69,14 @@ public class UniverseMapController extends GameController implements Initializab
                         control.setScreen("SolarSystemMap");
                 }
             });
+
+            Tooltip systemInfo = new Tooltip(s.getName() + " System"+ "\nDistance: "
+                    + new DecimalFormat("0.00").format(dist) +" light-years");
+            Tooltip.install(image, systemInfo);
             anchor.getChildren().add(image);
         }
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         anchor.setBackground(new Background(
@@ -82,12 +88,12 @@ public class UniverseMapController extends GameController implements Initializab
     private double pixelsToLightYears(double px) {
         return 0.2 * px;
     }
-    
+
     //calculate distance in light years between two solar systems
     private double distance(SolarSystem s1, SolarSystem s2) {
         double dx = s1.getX() - s2.getX();
         double dy = s1.getY() - s2.getY();
-        
+
         return pixelsToLightYears(Math.sqrt(dx*dx + dy*dy));
     }
 }
