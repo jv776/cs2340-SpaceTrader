@@ -78,7 +78,7 @@ public class SolarSystemMapController extends GameController implements Initiali
                     .stroke(Color.DARKGRAY)
                     .fill(Color.TRANSPARENT)
                     .build();
-
+            orbit.setMouseTransparent(true);
             anchor.getChildren().add(orbit);
         }
         for (Planet p : currentSystem.planets) {
