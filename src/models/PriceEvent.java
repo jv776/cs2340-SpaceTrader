@@ -18,5 +18,6 @@ public enum PriceEvent {
     WAR,
     PLAGUE,
     LACK_OF_WORKERS,
-    BOREDOM;
+    BOREDOM,
+    NONE; // if nothing special is happening
 }

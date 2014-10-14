@@ -5,19 +5,17 @@
  */
 package models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.Random;
-import javafx.scene.control.Button;
 
 /**
  * Model of a planet's marketplace.
  * 
  * @author John Varela
  */
-public class Marketplace {
-    public Button returnButton;
-    
+public class Marketplace implements Serializable {
     private final Planet location;
     private HashMap<TradeGood, Integer> productSupply;
     private HashMap<TradeGood, Integer> prices;
@@ -90,12 +88,11 @@ public class Marketplace {
             }
             
             double eventFactor = 1;
-            Optional<PriceEvent> currentEvent = location.getCurrentEvent();
+            PriceEvent currentEvent = location.getCurrentEvent();
             
-            if (currentEvent.isPresent()) {
-                eventFactor = (currentEvent.get() == good.priceIncreaseEvent)
-                        ? 1.5 : 1;
-            }
+            
+            eventFactor = (currentEvent == good.priceIncreaseEvent) ? 1.5 : 1;
+            
             
             priceMap.put(good, (int) ((good.basePrice + techLevelFactor)
                     * variance * scarcityFactor * abundanceFactor
@@ -139,41 +136,18 @@ public class Marketplace {
      * Buy a good from the market.
      * 
      * @param good The good being purchased.
-     * @return Whether or not the purchase was successful
      */
-    public boolean buyGood(TradeGood good) {
-        Player p = GameData.DATA.getPlayer();
-        
-        if (p.getCredits() >= getPrice(good) && getSupply(good) > 0
-                && p.getShip().getCargoHold().hasSpace()) {
-            p.spend(getPrice(good));
-            productSupply.put(good, getSupply(good) - 1);
-            p.getShip().getCargoHold().addItem(good);
-            return true;
-        } else {
-            // do something here?
-            return false;
-        }
+    public void buyGood(TradeGood good) {
+        productSupply.put(good, getSupply(good) - 1);
     }
     
     /**
      * Sell a good at the market.
      * 
      * @param good The good being sold.
-     * @return Whether or not the sale was successful
      */
-    public boolean sellGood(TradeGood good) {
-        Player p = GameData.DATA.getPlayer();
-        
-        if (p.getShip().getCargoHold().getQuantity(good) > 0) {
-            p.earn(getSalePrice(good));
-            productSupply.put(good, getSupply(good) + 1);
-            p.getShip().getCargoHold().removeItem(good);
-            return true;
-        } else {
-            // do something here?
-            return false;
-        }
+    public void sellGood(TradeGood good) {
+        productSupply.put(good, getSupply(good) + 1);
     }
     
     /*
