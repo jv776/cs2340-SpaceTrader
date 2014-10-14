@@ -1,11 +1,13 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * http://www.enchantedlearning.com/subjects/astronomy/stars/startypes.shtml
  *
  * @author Taylor
  */
-public class Star {
+public class Star implements Serializable {
     private final String name;
     private final int temperature; //In Kelvin * 10^3
     private final int radius; //based on the website above (relative to our sun)

@@ -6,13 +6,14 @@
 
 package models;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  *
  * @author Alex, John
  */
-public class Universe {
+public class Universe implements Serializable {
     private static final String[] SOLAR_SYSTEM_NAMES =  {
         "Acamar",
         "Adahn",		// The alternate personality for The Nameless One in "Planescape: Torment"
@@ -328,14 +329,15 @@ public class Universe {
     public final int MAX_X = 590;
     public final int MAX_Y = 390;
     
-    public static SolarSystem[] solarSystems;
+    public static final int NUM_SOLAR_SYSTEMS = SOLAR_SYSTEM_NAMES.length;
+    public final SolarSystem[] solarSystems;
     
     public Universe() {
-        solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];
+        solarSystems = new SolarSystem[NUM_SOLAR_SYSTEMS];
         Random r = new Random();
         int offset = r.nextInt();
         
-        for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
+        for (int i = 0; i < NUM_SOLAR_SYSTEMS; i++) {
             TechLevel tech = randomTechLevel();
             int x = (int) (vanDerCorput(Math.abs(i + offset)) * MAX_X);
             int y = (int) (vanDerCorput(Math.abs(x + offset)) * MAX_Y);

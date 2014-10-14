@@ -6,13 +6,15 @@
 
 package models;
 
+import java.io.Serializable;
+
 /**
  * Abstract class to store information and methods common to all characters
  * capable of running a ship in some capacity (players, mercenaries, etc.).
  *
  * @author John
  */
-public abstract class CrewMember {
+public abstract class CrewMember implements Serializable {
     protected int pilotSkillPoints;
     protected int fighterSkillPoints;
     protected int traderSkillPoints;
