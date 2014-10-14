@@ -6,6 +6,8 @@
 package controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,7 +23,7 @@ import models.TradeGood;
  *
  * @author Alex, John
  */
-public class MarketController implements Initializable {
+public class MarketController extends GameController implements Initializable {
     
     @FXML
     private Label buyNarcoticsValueLabel;
@@ -230,9 +232,6 @@ public class MarketController implements Initializable {
     @FXML
     private Button returnButton;
 
-    @FXML
-    private Button saveButton;
-    
     private Button[] buyButtons;
     private Button[] sellButtons;
     private Label[] buyQuantities;
@@ -243,12 +242,12 @@ public class MarketController implements Initializable {
     private Player player;
     private Marketplace market;
     
-    @Override
+     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        player = GameController.getGameData().getPlayer();
+        player = gameData.getPlayer();
         market = player.getCurrentPlanet().getMarket();
         
-        returnButton.setText("Return to " + player.getCurrentSystem().getName());
+        returnButton.setText("Return to " + gameData.getSolarSystem().getName());
         
         Label[] buyQuantities = {
             buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
@@ -379,151 +378,128 @@ public class MarketController implements Initializable {
         buyButton.setDisable(false);
     }
 
-    //buy a good - remove one from the market, spend its price, and add to cargo
-    private void buyGood(TradeGood good) {
-        market.buyGood(good);
-        player.spend(market.getPrice(good));
-        
-        //there is probably a better way to do this
-        player.getShip().getCargoHold().addItem(good);
-    }
-    
     @FXML
     void buyFood() {
-        buyGood(TradeGood.FOOD);
+        market.buyGood(TradeGood.FOOD);
         update();
     }
 
     @FXML
     void buyWater() {
-        buyGood(TradeGood.WATER);
+        market.buyGood(TradeGood.WATER);
         update();
     }
 
     @FXML
     void buyFurs() {
-        buyGood(TradeGood.FURS);
+        market.buyGood(TradeGood.FURS);
         update();
     }
 
     @FXML
     void buyOre() {
-        buyGood(TradeGood.ORE);
+        market.buyGood(TradeGood.ORE);
         update();
     }
 
     @FXML
     void buyGames() {
-        buyGood(TradeGood.GAMES);
+        market.buyGood(TradeGood.GAMES);
         update();
     }
 
     @FXML
     void buyFirearms() {
-        buyGood(TradeGood.FIREARMS);
+        market.buyGood(TradeGood.FIREARMS);
         update();
     }
 
     @FXML
     void buyMedicine() {
-        buyGood(TradeGood.MEDICINE);
+        market.buyGood(TradeGood.MEDICINE);
         update();
     }
 
     @FXML
     void buyMachines() {
-        buyGood(TradeGood.MACHINES);
+        market.buyGood(TradeGood.MACHINES);
         update();
     }
 
     @FXML
     void buyNarcotics() {
-        buyGood(TradeGood.NARCOTICS);
+        market.buyGood(TradeGood.NARCOTICS);
         update();
     }
 
     @FXML
     void buyRobots() {
-        buyGood(TradeGood.ROBOTS);
+        market.buyGood(TradeGood.ROBOTS);
         update();
-    }
-    
-    //sell a good - add one more to the market, earn money, and remove from cargo
-    private void sellGood(TradeGood good) {
-        market.sellGood(good);
-        player.earn(market.getSalePrice(good));
-        
-        //there is probably a better way to do this
-        player.getShip().getCargoHold().removeItem(good);
     }
 
     @FXML
     void sellFood() {
-        sellGood(TradeGood.FOOD);
+        market.sellGood(TradeGood.FOOD);
         update();
     }
 
     @FXML
     void sellWater() {
-        sellGood(TradeGood.WATER);
+        market.sellGood(TradeGood.WATER);
         update();
     }
 
     @FXML
     void sellFurs() {
-        sellGood(TradeGood.FURS);
+        market.sellGood(TradeGood.FURS);
         update();
     }
 
     @FXML
     void sellOre() {
-        sellGood(TradeGood.ORE);
+        market.sellGood(TradeGood.ORE);
         update();
     }
 
     @FXML
     void sellGames() {
-        sellGood(TradeGood.GAMES);
+        market.sellGood(TradeGood.GAMES);
         update();
     }
 
     @FXML
     void sellFirearms() {
-        sellGood(TradeGood.FIREARMS);
+        market.sellGood(TradeGood.FIREARMS);
         update();
     }
 
     @FXML
     void sellMedicine() {
-        sellGood(TradeGood.MEDICINE);
+        market.sellGood(TradeGood.MEDICINE);
         update();
     }
 
     @FXML
     void sellMachines() {
-        sellGood(TradeGood.MACHINES);
+        market.sellGood(TradeGood.MACHINES);
         update();
     }
 
     @FXML
     void sellNarcotics() {
-        sellGood(TradeGood.NARCOTICS);
+        market.sellGood(TradeGood.NARCOTICS);
         update();
     }
 
     @FXML
     void sellRobots() {
-        sellGood(TradeGood.ROBOTS);
+        market.sellGood(TradeGood.ROBOTS);
         update();
     }
     
     @FXML
-    void handleSaveButton() {
-        GameController.saveGameData();
-    }
-    
-    @FXML
     void returnToUniverse() {
-        GameController.getControl().setScreen("SolarSystemMap");
+        control.setScreen("SolarSystemMap");
     }
 }

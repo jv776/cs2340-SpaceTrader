@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.io.Serializable;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Random;
  * 
  * @author Alex, John
  */
-public class Planet implements Serializable {
+public class Planet {
     final SolarSystem solarSystem;
     final String name;
     final Resource resource;
@@ -35,7 +35,7 @@ public class Planet implements Serializable {
     private boolean colonized;
     
     private Marketplace market;
-    private PriceEvent currentEvent;
+    private Optional<PriceEvent> currentEvent;
 
     public Planet(SolarSystem s, String name, int distance, int sunTemperature){
         Random rand = new Random();
@@ -57,7 +57,7 @@ public class Planet implements Serializable {
         water = generateWater();
         supportsLife = generateLife();
         
-        currentEvent = PriceEvent.NONE;
+        currentEvent = Optional.empty();
         market = new Marketplace(this);
     }
 
@@ -110,7 +110,7 @@ public class Planet implements Serializable {
      * 
      * @return The current planetary event, if any
      */
-    PriceEvent getCurrentEvent() {
+    Optional<PriceEvent> getCurrentEvent() {
         return currentEvent;
     }
     
@@ -120,7 +120,11 @@ public class Planet implements Serializable {
      * @return The type of event on this planet, if any
      */
     public String currentEvent() {
-        return currentEvent.toString().toLowerCase();
+        if (currentEvent.isPresent()) {
+            return currentEvent.get().toString().toLowerCase();
+        } else {
+            return "No major event";
+        }
     }
     
     /**

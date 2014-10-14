@@ -5,14 +5,12 @@
  */
 package models;
 
-import java.io.Serializable;
-
 /**
  * Model of a ship.
  * 
  * @author John Varela
  */
-public class Ship implements Serializable {
+public class Ship {
     public static enum Type {
         Flea(10, 0, 0, 0, 1, 20, TechLevel.EARLY_INDUSTRIAL, 1, 2000, 5, 2, 25, 1, 0),
         Gnat(15, 1, 0, 1, 1, 14, TechLevel.INDUSTRIAL, 2, 10000, 50, 28, 100, 1, 1),

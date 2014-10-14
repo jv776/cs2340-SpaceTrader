@@ -6,14 +6,7 @@
 
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javafx.animation.KeyFrame;
@@ -32,31 +25,37 @@ import models.GameData;
  *
  * @author Alex
  */
-public class GameController extends StackPane implements Serializable {
+public class GameController extends StackPane {
     
-    private static GameData gameData;
-    private static GameController control;
-    private static File saveFile;
+    protected GameData gameData;
+    protected GameController control;
     
     public GameController() {
-        gameData = new GameData();
-        control = this;
+        gameData = GameData.DATA;
+    }
+    
+    public void initData(GameData data, GameController controller) {
+        gameData = data;
+        control = controller;
     }
     
     public boolean setScreen(String screenName) {
         try {
             String resource = "/views/" + screenName + ".fxml";
+            System.out.println(resource);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
+            
             Class myClass = Class.forName("controllers." + screenName + "Controller");
             Class[] types = {};
             Constructor constructor = myClass.getConstructor(types);
             Object[] parameters = {};
+            GameController controller = (GameController) constructor.newInstance(parameters);
+            controller.initData(gameData, this);
             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-            loader.setController((Initializable)constructor.newInstance(parameters));
+            loader.setController((Initializable)controller);
             
             Parent loadScreen = (Parent) loader.load();
             
-                    
             final DoubleProperty opacity = opacityProperty(); 
 
             //Is there is more than one screen 
@@ -95,61 +94,5 @@ public class GameController extends StackPane implements Serializable {
             e.printStackTrace();
             return false; 
         }
-    }
-    
-    public static void saveGameData() {
-        try {
-            saveFile = new File("saves/" + gameData.getPlayer().name + ".ser");
-            FileOutputStream fos = new FileOutputStream(saveFile);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            
-            oos.writeObject(gameData);
-        } catch (FileNotFoundException e) {
-            //file not found
-            
-            System.out.println("SAVE FAILED: file not found");
-            //e.printStackTrace();
-        } catch (IOException e) {
-            //IO error occurred while writing save file
-            
-            System.out.println("SAVE FAILED: IO error while saving");
-            //e.printStackTrace();
-        }
-    }
-    
-    public static void loadGameData(File f) {
-        saveFile = f;
-
-        try {
-            FileInputStream fis = new FileInputStream(saveFile);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            gameData = (GameData) ois.readObject();
-        } catch (FileNotFoundException e) {
-            //the selected file wasn't found
-            System.out.println("LOADING FAILED: file not found");
-            //e.printStackTrace();
-        } catch (IOException e) {
-            //IO error while loading file
-            System.out.println("LOADING FAILED: IO error while loading");
-            //e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("LOADING FAILED: Class not found");
-            //e.printStackTrace();
-        }
-    }
-    
-    /**
-     * @return Game data for the currently active game
-     */
-    public static GameData getGameData() {
-        return gameData;
-    }
-    
-    /**
-     * @return The current active GameController instance
-     */
-    public static GameController getControl() {
-        return control;
     }
 }

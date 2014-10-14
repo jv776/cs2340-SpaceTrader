@@ -21,7 +21,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import models.GameData;
 import models.SolarSystem;
 
 /**
@@ -29,14 +28,12 @@ import models.SolarSystem;
  *
  * @author Alex, John
  */
-public class UniverseMapController implements Initializable {
+public class UniverseMapController extends GameController implements Initializable {
 
     public AnchorPane anchor;
     private boolean inSolarSystem;
 
     private void drawSolarSystems() {
-        GameData gameData = GameController.getGameData();
-        
         SolarSystem currentSystem = gameData.getSolarSystem();
 
         for (SolarSystem s : gameData.getUniverse().solarSystems) {
@@ -69,11 +66,11 @@ public class UniverseMapController implements Initializable {
                         gameData.getShip().expendFuel(dist);
                         System.out.println(s.name);
                         gameData.setSolarSystem(s);
-                        GameController.getControl().setScreen("SolarSystemMap");
+                        control.setScreen("SolarSystemMap");
                 }
             });
 
-            Tooltip systemInfo = new Tooltip(s.getName() + " System" + "\nDistance: "
+            Tooltip systemInfo = new Tooltip(s.getName() + " System"+ "\nDistance: "
                     + new DecimalFormat("0.00").format(dist) +" light-years");
             Tooltip.install(image, systemInfo);
             anchor.getChildren().add(image);

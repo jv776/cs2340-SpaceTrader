@@ -22,7 +22,7 @@ import models.Universe;
  *
  * @author Alex
  */
-public class CustomizationController implements Initializable {
+public class CustomizationController extends GameController implements Initializable {
 
     public final int SKILL_POINT_MAX = 15;
     
@@ -35,6 +35,7 @@ public class CustomizationController implements Initializable {
     public Label skillPointsRemaining;
     public Button continueButton;
     private int skillPoints;
+   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,37 +130,30 @@ public class CustomizationController implements Initializable {
             Integer.parseInt(investorSkillPoints.getText())
         );
         
-        player.earn(1000); //start with 1000 credits
-        SolarSystem system = universe.solarSystems[(int) (Math.random() *
-                universe.solarSystems.length)];
-        Planet planet = system.planets[(int) (Math.random() * system.planets.length)];
-        
-        player.setCurrentSystem(system);
-        player.setCurrentPlanet(planet);
-        
-        GameController.getGameData().setPlayer(player);
-        GameController.getGameData().setUniverse(universe);
+        gameData.setPlayer(player);
+        gameData.setUniverse(universe);
         
         for (SolarSystem s : universe.solarSystems) {
             for (Planet p : s.planets) {
                 if (p.supportsLife()) {
-                    GameController.getGameData().setPlanet(p);
+                    gameData.setPlanet(p);
                     break;
                 }
             }
-            if (GameController.getGameData().getPlanet() != null) {
+            if (gameData.getPlanet() != null) {
                 break;
             }
         }
         
-        GameController.getControl().setScreen("UniverseMap");
+        //control.setScreen("Market");
+        control.setScreen("UniverseMap");
     }
     
     /**
      * Returns to the home screen upon clicking the "Cancel" button.
      */
     public void handleCancel() {
-        GameController.getControl().setScreen("Welcome");
+        control.setScreen("Welcome");
     }
     
     /**

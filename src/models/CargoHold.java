@@ -5,7 +5,6 @@
  */
 package models;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -13,7 +12,7 @@ import java.util.HashMap;
  * 
  * @author Kevin Gibby, Alex, John
  */
-public class CargoHold implements Serializable {
+public class CargoHold {
     private final int capacity;
     private HashMap<CargoItem, Integer> cargo;
     

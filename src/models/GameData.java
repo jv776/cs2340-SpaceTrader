@@ -6,15 +6,16 @@
 
 package models;
 
-import java.io.Serializable;
-
 /**
- * Allows easy access to basic information about the status of the
+ * Singleton object (implemented by using an enum with one instance) that
+ * allows easy access to basic information about the current status of the
  * player and the universe in which the current game is occurring.
  * 
  * @author Alex, John
  */
-public class GameData implements Serializable {
+public enum GameData {
+    DATA;
+    
     private Player player;
     private Universe universe;
     

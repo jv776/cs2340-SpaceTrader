@@ -30,7 +30,7 @@ import models.SolarSystem;
  * 
  * @author Alex, Taylor
  */
-public class SolarSystemMapController implements Initializable {
+public class SolarSystemMapController extends GameController implements Initializable {
 
     public AnchorPane anchor;
     public Button returnButton;
@@ -38,14 +38,14 @@ public class SolarSystemMapController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SolarSystem currentSystem = GameController.getGameData().getSolarSystem();
-        
         returnButton.setText("Return to Universe");
         locationLabel.setTextFill(Color.WHITE);
-        locationLabel.setText(currentSystem.getName() + ": " +
-                currentSystem.getTechLevel());
+        locationLabel.setText(gameData.getSolarSystem().getName() + ": "
+            + gameData.getSolarSystem().getTechLevel());
         anchor.setBackground(new Background(
                 new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        SolarSystem currentSystem = gameData.getSolarSystem();
 
         double x = 300 - currentSystem.getSun().getRadius() - 2.5;
         double y = 200 - currentSystem.getSun().getRadius() - 2.5;
@@ -66,7 +66,7 @@ public class SolarSystemMapController implements Initializable {
 
         anchor.getChildren().add(image);
 
-        Planet currentPlanet = GameController.getGameData().getPlanet();
+        Planet currentPlanet = gameData.getPlanet();
 
         //draws orbits
         for (Planet p : currentSystem.planets) {
@@ -95,8 +95,8 @@ public class SolarSystemMapController implements Initializable {
             Tooltip planetName = new Tooltip(p.getName());
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
-                GameController.getGameData().setPlanet(p);
-                GameController.getControl().setScreen("Market");
+                gameData.setPlanet(p);
+                control.setScreen("Market");
             });
             anchor.getChildren().add(planet);
 
@@ -106,7 +106,7 @@ public class SolarSystemMapController implements Initializable {
 
 
     public void returnToUniverse() {
-        GameController.getControl().setScreen("UniverseMap");
+        control.setScreen("UniverseMap");
     }
 
     private double lerp(double x, double x0, double y0, double x1, double y1) {
