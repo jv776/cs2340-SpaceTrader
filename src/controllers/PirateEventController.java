@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import models.Pirate;
 
 import java.net.URL;
@@ -28,6 +30,9 @@ public class PirateEventController extends GameController implements Initializab
     public Button SWButton;
     public ImageView playerPic;
     public ImageView otherPic;
+    public Rectangle bubbleBox;
+    public Polygon bubbleArrow;
+    public Label speech;
 
 
     public void initialize(URL location, ResourceBundle resources){
@@ -53,10 +58,13 @@ public class PirateEventController extends GameController implements Initializab
         playerPic.setImage(new Image("/images/current.png"));
         otherPic.setImage(new Image("/images/unreachable.png"));
 
+        speech.setText("Yarr, surrender yer Credits or we'll take 'em by force!");
+
 
     }
 
-    public void attack(){
+    private void attack(){
+        hideBubble();
         playerAttack();
         pirateAttack();
         if(pirate.isDead()){
@@ -67,6 +75,18 @@ public class PirateEventController extends GameController implements Initializab
         }
         updateHealth();
     }
+
+    private void showBubble(){
+        bubbleArrow.setOpacity(1);
+        bubbleBox.setOpacity(1);
+        speech.setOpacity(1);
+    }
+    private void hideBubble(){
+        bubbleArrow.setOpacity(0);
+        bubbleBox.setOpacity(0);
+        speech.setOpacity(0);
+    }
+
 
     private void updateHealth(){
         otherHealth.setProgress(((double) pirate.getHullStrength() / pirate.getMaxHullStrength()));
@@ -85,19 +105,54 @@ public class PirateEventController extends GameController implements Initializab
     }
 
     private void surrender(){
+        showBubble();
+        speech.setText("Ah'har, I'll be take'n all them credits now!");
+        NWButton.setText("Okay");
+        NWButton.setOnMouseClicked((MouseEvent t) -> {
+            exitEvent();
+        });
+        NEButton.setDisable(true);
+        SEButton.setDisable(true);
         gameData.getPlayer().spend(gameData.getPlayer().getCredits());
-        exitEvent();
     }
+
+
 
     private void flee(){
         if (gameData.getPlayer().getPilotSkillPoints()*.1*Math.random() > .2){
             //print you escaped message
-            exitEvent();
+            fleeSuccessful();
         } else{
-            pirateAttack();
-            updateHealth();
-        }
+            fleeFailed();
 
+        }
+    }
+    private void fleeSuccessful(){
+        showBubble();
+        speech.setText("Aye, ye might 'ave escaped this time, but I'll find yea, ye scurvey dog!");
+        NWButton.setText("Okay");
+        NWButton.setOnMouseClicked((MouseEvent t) -> {
+            exitEvent();
+        });
+        NEButton.setDisable(true);
+        SEButton.setDisable(true);
+        pirateAttack();
+        updateHealth();
+    }
+    private void fleeFailed(){
+        showBubble();
+        speech.setText("Ye have no escape, ye scallywag!");
+
+    }
+    private void playerWins(){
+        showBubble();
+        speech.setText("Arrr! You win this time, " + gameData.getPlayer().getName() + ", but I'll be back!");
+        NWButton.setText("Okay");
+        NWButton.setOnMouseClicked((MouseEvent t) -> {
+            exitEvent();
+        });
+        NEButton.setDisable(true);
+        SEButton.setDisable(true);
     }
 
 

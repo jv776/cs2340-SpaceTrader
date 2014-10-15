@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -26,5 +27,17 @@
       <Label fx:id="otherName" layoutX="368.0" layoutY="22.0" text="Other" />
       <ImageView fx:id="playerPic" fitHeight="150.0" fitWidth="190.0" layoutX="50.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="otherPic" fitHeight="150.0" fitWidth="190.0" layoutX="325.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+      <Polygon fx:id="bubbleArrow" layoutX="386.0" layoutY="170.0" rotate="91.7" stroke="BLACK" strokeType="INSIDE">
+        <points>
+          <Double fx:value="-50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="0.0" />
+          <Double fx:value="-60.0" />
+        </points>
+      </Polygon>
+      <Rectangle fx:id="bubbleBox" arcHeight="5.0" arcWidth="5.0" height="150.0" layoutX="259.0" layoutY="72.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
+      <Label fx:id="speech" layoutX="265.0" layoutY="76.0" prefHeight="142.0" prefWidth="122.0" text="Label" textFill="#e5ff3b" wrapText="true" />
    </children>
 </Pane>

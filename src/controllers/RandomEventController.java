@@ -8,25 +8,28 @@ public class RandomEventController {
     public void tryEvent(){
         tryEvent(1);
     }
+
     public void tryEvent(double probModifier){
-        if (Math.random()*probModifier >.50){
-            startEvent();
-            tryEvent(probModifier/3);
-        }
+        startEvent();
+//        if (Math.random()*probModifier >.50){
+//            startEvent();
+//            tryEvent(probModifier/3);
+//        }
     }
 
     public void startEvent(){
-        double eventType = Math.random();
+        //double eventType = Math.random();
+        double eventType = 1;
         //not the best structure for this
         if(eventType<.33){
             TradeEventController event = new TradeEventController();
-            event.startEvent();
+            //event.startEvent();
         }else if(eventType<.66){
             PoliceEventController event = new PoliceEventController();
-            event.startEvent();
+            //event.startEvent();
         }else {
             PirateEventController event = new PirateEventController();
-            event.startEvent();
+            //event.startEvent();
         }
     }
 
