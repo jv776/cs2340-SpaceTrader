@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Region id="PlayerRegion" layoutX="39.0" layoutY="14.0" prefHeight="238.0" prefWidth="249.0" />
+      <Region id="PirateRegion" layoutX="314.0" layoutY="14.0" prefHeight="238.0" prefWidth="249.0" />
+      <Button fx:id="NWButton" layoutX="14.0" layoutY="263.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
+      <Label layoutX="93.0" layoutY="22.0" text="You" />
+      <ProgressBar fx:id="PlayerHealth" layoutX="117.0" layoutY="47.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
+      <Label layoutX="50.0" layoutY="52.0" text="Health" />
+      <Button fx:id="NEButton" layoutX="296.0" layoutY="263.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
+      <Button fx:id="SWButton" layoutX="14.0" layoutY="328.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
+      <Button fx:id="SEButton" layoutX="296.0" layoutY="328.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
+      <Label layoutX="50.0" layoutY="72.0" text="Sheilds" />
+      <ProgressBar fx:id="PlayerSheilds" layoutX="117.0" layoutY="67.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
+      <ProgressBar fx:id="OtherSheilds" layoutX="392.0" layoutY="67.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
+      <Label layoutX="325.0" layoutY="72.0" text="Sheilds" />
+      <Label layoutX="325.0" layoutY="52.0" text="Health" />
+      <ProgressBar fx:id="OtherHealth" layoutX="392.0" layoutY="47.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
+      <Label fx:id="OtherName" layoutX="368.0" layoutY="22.0" text="Other" />
+      <ImageView fx:id="PlayerPic" fitHeight="150.0" fitWidth="190.0" layoutX="50.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="OtherPic" fitHeight="150.0" fitWidth="190.0" layoutX="325.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</Pane>
