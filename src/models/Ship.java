@@ -137,4 +137,7 @@ public class Ship {
         return (int)(Math.random()*15); //change to use weapons when they are implemented
     }
 
+    public boolean hasIllegalGoods(){
+        return cargoHold.hasIllegalGoods();
+    }
 }

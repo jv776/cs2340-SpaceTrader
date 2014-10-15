@@ -80,6 +80,10 @@ public class Player extends CrewMember {
         currentPlanet = planet;
         currentSystem = planet.solarSystem;
     }
+    public String getName(){
+        return name;
+    }
+
 
     /**
      * Sets the solar system in which the player is located. Be sure
@@ -132,5 +136,11 @@ public class Player extends CrewMember {
     }
     public boolean isDead(){
         return ship.isDead();
+    }
+    public boolean hasIllegalGoods(){
+        return ship.hasIllegalGoods();
+    }
+    public void die(){
+        ship = new Ship(Ship.Type.Flea, this);
     }
 }

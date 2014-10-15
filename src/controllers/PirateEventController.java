@@ -68,12 +68,23 @@ public class PirateEventController extends GameController implements Initializab
         playerAttack();
         pirateAttack();
         if(pirate.isDead()){
-            exitEvent();
+            playerWins();
         }
         if(gameData.getPlayer().isDead()){
-            exitEvent();
+            playerDeath();
         }
         updateHealth();
+    }
+    public void playerDeath(){
+        showBubble();
+        speech.setText("Ye should 'ave given up while yea had a chance!");
+        NWButton.setText("Use Escape Pod");
+        NWButton.setOnMouseClicked((MouseEvent t) -> {
+            gameData.getPlayer().die();
+            exitEvent();
+        });
+        NEButton.setDisable(true);
+        SEButton.setDisable(true);
     }
 
     private void showBubble(){
@@ -136,12 +147,13 @@ public class PirateEventController extends GameController implements Initializab
         });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
-        pirateAttack();
-        updateHealth();
+
     }
     private void fleeFailed(){
         showBubble();
         speech.setText("Ye have no escape, ye scallywag!");
+        pirateAttack();
+        updateHealth();
 
     }
     private void playerWins(){

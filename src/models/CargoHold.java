@@ -9,18 +9,18 @@ import java.util.HashMap;
 
 /**
  * Wrapper class for cargo items.
- * 
+ *
  * @author Kevin Gibby, Alex, John
  */
 public class CargoHold {
     private final int capacity;
     private HashMap<CargoItem, Integer> cargo;
-    
+
     public CargoHold(int maxCapacity) {
         capacity = maxCapacity;
         cargo = new HashMap<>();
     }
-    
+
     public void addItem(CargoItem item) {
         if (cargo.size() < capacity) {
             boolean isNew = !cargo.keySet().contains(item);
@@ -31,7 +31,7 @@ public class CargoHold {
             }
         }
     }
-    
+
     public void addItemQuantity(CargoItem item, int amount) {
         boolean isNew = !cargo.keySet().contains(item);
         if (isNew) {
@@ -40,7 +40,7 @@ public class CargoHold {
             cargo.put(item, cargo.get(item) + amount);
         }
     }
-    
+
     public boolean removeItem(CargoItem item) {
         if (cargo.keySet().contains(item)) {
             if (cargo.get(item) == 1) {
@@ -53,7 +53,7 @@ public class CargoHold {
             return false;
         }
     }
-    
+
     public TradeGood[] getTradeGoods() {
         TradeGood[] goods = new TradeGood[10];
         int count = 0;
@@ -69,21 +69,29 @@ public class CargoHold {
         }
         return finalGoods;
     }
-    
+
     public int getQuantity(CargoItem item) {
         if (cargo.keySet().contains(item)) {
-            return cargo.get(item);            
+            return cargo.get(item);
         } else {
             return 0;
         }
     }
-    
+
     public boolean hasSpace() {
         int size = 0;
         for (CargoItem item : cargo.keySet()) {
             size += getQuantity(item);
         }
-        
+
         return size < capacity;
+    }
+    public boolean hasIllegalGoods(){
+        for (TradeGood g:getTradeGoods()){
+            if (g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")){
+                return true;
+            }
+        }
+        return false;
     }
 }
