@@ -7,7 +7,7 @@ package models;
 
 /**
  * Model of a ship.
- * 
+ *
  * @author John Varela
  */
 public class Ship {
@@ -112,13 +112,29 @@ public class Ship {
     public int getHullStrength() {
         return hullStrength;
     }
-    
+    public int getMaxHullStrength() {
+        return type.hullStrength;
+    }
+
+    public boolean isDead(){
+        return hullStrength <= 0;
+    }
+
     /**
      * Expend the amount of fuel necessary to travel a given distance.
-     * 
+     *
      * @param distance The distance traveled
      */
     public void expendFuel(double distance) {
         fuelAmount -= distance;
     }
+
+    public void takeDamage(int damage){
+        hullStrength -= damage; //needs to work with shields
+    }
+
+    public int calculateAttack(){
+        return (int)(Math.random()*15); //change to use weapons when they are implemented
+    }
+
 }

@@ -66,7 +66,12 @@ public class UniverseMapController extends GameController implements Initializab
                         gameData.getShip().expendFuel(dist);
                         System.out.println(s.name);
                         gameData.setSolarSystem(s);
-                        control.setScreen("SolarSystemMap");
+                        if(Math.random()<.75){
+                            control.setScreen("PirateEvent");
+                        } else{
+                            control.setScreen("SolarSystemMap");
+                        }
+
                 }
             });
 
