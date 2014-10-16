@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SpacePortController">
+   <children>
+      <Button fx:id="btn_Market" layoutX="60.0" layoutY="59.0" mnemonicParsing="false" onAction="#onMarketClicked" text="Market" />
+      <Button fx:id="btn_ShipYard" layoutX="53.0" layoutY="98.0" mnemonicParsing="false" onAction="#onShipYardClicked" text="Ship Yard" />
+      <Button fx:id="btn_Map" layoutX="67.0" layoutY="138.0" mnemonicParsing="false" onAction="#onMapClicked" text="Map" />
+      <Button fx:id="btn_News" layoutX="64.0" layoutY="175.0" mnemonicParsing="false" onAction="#onNewsClicked" text="News" />
+      <Button fx:id="btn_StockMarket" layoutX="44.0" layoutY="215.0" mnemonicParsing="false" onAction="#onStockMarketClicked" text="Stock Market" />
+   </children>
+</Pane>

@@ -5,8 +5,6 @@ package controllers;
  * and open the template in the editor.
  */
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +14,9 @@ import models.Planet;
 import models.Player;
 import models.SolarSystem;
 import models.Universe;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Customization FXML Controller class
@@ -35,7 +36,7 @@ public class CustomizationController extends GameController implements Initializ
     public Label skillPointsRemaining;
     public Button continueButton;
     private int skillPoints;
-   
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -145,8 +146,7 @@ public class CustomizationController extends GameController implements Initializ
             }
         }
         
-        //control.setScreen("Market");
-        control.setScreen("UniverseMap");
+        control.setScreen("SpacePort");//"UniverseMap");
     }
     
     /**
