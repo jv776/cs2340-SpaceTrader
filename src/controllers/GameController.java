@@ -60,7 +60,7 @@ public class GameController extends StackPane implements Serializable {
             final DoubleProperty opacity = opacityProperty(); 
 
             //Is there is more than one screen 
-            if(!getChildren().isEmpty()){ 
+            if(!getChildren().isEmpty()) {
                 Timeline fade = new Timeline( 
                     new KeyFrame(Duration.ZERO, 
                     new KeyValue(opacity,1.0)), 
@@ -76,7 +76,7 @@ public class GameController extends StackPane implements Serializable {
                         fadeIn.play();
                 }, new KeyValue(opacity, 0.0))); 
                 fade.play(); 
-            } else { 
+            } else {
                 //no one else been displayed, then just show 
                 setOpacity(0.0); 
                 getChildren().add(loadScreen); 
