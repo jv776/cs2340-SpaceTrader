@@ -6,13 +6,15 @@
 
 package models;
 
+import java.io.Serializable;
+
 /**
  * Models various solar-system-wide aspects of a solar system and contains solar bodies such as
  * planets and stars
  *
  * @author Alex, Taylor
  */
-public class SolarSystem {
+public class SolarSystem implements Serializable {
     public final String name;
     private final int x;
     private final int y;
