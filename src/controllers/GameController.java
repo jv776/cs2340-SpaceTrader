@@ -29,8 +29,10 @@ import javafx.util.Duration;
 import models.GameData;
 
 /**
- *
- * @author Alex
+ * Main controller for the game, maintains information about game state
+ * and manages transitions between screens.
+ * 
+ * @author Alex, John
  */
 public class GameController extends StackPane implements Serializable {
     
@@ -43,6 +45,12 @@ public class GameController extends StackPane implements Serializable {
         control = this;
     }
     
+    /**
+     * Switches between views/controllers.
+     * 
+     * @param screenName The name of the FXML view
+     * @return true, if the screen is successfully loaded, false otherwise
+     */
     public boolean setScreen(String screenName) {
         try {
             String resource = "/views/" + screenName + ".fxml";
@@ -55,8 +63,6 @@ public class GameController extends StackPane implements Serializable {
             loader.setController((Initializable)constructor.newInstance(parameters));
             
             Parent loadScreen = (Parent) loader.load();
-            
-                    
             final DoubleProperty opacity = opacityProperty(); 
 
             //Is there is more than one screen 
@@ -97,6 +103,9 @@ public class GameController extends StackPane implements Serializable {
         }
     }
     
+    /**
+     * Save the state of the current game.
+     */
     public static void saveGameData() {
         try {
             saveFile = new File("saves/" + gameData.getPlayer().name + ".ser");
@@ -117,6 +126,11 @@ public class GameController extends StackPane implements Serializable {
         }
     }
     
+    /**
+     * Load the game data from a given file.
+     * 
+     * @param f The file from which to load the new data
+     */
     public static void loadGameData(File f) {
         saveFile = f;
 

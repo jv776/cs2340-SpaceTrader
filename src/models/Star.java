@@ -40,6 +40,9 @@ public class Star implements Serializable {
         return name + "\t " + temperature + "KE3";
     }
 
+    /**
+     * The classification of the star.
+     */
     public static enum Type {
         B,
         A,
