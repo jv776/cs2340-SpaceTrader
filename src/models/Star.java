@@ -6,15 +6,18 @@ package models;
  * @author Taylor
  */
 public class Star {
+    private final Type type;
     private final String name;
     private final int temperature; //In Kelvin * 10^3
     private final int radius; //based on the website above (relative to our sun)
     //private final StarType type;
 
-    public Star(String name) {
+    public Star(String name, Star.Type type) {
         this.name = name;
         temperature = (int)(5 + (10 * (Math.pow(Math.random(), 2))));
         radius = (int)(3.2678 * Math.exp(0.0983 * temperature));
+        
+        this.type = type;
     }
 
     /**
@@ -36,7 +39,7 @@ public class Star {
         return name + "\t " + temperature + "KE3";
     }
 
-    public enum Type {
+    public static enum Type {
         B,
         A,
         F,
