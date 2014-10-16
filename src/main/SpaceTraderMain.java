@@ -15,14 +15,14 @@ import javafx.stage.Stage;
 /**
  * Main class for FXProject. Initializes various screens
  * and starts the game.
- *
+ * 
  * @author Alex
  */
 public class SpaceTraderMain extends Application {
-    @Override
-    public void start(Stage primaryStage) {
+     @Override 
+     public void start(Stage primaryStage) {
         GameController mainContainer = new GameController();
-
+               
         mainContainer.setScreen("Welcome");
 
         Group root = new Group();
@@ -30,7 +30,7 @@ public class SpaceTraderMain extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+     } 
 
     /**
      * @param args the command line arguments
@@ -39,3 +39,4 @@ public class SpaceTraderMain extends Application {
         launch(args);
     }
 }
+

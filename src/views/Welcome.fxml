@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1">
-	<children>
-		<Button fx:id="newGameButton" layoutX="254.0" layoutY="200.0" mnemonicParsing="false"
-		        onMouseClicked="#handleNewGame" text="New Game" />
-		<Button fx:id="loadGameButton" layoutX="253.0" layoutY="242.0" mnemonicParsing="false" text="Load Game" />
-		<Label layoutX="117.0" layoutY="36.0" text="Space Trader" textAlignment="CENTER">
-			<font>
-				<Font size="64.0" />
-			</font>
-			<effect>
-				<Glow level="1.0" />
-			</effect>
-		</Label>
-		<Label layoutX="249.0" layoutY="136.0" text="The Hitchhikers" textAlignment="CENTER" />
-	</children>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="newGameButton" layoutX="254.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handleNewGame" text="New Game" />
+      <Button fx:id="loadGameButton" layoutX="253.0" layoutY="242.0" mnemonicParsing="false" text="Load Game" />
+      <Label layoutX="117.0" layoutY="36.0" text="Space Trader" textAlignment="CENTER">
+         <font>
+            <Font size="64.0" />
+         </font>
+         <effect>
+            <Glow level="1.0" />
+         </effect>
+      </Label>
+      <Label layoutX="249.0" layoutY="136.0" text="The Hitchhikers" textAlignment="CENTER" />
+   </children>
 </AnchorPane>

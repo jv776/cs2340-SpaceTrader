@@ -28,7 +28,7 @@ public class SolarSystem {
         y = yLoc;
         tech = techLevel;
         government = governmentType;
-        sun = new Star("", Star.Type.A); //add name
+        sun = new Star(""); //add name
         planets = generatePlanets();
     }
 

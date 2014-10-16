@@ -8,12 +8,11 @@ package controllers;
 
 
 
-import main.SpaceTraderMain;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import models.GameData;
 
 
 /**
@@ -22,9 +21,12 @@ import models.GameData;
  * @author Alex
  */
 public class WelcomeController extends GameController implements Initializable {
-
-    public Button newGameButton;
-    public Button loadGameButton; //implement later
+    
+    @FXML
+    private Button newGameButton;
+    
+    @FXML
+    private Button loadGameButton; //implement later
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,7 +38,8 @@ public class WelcomeController extends GameController implements Initializable {
      * as canceling midway through allocating skill points has the chance of
      * remembering previous output when clicking new game again.
      */
-    public void handleNewGame() {
+    @FXML
+    private void handleNewGame() {
         control.setScreen("Customization");
     }
 }
