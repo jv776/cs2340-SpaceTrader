@@ -70,9 +70,9 @@ public class SolarSystemMapController extends GameController implements Initiali
 
         //draws orbits
         for (Planet p : currentSystem.planets) {
-            Ellipse orbit = EllipseBuilder.create() //depreciated!
-                    .centerX(image.impl_getPivotX()) //depreciated!
-                    .centerY(image.impl_getPivotY()) //depreciated!
+            Ellipse orbit = EllipseBuilder.create() //deprecated!
+                    .centerX(image.impl_getPivotX()) //deprecated!
+                    .centerY(image.impl_getPivotY()) //deprecated!
                     .radiusX(p.getDistance())
                     .radiusY(p.getDistance())
                     .strokeWidth(1)
@@ -96,7 +96,7 @@ public class SolarSystemMapController extends GameController implements Initiali
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
                 gameData.setPlanet(p);
-                control.setScreen("Market");
+                control.setScreen(Screens.SPACEPORT.getName());
             });
             anchor.getChildren().add(planet);
 

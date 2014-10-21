@@ -246,7 +246,7 @@ public class MarketController extends GameController implements Initializable {
         player = gameData.getPlayer();
         market = player.getCurrentPlanet().getMarket();
         
-        returnButton.setText("Return to " + gameData.getSolarSystem().getName());
+        returnButton.setText("Return to Space Port");
         
         Label[] buyQuantities = {
             buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
@@ -499,6 +499,6 @@ public class MarketController extends GameController implements Initializable {
     
     @FXML
     void returnToUniverse() {
-        control.setScreen("SolarSystemMap");
+        control.setScreen("SpacePort");
     }
 }

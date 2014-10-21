@@ -7,7 +7,9 @@ public enum Screens {
     MARKET("Market"),
     SOLAR_SYSTEM_MAP("SolarSystemMap"),
     UNIVERSE_MAP("UniverseMap"),
-    WELCOME("Welcome");
+    WELCOME("Welcome"),
+    CUSTOMIZATION("Customization"),
+    SPACEPORT("SpacePort");
     
     private String name;
     
