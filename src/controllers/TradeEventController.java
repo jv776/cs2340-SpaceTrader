@@ -44,15 +44,15 @@ public class TradeEventController extends RandomEventController implements Initi
 
     @Override
     void configureEncountered() {
-        encountered = new Trader("The Trader", gameData.getUniverse().getRandomPlanet());
+        encountered = new Trader("The Trader", GameController.getGameData().getUniverse().getRandomPlanet());
     }
 
 
     private void trade(){// THIS PROBABLY NEEDS TO BE CHANGED, VERY DIRTY HACK
-        Planet temp = gameData.getPlayer().getCurrentPlanet();
-        gameData.getPlayer().setCurrentPlanet(((Trader)(encountered)).getOrigin());
-        control.setScreen("Market");
-        gameData.getPlayer().setCurrentPlanet(temp);
+        Planet temp = GameController.getGameData().getPlayer().getCurrentPlanet();
+        GameController.getGameData().getPlayer().setCurrentPlanet(((Trader)(encountered)).getOrigin());
+        GameController.getControl().setScreen("Market");
+        GameController.getGameData().getPlayer().setCurrentPlanet(temp);
     }
 
 

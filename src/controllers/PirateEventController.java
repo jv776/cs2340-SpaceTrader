@@ -60,13 +60,13 @@ public class PirateEventController extends RandomEventController implements Init
         });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
-        gameData.getPlayer().spend(gameData.getPlayer().getCredits()/2);
+        GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits()/2);
     }
 
     @Override
     void playerDeath(){
         super.playerDeath();
-        gameData.getPlayer().spend(gameData.getPlayer().getCredits()/2);
+        GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits()/2);
     }
 
 

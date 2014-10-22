@@ -53,7 +53,7 @@ public class PoliceEventController extends RandomEventController implements Init
 
 
     private void surrender(){
-        if(gameData.getPlayer().hasIllegalGoods()){
+        if(GameController.getGameData().getPlayer().hasIllegalGoods()){
             punishment();
         }else {
             playerIsInnocent();
@@ -98,7 +98,7 @@ public class PoliceEventController extends RandomEventController implements Init
         });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
-        gameData.getPlayer().die();
+        GameController.getGameData().getPlayer().die();
     }
     private void playerWins(){
         showBubble();
