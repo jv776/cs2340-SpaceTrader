@@ -19,17 +19,9 @@ import java.util.ResourceBundle;
  * @author Taylor
  */
 public class Police extends Encounterable{
-//    private String name;
-//    private Ship ship;
-//    private int bounty;
-//    protected String welcomeText;
-//    protected String deathText;
-//    protected String fleeFailedText;
-//    protected String fleeSuccessfulText;
-//    protected String winText;
+
 
     public Police(String name) {
-//        super(0, 0, 0, 0, 0);
         this.name = name;
         ship = new Ship(Ship.Type.Gnat, this);
         welcomeText= "Suspect, prepare to receive civil judgement.";

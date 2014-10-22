@@ -35,37 +35,6 @@ public abstract class RandomEventController extends GameController implements In
     public Polygon bubbleArrow;
     public Label speech;
 
-
-//    public static void tryEvent(){
-//        tryEvent(1);
-//    }
-//
-//    public static void tryEvent(double probModifier){
-//        startEvent();
-//        if (Math.random()*probModifier >.50){
-//            startEvent();
-//            tryEvent(probModifier/3);
-//        }
-//    }
-//
-//    public static void startEvent(){
-//        double eventType = Math.random();
-//        //not the best structure for this
-//        RandomEventController event;
-//        if(eventType<.33){
-//            //control.setScreen("PoliceEvent");
-//            //event.startEvent();
-//        }else if(eventType<.66){
-//            event = new PoliceEventController();
-//            //event.startEvent();
-//        }else {
-//            event = new PirateEventController();
-//            //event.startEvent();
-//        }
-//    }
-
-
-
     public void initialize(URL location, ResourceBundle resources){
         configureEncountered();
         configureButtons();
@@ -80,7 +49,6 @@ public abstract class RandomEventController extends GameController implements In
 
     abstract void configureButtons();
     abstract void configureEncountered();
-//    abstract void configureTexts();
 
     void flee(){
         if (gameData.getPlayer().getPilotSkillPoints()*.1*Math.random() > .2){

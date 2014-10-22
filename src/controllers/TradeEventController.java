@@ -24,23 +24,7 @@ import java.util.ResourceBundle;
  * @author Taylor
  */
 public class TradeEventController extends RandomEventController implements Initializable {
-//    public Trader trader;
-//    public Pane pane;
-//    public Label otherName;
-//    public Button NEButton;
-//    public Button NWButton;
-//    public Button SEButton;
-//    public Button SWButton;
-//    public ImageView playerPic;
-//    public ImageView otherPic;
-//    public Rectangle bubbleBox;
-//    public Polygon bubbleArrow;
-//    public Label speech;
-//
-//    public void initialize(URL location, ResourceBundle resources){
-//        super.initialize(location, resources);
-//
-//    }
+
 
     @Override
     void configureButtons() {
@@ -62,29 +46,7 @@ public class TradeEventController extends RandomEventController implements Initi
     void configureEncountered() {
         encountered = new Trader("The Trader", gameData.getUniverse().getRandomPlanet());
     }
-//
-//    public void initialize(URL location, ResourceBundle resources){
-//        System.out.println("TraderEncounter");
-//        NWButton.setText("Trade");
-//        NWButton.setOnMouseClicked((MouseEvent t) -> {
-//            trade();
-//        });
-//
-//        NEButton.setText("Ignore");
-//        NEButton.setOnMouseClicked((MouseEvent t) -> {
-//            ignore();
-//        });
-//
-//        SEButton.setDisable(true);
-//        SWButton.setDisable(true);
-//        trader = new Trader("The Trader", gameData.getUniverse().getRandomPlanet()); //May want to change name in the future
-//        otherName.setText(trader.getName());
-//        playerPic.setImage(new Image("/images/current.png"));
-//        otherPic.setImage(new Image("/images/unreachable.png"));
-//
-//
-//        speech.setText("What're ya buy'in?");
-//    }
+
 
     private void trade(){// THIS PROBABLY NEEDS TO BE CHANGED, VERY DIRTY HACK
         Planet temp = gameData.getPlayer().getCurrentPlanet();
@@ -93,10 +55,7 @@ public class TradeEventController extends RandomEventController implements Initi
         gameData.getPlayer().setCurrentPlanet(temp);
     }
 
-//    private void ignore(){
-//        control.setScreen("SolarSystemMap");
-//
-//    }
+
 
 
 }

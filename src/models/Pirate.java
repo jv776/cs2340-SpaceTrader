@@ -6,14 +6,6 @@ package models;
  * @author Taylor
  */
 public class Pirate extends Encounterable{
-//    private String name;
-////    private Ship ship;
-//    private int bounty;
-//    private String welcomeText;
-//    private String deathText;
-//    private String fleeFailedText;
-//    private String fleeSuccessfulText;
-//    private String winText;
 
     public Pirate(String name){
 //        super(0,0,0,0,0);

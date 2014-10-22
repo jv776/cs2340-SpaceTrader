@@ -22,50 +22,7 @@ import java.util.ResourceBundle;
  * @author Taylor
  */
 public class PoliceEventController extends RandomEventController implements Initializable {
-//    public Police police;
-//    public Pane pane;
-//    public Label otherName;
-//    public ProgressBar otherHealth;
-//    public ProgressBar playerHealth;
-//    public Button NEButton;
-//    public Button NWButton;
-//    public Button SEButton;
-//    public Button SWButton;
-//    public ImageView playerPic;
-//    public ImageView otherPic;
-//    public Rectangle bubbleBox;
-//    public Polygon bubbleArrow;
-//    public Label speech;
 
-
-
-//    public void initialize(URL location, ResourceBundle resources){
-//        System.out.println("PoliceEncounter");
-//        NWButton.setText("Attack");
-//        NWButton.setOnMouseClicked((MouseEvent t) -> {
-//            attack();
-//        });
-//
-//        NEButton.setText("Comply");
-//        NEButton.setOnMouseClicked((MouseEvent t) -> {
-//            surrender();
-//        });
-//
-//        SEButton.setText("Flee");
-//        SEButton.setOnMouseClicked((MouseEvent t) -> {
-//            flee();
-//        });
-//        SWButton.setDisable(true);
-//        police = new Police("police"); //May want to change name in the future
-//        otherName.setText(police.getName());
-//        updateHealth();
-//        playerPic.setImage(new Image("/images/current.png"));
-//        otherPic.setImage(new Image("/images/reachable.png"));
-//
-//
-//        speech.setText("Suspect, prepare to receive civil judgement.");
-//
-//    }
 
     @Override
     void configureButtons() {
@@ -84,14 +41,7 @@ public class PoliceEventController extends RandomEventController implements Init
             flee();
         });
         SWButton.setDisable(true);
-//        police = new Police("police"); //May want to change name in the future
-//        otherName.setText(police.getName());
-//        updateHealth();
-//        playerPic.setImage(new Image("/images/current.png"));
-//        otherPic.setImage(new Image("/images/reachable.png"));
 
-
-//        speech.setText("Suspect, prepare to receive civil judgement.");
     }
 
     @Override
@@ -100,22 +50,7 @@ public class PoliceEventController extends RandomEventController implements Init
     }
 
 
-//
-//    private void updateHealth(){
-//        otherHealth.setProgress(((double) police.getHullStrength() / police.getMaxHullStrength()));
-//        playerHealth.setProgress(((double)gameData.getPlayer().getHullStrength()/gameData.getPlayer().getMaxHullStrength()));
-//    }
-//
-//    private void playerAttack(){
-//        police.takeDamage(gameData.getPlayer().calculateAttack());
-//    }
-//    private void policeAttack(){
-//        gameData.getPlayer().takeDamage(police.calculateAttack());
-//    }
-//
-//    private void exitEvent(){
-//        control.setScreen("SolarSystemMap");
-//    }
+
 
     private void surrender(){
         if(gameData.getPlayer().hasIllegalGoods()){
@@ -136,15 +71,6 @@ public class PoliceEventController extends RandomEventController implements Init
     }
 
 
-//    private void flee(){
-//        if (gameData.getPlayer().getPilotSkillPoints()*.1*Math.random() > .2){
-//            //print you escaped message
-//            fleeSuccessful();
-//        } else{
-//            fleeFailed();
-//
-//        }
-//    }
     private void fleeSuccessful(){
         showBubble();
         speech.setText("They got away!");
@@ -156,13 +82,7 @@ public class PoliceEventController extends RandomEventController implements Init
         SEButton.setDisable(true);
 
     }
-//    private void fleeFailed(){
-//        showBubble();
-//        speech.setText("You cannot run from justice.");
-//        policeAttack();
-//        updateHealth();
-//
-//    }
+
     private void punishment(){
         showBubble();
         speech.setText("You have broken the law, criminal scum. Prepare to die.");
