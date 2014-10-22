@@ -7,9 +7,10 @@ package controllers;
  */
 
 import java.io.File;
+import javafx.event.Event;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -24,8 +25,14 @@ import javafx.stage.Window;
  */
 public class WelcomeController implements Initializable {
 
-    public Button newGameButton;
-    public Button loadGameButton;
+    
+
+    @FXML
+    private Button newGameButton;
+    
+    @FXML
+    private Button loadGameButton;
+    
     private FileChooser saveChooser;
     
     @Override
@@ -42,11 +49,13 @@ public class WelcomeController implements Initializable {
      * as canceling midway through allocating skill points has the chance of
      * remembering previous output when clicking new game again.
      */
-    public void handleNewGame() {
+    @FXML
+    private void handleNewGame() {
         GameController.getControl().setScreen("Customization");
     }
     
-    public void handleLoadGame(Event e) {
+    @FXML
+    private void handleLoadGame(Event e) {
         Node n = (Node) e.getTarget();
         Scene s = n.getScene();
         Window w = s.getWindow();

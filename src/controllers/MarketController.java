@@ -5,8 +5,6 @@
  */
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,6 +13,9 @@ import javafx.scene.layout.GridPane;
 import models.Marketplace;
 import models.Player;
 import models.TradeGood;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -248,7 +249,7 @@ public class MarketController implements Initializable {
         player = GameController.getGameData().getPlayer();
         market = player.getCurrentPlanet().getMarket();
         
-        returnButton.setText("Return to " + player.getCurrentSystem().getName());
+        returnButton.setText("Return to Space Port");
         
         Label[] buyQuantities = {
             buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,

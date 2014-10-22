@@ -7,6 +7,7 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,14 +27,30 @@ public class CustomizationController implements Initializable {
 
     public final int SKILL_POINT_MAX = 15;
     
-    public TextField nameField;
-    public Label pilotSkillPoints;
-    public Label fighterSkillPoints;
-    public Label traderSkillPoints;
-    public Label engineerSkillPoints;
-    public Label investorSkillPoints;
-    public Label skillPointsRemaining;
-    public Button continueButton;
+    @FXML
+    private TextField nameField;
+    
+    @FXML
+    private Label pilotSkillPoints;
+    
+    @FXML 
+    private Label fighterSkillPoints;
+    
+    @FXML
+    private Label traderSkillPoints;
+    
+    @FXML
+    private Label engineerSkillPoints;
+    
+    @FXML
+    private Label investorSkillPoints;
+    
+    @FXML
+    private Label skillPointsRemaining;
+    
+    @FXML
+    private Button continueButton;
+    
     private int skillPoints;
     
     @Override
@@ -51,66 +68,76 @@ public class CustomizationController implements Initializable {
     /**
      * Increments "Pilot" label counter if any skill points are left.
      */
-    public void pilotIncrease() {
+    @FXML
+    private void pilotIncrease() {
         updateSkillPoints(pilotSkillPoints, "increase");
     }
     /**
      * Decrements "Pilot" label counter if any skill points are allocated there.
      */
-    public void pilotDecrease() {
+    @FXML
+    private void pilotDecrease() {
         updateSkillPoints(pilotSkillPoints, "decrease");
     }
     /**
      * Increments "Fighter" label counter if any skill points are left.
      */
-    public void fighterIncrease() {
+    @FXML
+    private void fighterIncrease() {
         updateSkillPoints(fighterSkillPoints, "increase");
     }
     /**
      * Decrements "Fighter" label counter if any skill points are allocated there.
      */
-    public void fighterDecrease() {
+    @FXML
+    private void fighterDecrease() {
         updateSkillPoints(fighterSkillPoints, "decrease");
     }
     /**
      * Increments "Trader" label counter if any skill points are left.
      */
-    public void traderIncrease() {
+    @FXML
+    private void traderIncrease() {
         updateSkillPoints(traderSkillPoints, "increase");
     }
     
     /**
      * Decrements "Trader" label counter if any skill points are allocated there.
      */
-    public void traderDecrease() {
+    @FXML
+    private void traderDecrease() {
         updateSkillPoints(traderSkillPoints, "decrease");
     }
     
     /**
      * Increments "Engineer" label counter if any skill points are left.
      */
-    public void engineerIncrease() {
+    @FXML
+    private void engineerIncrease() {
         updateSkillPoints(engineerSkillPoints, "increase");
     }
     
     /**
      * Decrements "Engineer" label counter if any skill points are allocated there.
      */
-    public void engineerDecrease() {
+    @FXML
+    private void engineerDecrease() {
         updateSkillPoints(engineerSkillPoints, "decrease");
     }
     
     /**
      * Increments "Investor" label counter if any skill points are left.
      */
-    public void investorIncrease() {
+    @FXML
+    private void investorIncrease() {
         updateSkillPoints(investorSkillPoints, "increase");
     }
     
     /**
      * Decrements "Investor" label counter if any skill points are allocated there.
      */
-    public void investorDecrease() {
+    @FXML
+    private void investorDecrease() {
         updateSkillPoints(investorSkillPoints, "decrease");
     }
     
@@ -118,7 +145,8 @@ public class CustomizationController implements Initializable {
      * Handles what occurs after player has allocated skill points and given
      * a name to their character.
      */
-    public void handleContinue() {
+    @FXML
+    private void handleContinue() {
         Universe universe = new Universe();
         
         Player player = new Player(nameField.getText(),
@@ -158,7 +186,8 @@ public class CustomizationController implements Initializable {
     /**
      * Returns to the home screen upon clicking the "Cancel" button.
      */
-    public void handleCancel() {
+    @FXML
+    private void handleCancel() {
         GameController.getControl().setScreen("Welcome");
     }
     

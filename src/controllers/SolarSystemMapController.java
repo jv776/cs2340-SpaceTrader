@@ -70,9 +70,9 @@ public class SolarSystemMapController implements Initializable {
 
         //draws orbits
         for (Planet p : currentSystem.planets) {
-            Ellipse orbit = EllipseBuilder.create() //depreciated!
-                    .centerX(image.impl_getPivotX()) //depreciated!
-                    .centerY(image.impl_getPivotY()) //depreciated!
+            Ellipse orbit = EllipseBuilder.create() //deprecated!
+                    .centerX(image.impl_getPivotX()) //deprecated!
+                    .centerY(image.impl_getPivotY()) //deprecated!
                     .radiusX(p.getDistance())
                     .radiusY(p.getDistance())
                     .strokeWidth(1)

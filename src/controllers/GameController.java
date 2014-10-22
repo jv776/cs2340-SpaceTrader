@@ -10,26 +10,26 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import models.GameData;
 
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import javafx.fxml.Initializable;
+
 /**
- *
  * @author Alex
  */
 public class GameController extends StackPane implements Serializable {
@@ -40,9 +40,9 @@ public class GameController extends StackPane implements Serializable {
     
     public GameController() {
         gameData = new GameData();
-        control = this;
+        control = this; //
     }
-    
+
     public boolean setScreen(String screenName) {
         try {
             String resource = "/views/" + screenName + ".fxml";
@@ -60,40 +60,34 @@ public class GameController extends StackPane implements Serializable {
             final DoubleProperty opacity = opacityProperty(); 
 
             //Is there is more than one screen 
-            if(!getChildren().isEmpty()){ 
-                Timeline fade = new Timeline( 
-                    new KeyFrame(Duration.ZERO, 
-                    new KeyValue(opacity,1.0)), 
-                    new KeyFrame(new Duration(1000), (ActionEvent t) -> {
-                        getChildren().remove(0);
-                        //add new screen
-                        getChildren().add(0, loadScreen);
-                        Timeline fadeIn = new Timeline(
-                                new KeyFrame(Duration.ZERO,
-                                        new KeyValue(opacity, 0.0)),
-                                new KeyFrame(new Duration(800),
-                                        new KeyValue(opacity, 1.0)));
-                        fadeIn.play();
-                }, new KeyValue(opacity, 0.0))); 
-                fade.play(); 
-            } else { 
+            if (!getChildren().isEmpty()) {
+                Timeline fade = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
+                        new KeyFrame(new Duration(1000), (ActionEvent t) -> {
+                            getChildren().remove(0);
+                            //add new screen
+                            getChildren().add(0, loadScreen);
+                            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+                                    new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
+                            fadeIn.play();
+                        }, new KeyValue(opacity, 0.0)));
+                fade.play();
+            } else {
                 //no one else been displayed, then just show 
-                setOpacity(0.0); 
-                getChildren().add(loadScreen); 
-                Timeline fadeIn = new Timeline( 
-                    new KeyFrame(Duration.ZERO, 
-                    new KeyValue(opacity, 0.0)), 
-                    new KeyFrame(new Duration(2500), 
-                    new KeyValue(opacity, 1.0))); 
-                fadeIn.play(); 
-            } 
-            return true; 
+                setOpacity(0.0);
+                getChildren().add(loadScreen);
+                Timeline fadeIn = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+                        new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
+                fadeIn.play();
+            }
+            return true;
         } catch (ClassNotFoundException | NoSuchMethodException |
                 SecurityException | InstantiationException |
                 IllegalAccessException | IllegalArgumentException |
                 InvocationTargetException | IOException e) {
             e.printStackTrace();
-            return false; 
+            return false;
         }
     }
     
