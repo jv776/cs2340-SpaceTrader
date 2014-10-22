@@ -1,17 +1,28 @@
 package models;
 
 /**
- * Created by Taylor on 10/14/14.
+ * Class representing a space-pirate
+ *
+ * @author Taylor
  */
-public class Pirate extends CrewMember{
-    private String name;
-    private Ship ship;
-    private int bounty;
+public class Pirate extends Encounterable{
+//    private String name;
+////    private Ship ship;
+//    private int bounty;
+//    private String welcomeText;
+//    private String deathText;
+//    private String fleeFailedText;
+//    private String fleeSuccessfulText;
+//    private String winText;
 
     public Pirate(String name){
-        super(0,0,0,0,0);
+//        super(0,0,0,0,0);
         this.name = name;
-        ship = new Ship(Ship.Type.Gnat, this);
+        welcomeText= "Yarr, surrender yer Credits or we'll take 'em by force!";
+        deathText = "Arrr! You win this time, but I'll be back!";
+        fleeFailedText = "Ye have no escape, ye scallywag!";
+        fleeSuccessfulText = "Aye, ye might 'ave escaped this time, but I'll find yea, ye scurvey dog!";
+        winText = "Ye should 'ave given up while yea had a chance";
     }
 
     public String getName(){

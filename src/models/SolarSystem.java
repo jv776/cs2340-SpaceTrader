@@ -122,4 +122,8 @@ public class SolarSystem {
     public Star getSun() {
         return sun;
     }
+    public Planet getRandomPlanet(){
+        return planets[3];
+    }
 }
+

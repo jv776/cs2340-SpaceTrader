@@ -14,17 +14,29 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Taylor on 10/14/14.
+ * Class representing an interstellar cop
+ *
+ * @author Taylor
  */
-public class Police extends CrewMember{
-    private String name;
-    private Ship ship;
-    private int bounty;
+public class Police extends Encounterable{
+//    private String name;
+//    private Ship ship;
+//    private int bounty;
+//    protected String welcomeText;
+//    protected String deathText;
+//    protected String fleeFailedText;
+//    protected String fleeSuccessfulText;
+//    protected String winText;
 
     public Police(String name) {
-        super(0, 0, 0, 0, 0);
+//        super(0, 0, 0, 0, 0);
         this.name = name;
         ship = new Ship(Ship.Type.Gnat, this);
+        welcomeText= "Suspect, prepare to receive civil judgement.";
+        deathText = "Shazbot!";
+        fleeFailedText = "You will never escape from justice.";
+        fleeSuccessfulText = "They got away!";
+        winText = "Criminal disposed of, resuming patrol";
     }
 
     public String getName() {

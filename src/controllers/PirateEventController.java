@@ -16,27 +16,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Taylor on 10/14/14.
+ * PirateEvent FXML Controller class
+ *
+ * @author Taylor
  */
-public class PirateEventController extends GameController implements Initializable {
-    public Pirate pirate;
-    public Pane pane;
-    public Label otherName;
-    public ProgressBar otherHealth;
-    public ProgressBar playerHealth;
-    public Button NEButton;
-    public Button NWButton;
-    public Button SEButton;
-    public Button SWButton;
-    public ImageView playerPic;
-    public ImageView otherPic;
-    public Rectangle bubbleBox;
-    public Polygon bubbleArrow;
-    public Label speech;
+public class PirateEventController extends RandomEventController implements Initializable {
 
-
-    public void initialize(URL location, ResourceBundle resources){
-        System.out.println("PirateEncounter");
+    void configureButtons(){
         NWButton.setText("Attack");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
             attack();
@@ -52,121 +38,114 @@ public class PirateEventController extends GameController implements Initializab
             flee();
         });
         SWButton.setDisable(true);
-        pirate = new Pirate("Pirate"); //May want to change name in the future
-        otherName.setText(pirate.getName());
-        updateHealth();
-        playerPic.setImage(new Image("/images/current.png"));
-        otherPic.setImage(new Image("/images/unreachable.png"));
-
-        speech.setText("Yarr, surrender yer Credits or we'll take 'em by force!");
-
-
     }
-
-    private void attack(){
-        hideBubble();
-        playerAttack();
-        pirateAttack();
-        if(pirate.isDead()){
-            playerWins();
-        }
-        if(gameData.getPlayer().isDead()){
-            playerDeath();
-        }
-        updateHealth();
-    }
-    public void playerDeath(){
-        showBubble();
-        speech.setText("Ye should 'ave given up while yea had a chance!");
-        NWButton.setText("Use Escape Pod");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            gameData.getPlayer().die();
-            exitEvent();
-        });
-        NEButton.setDisable(true);
-        SEButton.setDisable(true);
-    }
-
-    private void showBubble(){
-        bubbleArrow.setOpacity(1);
-        bubbleBox.setOpacity(1);
-        speech.setOpacity(1);
-    }
-    private void hideBubble(){
-        bubbleArrow.setOpacity(0);
-        bubbleBox.setOpacity(0);
-        speech.setOpacity(0);
+    void configureEncountered(){
+        encountered = new Pirate("Pirate");
     }
 
 
-    private void updateHealth(){
-        otherHealth.setProgress(((double) pirate.getHullStrength() / pirate.getMaxHullStrength()));
-        playerHealth.setProgress(((double)gameData.getPlayer().getHullStrength()/gameData.getPlayer().getMaxHullStrength()));
-    }
 
-    private void playerAttack(){
-        pirate.takeDamage(gameData.getPlayer().calculateAttack());
+    public void initialize(URL location, ResourceBundle resources){
+        super.initialize(location, resources);
     }
-    private void pirateAttack(){
-        gameData.getPlayer().takeDamage(pirate.calculateAttack());
-    }
+//    public void initialize(URL location, ResourceBundle resources){
+//        System.out.println("PirateEncounter");
+//        NWButton.setText("Attack");
+//        NWButton.setOnMouseClicked((MouseEvent t) -> {
+//            attack();
+//        });
+//
+//        NEButton.setText("Surrender");
+//        NEButton.setOnMouseClicked((MouseEvent t) -> {
+//            surrender();
+//        });
+//
+//        SEButton.setText("Flee");
+//        SEButton.setOnMouseClicked((MouseEvent t) -> {
+//            flee();
+//        });
+//        SWButton.setDisable(true);
+//        ; //May want to change name in the future
+//        otherName.setText(pirate.getName());
+//        updateHealth();
+//        playerPic.setImage(new Image("/images/current.png"));
+//        otherPic.setImage(new Image("/images/unreachable.png"));
+//
+//        speech.setText("Yarr, surrender yer Credits or we'll take 'em by force!");
+//
+//
+//    }
+//
+//
+//    public void playerDeath(){
+//        showBubble();
+//        speech.setText("Ye should 'ave given up while yea had a chance!");
+//        NWButton.setText("Use Escape Pod");
+//        NWButton.setOnMouseClicked((MouseEvent t) -> {
+//            gameData.getPlayer().die();
+//            exitEvent();
+//        });
+//        NEButton.setDisable(true);
+//        SEButton.setDisable(true);
+//    }
 
-    private void exitEvent(){
-        control.setScreen("SolarSystemMap");
-    }
 
     private void surrender(){
         showBubble();
-        speech.setText("Ah'har, I'll be take'n all them credits now!");
+        speech.setText("Ah'har, I'll be take'n them credits now!");
         NWButton.setText("Okay");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
             exitEvent();
         });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
-        gameData.getPlayer().spend(gameData.getPlayer().getCredits());
+        gameData.getPlayer().spend(gameData.getPlayer().getCredits()/2);
     }
 
 
 
-    private void flee(){
-        if (gameData.getPlayer().getPilotSkillPoints()*.1*Math.random() > .2){
-            //print you escaped message
-            fleeSuccessful();
-        } else{
-            fleeFailed();
-
-        }
+//    private void flee(){
+//        if (gameData.getPlayer().getPilotSkillPoints()*.1*Math.random() > .2){
+//            //print you escaped message
+//            fleeSuccessful();
+//        } else{
+//            fleeFailed();
+//
+//        }
+//    }
+//    private void fleeSuccessful(){
+//        showBubble();
+//        speech.setText("Aye, ye might 'ave escaped this time, but I'll find yea, ye scurvey dog!");
+//        NWButton.setText("Okay");
+//        NWButton.setOnMouseClicked((MouseEvent t) -> {
+//            exitEvent();
+//        });
+//        NEButton.setDisable(true);
+//        SEButton.setDisable(true);
+//
+//    }
+//    private void fleeFailed(){
+//        showBubble();
+//        speech.setText("Ye have no escape, ye scallywag!");
+//        pirateAttack();
+//        updateHealth();
+//
+//    }
+//    private void playerWins(){
+//        showBubble();
+//        speech.setText("Arrr! You win this time, " + gameData.getPlayer().getName() + ", but I'll be back!");
+//        NWButton.setText("Okay");
+//        NWButton.setOnMouseClicked((MouseEvent t) -> {
+//            exitEvent();
+//        });
+//        NEButton.setDisable(true);
+//        SEButton.setDisable(true);
+//    }
+    @Override
+    void playerDeath(){
+        super.playerDeath();
+        gameData.getPlayer().spend(gameData.getPlayer().getCredits()/2);
     }
-    private void fleeSuccessful(){
-        showBubble();
-        speech.setText("Aye, ye might 'ave escaped this time, but I'll find yea, ye scurvey dog!");
-        NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
-        NEButton.setDisable(true);
-        SEButton.setDisable(true);
-
-    }
-    private void fleeFailed(){
-        showBubble();
-        speech.setText("Ye have no escape, ye scallywag!");
-        pirateAttack();
-        updateHealth();
-
-    }
-    private void playerWins(){
-        showBubble();
-        speech.setText("Arrr! You win this time, " + gameData.getPlayer().getName() + ", but I'll be back!");
-        NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
-        NEButton.setDisable(true);
-        SEButton.setDisable(true);
-    }
-
 
 
 }

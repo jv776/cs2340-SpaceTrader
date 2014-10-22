@@ -29,7 +29,7 @@ public class Universe {
         "Carzon",
         "Castor",		// A Greek demi-god
         "Cestus",
-        "Cheron",		
+        "Cheron",
         "Courteney",	// After Courteney Cox…
         "Daled",
         "Damast",
@@ -135,7 +135,7 @@ public class Universe {
         "Zalkon",
         "Zuul"			// From the first Ghostbusters movie
     };
-    
+
     /*
      * Very ugly helper function to semi-randomly choose tech levels for
      * planets. Feel free to adjust the numbers (I chose them somewhat
@@ -145,7 +145,7 @@ public class Universe {
      */
     private static TechLevel randomTechLevel() {
         double r = Math.random();
-        
+
         if (0.0 <= r && r < 0.25) {
             return TechLevel.PRE_AGRICULTURE; //25% chance
         } else if (0.25 <= r && r < 0.45) {
@@ -164,12 +164,12 @@ public class Universe {
             return TechLevel.HI_TECH; //5% chance
         }
     }
-    
-      
+
+
     //Chooses a random government based on a given TechLevel
     private static PoliticalSystem randomGovernment(TechLevel level) {
         double r = Math.random();
-        
+
         if (level == TechLevel.PRE_AGRICULTURE) {
             if (0.0 <= r && r < 0.9) {
                 return PoliticalSystem.ANARCHY;
@@ -306,7 +306,7 @@ public class Universe {
     }
     /*
      * http://en.wikipedia.org/wiki/Van_der_Corput_sequence
-     * 
+     *
      * Compute the nth term in the Van der Corput sequence, which happens
      * to look pseudo-random and be non-repeating. The numbers from the
      * sequence can then be used to give solar systems unique and reasonably
@@ -315,31 +315,31 @@ public class Universe {
     private double vanDerCorput(int n) {
         double result = 0;
         int denominator = 2;
-        
+
         while (n > 0) {
             result += n % 2.0 / (denominator);
             denominator *= 2;
             n /= 2;
         }
-        
+
         return result;
     }
-    
+
     public final int MAX_X = 590;
     public final int MAX_Y = 390;
-    
+
     public static SolarSystem[] solarSystems;
-    
+
     public Universe() {
         solarSystems = new SolarSystem[SOLAR_SYSTEM_NAMES.length];
         Random r = new Random();
         int offset = r.nextInt();
-        
+
         for (int i = 0; i < SOLAR_SYSTEM_NAMES.length; i++) {
             TechLevel tech = randomTechLevel();
             int x = (int) (vanDerCorput(Math.abs(i + offset)) * MAX_X);
             int y = (int) (vanDerCorput(Math.abs(x + offset)) * MAX_Y);
-            
+
             solarSystems[i] = new SolarSystem(
                     SOLAR_SYSTEM_NAMES[i],
                     x,
@@ -348,5 +348,10 @@ public class Universe {
                     randomGovernment(tech)
             );
         }
+    }
+    public Planet getRandomPlanet(){
+        Random r = new Random();
+        SolarSystem s = solarSystems[r.nextInt(solarSystems.length)];
+        return s.getRandomPlanet();
     }
 }
