@@ -6,24 +6,17 @@
 
 package models;
 
+import java.io.Serializable;
+
 /**
- * Singleton object (implemented by using an enum with one instance) that
- * allows easy access to basic information about the current status of the
+ * Allows easy access to basic information about the status of the
  * player and the universe in which the current game is occurring.
  * 
  * @author Alex, John
  */
-public enum GameData {
-    DATA;
-    
+public class GameData implements Serializable {
     private Player player;
     private Universe universe;
-    
-    //all of these variables can be accessed via the Player's location
-    //and ship information
-    //private SolarSystem solarSystem;
-    //private Planet planet;
-    //private CargoHold cargo;
     
     /**
      * @return The in-game representation of the current player

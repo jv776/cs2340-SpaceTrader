@@ -1,15 +1,17 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * http://www.enchantedlearning.com/subjects/astronomy/stars/startypes.shtml
  *
  * @author Taylor
  */
-public class Star {
+public class Star implements Serializable {
+    //private final Type type;
     private final String name;
     private final int temperature; //In Kelvin * 10^3
     private final int radius; //based on the website above (relative to our sun)
-    //private final StarType type;
 
     public Star(String name) {
         this.name = name;
@@ -36,6 +38,9 @@ public class Star {
         return name + "\t " + temperature + "KE3";
     }
 
+    /**
+     * The classification of the star.
+     */
     public enum Type {
         B,
         A,

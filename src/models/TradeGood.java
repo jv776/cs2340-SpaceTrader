@@ -13,7 +13,6 @@ import java.util.Optional;
  * 
  * @author John Varela
  */
-
 public enum TradeGood implements CargoItem {
     WATER      (TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
                 TechLevel.MEDIEVAL, 30, 3, 4, 30, 50, PriceEvent.DROUGHT,

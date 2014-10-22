@@ -6,29 +6,42 @@ package controllers;
  * and open the template in the editor.
  */
 
-
-
-import main.SpaceTraderMain;
+import java.io.File;
+import javafx.event.Event;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import models.GameData;
-
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
  *
  * @author Alex
  */
-public class WelcomeController extends GameController implements Initializable {
+public class WelcomeController implements Initializable {
 
-    public Button newGameButton;
-    public Button loadGameButton; //implement later
+    
+
+    @FXML
+    private Button newGameButton;
+    
+    @FXML
+    private Button loadGameButton;
+    
+    private FileChooser saveChooser;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        saveChooser = new FileChooser();
+        saveChooser.setTitle("Load previous game");
+        saveChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Save files",
+                "*.ser"));
+        saveChooser.setInitialDirectory(new File("saves/"));
     }
 
     /**
@@ -36,7 +49,22 @@ public class WelcomeController extends GameController implements Initializable {
      * as canceling midway through allocating skill points has the chance of
      * remembering previous output when clicking new game again.
      */
-    public void handleNewGame() {
-        control.setScreen("Customization");
+    @FXML
+    private void handleNewGame() {
+        GameController.getControl().setScreen("Customization");
+    }
+    
+    @FXML
+    private void handleLoadGame(Event e) {
+        Node n = (Node) e.getTarget();
+        Scene s = n.getScene();
+        Window w = s.getWindow();
+        
+        File newSave = saveChooser.showOpenDialog(w);
+        
+        if (newSave != null) {
+            GameController.loadGameData(newSave);
+            GameController.getControl().setScreen("Market");
+        }
     }
 }

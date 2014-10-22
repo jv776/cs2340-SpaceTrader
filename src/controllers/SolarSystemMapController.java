@@ -30,7 +30,7 @@ import models.SolarSystem;
  * 
  * @author Alex, Taylor
  */
-public class SolarSystemMapController extends GameController implements Initializable {
+public class SolarSystemMapController implements Initializable {
 
     public AnchorPane anchor;
     public Button returnButton;
@@ -38,14 +38,14 @@ public class SolarSystemMapController extends GameController implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        SolarSystem currentSystem = GameController.getGameData().getSolarSystem();
+        
         returnButton.setText("Return to Universe");
         locationLabel.setTextFill(Color.WHITE);
-        locationLabel.setText(gameData.getSolarSystem().getName() + ": "
-            + gameData.getSolarSystem().getTechLevel());
+        locationLabel.setText(currentSystem.getName() + ": " +
+                currentSystem.getTechLevel());
         anchor.setBackground(new Background(
                 new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        SolarSystem currentSystem = gameData.getSolarSystem();
 
         double x = 300 - currentSystem.getSun().getRadius() - 2.5;
         double y = 200 - currentSystem.getSun().getRadius() - 2.5;
@@ -66,13 +66,13 @@ public class SolarSystemMapController extends GameController implements Initiali
 
         anchor.getChildren().add(image);
 
-        Planet currentPlanet = gameData.getPlanet();
+        Planet currentPlanet = GameController.getGameData().getPlanet();
 
         //draws orbits
         for (Planet p : currentSystem.planets) {
-            Ellipse orbit = EllipseBuilder.create() //depreciated!
-                    .centerX(image.impl_getPivotX()) //depreciated!
-                    .centerY(image.impl_getPivotY()) //depreciated!
+            Ellipse orbit = EllipseBuilder.create() //deprecated!
+                    .centerX(image.impl_getPivotX()) //deprecated!
+                    .centerY(image.impl_getPivotY()) //deprecated!
                     .radiusX(p.getDistance())
                     .radiusY(p.getDistance())
                     .strokeWidth(1)
@@ -82,6 +82,7 @@ public class SolarSystemMapController extends GameController implements Initiali
             orbit.setMouseTransparent(true);
             anchor.getChildren().add(orbit);
         }
+        
         for (Planet p : currentSystem.planets) {
             ImageView planet = new ImageView("/images/star.png");
             if (p == currentPlanet) {
@@ -95,8 +96,8 @@ public class SolarSystemMapController extends GameController implements Initiali
             Tooltip planetName = new Tooltip(p.getName());
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
-                gameData.setPlanet(p);
-                control.setScreen("Market");
+                GameController.getGameData().setPlanet(p);
+                GameController.getControl().setScreen("Market");
             });
             anchor.getChildren().add(planet);
 
@@ -106,7 +107,7 @@ public class SolarSystemMapController extends GameController implements Initiali
 
 
     public void returnToUniverse() {
-        control.setScreen("UniverseMap");
+        GameController.getControl().setScreen("UniverseMap");
     }
 
     private double lerp(double x, double x0, double y0, double x1, double y1) {

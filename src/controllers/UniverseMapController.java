@@ -21,6 +21,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import models.GameData;
 import models.SolarSystem;
 
 /**
@@ -28,12 +29,13 @@ import models.SolarSystem;
  *
  * @author Alex, John
  */
-public class UniverseMapController extends GameController implements Initializable {
-
+public class UniverseMapController implements Initializable {
     public AnchorPane anchor;
     private boolean inSolarSystem;
 
     private void drawSolarSystems() {
+        GameData gameData = GameController.getGameData();
+
         SolarSystem currentSystem = gameData.getSolarSystem();
 
         for (SolarSystem s : gameData.getUniverse().solarSystems) {
@@ -66,21 +68,22 @@ public class UniverseMapController extends GameController implements Initializab
                         gameData.getShip().expendFuel(dist);
                         System.out.println(s.name);
                         gameData.setSolarSystem(s);
+
                         double event = Math.random();
                         if(event<.35){
-                            control.setScreen("PoliceEvent");
+                            GameController.getControl().setScreen("PoliceEvent");
                         } else if(event < .75){
-                            control.setScreen("PirateEvent");
+                            GameController.getControl().setScreen("PirateEvent");
                         } else if(event < .90){
-                            control.setScreen("TradeEvent");
+                            GameController.getControl().setScreen("TradeEvent");
                         } else{
-                            control.setScreen("SolarSystemMap");
+                            GameController.getControl().setScreen("SolarSystemMap");
                         }
 
                 }
             });
 
-            Tooltip systemInfo = new Tooltip(s.getName() + " System"+ "\nDistance: "
+            Tooltip systemInfo = new Tooltip(s.getName() + " System" + "\nDistance: "
                     + new DecimalFormat("0.00").format(dist) +" light-years");
             Tooltip.install(image, systemInfo);
             anchor.getChildren().add(image);

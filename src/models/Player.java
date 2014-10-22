@@ -6,12 +6,14 @@
 
 package models;
 
+import java.io.Serializable;
+
 /**
  * Class representing the player's character.
  *
  * @author Alex, John
  */
-public class Player extends CrewMember {
+public class Player extends CrewMember implements Serializable {
     public final String name;
     private Ship ship;
     private SolarSystem currentSystem;
@@ -23,14 +25,8 @@ public class Player extends CrewMember {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         name = playerName;
 
-        //starting goods/equipment, can be changed
         ship = new Ship(Ship.Type.Gnat, this);
-        credits = 10000;
 
-        currentSystem = Universe.solarSystems[(int) (Math.random()
-                * Universe.solarSystems.length)];
-        currentPlanet = currentSystem.planets[(int) (Math.random()
-                * currentSystem.planets.length)];
     }
 
     @Override
