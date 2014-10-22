@@ -10,7 +10,8 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
- *
+ * A representation of the in-game universe.
+ * 
  * @author Alex, John
  */
 public class Universe implements Serializable {
@@ -165,7 +166,6 @@ public class Universe implements Serializable {
             return TechLevel.HI_TECH; //5% chance
         }
     }
-    
       
     //Chooses a random government based on a given TechLevel
     private static PoliticalSystem randomGovernment(TechLevel level) {

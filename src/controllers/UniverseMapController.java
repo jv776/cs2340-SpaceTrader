@@ -30,7 +30,6 @@ import models.SolarSystem;
  * @author Alex, John
  */
 public class UniverseMapController implements Initializable {
-
     public AnchorPane anchor;
     private boolean inSolarSystem;
 

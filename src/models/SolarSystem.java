@@ -105,22 +105,37 @@ public class SolarSystem implements Serializable {
         return temp;
     }
 
+    /**
+     * @return The tech level of the solar system
+     */
     public TechLevel getTechLevel() {
         return tech;
     }
 
+    /**
+     * @return The x coordinate of the solar system's location in the universe
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * @return The y coordinate of the solar system's location in the universe
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * @return The name of the solar system
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return The star in the solar system
+     */
     public Star getSun() {
         return sun;
     }

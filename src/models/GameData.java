@@ -18,12 +18,6 @@ public class GameData implements Serializable {
     private Player player;
     private Universe universe;
     
-    //all of these variables can be accessed via the Player's location
-    //and ship information
-    //private SolarSystem solarSystem;
-    //private Planet planet;
-    //private CargoHold cargo;
-    
     /**
      * @return The in-game representation of the current player
      */

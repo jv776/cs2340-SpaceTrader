@@ -82,6 +82,7 @@ public class SolarSystemMapController implements Initializable {
             orbit.setMouseTransparent(true);
             anchor.getChildren().add(orbit);
         }
+        
         for (Planet p : currentSystem.planets) {
             ImageView planet = new ImageView("/images/star.png");
             if (p == currentPlanet) {

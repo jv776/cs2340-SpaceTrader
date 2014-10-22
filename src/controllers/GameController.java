@@ -30,7 +30,10 @@ import java.lang.reflect.InvocationTargetException;
 import javafx.fxml.Initializable;
 
 /**
- * @author Alex
+ * Main controller for the game, maintains information about game state
+ * and manages transitions between screens.
+ * 
+ * @author Alex, John
  */
 public class GameController extends StackPane implements Serializable {
     
@@ -42,7 +45,13 @@ public class GameController extends StackPane implements Serializable {
         gameData = new GameData();
         control = this; //
     }
-
+    
+    /**
+     * Switches between views/controllers.
+     * 
+     * @param screenName The name of the FXML view
+     * @return true, if the screen is successfully loaded, false otherwise
+     */
     public boolean setScreen(String screenName) {
         try {
             String resource = "/views/" + screenName + ".fxml";
@@ -55,23 +64,25 @@ public class GameController extends StackPane implements Serializable {
             loader.setController((Initializable)constructor.newInstance(parameters));
             
             Parent loadScreen = (Parent) loader.load();
-            
-                    
             final DoubleProperty opacity = opacityProperty(); 
 
             //Is there is more than one screen 
-            if (!getChildren().isEmpty()) {
-                Timeline fade = new Timeline(
-                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                        new KeyFrame(new Duration(1000), (ActionEvent t) -> {
-                            getChildren().remove(0);
-                            //add new screen
-                            getChildren().add(0, loadScreen);
-                            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                    new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
-                            fadeIn.play();
-                        }, new KeyValue(opacity, 0.0)));
-                fade.play();
+            if(!getChildren().isEmpty()) {
+                Timeline fade = new Timeline( 
+                    new KeyFrame(Duration.ZERO, 
+                    new KeyValue(opacity,1.0)), 
+                    new KeyFrame(new Duration(1000), (ActionEvent t) -> {
+                        getChildren().remove(0);
+                        //add new screen
+                        getChildren().add(0, loadScreen);
+                        Timeline fadeIn = new Timeline(
+                                new KeyFrame(Duration.ZERO,
+                                        new KeyValue(opacity, 0.0)),
+                                new KeyFrame(new Duration(800),
+                                        new KeyValue(opacity, 1.0)));
+                        fadeIn.play();
+                }, new KeyValue(opacity, 0.0))); 
+                fade.play(); 
             } else {
                 //no one else been displayed, then just show 
                 setOpacity(0.0);
@@ -91,6 +102,9 @@ public class GameController extends StackPane implements Serializable {
         }
     }
     
+    /**
+     * Save the state of the current game.
+     */
     public static void saveGameData() {
         try {
             saveFile = new File("saves/" + gameData.getPlayer().name + ".ser");
@@ -111,6 +125,11 @@ public class GameController extends StackPane implements Serializable {
         }
     }
     
+    /**
+     * Load the game data from a given file.
+     * 
+     * @param f The file from which to load the new data
+     */
     public static void loadGameData(File f) {
         saveFile = f;
 

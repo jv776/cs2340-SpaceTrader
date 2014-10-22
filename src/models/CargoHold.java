@@ -22,6 +22,11 @@ public class CargoHold implements Serializable {
         cargo = new HashMap<>();
     }
     
+    /**
+     * Add a new item to the cargo hold.
+     * 
+     * @param item The item to add to the cargo hold
+     */
     public void addItem(CargoItem item) {
         if (cargo.size() < capacity) {
             boolean isNew = !cargo.keySet().contains(item);
@@ -33,6 +38,12 @@ public class CargoHold implements Serializable {
         }
     }
     
+    /**
+     * Add many of the same item to the cargo hold at once
+     * 
+     * @param item The item to be added
+     * @param amount The quantity of the item to be added
+     */
     public void addItemQuantity(CargoItem item, int amount) {
         boolean isNew = !cargo.keySet().contains(item);
         if (isNew) {
@@ -42,6 +53,12 @@ public class CargoHold implements Serializable {
         }
     }
     
+    /**
+     * Remove an item from the cargo hold.
+     * 
+     * @param item The item to be removed
+     * @return whether or not the item was successfully removed
+     */
     public boolean removeItem(CargoItem item) {
         if (cargo.keySet().contains(item)) {
             if (cargo.get(item) == 1) {
@@ -55,6 +72,11 @@ public class CargoHold implements Serializable {
         }
     }
     
+    /**
+     * Get an array of every trade good contained in a cargo hold.
+     * 
+     * @return The trade goods currently held in a cargo hold
+     */
     public TradeGood[] getTradeGoods() {
         TradeGood[] goods = new TradeGood[10];
         int count = 0;
@@ -71,6 +93,12 @@ public class CargoHold implements Serializable {
         return finalGoods;
     }
     
+    /**
+     * Get the quantity of a particular item currently held in cargo.
+     * 
+     * @param item The item being queried
+     * @return The quantity of the item currently held
+     */
     public int getQuantity(CargoItem item) {
         if (cargo.keySet().contains(item)) {
             return cargo.get(item);            
@@ -79,6 +107,9 @@ public class CargoHold implements Serializable {
         }
     }
     
+    /**
+     * @return Whether or not the cargo hold has space for more items
+     */
     public boolean hasSpace() {
         int size = 0;
         for (CargoItem item : cargo.keySet()) {
