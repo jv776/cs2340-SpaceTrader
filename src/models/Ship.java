@@ -130,6 +130,25 @@ public class Ship implements Serializable {
     public void expendFuel(double distance) {
         fuelAmount -= distance;
     }
+    
+    public void addFuel(double amount) {
+        if(fuelAmount + amount > type.fuelCapacity)
+            fuelAmount = type.fuelCapacity;
+        else
+            fuelAmount += amount;
+    }
+    
+    public void refuel() {
+        fuelAmount = type.fuelCapacity;
+    }
+    
+    public int getFuelCapacity() {
+        return this.type.fuelCapacity;
+    }
+    
+    public int getFuelCost() {
+        return this.type.fuelCost;
+    }
 
     public void takeDamage(int damage){
         hullStrength -= damage; //needs to work with shields
