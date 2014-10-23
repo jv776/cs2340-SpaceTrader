@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 /**
  * @author Roi Atalla
  */
-public class SpacePortController extends GameController implements Initializable {
+public class SpacePortController implements Initializable {
     @FXML
     private Button btn_Market;
     

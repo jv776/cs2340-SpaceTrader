@@ -258,6 +258,9 @@ public class MarketController implements Initializable {
         market = player.getCurrentPlanet().getMarket();
         
         returnButton.setText("Return to Space Port");
+        if (player.getShip().getFuelCapacity() == player.getShip().getFuelAmount()) {
+            button_Refuel.setDisable(true);
+        }
         
         Label[] buyQuantities = {
             buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
@@ -383,6 +386,7 @@ public class MarketController implements Initializable {
         
         label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
         label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
+        button_Refuel.setDisable(true);
         update();
     }
     
@@ -547,6 +551,6 @@ public class MarketController implements Initializable {
     
     @FXML
     void returnToUniverse() {
-        GameController.getControl().setScreen("SolarSystemMap");
+        GameController.getControl().setScreen("SpacePort");
     }
 }

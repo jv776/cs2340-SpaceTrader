@@ -97,7 +97,7 @@ public class SolarSystemMapController implements Initializable {
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
                 GameController.getGameData().setPlanet(p);
-                GameController.getControl().setScreen("Market");
+                GameController.getControl().setScreen("SpacePort");
             });
             anchor.getChildren().add(planet);
 
