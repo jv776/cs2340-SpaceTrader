@@ -6,10 +6,7 @@ package controllers;
  * and open the template in the editor.
  */
 
-import java.io.File;
 import javafx.event.Event;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -17,6 +14,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -51,7 +52,7 @@ public class WelcomeController implements Initializable {
      */
     @FXML
     private void handleNewGame() {
-        GameController.getControl().setScreen("Customization");
+        GameController.getControl().setScreen(Screens.CUSTOMIZATION);
     }
     
     @FXML
@@ -64,7 +65,7 @@ public class WelcomeController implements Initializable {
         
         if (newSave != null) {
             GameController.loadGameData(newSave);
-            GameController.getControl().setScreen("Market");
+            GameController.getControl().setScreen(Screens.MARKET);
         }
     }
 }

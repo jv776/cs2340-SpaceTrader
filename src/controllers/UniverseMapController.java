@@ -6,9 +6,6 @@
 
 package controllers;
 
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Tooltip;
@@ -23,6 +20,10 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import models.GameData;
 import models.SolarSystem;
+
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ResourceBundle;
 
 /**
  * Displays and manages the map of the universe.
@@ -71,13 +72,13 @@ public class UniverseMapController implements Initializable {
 
                         double event = Math.random();
                         if(event<.35){
-                            GameController.getControl().setScreen("PoliceEvent");
+                            GameController.getControl().setScreen(Screens.POLICE_EVENT);
                         } else if(event < .75){
-                            GameController.getControl().setScreen("PirateEvent");
+                            GameController.getControl().setScreen(Screens.PIRATE_EVENT);
                         } else if(event < .90){
-                            GameController.getControl().setScreen("TradeEvent");
+                            GameController.getControl().setScreen(Screens.TRADE_EVENT);
                         } else{
-                            GameController.getControl().setScreen("SolarSystemMap");
+                            GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
                         }
 
                 }

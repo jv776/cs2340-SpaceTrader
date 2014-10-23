@@ -6,28 +6,21 @@
 
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import models.GameData;
 
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import javafx.fxml.Initializable;
 
 /**
  * Main controller for the game, maintains information about game state
@@ -43,16 +36,18 @@ public class GameController extends StackPane implements Serializable {
     
     public GameController() {
         gameData = new GameData();
-        control = this; //
+        control = this;
     }
     
     /**
      * Switches between views/controllers.
      * 
-     * @param screenName The name of the FXML view
+     * @param screen The enum of the screen
      * @return true, if the screen is successfully loaded, false otherwise
      */
-    public boolean setScreen(String screenName) {
+    public boolean setScreen(Screens screen) {
+        String screenName = screen.getName();
+        
         try {
             String resource = "/views/" + screenName + ".fxml";
             Class myClass = Class.forName("controllers." + screenName + "Controller");

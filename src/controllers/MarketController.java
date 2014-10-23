@@ -16,7 +16,6 @@ import models.TradeGood;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import models.Ship;
 
 /**
  * FXML Controller class
@@ -551,6 +550,6 @@ public class MarketController implements Initializable {
     
     @FXML
     void returnToUniverse() {
-        GameController.getControl().setScreen("SpacePort");
+        GameController.getControl().setScreen(Screens.SPACE_PORT);
     }
 }

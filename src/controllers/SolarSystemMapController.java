@@ -6,12 +6,11 @@
 
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,10 +19,13 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.control.Tooltip;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.EllipseBuilder;
 import models.Planet;
 import models.SolarSystem;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Displays and manages the map of the Solar System.
@@ -97,7 +99,7 @@ public class SolarSystemMapController implements Initializable {
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
                 GameController.getGameData().setPlanet(p);
-                GameController.getControl().setScreen("SpacePort");
+                GameController.getControl().setScreen(Screens.SPACE_PORT);
             });
             anchor.getChildren().add(planet);
 
@@ -107,7 +109,7 @@ public class SolarSystemMapController implements Initializable {
 
 
     public void returnToUniverse() {
-        GameController.getControl().setScreen("UniverseMap");
+        GameController.getControl().setScreen(Screens.UNIVERSE_MAP);
     }
 
     private double lerp(double x, double x0, double y0, double x1, double y1) {

@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import models.Encounterable;
-import models.Pirate;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -145,7 +144,7 @@ public abstract class RandomEventController implements Initializable {
         speech.setOpacity(0);
     }
      void exitEvent(){
-         GameController.getControl().setScreen("SolarSystemMap");
+         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }
 
 
