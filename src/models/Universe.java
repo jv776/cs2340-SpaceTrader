@@ -163,7 +163,7 @@ public class Universe implements Serializable {
         } else if (0.875 <= r && r < 0.95) {
             return TechLevel.POST_INDUSTRIAL; //7.5% chance
         } else {
-            return TechLevel.HI_TECH; //5% chance
+            return TechLevel.HIGH_TECH; //5% chance
         }
     }
 
@@ -171,140 +171,144 @@ public class Universe implements Serializable {
     //Chooses a random government based on a given TechLevel
     private static PoliticalSystem randomGovernment(TechLevel level) {
         double r = Math.random();
+        
+        PoliticalSystem p;
 
         if (level == TechLevel.PRE_AGRICULTURE) {
             if (0.0 <= r && r < 0.9) {
-                return PoliticalSystem.ANARCHY;
+                p = PoliticalSystem.ANARCHY;
             } else if (0.9 <= r && r < 0.98) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else {
-                return PoliticalSystem.STATE_OF_SATORI;
+                p = PoliticalSystem.STATE_OF_SATORI;
             }
         } else if (level == TechLevel.AGRICULTURE) {
             if (0.0 <= r && r < 0.4) {
-                return PoliticalSystem.ANARCHY;
+                p = PoliticalSystem.ANARCHY;
             } else if (0.4 <= r && r < 0.6) {
-                return PoliticalSystem.FEUDAL_STATE;
+                p = PoliticalSystem.FEUDAL_STATE;
             } else if (0.6 <= r && r < 0.7) {
-                return PoliticalSystem.MILITARY_STATE;
+                p = PoliticalSystem.MILITARY_STATE;
             } else if (0.7 <= r && r < 0.8) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else if (0.8 <= r && r < 0.98) {
-                return PoliticalSystem.THEOCRACY;
+                p = PoliticalSystem.THEOCRACY;
             } else {
-                return PoliticalSystem.STATE_OF_SATORI;
+                p = PoliticalSystem.STATE_OF_SATORI;
             }
         } else if (level == TechLevel.MEDIEVAL) {
             if (0.0 <= r && r < 0.05) {
-                return PoliticalSystem.ANARCHY;
+                p = PoliticalSystem.ANARCHY;
             } else if (0.05 <= r && r < 0.15) {
-                return PoliticalSystem.DICTATORSHIP;
+                p = PoliticalSystem.DICTATORSHIP;
             } else if (0.15 <= r && r < 0.35) {
-                return PoliticalSystem.FEUDAL_STATE;
+                p = PoliticalSystem.FEUDAL_STATE;
             } else if (0.35 <= r && r < 0.4) {
-                return PoliticalSystem.MILITARY_STATE;
+                p = PoliticalSystem.MILITARY_STATE;
             } else if (0.4 <= r && r < 0.8) {
-                return PoliticalSystem.MONARCHY;
+                p = PoliticalSystem.MONARCHY;
             } else if (0.8 <= r && r < 0.9) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else if (0.9 <= r && r < 0.99) {
-                return PoliticalSystem.THEOCRACY;
+                p = PoliticalSystem.THEOCRACY;
             } else {
-                return PoliticalSystem.STATE_OF_SATORI;
+                p = PoliticalSystem.STATE_OF_SATORI;
             }
         } else if (level == TechLevel.RENAISSANCE) {
             if (0.0 <= r && r < 0.15) {
-                return PoliticalSystem.CONFEDERACY;
+                p = PoliticalSystem.CONFEDERACY;
             } else if (0.15 <= r && r < 0.25) {
-                return PoliticalSystem.DEMOCRACY;
+                p = PoliticalSystem.DEMOCRACY;
             } else if (0.25 <= r && r < 0.35) {
-                return PoliticalSystem.DICTATORSHIP;
+                p = PoliticalSystem.DICTATORSHIP;
             } else if (0.35 <= r && r < 0.45) {
-                return PoliticalSystem.MILITARY_STATE;
+                p = PoliticalSystem.MILITARY_STATE;
             } else if (0.45 <= r && r < 0.8) {
-                return PoliticalSystem.MONARCHY;
+                p = PoliticalSystem.MONARCHY;
             } else if (0.8 <= r && r < 0.9) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else {
-                return PoliticalSystem.THEOCRACY;
+                p = PoliticalSystem.THEOCRACY;
             }
         } else if (level == TechLevel.EARLY_INDUSTRIAL) {
             if (0.0 <= r && r < 0.2) {
-                return PoliticalSystem.CAPITALIST_STATE;
+                p = PoliticalSystem.CAPITALIST_STATE;
             } else if (0.2 <= r && r < 0.3) {
-                return PoliticalSystem.COMMUNIST_STATE;
+                p = PoliticalSystem.COMMUNIST_STATE;
             } else if (0.3 <= r && r < 0.5) {
-                return PoliticalSystem.DEMOCRACY;
+                p = PoliticalSystem.DEMOCRACY;
             } else if (0.5 <= r && r < 0.55) {
-                return PoliticalSystem.DICTATORSHIP;
+                p = PoliticalSystem.DICTATORSHIP;
             } else if (0.55 <= r && r < 0.6) {
-                return PoliticalSystem.FASCIST_STATE;
+                p = PoliticalSystem.FASCIST_STATE;
             } else if (0.6 <= r && r < 0.7) {
-                return PoliticalSystem.MILITARY_STATE;
+                p = PoliticalSystem.MILITARY_STATE;
             } else if (0.7 <= r && r < 0.8) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else if (0.8 <= r && r < 0.9) {
-                return PoliticalSystem.SOCIALIST_STATE;
+                p = PoliticalSystem.SOCIALIST_STATE;
             } else {
-                return PoliticalSystem.TECHNOCRACY;
+                p = PoliticalSystem.TECHNOCRACY;
             }
         } else if (level == TechLevel.INDUSTRIAL) {
             if (0.0 <= r && r < 0.3) {
-                return PoliticalSystem.CAPITALIST_STATE;
+                p = PoliticalSystem.CAPITALIST_STATE;
             } else if (0.3 <= r && r < 0.4) {
-                return PoliticalSystem.COMMUNIST_STATE;
+                p = PoliticalSystem.COMMUNIST_STATE;
             } else if (0.4 <= r && r < 0.6) {
-                return PoliticalSystem.DEMOCRACY;
+                p = PoliticalSystem.DEMOCRACY;
             } else if (0.6 <= r && r < 0.65) {
-                return PoliticalSystem.DICTATORSHIP;
+                p = PoliticalSystem.DICTATORSHIP;
             } else if (0.65 <= r && r < 0.7) {
-                return PoliticalSystem.FASCIST_STATE;
+                p = PoliticalSystem.FASCIST_STATE;
             } else if (0.7 <= r && r < 0.8) {
-                return PoliticalSystem.MILITARY_STATE;
+                p = PoliticalSystem.MILITARY_STATE;
             } else if (0.8 <= r && r < 0.85) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else if (0.85 <= r && r < 0.95) {
-                return PoliticalSystem.SOCIALIST_STATE;
+                p = PoliticalSystem.SOCIALIST_STATE;
             } else {
-                return PoliticalSystem.TECHNOCRACY;
+                p = PoliticalSystem.TECHNOCRACY;
             }
         } else if (level == TechLevel.POST_INDUSTRIAL) {
             if (0.0 <= r && r < 0.25) {
-                return PoliticalSystem.CAPITALIST_STATE;
+                p = PoliticalSystem.CAPITALIST_STATE;
             } else if (0.25 <= r && r < 0.3) {
-                return PoliticalSystem.COMMUNIST_STATE;
+                p = PoliticalSystem.COMMUNIST_STATE;
             } else if (0.3 <= r && r < 0.6) {
-                return PoliticalSystem.DEMOCRACY;
+                p = PoliticalSystem.DEMOCRACY;
             } else if (0.6 <= r && r < 0.65) {
-                return PoliticalSystem.DICTATORSHIP;
+                p = PoliticalSystem.DICTATORSHIP;
             } else if (0.65 <= r && r < 0.7) {
-                return PoliticalSystem.FASCIST_STATE;
+                p = PoliticalSystem.FASCIST_STATE;
             } else if (0.7 <= r && r < 0.75) {
-                return PoliticalSystem.MILITARY_STATE;
+                p = PoliticalSystem.MILITARY_STATE;
             } else if (0.75 <= r && r < 0.85) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else if (0.85 <= r && r < 0.9) {
-                return PoliticalSystem.SOCIALIST_STATE;
+                p = PoliticalSystem.SOCIALIST_STATE;
             } else {
-                return PoliticalSystem.TECHNOCRACY;
+                p = PoliticalSystem.TECHNOCRACY;
             }
         } else {
             if (0.0 <= r && r < 0.1) {
-                return PoliticalSystem.CAPITALIST_STATE;
+                p = PoliticalSystem.CAPITALIST_STATE;
             } else if (0.1 <= r && r < 0.3) {
-                return PoliticalSystem.DEMOCRACY;
+                p = PoliticalSystem.DEMOCRACY;
             } else if (0.3 <= r && r < 0.4) {
-                return PoliticalSystem.DICTATORSHIP;
+                p = PoliticalSystem.DICTATORSHIP;
             } else if (0.4 <= r && r < 0.45) {
-                return PoliticalSystem.MILITARY_STATE;
+                p = PoliticalSystem.MILITARY_STATE;
             } else if (0.45 <= r && r < 0.55) {
-                return PoliticalSystem.PACIFIST_STATE;
+                p = PoliticalSystem.PACIFIST_STATE;
             } else if (0.55 <= r && r < 0.7) {
-                return PoliticalSystem.TECHNOCRACY;
+                p = PoliticalSystem.TECHNOCRACY;
             } else {
-                return PoliticalSystem.CYBERNETIC_STATE;
+                p = PoliticalSystem.CYBERNETIC_STATE;
             }
         }
+        
+        return p;
     }
     /*
      * http://en.wikipedia.org/wiki/Van_der_Corput_sequence

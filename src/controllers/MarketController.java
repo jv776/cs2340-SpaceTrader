@@ -347,7 +347,7 @@ public class MarketController implements Initializable {
         this.label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
         
         marketNameLabel.setText("Market: " + player.getCurrentPlanet().getName()
-                + ", " + player.getCurrentPlanet().technologyLevel());
+                + ", " + player.getCurrentSystem().getTechLevel().toString());
         moneyLabel.setText("" + player.getCredits());
         sellPane.setVisible(false);
         buyButton.setDisable(true);

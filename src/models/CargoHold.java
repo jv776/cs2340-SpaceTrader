@@ -130,4 +130,8 @@ public class CargoHold implements Serializable {
         }
         return false;
     }
+    
+    public int getCargoQuantity() {
+        return cargo.size();
+    }
 }

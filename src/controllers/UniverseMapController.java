@@ -9,8 +9,8 @@ package controllers;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -18,11 +18,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import models.GameData;
 import models.SolarSystem;
+import models.TradeGood;
 
 /**
  * Displays and manages the map of the universe.
@@ -30,8 +34,8 @@ import models.SolarSystem;
  * @author Alex, John
  */
 public class UniverseMapController implements Initializable {
-    public AnchorPane anchor;
-    private boolean inSolarSystem;
+    @FXML
+    private AnchorPane universe_anchor;
 
     private void drawSolarSystems() {
         GameData gameData = GameController.getGameData();
@@ -40,61 +44,115 @@ public class UniverseMapController implements Initializable {
 
         for (SolarSystem s : gameData.getUniverse().solarSystems) {
             ImageView image = new ImageView();
-            if (s != currentSystem && distance(gameData.getSolarSystem(), s)
-                    < gameData.getShip().getFuelAmount()) {
-                image.setImage(new Image("/images/star.png"));
-                image.setOnMouseEntered((MouseEvent t) -> {
-                    ColorAdjust color = new ColorAdjust();
-                    color.setBrightness(1);
-                    image.setEffect(color);
-                });
-                image.setOnMouseExited((MouseEvent t) -> {
-                    ColorAdjust color = new ColorAdjust();
-                    color.setBrightness(0);
-                    image.setEffect(color);
-                });
-            } else if (s != currentSystem) {
-                image.setImage(new Image("/images/unreachable.png"));
-            } else {
-                image.setImage(new Image("/images/current.png"));
-            }
-            image.setX(s.getX());
-            image.setY(s.getY());
+            
+            image.setImage(new Image("/images/star.png"));
+            
+            ColorAdjust color = new ColorAdjust();
+            
+            Circle circle = new Circle();
+            circle.setCenterX(s.getX() + image.getImage().getWidth() / 2.0);
+            circle.setCenterY(s.getY() + image.getImage().getHeight() / 2.0);
+            circle.setRadius(s.getSun().getRadius() + 1);
+            circle.setFill(Color.YELLOW);
+            circle.setVisible(false);
+
             image.setScaleX((double) s.getSun().getRadius() * 2.0 / image.getImage().getWidth());
             image.setScaleY((double) s.getSun().getRadius() * 2.0 / image.getImage().getHeight());
+            image.setX(s.getX());
+            image.setY(s.getY());
+         
+            
+            if (s != currentSystem && distance(gameData.getSolarSystem(), s)
+                    < gameData.getShip().getFuelAmount()) {
+                if (s.isDiscovered()) {
+                    color.setBrightness(-0.15);
+                } else {
+                    color.setBrightness(0.25);
+                    color.setHue(0.5);
+                }
+                image.setOnMouseEntered((MouseEvent t) -> {
+                    circle.setVisible(true);
+                });
+                image.setOnMouseExited((MouseEvent t) -> {
+                    circle.setVisible(false);
+                });
+            } else if (s != currentSystem) {
+                if (s.isDiscovered()) {
+                    color.setSaturation(-0.5);
+                    color.setBrightness(-0.75);
+                } else {
+                    color.setHue(0.5);
+                    color.setSaturation(-0.5);
+                    color.setBrightness(-0.75);
+                }
+            } else {
+                color.setBrightness(1);
+                color.setSaturation(-1);
+                image.setOnMouseEntered((MouseEvent t) -> {
+                    circle.setVisible(true);
+                });
+                image.setOnMouseExited((MouseEvent t) -> {
+                    circle.setVisible(false);
+                });
+            }
+            image.setEffect(color);
             double dist = distance(gameData.getSolarSystem(), s);
+            
             image.setOnMouseClicked((MouseEvent t) -> {
                 if (dist < gameData.getShip().getFuelAmount()) {
                         gameData.getShip().expendFuel(dist);
                         System.out.println(s.name);
                         gameData.setSolarSystem(s);
+                        
+                        s.discover();
 
-                        double event = Math.random();
-                        if(event<.35){
+                        double policeEvent = Math.random();
+                        double pirateEvent = Math.random();
+                        double tradeEvent = Math.random();
+                        
+                        double rPolice = 0.0;
+                        rPolice += gameData.getCargoHold().getQuantity(TradeGood.NARCOTICS) * 0.03;
+                        rPolice += gameData.getCargoHold().getQuantity(TradeGood.FIREARMS) * 0.01;
+                        
+                        double rPirate = 0.0;
+                        rPirate += Math.min(gameData.getCargoHold().getCargoQuantity() * .005 
+                                + gameData.getPlayer().getCredits() * .00001, .5);
+                        
+                        double rTrader = 0.0;
+                        rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
+                        
+                        if(policeEvent < rPolice) {
                             GameController.getControl().setScreen("PoliceEvent");
-                        } else if(event < .75){
+                        } else if(pirateEvent < rPirate) {
                             GameController.getControl().setScreen("PirateEvent");
-                        } else if(event < .90){
+                        } else if(tradeEvent < rTrader) {
                             GameController.getControl().setScreen("TradeEvent");
-                        } else{
+                        } else {
                             GameController.getControl().setScreen("SolarSystemMap");
                         }
 
                 }
             });
 
-            Tooltip systemInfo = new Tooltip(s.getName() + " System" + "\nDistance: "
-                    + new DecimalFormat("0.00").format(dist) +" light-years");
+            Tooltip systemInfo = new Tooltip((s.isDiscovered() ? s.getName() + " System" : "????????")
+                    + "\nTech Level: " + (s.isDiscovered() ? s.getTechLevel().toString() : "????????")
+                    + "\nDistance: " + new DecimalFormat("0.00").format(dist) +" light-years");
             Tooltip.install(image, systemInfo);
-            anchor.getChildren().add(image);
+            universe_anchor.getChildren().add(circle);
+            universe_anchor.getChildren().add(image);
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        anchor.setBackground(new Background(
-                new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         drawSolarSystems();
+        universe_anchor.setBackground(new Background(new BackgroundImage(
+                new Image("/images/universe_map.jpg"),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        )));
     }
 
     //convert a distance in pixels to a distance in light years

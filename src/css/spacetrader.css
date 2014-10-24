@@ -1,0 +1,66 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 24, 2014, 12:47:24 PM
+    Author     : alexp5751
+*/
+
+/* 
+    Document   : controlStyle1
+*/
+
+.root{
+    -fx-base: #000000;
+    -fx-focus-color: #CCCCFF;
+}
+
+#welcome_pane {
+
+}
+
+#welcome_pane #title {
+    -fx-text-fill: #FFFFFF;
+}
+
+#universe_anchor {
+    
+}
+
+.grid_pane {
+    -fx-border-color: #FFFFFF;
+    -fx-opacity: 1;
+}
+
+.grid_pane .label {
+    -fx-opacity: 0.7;
+    -fx-background-color: #000000;
+    -fx-border-color: #FFFFFF;
+}
+
+.grid_pane .button {
+    
+    -fx-border-color: #FFFFFF;
+}
+
+.button1 {
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-opacity: .8;
+}
+
+.button1:disabled {
+    -fx-border-color: #888888;
+    
+}
+
+.text_field {
+    -fx-border-color: #FFFFFF;
+    -fx-background-color:#000000;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}

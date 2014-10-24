@@ -158,8 +158,10 @@ public class CustomizationController implements Initializable {
         );
         
         player.earn(1000); //start with 1000 credits
+        
         SolarSystem system = universe.solarSystems[(int) (Math.random() *
                 universe.solarSystems.length)];
+        system.discover();
         Planet planet = system.planets[(int) (Math.random() * system.planets.length)];
         
         player.setCurrentSystem(system);
@@ -167,18 +169,8 @@ public class CustomizationController implements Initializable {
         
         GameController.getGameData().setPlayer(player);
         GameController.getGameData().setUniverse(universe);
-        
-        for (SolarSystem s : universe.solarSystems) {
-            for (Planet p : s.planets) {
-                if (p.supportsLife()) {
-                    GameController.getGameData().setPlanet(p);
-                    break;
-                }
-            }
-            if (GameController.getGameData().getPlanet() != null) {
-                break;
-            }
-        }
+        GameController.getGameData().setSolarSystem(system);
+        GameController.getGameData().setPlanet(planet);
         
         GameController.getControl().setScreen("UniverseMap");
     }

@@ -28,6 +28,7 @@ public class SpaceTraderMain extends Application {
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/css/spacetrader.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

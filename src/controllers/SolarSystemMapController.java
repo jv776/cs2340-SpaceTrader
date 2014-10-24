@@ -21,6 +21,11 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.shape.*;
 import models.Planet;
 import models.SolarSystem;
@@ -38,14 +43,21 @@ public class SolarSystemMapController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
+        anchor.setBackground(new Background(new BackgroundImage(
+                new Image("/images/solar_system_map.jpg"),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        )));
+        
         SolarSystem currentSystem = GameController.getGameData().getSolarSystem();
         
         returnButton.setText("Return to Universe");
         locationLabel.setTextFill(Color.WHITE);
         locationLabel.setText(currentSystem.getName() + ": " +
                 currentSystem.getTechLevel());
-        anchor.setBackground(new Background(
-                new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         double x = 300 - currentSystem.getSun().getRadius() - 2.5;
         double y = 200 - currentSystem.getSun().getRadius() - 2.5;
@@ -67,38 +79,55 @@ public class SolarSystemMapController implements Initializable {
         anchor.getChildren().add(image);
 
         Planet currentPlanet = GameController.getGameData().getPlanet();
-
-        //draws orbits
+        
+        int maxDistance = currentSystem.planets[currentSystem.planets.length - 1].getDistance();
+        double scaleFactor = 350.0 / maxDistance / 2;
+        
         for (Planet p : currentSystem.planets) {
             Ellipse orbit = EllipseBuilder.create() //deprecated!
                     .centerX(image.impl_getPivotX()) //deprecated!
                     .centerY(image.impl_getPivotY()) //deprecated!
-                    .radiusX(p.getDistance())
-                    .radiusY(p.getDistance())
+                    .radiusX(p.getDistance() * scaleFactor)
+                    .radiusY(p.getDistance() * scaleFactor)
                     .strokeWidth(1)
                     .stroke(Color.DARKGRAY)
                     .fill(Color.TRANSPARENT)
                     .build();
             orbit.setMouseTransparent(true);
             anchor.getChildren().add(orbit);
-        }
-        
-        for (Planet p : currentSystem.planets) {
+            
             ImageView planet = new ImageView("/images/star.png");
+            
             if (p == currentPlanet) {
                 planet.setEffect(new ColorAdjust(0, 0, 1, 0));
             }
-            planet.setScaleX(10.0 / planet.getImage().getWidth());
-            planet.setScaleY(10.0 / planet.getImage().getWidth());
+            planet.setScaleX(15.0 / planet.getImage().getWidth());
+            planet.setScaleY(15.0 / planet.getImage().getWidth());
+            
             double angleFactor = Math.random();
-            planet.setX(x + Math.cos(angleFactor * 2 * Math.PI) * p.getDistance());
-            planet.setY(y + Math.sin(angleFactor * 2 * Math.PI) * p.getDistance());
+            planet.setX(x + Math.cos(angleFactor * 2 * Math.PI) * p.getDistance() * scaleFactor);
+            planet.setY(y + Math.sin(angleFactor * 2 * Math.PI) * p.getDistance() * scaleFactor);
+            
+            Circle circle = new Circle();
+            circle.setCenterX(planet.getX() + planet.getImage().getWidth() / 2.0);
+            circle.setCenterY(planet.getY() + planet.getImage().getHeight() / 2.0);
+            circle.setRadius(planet.getImage().getWidth() * planet.getScaleX() / 2.0 + 1);
+            circle.setFill(Color.YELLOW);
+            circle.setVisible(false);
+            
             Tooltip planetName = new Tooltip(p.getName());
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
                 GameController.getGameData().setPlanet(p);
                 GameController.getControl().setScreen("SpacePort");
             });
+            planet.setOnMouseEntered((MouseEvent t) -> {
+                circle.setVisible(true);
+            });
+            planet.setOnMouseExited((MouseEvent t) -> {
+                circle.setVisible(false);
+            });
+            anchor.getChildren().add(circle);
             anchor.getChildren().add(planet);
 
         }

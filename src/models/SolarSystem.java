@@ -22,6 +22,7 @@ public class SolarSystem implements Serializable {
     final PoliticalSystem government;
     private final Star sun;
     public final Planet[] planets;
+    private boolean isDiscovered;
 
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
             PoliticalSystem governmentType) {
@@ -32,6 +33,7 @@ public class SolarSystem implements Serializable {
         government = governmentType;
         sun = new Star(""); //add name
         planets = generatePlanets();
+        isDiscovered = false;
     }
 
     /*
@@ -85,7 +87,7 @@ public class SolarSystem implements Serializable {
         int dist = sun.getRadius() + 40;
 
         for (int i = 0; i < planetArray.length; i++){
-            dist += (i + 0.25) * 6.5 * (0.76 + (0.24 * Math.random()));
+            dist += 2 + (i + 0.25) * 6.5 * (0.76 + (0.24 * Math.random()));
             planetArray[i] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
 
@@ -141,6 +143,14 @@ public class SolarSystem implements Serializable {
     }
     public Planet getRandomPlanet(){
         return planets[3];
+    }
+    
+    public boolean isDiscovered() {
+        return isDiscovered;
+    }
+    
+    public void discover() {
+        isDiscovered = true;
     }
 }
 

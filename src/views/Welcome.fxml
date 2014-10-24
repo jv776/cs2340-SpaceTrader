@@ -8,11 +8,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="welcome_pane" fx:id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="newGameButton" layoutX="254.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handleNewGame" text="New Game" />
-      <Button fx:id="loadGameButton" layoutX="253.0" layoutY="242.0" mnemonicParsing="false" onMouseClicked="#handleLoadGame" text="Load Game" />
-      <Label layoutX="117.0" layoutY="36.0" text="Space Trader" textAlignment="CENTER">
+      <Button fx:id="newGameButton" layoutX="225.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#handleNewGame" prefHeight="40.0" prefWidth="150.0" styleClass="button1" text="New Game" />
+      <Button fx:id="loadGameButton" layoutX="225.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#handleLoadGame" prefHeight="40.0" prefWidth="150.0" styleClass="button1" text="Load Game" />
+      <Label fx:id="title" alignment="CENTER" layoutY="36.0" prefHeight="75.0" prefWidth="600.0" styleClass="title" text="Space Trader" textAlignment="CENTER">
          <font>
             <Font size="64.0" />
          </font>
@@ -20,6 +20,9 @@
             <Glow level="1.0" />
          </effect>
       </Label>
-      <Label layoutX="249.0" layoutY="136.0" text="The Hitchhikers" textAlignment="CENTER" />
+      <Label fx:id="subtitle" alignment="CENTER" contentDisplay="CENTER" layoutX="225.0" layoutY="171.0" prefWidth="150.0" styleClass="subtitle" text="The Hitchhikers" textAlignment="CENTER">
+         <effect>
+            <Glow level="0.5" />
+         </effect></Label>
    </children>
 </AnchorPane>

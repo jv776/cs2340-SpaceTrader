@@ -28,6 +28,12 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 /**
  * Main controller for the game, maintains information about game state
@@ -43,7 +49,14 @@ public class GameController extends StackPane implements Serializable {
     
     public GameController() {
         gameData = new GameData();
-        control = this; //
+        control = this; 
+        this.setBackground(new Background(new BackgroundImage(
+                new Image("/images/welcome.jpg"),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        )));
     }
     
     /**
@@ -64,27 +77,30 @@ public class GameController extends StackPane implements Serializable {
             loader.setController((Initializable)constructor.newInstance(parameters));
             
             Parent loadScreen = (Parent) loader.load();
-            final DoubleProperty opacity = opacityProperty(); 
 
             //Is there is more than one screen 
             if(!getChildren().isEmpty()) {
-                Timeline fade = new Timeline( 
+                final DoubleProperty opacity = getChildren().get(0).opacityProperty(); 
+                Timeline fadeOut = new Timeline( 
                     new KeyFrame(Duration.ZERO, 
-                    new KeyValue(opacity,1.0)), 
+                        new KeyValue(opacity, 1.0)), 
                     new KeyFrame(new Duration(1000), (ActionEvent t) -> {
                         getChildren().remove(0);
-                        //add new screen
                         getChildren().add(0, loadScreen);
-                        Timeline fadeIn = new Timeline(
-                                new KeyFrame(Duration.ZERO,
-                                        new KeyValue(opacity, 0.0)),
-                                new KeyFrame(new Duration(800),
-                                        new KeyValue(opacity, 1.0)));
-                        fadeIn.play();
-                }, new KeyValue(opacity, 0.0))); 
-                fade.play(); 
+                        getChildren().get(0).setOpacity(0);
+                        final DoubleProperty opacity2 = getChildren().get(0).opacityProperty();
+                        Timeline fadeIn = new Timeline( 
+                            new KeyFrame(Duration.ZERO, 
+                                new KeyValue(opacity2, 0.0)), 
+                            new KeyFrame(new Duration(1000), 
+                                new KeyValue(opacity2, 1.0)));
+                        fadeIn.play(); 
+                    }, 
+                        new KeyValue(opacity, 0.0)));
+                fadeOut.play(); 
             } else {
                 //no one else been displayed, then just show 
+                final DoubleProperty opacity = opacityProperty(); 
                 setOpacity(0.0);
                 getChildren().add(loadScreen);
                 Timeline fadeIn = new Timeline(
