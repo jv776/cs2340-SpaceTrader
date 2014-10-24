@@ -5,8 +5,6 @@ package controllers;
  * and open the template in the editor.
  */
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,6 +15,9 @@ import models.Planet;
 import models.Player;
 import models.SolarSystem;
 import models.Universe;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Customization FXML Controller class
@@ -172,7 +173,7 @@ public class CustomizationController implements Initializable {
         GameController.getGameData().setSolarSystem(system);
         GameController.getGameData().setPlanet(planet);
         
-        GameController.getControl().setScreen("UniverseMap");
+        GameController.getControl().setScreen(Screens.UNIVERSE_MAP);
     }
     
     /**
@@ -180,7 +181,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void handleCancel() {
-        GameController.getControl().setScreen("Welcome");
+        GameController.getControl().setScreen(Screens.WELCOME);
     }
     
     /**
