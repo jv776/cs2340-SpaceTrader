@@ -29,7 +29,7 @@ public class CargoHold implements Serializable {
      * @param item The item to add to the cargo hold
      */
     public void addItem(CargoItem item) {
-        if (cargo.size() < capacity) {
+        if (getQuantity() < capacity) {
             boolean isNew = !cargo.keySet().contains(item);
             if (isNew) {
                 cargo.put(item, 1);
@@ -39,6 +39,17 @@ public class CargoHold implements Serializable {
         }
     }
 
+    public int getQuantity() {
+        int size = 0;
+        for (CargoItem item : cargo.keySet()) {
+            size += getQuantity(item);
+        }
+        return size;
+    }
+    
+    public int getCapacity() {
+        return capacity;
+    }
 
     /**
      * Add many of the same item to the cargo hold at once
@@ -115,13 +126,9 @@ public class CargoHold implements Serializable {
      * @return Whether or not the cargo hold has space for more items
      */
     public boolean hasSpace() {
-        int size = 0;
-        for (CargoItem item : cargo.keySet()) {
-            size += getQuantity(item);
-        }
-
-        return size < capacity;
+        return getQuantity() < capacity;
     }
+    
     public boolean hasIllegalGoods(){
         for (TradeGood g:getTradeGoods()){
             if (g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")){

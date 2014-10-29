@@ -1,11 +1,12 @@
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * @author Roi Atalla
@@ -34,7 +35,7 @@ public class SpacePortController implements Initializable {
     }
     
     public void onShipYardClicked() {
-        System.out.println("SHIP YARD CLICKED WOOOOOO!");
+        GameController.getControl().setScreen(Screens.SHIP_YARD.getName());
     }
     
     public void onMapClicked() {

@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ShipYardController" />
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="261.0" layoutY="14.0" text="Ship Yard">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Pane layoutX="436.0" layoutY="44.0" prefHeight="323.0" prefWidth="152.0" style="-fx-border-color: BLACK;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="64.0" layoutY="179.0" text="Hull Strength" />
+            <Label layoutX="64.0" layoutY="162.0" text="Ship Type" />
+            <Label layoutX="64.0" layoutY="196.0" text="Cargo Bays" />
+            <Label layoutX="64.0" layoutY="213.0" text="Weapon Slots" />
+            <Label layoutX="64.0" layoutY="230.0" text="Shield Slots" />
+            <Label layoutX="64.0" layoutY="247.0" text="Gadget Slots" />
+            <Label layoutX="64.0" layoutY="264.0" text="Crew" />
+            <Label layoutX="63.0" layoutY="281.0" text="Range" />
+            <Label fx:id="shipTypeLabel" layoutX="14.0" layoutY="162.0" text="-" />
+            <Label fx:id="hullStrengthLabel" layoutX="14.0" layoutY="179.0" text="-" />
+            <Label fx:id="weaponSlotsLabel" layoutX="14.0" layoutY="213.0" text="-" />
+            <Label fx:id="cargoBaysLabel" layoutX="14.0" layoutY="196.0" text="-" />
+            <Label fx:id="shieldSlotsLabel" layoutX="14.0" layoutY="230.0" text="-" />
+            <Label fx:id="gadgetSlotsLabel" layoutX="14.0" layoutY="248.0" text="-" />
+            <Label fx:id="crewLabel" layoutX="14.0" layoutY="265.0" text="-" />
+            <Label fx:id="rangeLabel" layoutX="15.0" layoutY="282.0" text="-" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

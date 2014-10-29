@@ -9,6 +9,7 @@ public enum Screens {
     UNIVERSE_MAP("UniverseMap"),
     WELCOME("Welcome"),
     CUSTOMIZATION("Customization"),
+    SHIP_YARD("ShipYard"),
     SPACEPORT("SpacePort");
     
     private String name;
