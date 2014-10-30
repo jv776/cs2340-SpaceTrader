@@ -55,10 +55,6 @@
          <effect>
             <Glow />
          </effect></Label>
-      <Label text="Skill Points Remaining:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
-         <effect>
-            <Glow />
-         </effect></Label>
       <Button fx:id="pilotIncreaseButton" mnemonicParsing="false" onMouseClicked="#pilotIncrease" prefHeight="30.0" prefWidth="35.0" styleClass="button1" text="+" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="30.0" />
@@ -114,8 +110,13 @@
       <Label fx:id="traderSkillPoints" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Label fx:id="engineerSkillPoints" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Label fx:id="investorSkillPoints" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-      <Label fx:id="skillPointsRemaining" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+      <Label fx:id="skillPointsRemaining" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
       <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancel" styleClass="button1" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
       <Button fx:id="continueButton" mnemonicParsing="false" onMouseClicked="#handleContinue" styleClass="button1" text="Continue" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+      <Label text="Skill Points Remaining:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
    </children>
 </GridPane>

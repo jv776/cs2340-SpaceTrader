@@ -44,6 +44,7 @@ public class ShipYardController implements Initializable {
         ObservableList<String> shipNames = FXCollections.observableArrayList(Arrays.stream(Ship.Type.values())
                 .filter((Ship.Type type) -> type != ship.getType() && GameController.getGameData().getSolarSystem().getTechLevel().ordinal() >= type.minTechLevel.ordinal())
                 .map(Ship.Type::toString).toArray(String[]::new));
+        shipNames.add(0, "Your ship: " + ship.getType());
         shipList.setItems(shipNames);
     }
 
@@ -57,8 +58,29 @@ public class ShipYardController implements Initializable {
         //crewLabel.setText
         rangeLabel.setText((int) Math.round(ship.getFuelAmount()) + "/" + ship.getFuelCapacity());
     }
-    
+
+    private void setLabels(Ship.Type shipType) {
+        shipTypeLabel.setText(shipType.toString());
+        hullStrengthLabel.setText(String.valueOf(shipType.hullStrength));
+        cargoBaysLabel.setText(String.valueOf(shipType.cargoCapacity));
+        weaponSlotsLabel.setText(String.valueOf(shipType.weaponSlots));
+        shieldSlotsLabel.setText(String.valueOf(shipType.shieldSlots));
+        gadgetSlotsLabel.setText(String.valueOf(shipType.gadgetSlots));
+        crewLabel.setText(String.valueOf(shipType.crewCapacity));
+        rangeLabel.setText(String.valueOf(shipType.fuelCapacity));
+    }
+
     public void onBackToSpacePort() {
-        GameController.getControl().setScreen(Screens.SPACEPORT.getName());
+        GameController.getControl().setScreen(Screens.SPACE_PORT);
+    }
+
+    public void onShipListSelectionChange() {
+        String selectedItem = shipList.getSelectionModel().getSelectedItem();
+
+        if(selectedItem.contains("Your ship:")) {
+            setLabels(GameController.getGameData().getShip());
+        } else {
+            setLabels(Ship.Type.valueOf(selectedItem));
+        }
     }
 }
