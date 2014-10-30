@@ -20,25 +20,25 @@ public class Ship implements Serializable {
         Mosquito(15, 2, 1, 1, 1, 13, TechLevel.INDUSTRIAL, 5, 30000, 100, 20, 100, 1, 1),
         BumbleBee(25, 1, 2, 2, 2, 15, TechLevel.INDUSTRIAL, 7, 60000, 125, 15, 100, 1, 2);
 
-        private final int cargoCapacity;
+        public final int cargoCapacity;
 
-        private final int weaponSlots;
-        private final int shieldSlots;
-        private final int gadgetSlots;
+        public final int weaponSlots;
+        public final int shieldSlots;
+        public final int gadgetSlots;
 
-        private final int crewCapacity;
-        private final int fuelCapacity;
+        public final int crewCapacity;
+        public final int fuelCapacity;
 
-        private final TechLevel minTechLevel;
+        public final TechLevel minTechLevel;
 
-        private final int fuelCost;
-        private final int price;
-        private final int bounty;
-        private final int occurrence;
+        public final int fuelCost;
+        public final int price;
+        public final int bounty;
+        public final int occurrence;
 
-        private final int hullStrength;
-        private final int repairCost;
-        private final int size;
+        public final int hullStrength;
+        public final int repairCost;
+        public final int size;
 
         Type(int cargoCapacity, int weaponSlots, int shieldSlots, int gadgetSlots, int crewCapacity, int fuelCapacity,
              TechLevel minTechLevel, int fuelCost, int price, int bounty, int occurrence, int hullStrength, int repairCost, int size) {

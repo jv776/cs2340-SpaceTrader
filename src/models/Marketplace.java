@@ -41,13 +41,13 @@ public class Marketplace implements Serializable {
         HashMap<TradeGood, Integer> goods = new HashMap<>();
         
         for (TradeGood good : TradeGood.values()) {
-            int localTechFactor = location.solarSystem.getTechLevel().toInt();
+            int localTechFactor = location.solarSystem.getTechLevel().ordinal();
             
-            int minTechFactor = (localTechFactor < good.minTechLevelBuy.toInt())
-                    ? 0 : (localTechFactor - good.minTechLevelBuy.toInt() + 1);
+            int minTechFactor = (localTechFactor < good.minTechLevelBuy.ordinal())
+                    ? 0 : (localTechFactor - good.minTechLevelBuy.ordinal() + 1);
             
             int preferredTechFactor = Math.abs(localTechFactor
-                    - good.preferredTechLevel.toInt());
+                    - good.preferredTechLevel.ordinal());
             
             double quantityFactor =  Math.exp(-Math.pow(preferredTechFactor
                     / (Math.random() + 1), 0.5));
@@ -66,8 +66,8 @@ public class Marketplace implements Serializable {
             Random r = new Random();
         
             int techLevelFactor = good.priceChangePerTechLevel *
-                    (location.solarSystem.getTechLevel().toInt() -
-                    good.minTechLevelBuy.toInt());
+                    (location.solarSystem.getTechLevel().ordinal() -
+                    good.minTechLevelBuy.ordinal());
         
             int variance = 1 + r.nextInt(good.priceVariance) / 100;
         

@@ -35,5 +35,12 @@
             <Label fx:id="rangeLabel" layoutX="15.0" layoutY="282.0" text="-" />
          </children>
       </Pane>
+      <ListView fx:id="shipList" layoutX="26.0" layoutY="113.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="73.0" layoutY="88.0" text="Available Ships">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="26.0" layoutY="29.0" mnemonicParsing="false" onAction="#onBackToSpacePort" text="Back to Space Port" />
    </children>
 </Pane>
