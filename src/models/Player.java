@@ -45,6 +45,10 @@ public class Player extends CrewMember implements Serializable {
     public Ship getShip() {
         return ship;
     }
+    
+    public void setShip(Ship s) {
+        this.ship = s; // TODO: implement proper ship buying
+    }
 
     /**
      * @return The planet on which the player is currently located
@@ -66,7 +70,7 @@ public class Player extends CrewMember implements Serializable {
     public int getCredits() {
         return credits;
     }
-
+    
     /**
      * Set the location of the player to a different planet.
      *

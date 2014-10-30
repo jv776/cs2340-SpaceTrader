@@ -130,7 +130,7 @@ public class UniverseMapController implements Initializable {
             Tooltip systemInfo = new Tooltip(
                     String.format("%s\nTech Level: %s\nDistance: %.2f light-years",
                             s.isDiscovered() ? s.getName() + " System" : "????????",
-                            s.isDiscovered() ? s.getTechLevel().toString() : "????????",
+                            s.getTechLevel(),//s.isDiscovered() ? s.getTechLevel() : "????????",
                             dist));
             Tooltip.install(image, systemInfo);
             universe_anchor.getChildren().add(circle);

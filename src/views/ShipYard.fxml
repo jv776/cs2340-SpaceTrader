@@ -17,22 +17,22 @@
       <Pane layoutX="436.0" layoutY="44.0" prefHeight="312.0" prefWidth="152.0" style="-fx-border-color: BLACK;">
          <children>
             <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="64.0" layoutY="179.0" text="Hull Strength" />
-            <Label layoutX="64.0" layoutY="162.0" text="Ship Type" />
-            <Label layoutX="64.0" layoutY="196.0" text="Cargo Bays" />
-            <Label layoutX="64.0" layoutY="213.0" text="Weapon Slots" />
-            <Label layoutX="64.0" layoutY="230.0" text="Shield Slots" />
-            <Label layoutX="64.0" layoutY="247.0" text="Gadget Slots" />
-            <Label layoutX="64.0" layoutY="264.0" text="Crew" />
-            <Label layoutX="63.0" layoutY="281.0" text="Range" />
-            <Label fx:id="shipTypeLabel" layoutX="14.0" layoutY="162.0" text="-" />
-            <Label fx:id="hullStrengthLabel" layoutX="14.0" layoutY="179.0" text="-" />
-            <Label fx:id="weaponSlotsLabel" layoutX="14.0" layoutY="213.0" text="-" />
-            <Label fx:id="cargoBaysLabel" layoutX="14.0" layoutY="196.0" text="-" />
-            <Label fx:id="shieldSlotsLabel" layoutX="14.0" layoutY="230.0" text="-" />
-            <Label fx:id="gadgetSlotsLabel" layoutX="14.0" layoutY="248.0" text="-" />
-            <Label fx:id="crewLabel" layoutX="14.0" layoutY="265.0" text="-" />
-            <Label fx:id="rangeLabel" layoutX="15.0" layoutY="282.0" text="-" />
+            <Label layoutX="76.0" layoutY="179.0" text="Hull Strength" />
+            <Label layoutX="76.0" layoutY="162.0" text="Ship Type" />
+            <Label layoutX="76.0" layoutY="196.0" text="Cargo Bays" />
+            <Label layoutX="76.0" layoutY="213.0" text="Weapon Slots" />
+            <Label layoutX="76.0" layoutY="230.0" text="Shield Slots" />
+            <Label layoutX="76.0" layoutY="247.0" text="Gadget Slots" />
+            <Label layoutX="76.0" layoutY="264.0" text="Crew" />
+            <Label layoutX="75.0" layoutY="281.0" text="Range" />
+            <Label fx:id="shipTypeLabel" layoutX="11.0" layoutY="162.0" text="-" />
+            <Label fx:id="hullStrengthLabel" layoutX="11.0" layoutY="179.0" text="-" />
+            <Label fx:id="weaponSlotsLabel" layoutX="11.0" layoutY="213.0" text="-" />
+            <Label fx:id="cargoBaysLabel" layoutX="11.0" layoutY="196.0" text="-" />
+            <Label fx:id="shieldSlotsLabel" layoutX="11.0" layoutY="230.0" text="-" />
+            <Label fx:id="gadgetSlotsLabel" layoutX="11.0" layoutY="248.0" text="-" />
+            <Label fx:id="crewLabel" layoutX="11.0" layoutY="265.0" text="-" />
+            <Label fx:id="rangeLabel" layoutX="12.0" layoutY="282.0" text="-" />
          </children>
       </Pane>
       <ListView fx:id="shipList" layoutX="31.0" layoutY="69.0" onKeyReleased="#onShipListSelectionChange" onMouseClicked="#onShipListSelectionChange" prefHeight="200.0" prefWidth="200.0" />
@@ -42,5 +42,8 @@
          </font>
       </Label>
       <Button layoutX="16.0" layoutY="355.0" mnemonicParsing="false" onAction="#onBackToSpacePort" text="Back to Space Port" />
+      <Button fx:id="buyShipButton" layoutX="100.0" layoutY="285.0" mnemonicParsing="false" onAction="#onBuyShipClicked" text="Buy Ship" visible="false" />
+      <Label layoutX="91.0" layoutY="323.0" text="Credits:" />
+      <Label fx:id="creditsLabel" layoutX="134.0" layoutY="323.0" text="-" />
    </children>
 </Pane>

@@ -4,8 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import models.Player;
 import models.Ship;
 
 import java.net.URL;
@@ -34,18 +36,31 @@ public class ShipYardController implements Initializable {
     private Label rangeLabel;
 
     @FXML
+    private Button buyShipButton;
+
+    @FXML
+    private Label creditsLabel;
+
+    @FXML
     private ListView<String> shipList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        reloadList();
+    }
+
+    private void reloadList() {
         Ship ship = GameController.getGameData().getShip();
         setLabels(ship);
 
         ObservableList<String> shipNames = FXCollections.observableArrayList(Arrays.stream(Ship.Type.values())
                 .filter((Ship.Type type) -> type != ship.getType() && GameController.getGameData().getSolarSystem().getTechLevel().ordinal() >= type.minTechLevel.ordinal())
-                .map(Ship.Type::toString).toArray(String[]::new));
-        shipNames.add(0, "Your ship: " + ship.getType());
+                .map(s -> s.toString() + " - " + s.price + " credits").toArray(String[]::new));
+        shipNames.add(0, "Your ship: " + ship.getType() + " - " + ship.getType().price + " credits");
         shipList.setItems(shipNames);
+        shipList.getSelectionModel().clearSelection();
+
+        creditsLabel.setText(String.valueOf(GameController.getGameData().getPlayer().getCredits()));
     }
 
     private void setLabels(Ship ship) {
@@ -77,10 +92,53 @@ public class ShipYardController implements Initializable {
     public void onShipListSelectionChange() {
         String selectedItem = shipList.getSelectionModel().getSelectedItem();
 
+        if(selectedItem == null)
+            return;
+
         if(selectedItem.contains("Your ship:")) {
             setLabels(GameController.getGameData().getShip());
+            buyShipButton.setVisible(false);
         } else {
-            setLabels(Ship.Type.valueOf(selectedItem));
+            Ship.Type shipSelected = Ship.Type.valueOf(selectedItem.substring(0, selectedItem.indexOf('-') - 1));
+            setLabels(shipSelected);
+
+            int currentShipPrice = GameController.getGameData().getShip().getType().price;
+            int selectedShipPrice = shipSelected.price;
+            int credits = GameController.getGameData().getPlayer().getCredits();
+
+            buyShipButton.setVisible(true);
+            buyShipButton.setDisable(selectedShipPrice > credits + currentShipPrice);
+        }
+    }
+
+    public void onBuyShipClicked() {
+        String selectedItem = shipList.getSelectionModel().getSelectedItem();
+
+        if(selectedItem == null)
+            return;
+
+        if(selectedItem.contains("Your ship:")) {
+            throw new IllegalStateException("Wtf?!");
+        } else {
+            Ship.Type shipSelected = Ship.Type.valueOf(selectedItem.substring(0, selectedItem.indexOf('-') - 1));
+
+            Player player = GameController.getGameData().getPlayer();
+
+            int oldShipPrice = player.getShip().getType().price;
+            int selectedShipPrice = shipSelected.price;
+            int credits = player.getCredits();
+
+            if(selectedShipPrice > credits + oldShipPrice)
+                throw new IllegalStateException("Wtf?!");
+
+            player.earn(oldShipPrice);
+            player.spend(selectedShipPrice);
+            
+            GameController.getGameData().setShip(new Ship(shipSelected, GameController.getGameData().getPlayer()));
+
+            buyShipButton.setVisible(false);
+            
+            reloadList();
         }
     }
 }
