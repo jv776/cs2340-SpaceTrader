@@ -1,5 +1,7 @@
 package controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,15 +33,15 @@ public class SpacePortController implements Initializable {
     private Label spacePortLabel;
     
     public void onMarketClicked() {
-        GameController.getControl().setScreen(Screens.MARKET.getName());
+        GameController.getControl().setScreen(Screens.MARKET);
     }
     
     public void onShipYardClicked() {
-        GameController.getControl().setScreen(Screens.SHIP_YARD.getName());
+        GameController.getControl().setScreen(Screens.SHIP_YARD);
     }
     
     public void onMapClicked() {
-        GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP.getName());
+        GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }
     
     public void onNewsClicked() {

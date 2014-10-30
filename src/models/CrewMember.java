@@ -15,98 +15,98 @@ import java.io.Serializable;
  * @author John
  */
 public abstract class CrewMember implements Serializable {
-    protected int pilotSkillPoints;
-    protected int fighterSkillPoints;
-    protected int traderSkillPoints;
-    protected int engineerSkillPoints;
-    protected int investorSkillPoints;
+    transient protected int pilotSkill;
+    transient protected int fighterSkill;
+    transient protected int traderSkill;
+    transient protected int engineerSkill;
+    transient protected int investorSkill;
 
-    public CrewMember(int pilotSP, int fighterSP, int traderSP, int engineerSP,
-            int investorSP) {
-        pilotSkillPoints = pilotSP;
-        fighterSkillPoints = fighterSP;
-        traderSkillPoints = traderSP;
-        engineerSkillPoints = engineerSP;
-        investorSkillPoints = investorSP;
+    public CrewMember(final int pilotSP, final int fighterSP, final int traderSP, 
+            final int engineerSP, final int investorSP) {
+        pilotSkill = pilotSP;
+        fighterSkill = fighterSP;
+        traderSkill = traderSP;
+        engineerSkill = engineerSP;
+        investorSkill = investorSP;
     }
 
     /**
      * @return The number of skill points in the pilot category
      */
     public int getPilotSkillPoints() {
-        return pilotSkillPoints;
+        return pilotSkill;
     }
 
     /**
      * Set the number of skill points for the pilot category.
      * 
-     * @param pilotSkillPoints The new number of skill points in piloting
+     * @param pilotSkill The new number of skill points in piloting
      */
-    public void setPilotSkillPoints(int pilotSkillPoints) {
-        this.pilotSkillPoints = pilotSkillPoints;
+    public void setPilotSkillPoints(final int pilotSkill) {
+        this.pilotSkill = pilotSkill;
     }
 
     /**
      * @return The number of skill points in the fighter category
      */
     public int getFighterSkillPoints() {
-        return fighterSkillPoints;
+        return fighterSkill;
     }
 
     /**
      * Set the number of skill points in the fighter category.
      * 
-     * @param fighterSkillPoints The new number of fighting skill points
+     * @param fighterSkill The new number of fighting skill points
      */
-    public void setFighterSkillPoints(int fighterSkillPoints) {
-        this.fighterSkillPoints = fighterSkillPoints;
+    public void setFighterSkillPoints(final int fighterSkill) {
+        this.fighterSkill = fighterSkill;
     }
 
     /**
      * @return The number of skill points in the trader category
      */
     public int getTraderSkillPoints() {
-        return traderSkillPoints;
+        return traderSkill;
     }
 
     /**
      * Set the number of skill points in the trader category.
      * 
-     * @param traderSkillPoints The new number of fighting skill points
+     * @param traderSkill The new number of fighting skill points
      */
-    public void setTraderSkillPoints(int traderSkillPoints) {
-        this.traderSkillPoints = traderSkillPoints;
+    public void setTraderSkillPoints(final int traderSkill) {
+        this.traderSkill = traderSkill;
     }
 
     /**
      * @return The number of skill points in the engineer category
      */
     public int getEngineerSkillPoints() {
-        return engineerSkillPoints;
+        return engineerSkill;
     }
 
     /**
      * Set the number of skill points in the engineer category.
      * 
-     * @param engineerSkillPoints The new number of engineering skill points
+     * @param engineerSkill The new number of engineering skill points
      */
-    public void setEngineerSkillPoints(int engineerSkillPoints) {
-        this.engineerSkillPoints = engineerSkillPoints;
+    public void setEngineerSkillPoints(final int engineerSkill) {
+        this.engineerSkill = engineerSkill;
     }
 
     /**
      * @return The number of skill points in the investor category
      */
     public int getInvestorSkillPoints() {
-        return investorSkillPoints;
+        return investorSkill;
     }
 
     /**
      * Set the number of skill points in the investor category.
      * 
-     * @param investorSkillPoints The new number of fighting skill points
+     * @param investorSkill The new number of fighting skill points
      */
-    public void setInvestorSkillPoints(int investorSkillPoints) {
-        this.investorSkillPoints = investorSkillPoints;
+    public void setInvestorSkillPoints(final int investorSkill) {
+        this.investorSkill = investorSkill;
     }
 }

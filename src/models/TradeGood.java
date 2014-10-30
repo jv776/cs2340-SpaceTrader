@@ -58,7 +58,7 @@ public enum TradeGood implements CargoItem {
                 Optional.empty()),
     
     ROBOTS     (TechLevel.POST_INDUSTRIAL, TechLevel.EARLY_INDUSTRIAL,
-                TechLevel.HI_TECH, 5000, -150, 100, 3500, 5000,
+                TechLevel.HIGH_TECH, 5000, -150, 100, 3500, 5000,
                 PriceEvent.LACK_OF_WORKERS, Optional.empty(), Optional.empty());
     
     final TechLevel minTechLevelBuy;

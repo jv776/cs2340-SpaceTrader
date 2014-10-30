@@ -27,7 +27,7 @@ public abstract class Encounterable extends CrewMember{
 
     public abstract String getName();
     public int calculateAttack(){
-        return ship.calculateAttack()*(5 + (fighterSkillPoints / 2));
+        return ship.calculateAttack()*(5 + (fighterSkill / 2));
     }
     public boolean isDead(){
         return ship.isDead();

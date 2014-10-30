@@ -31,10 +31,10 @@ public class Player extends CrewMember implements Serializable {
 
     @Override
     public String toString() {
-        return name + ": Pilot: " + pilotSkillPoints + ", Fighter: "
-                + fighterSkillPoints + ", Trader: " + traderSkillPoints
-                + ", Engineer: " + engineerSkillPoints + ", Investor: "
-                + investorSkillPoints + "\nCurrently in the "
+        return name + ": Pilot: " + pilotSkill + ", Fighter: "
+                + fighterSkill + ", Trader: " + traderSkill
+                + ", Engineer: " + engineerSkill + ", Investor: "
+                + investorSkill + "\nCurrently in the "
                 + currentPlanet.solarSystem.name + " system on planet "
                 + currentPlanet.name;
     }

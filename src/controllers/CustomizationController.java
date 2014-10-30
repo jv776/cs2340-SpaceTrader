@@ -5,8 +5,6 @@ package controllers;
  * and open the template in the editor.
  */
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,6 +15,9 @@ import models.Planet;
 import models.Player;
 import models.SolarSystem;
 import models.Universe;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Customization FXML Controller class
@@ -158,8 +159,10 @@ public class CustomizationController implements Initializable {
         );
         
         player.earn(1000); //start with 1000 credits
+        
         SolarSystem system = universe.solarSystems[(int) (Math.random() *
                 universe.solarSystems.length)];
+        system.discover();
         Planet planet = system.planets[(int) (Math.random() * system.planets.length)];
         
         player.setCurrentSystem(system);
@@ -167,20 +170,10 @@ public class CustomizationController implements Initializable {
         
         GameController.getGameData().setPlayer(player);
         GameController.getGameData().setUniverse(universe);
+        GameController.getGameData().setSolarSystem(system);
+        GameController.getGameData().setPlanet(planet);
         
-        for (SolarSystem s : universe.solarSystems) {
-            for (Planet p : s.planets) {
-                if (p.supportsLife()) {
-                    GameController.getGameData().setPlanet(p);
-                    break;
-                }
-            }
-            if (GameController.getGameData().getPlanet() != null) {
-                break;
-            }
-        }
-        
-        GameController.getControl().setScreen("UniverseMap");
+        GameController.getControl().setScreen(Screens.UNIVERSE_MAP);
     }
     
     /**
@@ -188,7 +181,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void handleCancel() {
-        GameController.getControl().setScreen("Welcome");
+        GameController.getControl().setScreen(Screens.WELCOME);
     }
     
     /**

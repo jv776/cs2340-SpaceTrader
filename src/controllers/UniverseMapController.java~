@@ -125,14 +125,15 @@ public class UniverseMapController implements Initializable {
                         rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
                         
                         if(policeEvent < rPolice) {
-                            GameController.getControl().setScreen(Screens.POLICE_EVENT);
+                            GameController.getControl().setScreen("PoliceEvent");
                         } else if(pirateEvent < rPirate) {
-                            GameController.getControl().setScreen(Screens.PIRATE_EVENT);
+                            GameController.getControl().setScreen("PirateEvent");
                         } else if(tradeEvent < rTrader) {
-                            GameController.getControl().setScreen(Screens.TRADE_EVENT);
+                            GameController.getControl().setScreen("TradeEvent");
                         } else {
-                            GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+                            GameController.getControl().setScreen("SolarSystemMap");
                         }
+		}
                 }
             });
 

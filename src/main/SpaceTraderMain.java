@@ -7,6 +7,7 @@ package main;
  */
 
 import controllers.GameController;
+import controllers.Screens;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,11 +24,12 @@ public class SpaceTraderMain extends Application {
      public void start(Stage primaryStage) {
         GameController mainContainer = new GameController();
                
-        mainContainer.setScreen("Welcome");
+        mainContainer.setScreen(Screens.WELCOME);
 
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/css/spacetrader.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
