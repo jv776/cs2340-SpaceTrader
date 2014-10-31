@@ -141,4 +141,8 @@ public class CargoHold implements Serializable {
     public int getCargoQuantity() {
         return cargo.size();
     }
+    
+    public HashMap<CargoItem, Integer> getCargo() {
+        return cargo;
+    }
 }

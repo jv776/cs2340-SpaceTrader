@@ -16,6 +16,11 @@ import models.TradeGood;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -256,10 +261,11 @@ public class MarketController implements Initializable {
         player = GameController.getGameData().getPlayer();
         market = player.getCurrentPlanet().getMarket();
         
-        returnButton.setText("Return to Space Port");
         if (player.getShip().getFuelCapacity() == player.getShip().getFuelAmount()) {
             button_Refuel.setDisable(true);
         }
+        
+        
         
         Label[] buyQuantities = {
             buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
@@ -271,7 +277,7 @@ public class MarketController implements Initializable {
         this.buyQuantities = buyQuantities;
         
         for (int i = 0; i < buyQuantities.length; i++) {
-            int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
+            int quantity = market.getSupply(TradeGood.values()[i]);
             buyQuantities[i].setText(Integer.toString(quantity));
         }
         
@@ -286,6 +292,10 @@ public class MarketController implements Initializable {
         for (int i = 0; i < buyValues.length; i++) {
             int price = market.getPrice(TradeGood.values()[i]);
             buyValues[i].setText(Integer.toString(price));
+            if (market.isGoodBuy(TradeGood.values()[i]) && market.getSupply(TradeGood.values()[i]) > 0) {
+                buyValues[i].setBackground(new Background(new BackgroundFill(
+                    Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
         }
     
         Label[] sellQuantities = {
@@ -313,6 +323,11 @@ public class MarketController implements Initializable {
         for (int i = 0; i < sellValues.length; i++) {
             int price = market.getSalePrice(TradeGood.values()[i]);
             sellValues[i].setText(Integer.toString(price));
+            if (market.isGoodSell(TradeGood.values()[i]) &&
+                    player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]) > 0) {
+                sellValues[i].setBackground(new Background(new BackgroundFill(
+                    Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
         }
         
         Button[] buyButtons = {
@@ -354,7 +369,7 @@ public class MarketController implements Initializable {
     
     private void update() {
         for (int i = 0; i < buyQuantities.length; i++) {
-            int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
+            int quantity = market.getSupply(TradeGood.values()[i]);
             buyQuantities[i].setText(Integer.toString(quantity));
         }
         
@@ -549,7 +564,7 @@ public class MarketController implements Initializable {
     }
     
     @FXML
-    void returnToUniverse() {
+    void returnToSpacePort() {
         GameController.getControl().setScreen(Screens.SPACE_PORT);
     }
 }

@@ -35,6 +35,6 @@ public class Pirate extends Encounterable{
     }
 
     public int getMaxHullStrength(){
-        return ship.getMaxHullStrength();
+        return ship.getType().hullStrength;
     }
 }

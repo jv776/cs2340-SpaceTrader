@@ -13,16 +13,19 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import models.StatusBar;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 /**
  * FXML Controller class
@@ -50,6 +53,13 @@ public class WelcomeController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        anchor.setBackground(new Background(new BackgroundImage(
+            new Image("/images/welcome.jpg"),
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT
+        )));
         saveChooser = new FileChooser();
         saveChooser.setTitle("Load previous game");
         saveChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Save files",

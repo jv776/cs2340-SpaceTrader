@@ -18,6 +18,13 @@ import models.Universe;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.GridPane;
 
 /**
  * Customization FXML Controller class
@@ -27,6 +34,9 @@ import java.util.ResourceBundle;
 public class CustomizationController implements Initializable {
 
     public final int SKILL_POINT_MAX = 15;
+    
+    @FXML
+    private GridPane grid;
     
     @FXML
     private TextField nameField;
@@ -56,6 +66,13 @@ public class CustomizationController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        grid.setBackground(new Background(new BackgroundImage(
+            new Image("/images/welcome.jpg"),
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT
+        )));
         skillPoints = SKILL_POINT_MAX;
         skillPointsRemaining.setText("" + skillPoints);
         continueButton.setDisable(true);
@@ -158,7 +175,7 @@ public class CustomizationController implements Initializable {
             Integer.parseInt(investorSkillPoints.getText())
         );
         
-        player.earn(1000); //start with 1000 credits
+        player.earn(10000000); //start with 1000 credits
         
         SolarSystem system = universe.solarSystems[(int) (Math.random() *
                 universe.solarSystems.length)];

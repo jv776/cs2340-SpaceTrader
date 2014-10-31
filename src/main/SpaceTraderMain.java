@@ -41,3 +41,4 @@ public class SpaceTraderMain extends Application {
         launch(args);
     }
 }
+

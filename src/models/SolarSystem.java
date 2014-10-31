@@ -16,8 +16,8 @@ import java.io.Serializable;
  */
 public class SolarSystem implements Serializable {
     public final String name;
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
     final TechLevel tech;
     final PoliticalSystem government;
     private final Star sun;
@@ -87,8 +87,8 @@ public class SolarSystem implements Serializable {
         int dist = sun.getRadius() + 40;
 
         for (int i = 0; i < planetArray.length; i++){
-            dist += 2 + (i + 0.25) * 6.5 * (0.76 + (0.24 * Math.random()));
-            planetArray[i] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
+            dist += 2 + (i + 0.25) * 6.5 * (0.76 + (0.24 * (Math.random() + 1)));
+            planetArray[planetArray.length - i - 1] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
 
         return planetArray;
@@ -126,6 +126,14 @@ public class SolarSystem implements Serializable {
      */
     public int getY() {
         return y;
+    }
+    
+    public void setX(int x) {
+        this.x = x;
+    }
+    
+    public void setY(int y) {
+        this.y = y;
     }
 
     /**

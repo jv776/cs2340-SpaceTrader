@@ -35,8 +35,7 @@ and open the template in the editor.
 }
 
 .grid_pane .label {
-    -fx-opacity: 0.7;
-    -fx-background-color: #000000;
+    -fx-opacity: 0.8;
     -fx-border-color: #FFFFFF;
 }
 
@@ -63,4 +62,10 @@ and open the template in the editor.
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+}
+
+.tooltip {
+    -fx-border-color: #444444;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
 }

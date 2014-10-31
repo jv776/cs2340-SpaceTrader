@@ -64,7 +64,7 @@ public enum TradeGood implements CargoItem {
     final TechLevel minTechLevelBuy;
     final TechLevel minTechLevelSell;
     final TechLevel preferredTechLevel;
-    final int basePrice;
+    public final int basePrice;
     final int priceChangePerTechLevel;
     final int priceVariance;
     final int minTraderPrice;

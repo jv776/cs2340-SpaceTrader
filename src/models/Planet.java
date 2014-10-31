@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.Random;
+import javafx.scene.paint.Color;
 
 /**
  * Models various aspects of a Planet (currently its atmosphere, natural
@@ -44,7 +45,7 @@ public class Planet implements Serializable {
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
-        radius = (int)(3 + Math.random() * 15 + Math.pow(Math.random(), 3) * 80);
+        radius = (int)(5 * Math.random() + 6);
         
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
@@ -79,8 +80,10 @@ public class Planet implements Serializable {
     }
 
     private int generateTemperature(int sunTemp){ //units
+        
         float temp = (float)Math.pow((sunTemp*1000/(float)Math.pow(distance,2)),.50);
         temp -= temp*(atmosphere/100f);
+        System.out.println((int)(temp * 1000));
         return (int)(temp*1000);
     }
 
@@ -140,15 +143,6 @@ public class Planet implements Serializable {
      */
     public String technologyLevel() {
         return solarSystem.tech.toString().toLowerCase().replace('_', ' ');
-    }
-    
-    /**
-     * Get a string containing the special resources on this planet.
-     * 
-     * @return Description of available resources
-     */
-    public String resourceType() {
-        return resource.toString().toLowerCase().replace('_', ' ');
     }
     
     /**
@@ -234,5 +228,10 @@ public class Planet implements Serializable {
         } else {
             return Resource.WARLIKE; //5% chance
         }
+    }
+    
+    public Color getColor() {
+        double prop = temperature / 2000.0;
+        return Color.hsb(240 - 240 * prop, .75, .5);
     }
 }

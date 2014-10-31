@@ -13,5 +13,19 @@ public enum TechLevel {
     EARLY_INDUSTRIAL,
     INDUSTRIAL,
     POST_INDUSTRIAL,
-    HI_TECH
+    HI_TECH;
+    
+    @Override
+    public String toString() {
+        switch (this.ordinal()) {
+            case 0: return "Preagriculture";
+            case 1: return "Agriculture";
+            case 2: return "Medieval";
+            case 3: return "Renaissance";
+            case 4: return "Early Industrial";
+            case 5: return "Industrial";
+            case 6: return "Post-Industrial";
+            default: return "High Tech";
+        }
+    }
 }

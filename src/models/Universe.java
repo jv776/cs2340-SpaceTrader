@@ -7,6 +7,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -341,15 +342,22 @@ public class Universe implements Serializable {
 
     public Universe() {
         solarSystems = new SolarSystem[NUM_SOLAR_SYSTEMS];
-        Random r = new Random();
-        int offset = r.nextInt();
+        Random random = new Random();
+        int offset = random.nextInt();
+        
+        ArrayList<Integer> list = new ArrayList<>(150);
+        for(int i = 1; i < 150; i++) {
+            list.add(i);
+        }
+        
+        int sizeOfGrid = 40;
 
-
-        for(int i = 0; i < NUM_SOLAR_SYSTEMS; i++) {
-
+        for (int i = 0; i < NUM_SOLAR_SYSTEMS; i++) {
+            int grid = list.remove(random.nextInt(list.size()));//random.nextInt(600*400/(sizeOfGrid * sizeOfGrid));
+            int x = (grid % (600 / sizeOfGrid)) * sizeOfGrid;
+            int y = (grid / (600 / sizeOfGrid)) * sizeOfGrid;
+            
             TechLevel tech = randomTechLevel();
-            int x = (int) (vanDerCorput(Math.abs(i + offset)) * MAX_X);
-            int y = (int) (vanDerCorput(Math.abs(x + offset)) * MAX_Y);
 
             solarSystems[i] = new SolarSystem(
                     SOLAR_SYSTEM_NAMES[i],
@@ -358,6 +366,10 @@ public class Universe implements Serializable {
                     tech,
                     randomGovernment(tech)
             );
+
+            int sizeOfPlanet = solarSystems[i].getSun().getRadius() * 2;
+            solarSystems[i].setX(x + random.nextInt(sizeOfGrid - sizeOfPlanet) + sizeOfPlanet / 2); //change for size of planets
+            solarSystems[i].setY(y + random.nextInt(sizeOfGrid - sizeOfPlanet) + sizeOfPlanet / 2);
         }
     }
 
