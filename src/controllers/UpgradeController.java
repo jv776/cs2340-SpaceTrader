@@ -13,7 +13,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by limbic on 11/5/14.
+ * FXML Controller class for buying upgrades for ship
+ *
+ * @author Taylor
  */
 public class UpgradeController implements Initializable {
 
@@ -31,10 +33,19 @@ public class UpgradeController implements Initializable {
     private Label shieldSlotLabel;
     @FXML
     private Label gadgetSlotLabel;
+    @FXML
+    private Label playerCreditsLabel;
+    @FXML
+    private Label weaponCostLabel;
+    @FXML
+    private Label shieldCostLabel;
+    @FXML
+    private Label gadgetCostLabel;
 
     private int selectedItem;
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createUpgrades();
+        selectedItem = -1;
 //        createUpgradeList();
 //        reloadUpgradeList();
     }
@@ -49,16 +60,20 @@ public class UpgradeController implements Initializable {
         if(wup!=null) {
             weaponButton.setText(wup.getName());
             weaponButton.setDisable(false);
+            weaponCostLabel.setText("Cost: "+wup.getPrice());
         }
         if(sup!=null){
             shieldButton.setText(sup.getName());
             shieldButton.setDisable(false);
+            shieldCostLabel.setText("Cost: "+sup.getPrice());
         }
         if(gup!=null){
             gadgetButton.setText(gup.getName());
             gadgetButton.setDisable(false);
+            gadgetCostLabel.setText("Cost: "+gup.getPrice());
         }
         updateSlots();
+        updatePrices();
     }
 
 
@@ -79,6 +94,7 @@ public class UpgradeController implements Initializable {
     }
 
     private void updateSlots(){
+
         Ship ship = GameController.getGameData().getShip();
         if(ship.getWeapons().size()>=ship.getType().weaponSlots){
             weaponButton.setDisable(true);
@@ -96,17 +112,37 @@ public class UpgradeController implements Initializable {
 
     }
 
+    private void updatePrices(){
+        Weapon wup = GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade();
+        Shield sup = GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade();
+        Gadget gup = GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade();
+        if(wup!=null && GameController.getGameData().getPlayer().getCredits() <wup.getPrice()){
+            weaponButton.setDisable(true);
+        }
+        if(sup!=null && GameController.getGameData().getPlayer().getCredits() <sup.getPrice()){
+            shieldButton.setDisable(true);
+        }
+        if(gup!=null && GameController.getGameData().getPlayer().getCredits() <gup.getPrice()){
+            gadgetButton.setDisable(true);
+        }
+        playerCreditsLabel.setText("Credits: "+GameController.getGameData().getPlayer().getCredits());
+
+    }
     public void onBuyButtonClicked(){
         Ship ship = GameController.getGameData().getShip();
         Upgradeplace upgrades = GameController.getGameData().getPlanet().getUpgrade();
         if(selectedItem == 0){
             ship.addWeapon(upgrades.getWeaponUpgrade());
+            GameController.getGameData().getPlayer().spend(upgrades.getWeaponUpgrade().getPrice());
         } else if (selectedItem==1){
             ship.addShield(upgrades.getShieldUpgrade());
+            GameController.getGameData().getPlayer().spend(upgrades.getShieldUpgrade().getPrice());
         }else if (selectedItem==2){
             ship.addGadget(upgrades.getGadgetUpgrade());
+            GameController.getGameData().getPlayer().spend(upgrades.getGadgetUpgrade().getPrice());
         }
         selectedItem = -1;
+
         createUpgrades();
 
     }

@@ -16,6 +16,8 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
+ * Shipyard FXML Controller class that allows the buying and selling of ships
+ *
  * @author Roi Atalla
  */
 public class ShipYardController implements Initializable {

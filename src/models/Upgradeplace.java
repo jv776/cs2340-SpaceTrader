@@ -1,9 +1,12 @@
 package models;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
- * Created by limbic on 11/5/14.
+ * The upgrade marketplace, specific to each planet.
+ *
+ * @author Taylor
  */
 public class Upgradeplace {
     private final SolarSystem location;
@@ -20,9 +23,10 @@ public class Upgradeplace {
     }
 
     private Weapon generateWeapon(){
+        Random rand = new Random();
         if(location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()){
             return (new Weapon(Arrays.stream(Weapon.Type.values())
-                    .filter((Weapon.Type type) ->  location.getTechLevel().ordinal() >= type.minTechLevel.ordinal()).findAny().get()));
+                    .filter((Weapon.Type type) ->  location.getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
 
         }
         else{
@@ -30,9 +34,10 @@ public class Upgradeplace {
         }
     }
     private Shield generateShield(){
+        Random rand = new Random();
         if(location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()){
             return (new Shield(Arrays.stream(Shield.Type.values())
-                    .filter((Shield.Type type) ->  location.getTechLevel().ordinal() >= type.minTechLevel.ordinal()).findAny().get()));
+                    .filter((Shield.Type type) ->  (location.getTechLevel().ordinal() == type.minTechLevel.ordinal())).findAny().get()));
 
         }
         else{
@@ -42,7 +47,7 @@ public class Upgradeplace {
     private Gadget generateGadget(){
         if(location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()){
             return (new Gadget(Arrays.stream(Gadget.Type.values())
-                    .filter((Gadget.Type type) ->  location.getTechLevel().ordinal() >= type.minTechLevel.ordinal()).findAny().get()));
+                    .filter((Gadget.Type type) ->  location.getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
 
         }
         else{

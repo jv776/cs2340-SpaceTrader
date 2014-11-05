@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class
+ * FXML Controller class for Marketplace
  *
  * @author Alex, John
  */

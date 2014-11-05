@@ -16,7 +16,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Taylor on 10/14/14.
+ * An abstract representation of an encounter in space with another entity
+ *
+ * @author Taylor
  */
 public abstract class RandomEventController implements Initializable {
     protected Encounterable encountered;

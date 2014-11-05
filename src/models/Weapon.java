@@ -1,7 +1,9 @@
 package models;
 
 /**
- * Created by Taylor on 11/4/14.
+ * Model of a weapon that can be attached to a ship to deal damage
+ *
+ * @author Taylor
  */
 public class Weapon implements Upgrade{
     public static enum Type {
@@ -24,7 +26,7 @@ public class Weapon implements Upgrade{
         }
     }
     public static enum Quality {
-        Standard(0,1,0, "Standard-issue with no modifications."),
+        Standard(0,1,1, "Standard-issue with no modifications."),
         Overclocked(1,10,2, "Standard with software modification for a little extra kick."),
         Kitted(2,100, 3, "Overclocked with some extra hardware modification for even more power."),
         Perfected(4, 1000,4, "Tuned and modified to absolute perfection.");
