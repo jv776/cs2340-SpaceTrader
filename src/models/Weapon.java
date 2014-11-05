@@ -12,13 +12,13 @@ public class Weapon implements Upgrade{
 
 
         public final int damage;
-        public final TechLevel techLevel;
+        public final TechLevel minTechLevel;
         public final String description;
         public final int price;
 
-        Type(int damage, int price, TechLevel techLevel, String description) {
+        Type(int damage, int price, TechLevel minTechLevel, String description) {
             this.damage = damage;
-            this.techLevel = techLevel;
+            this.minTechLevel = minTechLevel;
             this.description = description;
             this.price = price;
         }
@@ -55,6 +55,23 @@ public class Weapon implements Upgrade{
         damage = (int)(DAMAGE_MODIFIER*(type.damage + quality.damage));
         price = type.price*quality.price;
     }
+    public Weapon(Type type){
+        this.type = type;
+        double r = Math.random();
+        if(r<.02){
+            quality = Quality.Perfected;
+        } else if(r<.15){
+            quality = Quality.Kitted;
+        } else if(r<.35){
+            quality = Quality.Overclocked;
+        } else {
+            quality = Quality.Standard;
+        }
+
+        name = quality +" " + type + " Laser";
+        damage = (int)(DAMAGE_MODIFIER*(type.damage + quality.damage));
+        price = type.price*quality.price;
+    }
 
     public int getDamage(){
         return damage;
@@ -73,5 +90,10 @@ public class Weapon implements Upgrade{
     public String getSlot(){
         return "weapon";
     }
+
+    public TechLevel getTechLevel(){
+        return type.minTechLevel;
+    }
+
 
 }

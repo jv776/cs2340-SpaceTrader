@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Model of a ship.
@@ -71,14 +72,21 @@ public class Ship implements Serializable {
     private double fuelAmount;
     private int hullStrength;
 
+    private ArrayList<Shield> shields;
+
+    private ArrayList<Gadget> gadgets;
     public Ship(Type type, CrewMember owner) {
         this.type = type;
         this.fuelAmount = type.fuelCapacity;
         this.hullStrength = type.hullStrength;
         this.cargoHold = new CargoHold(type.cargoCapacity);
+        weapons = new ArrayList<Weapon>();
+        shields = new ArrayList<Shield>();
+        gadgets = new ArrayList<Gadget>();
 
         this.owner = owner;
     }
+
 
     /**
      * @return The type of the ship
@@ -114,10 +122,10 @@ public class Ship implements Serializable {
     public int getHullStrength() {
         return hullStrength;
     }
+
     public int getMaxHullStrength() {
         return type.hullStrength;
     }
-
     public boolean isDead(){
         return hullStrength <= 0;
     }
@@ -130,22 +138,22 @@ public class Ship implements Serializable {
     public void expendFuel(double distance) {
         fuelAmount -= distance;
     }
-    
+
     public void addFuel(double amount) {
         if(fuelAmount + amount > type.fuelCapacity)
             fuelAmount = type.fuelCapacity;
         else
             fuelAmount += amount;
     }
-    
+
     public void refuel() {
         fuelAmount = type.fuelCapacity;
     }
-    
+
     public int getFuelCapacity() {
         return this.type.fuelCapacity;
     }
-    
+
     public int getFuelCost() {
         return this.type.fuelCost;
     }
@@ -155,10 +163,38 @@ public class Ship implements Serializable {
     }
 
     public int calculateAttack(){
-        return (int)(Math.random()*15); //change to use weapons when they are implemented
+        int attack=0;
+        for(Weapon w:weapons){
+            attack += w.getDamage();
+        }
+        return attack; //change to use weapons when they are implemented
     }
 
     public boolean hasIllegalGoods(){
         return cargoHold.hasIllegalGoods();
+    }
+
+    private ArrayList<Weapon> weapons;
+
+    public ArrayList<Weapon> getWeapons() {
+        return weapons;
+    }
+    public void addWeapon(Weapon w) {
+        weapons.add(w);
+    }
+    public void addShield(Shield s) {
+        shields.add(s);
+    }
+    public void addGadget(Gadget g) {
+        gadgets.add(g);
+//        if(g.getType == Gadget.Type.Cargo)
+    }
+
+    public ArrayList<Shield> getShields() {
+        return shields;
+    }
+
+    public ArrayList<Gadget> getGadgets() {
+        return gadgets;
     }
 }

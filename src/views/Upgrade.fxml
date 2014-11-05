@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="marketNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="571.0" text="Ship Yard: Buy Upgrades" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <GridPane fx:id="sellPane" gridLinesVisible="true" layoutX="31.0" layoutY="48.0" prefHeight="252.0" prefWidth="242.0" styleClass="grid_pane">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="241.0" text="Ship Upgrades" textAlignment="CENTER" GridPane.hgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="shieldButton" mnemonicParsing="false" onAction="#onShieldButtonClicked" prefHeight="68.0" prefWidth="242.0" text="No Shield Upgrade Available" GridPane.rowIndex="2" />
+            <Button fx:id="weaponButton" mnemonicParsing="false" onAction="#onWeaponButtonClicked" prefHeight="62.0" prefWidth="249.0" text="No Weapon Upgrade Available" GridPane.rowIndex="1" />
+            <Button fx:id="gadgetButton" mnemonicParsing="false" onAction="#onGadgetButtonClicked" prefHeight="62.0" prefWidth="241.0" text="No Gadget Upgrade Available" GridPane.rowIndex="3" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Button fx:id="shipYardButton" layoutX="31.0" layoutY="322.0" mnemonicParsing="false" onAction="#onReturnButtonClicked" prefHeight="60.0" prefWidth="241.0" text="Return to Ship Yard" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="252.0" layoutX="362.0" layoutY="47.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="221.0" />
+      <Label fx:id="infoLabel" alignment="TOP_LEFT" layoutX="375.0" layoutY="58.0" prefHeight="221.0" prefWidth="197.0" textFill="WHITE" wrapText="true" />
+      <Button fx:id="buyButton" layoutX="342.0" layoutY="322.0" mnemonicParsing="false" onAction="#onBuyButtonClicked" prefHeight="60.0" prefWidth="241.0" text="Buy" />
+      <Label fx:id="weaponSlotLabel" layoutX="282.0" layoutY="138.0" />
+      <Label fx:id="shieldSlotLabel" layoutX="282.0" layoutY="200.0" />
+      <Label fx:id="gadgetSlotLabel" layoutX="282.0" layoutY="264.0" />
+   </children>
+</AnchorPane>

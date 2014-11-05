@@ -9,13 +9,13 @@ public class Shield {
         Reflective(150,30,10000, TechLevel.INDUSTRIAL, "Shield that creates a reflective energy field around the ship.");
 
         public final int strength;
-        public final TechLevel techLevel;
+        public final TechLevel minTechLevel;
         public final int price;
         public final String description;
 
-        Type(int strength,int chargeRate, int price, TechLevel techLevel, String description) {
+        Type(int strength,int chargeRate, int price, TechLevel minTechLevel, String description) {
             this.strength = strength;
-            this.techLevel = techLevel;
+            this.minTechLevel = minTechLevel;
             this.price = price;
             this.description = description;
         }
@@ -37,11 +37,13 @@ public class Shield {
     private int strength;
     private Type type;
     private int price;
+    private String name;
 
     public Shield(Type type){
         this.type = type;
         strength = type.strength;
         price = type.price;
+        name = type + " Shield";
     }
     public int getPrice(){
         return price;
@@ -51,6 +53,12 @@ public class Shield {
     }
     public String toString(){
         return type.description + "\n\nStrength: " + strength;
+    }
+    public TechLevel getTechLevel(){
+        return type.minTechLevel;
+    }
+    public String getName(){
+        return name;
     }
 
 }

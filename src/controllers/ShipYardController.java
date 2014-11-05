@@ -7,11 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import models.Player;
-import models.Ship;
+import models.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -44,12 +45,20 @@ public class ShipYardController implements Initializable {
     @FXML
     private ListView<String> shipList;
 
+//    @FXML
+//    private ListView<String> upgradeList;
+//
+//    private ObservableList<String> upgradeNames;
+//    private ArrayList<Upgrade> upgrades;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        reloadList();
+        reloadShipList();
+//        createUpgradeList();
+//        reloadUpgradeList();
     }
 
-    private void reloadList() {
+    private void reloadShipList() {
         Ship ship = GameController.getGameData().getShip();
         setLabels(ship);
 
@@ -62,6 +71,59 @@ public class ShipYardController implements Initializable {
 
         creditsLabel.setText(String.valueOf(GameController.getGameData().getPlayer().getCredits()));
     }
+
+//    private void createUpgradeList(){
+//        Random rand = new Random();
+//        upgrades = new ArrayList<Upgrade>();
+//        for (int i=0; i<rand.nextInt(2)+1;i++){
+//            upgrades.add(new Weapon(Arrays.stream(Weapon.Type.values())
+//                    .filter((Weapon.Type type) ->  GameController.getGameData().getSolarSystem().getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
+//        }
+//        for (int i=0; i<rand.nextInt(1)+1;i++){
+//            upgrades.add(new Weapon(Arrays.stream(Weapon.Type.values())
+//                    .filter((Weapon.Type type) ->  GameController.getGameData().getSolarSystem().getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
+//        }
+//        for (int i=0; i<rand.nextInt(1)+1;i++){
+//            upgrades.add(new Weapon(Arrays.stream(Weapon.Type.values())
+//                    .filter((Weapon.Type type) ->  GameController.getGameData().getSolarSystem().getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
+//        }
+//        String[] names = new String[upgrades.size()];
+//        for(int i=0; i<upgrades.size();i++){
+//            names[i] = upgrades.get(i).getName();
+//        }
+//        ObservableList<String> upgradeNames = FXCollections.observableArrayList(names);
+//        System.out.println(upgradeNames);
+//        upgradeList.setItems(upgradeNames);
+//        shipList.getSelectionModel().clearSelection();
+//        creditsLabel.setText(String.valueOf(GameController.getGameData().getPlayer().getCredits()));
+//
+//
+////        upgradeNames = FXCollections.observableArrayList(Arrays.stream(upgrades.stream().map(s -> s.toString() + " - " + s.getPrice() + " credits").toArray(String[]::new)));
+////        ObservableList<String> weaponNames = FXCollections.observableArrayList(Arrays.stream(Weapon.Type.values())
+////                .filter((Weapon.Type type) -> GameController.getGameData().getSolarSystem().getTechLevel().ordinal() >= type.minTechLevel.ordinal())
+////                .map(s -> s.toString() + " - " + s.price + " credits").toArray(String[]::new));
+////        ObservableList<String> shieldNames = FXCollections.observableArrayList(Arrays.stream(Shield.Type.values())
+////                .filter((Shield.Type type) -> GameController.getGameData().getSolarSystem().getTechLevel().ordinal() >= type.minTechLevel.ordinal())
+////                .map(s -> s.toString() + " - " + s.price + " credits").toArray(String[]::new));
+////        ObservableList<String> gadgetNames = FXCollections.observableArrayList(Arrays.stream(Gadget.Type.values())
+////                .filter((Gadget.Type type) -> GameController.getGameData().getSolarSystem().getTechLevel().ordinal() >= type.minTechLevel.ordinal())
+////                .map(s -> s.toString() + " - " + s.price + " credits").toArray(String[]::new));
+////        upgradeNames.addAll(weaponNames);
+////        upgradeNames.addAll(shieldNames);
+////        upgradeNames.addAll(gadgetNames);
+//
+//    }
+//    private void reloadUpgradeList() {
+//        Ship ship = GameController.getGameData().getShip();
+//        setLabels(ship);
+//
+//
+//
+//        upgradeList.setItems(upgradeNames);
+//        upgradeList.getSelectionModel().clearSelection();
+//
+//        creditsLabel.setText(String.valueOf(GameController.getGameData().getPlayer().getCredits()));
+//    }
 
     private void setLabels(Ship ship) {
         shipTypeLabel.setText(ship.getType().toString());
@@ -138,7 +200,10 @@ public class ShipYardController implements Initializable {
 
             buyShipButton.setVisible(false);
             
-            reloadList();
+            reloadShipList();
         }
+    }
+    public void onBuyUpgrades(){
+        GameController.getControl().setScreen(Screens.UPGRADE);
     }
 }

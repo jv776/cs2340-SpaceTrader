@@ -35,6 +35,7 @@ public class Planet implements Serializable {
     private boolean colonized;
     
     private Marketplace market;
+    private Upgradeplace upgrade;
     private PriceEvent currentEvent;
 
     public Planet(SolarSystem s, String name, int distance, int sunTemperature){
@@ -59,6 +60,7 @@ public class Planet implements Serializable {
         
         currentEvent = PriceEvent.NONE;
         market = new Marketplace(this);
+        upgrade = new Upgradeplace(this.solarSystem);
     }
 
     private int generateAtmosphere(){
@@ -234,5 +236,8 @@ public class Planet implements Serializable {
         } else {
             return Resource.WARLIKE; //5% chance
         }
+    }
+    public Upgradeplace getUpgrade(){
+        return upgrade;
     }
 }

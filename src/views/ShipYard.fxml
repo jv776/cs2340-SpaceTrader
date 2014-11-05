@@ -45,5 +45,6 @@
       <Button fx:id="buyShipButton" layoutX="100.0" layoutY="285.0" mnemonicParsing="false" onAction="#onBuyShipClicked" text="Buy Ship" visible="false" />
       <Label layoutX="91.0" layoutY="323.0" text="Credits:" />
       <Label fx:id="creditsLabel" layoutX="134.0" layoutY="323.0" text="-" />
+      <Button layoutX="261.0" layoutY="288.0" mnemonicParsing="false" onAction="#onBuyUpgrades" prefHeight="44.0" prefWidth="141.0" text="Buy Upgrades" />
    </children>
 </Pane>

@@ -14,7 +14,8 @@ public enum Screens {
     SPACE_PORT("SpacePort"),
     TRADE_EVENT("TradeEvent"),
     UNIVERSE_MAP("UniverseMap"),
-    WELCOME("Welcome");
+    WELCOME("Welcome"),
+    UPGRADE("Upgrade");
     
     private String name;
     
