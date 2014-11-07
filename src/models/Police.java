@@ -5,13 +5,13 @@ package models;
  *
  * @author Taylor
  */
-public class Police extends Encounterable{
+public class Police extends Encounterable {
 
 
     public Police(String name) {
         this.name = name;
         ship = new Ship(Ship.Type.Gnat, this);
-        welcomeText= "Suspect, prepare to receive civil judgement.";
+        welcomeText = "Suspect, prepare to receive civil judgement.";
         deathText = "Shazbot!";
         fleeFailedText = "You will never escape from justice.";
         fleeSuccessfulText = "They got away!";

@@ -5,23 +5,24 @@
  */
 package models;
 
-import java.io.IOException;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
+
 /**
- *
  * @author Alex
  */
 public class StatusBar extends HBox {
-    @FXML private TextField textField;
-    
+    @FXML
+    private TextField textField;
+
     public StatusBar() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-            "/views/StatusBar.fxml"));
+                "/views/StatusBar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -31,8 +32,8 @@ public class StatusBar extends HBox {
             throw new RuntimeException(exception);
         }
     }
-    
-    
+
+
     public String getText() {
         return textProperty().get();
     }

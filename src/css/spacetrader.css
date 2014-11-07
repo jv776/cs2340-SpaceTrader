@@ -12,7 +12,7 @@ and open the template in the editor.
     Document   : controlStyle1
 */
 
-.root{
+.root {
     -fx-base: #000000;
     -fx-focus-color: #CCCCFF;
 }
@@ -26,7 +26,7 @@ and open the template in the editor.
 }
 
 #universe_anchor {
-    
+
 }
 
 .grid_pane {
@@ -41,7 +41,7 @@ and open the template in the editor.
 }
 
 .grid_pane .button {
-    
+
     -fx-border-color: #FFFFFF;
 }
 
@@ -54,12 +54,12 @@ and open the template in the editor.
 
 .button1:disabled {
     -fx-border-color: #888888;
-    
+
 }
 
 .text_field {
     -fx-border-color: #FFFFFF;
-    -fx-background-color:#000000;
+    -fx-background-color: #000000;
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 10;
     -fx-background-radius: 10;

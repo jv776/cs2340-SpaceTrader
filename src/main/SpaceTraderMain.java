@@ -16,14 +16,14 @@ import javafx.stage.Stage;
 /**
  * Main class for FXProject. Initializes various screens
  * and starts the game.
- * 
+ *
  * @author Alex
  */
 public class SpaceTraderMain extends Application {
-     @Override 
-     public void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
         GameController mainContainer = new GameController();
-               
+
         mainContainer.setScreen(Screens.WELCOME);
 
         Group root = new Group();

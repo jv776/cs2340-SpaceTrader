@@ -20,8 +20,8 @@ public class Player extends CrewMember implements Serializable {
     private Planet currentPlanet;
     private int credits;
 
-    public Player (String playerName, int pilotSP, int fighterSP, int traderSP,
-            int engineerSP, int investorSP) {
+    public Player(String playerName, int pilotSP, int fighterSP, int traderSP,
+                  int engineerSP, int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         name = playerName;
 
@@ -45,7 +45,7 @@ public class Player extends CrewMember implements Serializable {
     public Ship getShip() {
         return ship;
     }
-    
+
     public void setShip(Ship s) {
         this.ship = s; // TODO: implement proper ship buying
     }
@@ -70,7 +70,7 @@ public class Player extends CrewMember implements Serializable {
     public int getCredits() {
         return credits;
     }
-    
+
     /**
      * Set the location of the player to a different planet.
      *
@@ -80,7 +80,8 @@ public class Player extends CrewMember implements Serializable {
         currentPlanet = planet;
         currentSystem = planet.solarSystem;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
@@ -121,26 +122,31 @@ public class Player extends CrewMember implements Serializable {
         credits += amount;
     }
 
-    public int calculateAttack(){
+    public int calculateAttack() {
         return ship.calculateAttack();
     }
-    public void takeDamage(int damage){
+
+    public void takeDamage(int damage) {
         ship.takeDamage(damage);
     }
-    public int getHullStrength(){
+
+    public int getHullStrength() {
         return ship.getHullStrength();
     }
 
-    public int getMaxHullStrength(){
+    public int getMaxHullStrength() {
         return ship.getMaxHullStrength();
     }
-    public boolean isDead(){
+
+    public boolean isDead() {
         return ship.isDead();
     }
-    public boolean hasIllegalGoods(){
+
+    public boolean hasIllegalGoods() {
         return ship.hasIllegalGoods();
     }
-    public void die(){
+
+    public void die() {
         ship = new Ship(Ship.Type.Flea, this);
     }
 }

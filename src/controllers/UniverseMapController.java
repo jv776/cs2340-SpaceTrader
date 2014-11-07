@@ -37,7 +37,7 @@ public class UniverseMapController implements Initializable {
 
         SolarSystem currentSystem = gameData.getSolarSystem();
 
-        for(SolarSystem s : gameData.getUniverse().solarSystems) {
+        for (SolarSystem s : gameData.getUniverse().solarSystems) {
             ImageView image = new ImageView();
 
             image.setImage(new Image("/images/star.png"));
@@ -57,9 +57,9 @@ public class UniverseMapController implements Initializable {
             image.setY(s.getY());
 
 
-            if(s != currentSystem && distance(gameData.getSolarSystem(), s)
+            if (s != currentSystem && distance(gameData.getSolarSystem(), s)
                     < gameData.getShip().getFuelAmount()) {
-                if(s.isDiscovered()) {
+                if (s.isDiscovered()) {
                     color.setBrightness(-0.15);
                 } else {
                     color.setBrightness(0.25);
@@ -71,8 +71,8 @@ public class UniverseMapController implements Initializable {
                 image.setOnMouseExited((MouseEvent t) -> {
                     circle.setVisible(false);
                 });
-            } else if(s != currentSystem) {
-                if(s.isDiscovered()) {
+            } else if (s != currentSystem) {
+                if (s.isDiscovered()) {
                     color.setSaturation(-0.5);
                     color.setBrightness(-0.75);
                 } else {
@@ -94,7 +94,7 @@ public class UniverseMapController implements Initializable {
             double dist = distance(gameData.getSolarSystem(), s);
 
             image.setOnMouseClicked((MouseEvent t) -> {
-                if(dist < gameData.getShip().getFuelAmount()) {
+                if (dist < gameData.getShip().getFuelAmount()) {
                     gameData.getShip().expendFuel(dist);
                     System.out.println(s.name);
                     gameData.setSolarSystem(s);
@@ -115,11 +115,11 @@ public class UniverseMapController implements Initializable {
                     double rTrader = 0.0;
                     rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
 
-                    if(policeEvent < rPolice) {
+                    if (policeEvent < rPolice) {
                         GameController.getControl().setScreen(Screens.POLICE_EVENT);
-                    } else if(pirateEvent < rPirate) {
+                    } else if (pirateEvent < rPirate) {
                         GameController.getControl().setScreen(Screens.PIRATE_EVENT);
-                    } else if(tradeEvent < rTrader) {
+                    } else if (tradeEvent < rTrader) {
                         GameController.getControl().setScreen(Screens.TRADE_EVENT);
                     } else {
                         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);

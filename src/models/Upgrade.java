@@ -5,8 +5,11 @@ package models;
  */
 public interface Upgrade {
     public TechLevel getTechLevel();
+
     public int getPrice();
+
     public String getSlot();
+
     public String getName();
 
 }

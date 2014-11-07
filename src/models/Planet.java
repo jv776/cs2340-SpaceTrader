@@ -11,14 +11,14 @@ import java.util.Random;
 /**
  * Models various aspects of a Planet (currently its atmosphere, natural
  * resources, and trading market).
- * 
+ *
  * @author Alex, John
  */
 public class Planet implements Serializable {
     final SolarSystem solarSystem;
     final String name;
     final Resource resource;
-    
+
     private final int distance; //Representing radial distance from the sun in kmE6
     private final int radius; //Radius of the planet in km * 10^3
     private final boolean nitrogen; //N, O, C, and H dont really need to be instance variable
@@ -33,20 +33,20 @@ public class Planet implements Serializable {
     private final boolean supportsLife; //Whether a planet can support native life
 
     private boolean colonized;
-    
+
     private Marketplace market;
     private Upgradeplace upgrade;
     private PriceEvent currentEvent;
 
-    public Planet(SolarSystem s, String name, int distance, int sunTemperature){
+    public Planet(SolarSystem s, String name, int distance, int sunTemperature) {
         Random rand = new Random();
-        
+
         this.solarSystem = s;
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
-        radius = (int)(3 + Math.random() * 15 + Math.pow(Math.random(), 3) * 80);
-        
+        radius = (int) (3 + Math.random() * 15 + Math.pow(Math.random(), 3) * 80);
+
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
         oxygen = (Math.random() < 0.85);
@@ -57,41 +57,41 @@ public class Planet implements Serializable {
         temperature = generateTemperature(sunTemperature);
         water = generateWater();
         supportsLife = generateLife();
-        
+
         currentEvent = PriceEvent.NONE;
         market = new Marketplace(this);
         upgrade = new Upgradeplace(this.solarSystem);
     }
 
-    private int generateAtmosphere(){
+    private int generateAtmosphere() {
         double atm = 0;
-        
+
         if (nitrogen) {
             atm += 15;
         }
-        
+
         if (carbon) {
             atm += 7;
         }
-        
+
         if (oxygen) {
             atm += 5;
         }
-        return (int)(atm - atm * (.50*(Math.random())));
+        return (int) (atm - atm * (.50 * (Math.random())));
     }
 
-    private int generateTemperature(int sunTemp){ //units
-        float temp = (float)Math.pow((sunTemp*1000/(float)Math.pow(distance,2)),.50);
-        temp -= temp*(atmosphere/100f);
-        return (int)(temp*1000);
+    private int generateTemperature(int sunTemp) { //units
+        float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(distance, 2)), .50);
+        temp -= temp * (atmosphere / 100f);
+        return (int) (temp * 1000);
     }
 
-    private boolean generateWater(){
+    private boolean generateWater() {
         return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
     }
 
-    private boolean generateLife(){
-        if(nitrogen && carbon && water&&metals){
+    private boolean generateLife() {
+        if (nitrogen && carbon && water && metals) {
             return true;
         } else {
             return (Math.random() < 0.01);
@@ -99,102 +99,102 @@ public class Planet implements Serializable {
     }
 
     @Override
-    public String toString(){
-        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: " +
-                (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen +
-                " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+
-                hydrogen + " \tLife: "+ supportsLife + " \tResources: "
+    public String toString() {
+        return "Dist: " + distance + "kmE6 \tAtm: " + atmosphere + "% \tTemp: " +
+                (temperature - 273) + "C \tM: " + metals + " \tN: " + nitrogen +
+                " \tC: " + carbon + " \tO: " + oxygen + " \tW: " + water + " \tH: " +
+                hydrogen + " \tLife: " + supportsLife + " \tResources: "
                 + resource;
     }
 
     /**
      * Get the event (if any) currently happening on the planet.
-     * 
+     *
      * @return The current planetary event, if any
      */
     PriceEvent getCurrentEvent() {
         return currentEvent;
     }
-    
+
     /**
      * Get a description of the current event on the planet.
-     * 
+     *
      * @return The type of event on this planet, if any
      */
     public String currentEvent() {
         return currentEvent.toString().toLowerCase();
     }
-    
+
     /**
      * Get a string containing the type of government ruling the planet.
-     * 
+     *
      * @return The type of government on the planet
      */
     public String governmentType() {
         return solarSystem.government.toString().toLowerCase().replace('_', ' ');
     }
-    
+
     /**
      * Get a string containing the level of technology in the planet's
      * solar system.
-     * 
+     *
      * @return The technology available on the planet
      */
     public String technologyLevel() {
         return solarSystem.tech.toString().toLowerCase().replace('_', ' ');
     }
-    
+
     /**
      * Get a string containing the special resources on this planet.
-     * 
+     *
      * @return Description of available resources
      */
     public String resourceType() {
         return resource.toString().toLowerCase().replace('_', ' ');
     }
-    
+
     /**
      * @return The most abundant resource on the planet
      */
     public Resource getResource() {
         return resource;
     }
-    
+
     /**
      * @return The solar system in which the planet is located
      */
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
-    
+
     /**
      * @return The name of the planet
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @return The distance between the planet and its sun
      */
     public int getDistance() {
         return distance;
     }
-    
+
     /**
      * @return The radius of the planet in thousands of kilometers
      */
     public int getRadius() {
         return radius;
     }
-    
+
     /**
      * @return Whether or not the planet naturally supports life
      */
     public boolean supportsLife() {
         return supportsLife;
     }
-    
+
     /**
      * @return The marketplace located on the planet
      */
@@ -208,7 +208,7 @@ public class Planet implements Serializable {
      */
     private static Resource randomResource() {
         double r = Math.random();
-        
+
         if (0.0 <= r && r < 0.3) {
             return Resource.NO_SPECIAL_RESOURCES; //30% chance
         } else if (0.3 <= r && r < 0.35) {
@@ -237,7 +237,8 @@ public class Planet implements Serializable {
             return Resource.WARLIKE; //5% chance
         }
     }
-    public Upgradeplace getUpgrade(){
+
+    public Upgradeplace getUpgrade() {
         return upgrade;
     }
 }

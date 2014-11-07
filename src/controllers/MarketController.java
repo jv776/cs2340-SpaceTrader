@@ -30,7 +30,7 @@ public class MarketController implements Initializable {
     private Button button_Refuel;
     @FXML
     private Label label_fuelAmount;
-    
+
     @FXML
     private Label buyNarcoticsValueLabel;
 
@@ -234,161 +234,161 @@ public class MarketController implements Initializable {
 
     @FXML
     private Button sellMachinesButton;
-    
+
     @FXML
     private Button returnButton;
 
     @FXML
     private Button saveButton;
-    
+
     private Button[] buyButtons;
     private Button[] sellButtons;
     private Label[] buyQuantities;
     private Label[] sellQuantities;
     private Label[] buyValues;
     private Label[] sellValues;
-    
+
     private Player player;
     private Marketplace market;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         player = GameController.getGameData().getPlayer();
         market = player.getCurrentPlanet().getMarket();
-        
+
         returnButton.setText("Return to Space Port");
         if (player.getShip().getFuelCapacity() == player.getShip().getFuelAmount()) {
             button_Refuel.setDisable(true);
         }
-        
+
         Label[] buyQuantities = {
-            buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
-            buyOreQuantityLabel, buyGamesQuantityLabel,
-            buyFirearmsQuantityLabel, buyMedicineQuantityLabel,
-            buyMachinesQuantityLabel, buyNarcoticsQuantityLabel,
-            buyRobotsQuantityLabel
+                buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
+                buyOreQuantityLabel, buyGamesQuantityLabel,
+                buyFirearmsQuantityLabel, buyMedicineQuantityLabel,
+                buyMachinesQuantityLabel, buyNarcoticsQuantityLabel,
+                buyRobotsQuantityLabel
         };
         this.buyQuantities = buyQuantities;
-        
+
         for (int i = 0; i < buyQuantities.length; i++) {
             int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
             buyQuantities[i].setText(Integer.toString(quantity));
         }
-        
+
         Label[] buyValues = {
-            buyWaterValueLabel, buyFoodValueLabel, buyFursValueLabel,
-            buyOreValueLabel, buyGamesValueLabel, buyFirearmsValueLabel,
-            buyMedicineValueLabel, buyMachinesValueLabel,
-            buyNarcoticsValueLabel, buyRobotsValueLabel
+                buyWaterValueLabel, buyFoodValueLabel, buyFursValueLabel,
+                buyOreValueLabel, buyGamesValueLabel, buyFirearmsValueLabel,
+                buyMedicineValueLabel, buyMachinesValueLabel,
+                buyNarcoticsValueLabel, buyRobotsValueLabel
         };
         this.buyValues = buyValues;
-        
+
         for (int i = 0; i < buyValues.length; i++) {
             int price = market.getPrice(TradeGood.values()[i]);
             buyValues[i].setText(Integer.toString(price));
         }
-    
+
         Label[] sellQuantities = {
-            sellWaterQuantityLabel, sellFoodQuantityLabel,
-            sellFursQuantityLabel, sellOreQuantityLabel, sellGamesQuantityLabel,
-            sellFirearmsQuantityLabel, sellMedicineQuantityLabel,
-            sellMachinesQuantityLabel, sellNarcoticsQuantityLabel,
-            sellRobotsQuantityLabel
+                sellWaterQuantityLabel, sellFoodQuantityLabel,
+                sellFursQuantityLabel, sellOreQuantityLabel, sellGamesQuantityLabel,
+                sellFirearmsQuantityLabel, sellMedicineQuantityLabel,
+                sellMachinesQuantityLabel, sellNarcoticsQuantityLabel,
+                sellRobotsQuantityLabel
         };
         this.sellQuantities = sellQuantities;
-    
+
         for (int i = 0; i < sellQuantities.length; i++) {
             int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
             sellQuantities[i].setText(Integer.toString(quantity));
         }
-        
+
         Label[] sellValues = {
-            sellWaterValueLabel, sellFoodValueLabel, sellFursValueLabel,
-            sellOreValueLabel, sellGamesValueLabel, sellFirearmsValueLabel,
-            sellMedicineValueLabel, sellMachinesValueLabel,
-            sellNarcoticsValueLabel, sellRobotsValueLabel
+                sellWaterValueLabel, sellFoodValueLabel, sellFursValueLabel,
+                sellOreValueLabel, sellGamesValueLabel, sellFirearmsValueLabel,
+                sellMedicineValueLabel, sellMachinesValueLabel,
+                sellNarcoticsValueLabel, sellRobotsValueLabel
         };
         this.sellValues = sellValues;
-        
+
         for (int i = 0; i < sellValues.length; i++) {
             int price = market.getSalePrice(TradeGood.values()[i]);
             sellValues[i].setText(Integer.toString(price));
         }
-        
+
         Button[] buyButtons = {
-            buyWaterButton, buyFoodButton, buyFursButton, buyOreButton,
-            buyGamesButton, buyFirearmsButton, buyMedicineButton,
-            buyMachinesButton, buyNarcoticsButton, buyRobotsButton
+                buyWaterButton, buyFoodButton, buyFursButton, buyOreButton,
+                buyGamesButton, buyFirearmsButton, buyMedicineButton,
+                buyMachinesButton, buyNarcoticsButton, buyRobotsButton
         };
         this.buyButtons = buyButtons;
-        
+
         for (int i = 0; i < buyButtons.length; i++) {
             int supply = market.getSupply(TradeGood.values()[i]);
             int price = market.getPrice(TradeGood.values()[i]);
             buyButtons[i].setDisable(supply <= 0 || price > player.getCredits()
                     || !player.getShip().getCargoHold().hasSpace());
         }
-        
+
         Button[] sellButtons = {
-            sellWaterButton, sellFoodButton, sellFursButton, sellOreButton,
-            sellGamesButton, sellFirearmsButton, sellMedicineButton,
-            sellMachinesButton, sellNarcoticsButton, sellRobotsButton
+                sellWaterButton, sellFoodButton, sellFursButton, sellOreButton,
+                sellGamesButton, sellFirearmsButton, sellMedicineButton,
+                sellMachinesButton, sellNarcoticsButton, sellRobotsButton
         };
         this.sellButtons = sellButtons;
-    
+
         for (int i = 0; i < sellButtons.length; i++) {
             int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
             sellButtons[i].setDisable(quantity <= 0);
         }
-        
+
         // Fuel stuff
         this.label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
         this.label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
-        
+
         marketNameLabel.setText("Market: " + player.getCurrentPlanet().getName()
                 + ", " + player.getCurrentSystem().getTechLevel().toString());
         moneyLabel.setText("" + player.getCredits());
         sellPane.setVisible(false);
         buyButton.setDisable(true);
     }
-    
+
     private void update() {
         for (int i = 0; i < buyQuantities.length; i++) {
             int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
             buyQuantities[i].setText(Integer.toString(quantity));
         }
-        
+
         for (int i = 0; i < sellQuantities.length; i++) {
             int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
             sellQuantities[i].setText(Integer.toString(quantity));
         }
-        
+
         for (int i = 0; i < buyButtons.length; i++) {
             int supply = market.getSupply(TradeGood.values()[i]);
             int price = market.getPrice(TradeGood.values()[i]);
             buyButtons[i].setDisable(supply <= 0 || price > player.getCredits()
                     || !player.getShip().getCargoHold().hasSpace());
         }
-        
+
         for (int i = 0; i < sellButtons.length; i++) {
             int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
             sellButtons[i].setDisable(quantity <= 0);
         }
-        
+
         moneyLabel.setText("" + player.getCredits());
     }
-    
+
     @FXML
     void handleRefuelButton() {
         player.spend((int) (Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost()));
         player.getShip().refuel();
-        
+
         label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
         label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
         button_Refuel.setDisable(true);
         update();
     }
-    
+
     @FXML
     void handleBuyButton() {
         sellPane.setVisible(false);
@@ -409,11 +409,11 @@ public class MarketController implements Initializable {
     private void buyGood(TradeGood good) {
         market.buyGood(good);
         player.spend(market.getPrice(good));
-        
+
         //there is probably a better way to do this
         player.getShip().getCargoHold().addItem(good);
     }
-    
+
     @FXML
     void buyFood() {
         buyGood(TradeGood.FOOD);
@@ -473,12 +473,12 @@ public class MarketController implements Initializable {
         buyGood(TradeGood.ROBOTS);
         update();
     }
-    
+
     //sell a good - add one more to the market, earn money, and remove from cargo
     private void sellGood(TradeGood good) {
         market.sellGood(good);
         player.earn(market.getSalePrice(good));
-        
+
         //there is probably a better way to do this
         player.getShip().getCargoHold().removeItem(good);
     }
@@ -542,12 +542,12 @@ public class MarketController implements Initializable {
         sellGood(TradeGood.ROBOTS);
         update();
     }
-    
+
     @FXML
     void handleSaveButton() {
         GameController.saveGameData();
     }
-    
+
     @FXML
     void returnToUniverse() {
         GameController.getControl().setScreen(Screens.SPACE_PORT);

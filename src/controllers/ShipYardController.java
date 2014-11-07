@@ -7,7 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import models.*;
+import models.Player;
+import models.Ship;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -156,10 +157,10 @@ public class ShipYardController implements Initializable {
     private void onShipListSelectionChange() {
         String selectedItem = shipList.getSelectionModel().getSelectedItem();
 
-        if(selectedItem == null)
+        if (selectedItem == null)
             return;
 
-        if(selectedItem.contains("Your ship:")) {
+        if (selectedItem.contains("Your ship:")) {
             setLabels(GameController.getGameData().getShip());
             buyShipButton.setVisible(false);
         } else {
@@ -198,17 +199,17 @@ public class ShipYardController implements Initializable {
 
             player.earn(oldShipPrice);
             player.spend(selectedShipPrice);
-            
+
             GameController.getGameData().setShip(new Ship(shipSelected, GameController.getGameData().getPlayer()));
 
             buyShipButton.setVisible(false);
-            
+
             reloadShipList();
         }
     }
-    
+
     @FXML
-    private void onBuyUpgrades(){
+    private void onBuyUpgrades() {
         GameController.getControl().setScreen(Screens.UPGRADE);
     }
 }

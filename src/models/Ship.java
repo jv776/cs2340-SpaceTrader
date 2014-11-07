@@ -75,6 +75,7 @@ public class Ship implements Serializable {
     private ArrayList<Shield> shields;
 
     private ArrayList<Gadget> gadgets;
+
     public Ship(Type type, CrewMember owner) {
         this.type = type;
         this.fuelAmount = type.fuelCapacity;
@@ -126,7 +127,8 @@ public class Ship implements Serializable {
     public int getMaxHullStrength() {
         return type.hullStrength;
     }
-    public boolean isDead(){
+
+    public boolean isDead() {
         return hullStrength <= 0;
     }
 
@@ -140,7 +142,7 @@ public class Ship implements Serializable {
     }
 
     public void addFuel(double amount) {
-        if(fuelAmount + amount > type.fuelCapacity)
+        if (fuelAmount + amount > type.fuelCapacity)
             fuelAmount = type.fuelCapacity;
         else
             fuelAmount += amount;
@@ -158,19 +160,19 @@ public class Ship implements Serializable {
         return this.type.fuelCost;
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(int damage) {
         hullStrength -= damage; //needs to work with shields
     }
 
-    public int calculateAttack(){
-        int attack=0;
-        for(Weapon w:weapons){
+    public int calculateAttack() {
+        int attack = 0;
+        for (Weapon w : weapons) {
             attack += w.getDamage();
         }
         return attack; //change to use weapons when they are implemented
     }
 
-    public boolean hasIllegalGoods(){
+    public boolean hasIllegalGoods() {
         return cargoHold.hasIllegalGoods();
     }
 
@@ -179,12 +181,15 @@ public class Ship implements Serializable {
     public ArrayList<Weapon> getWeapons() {
         return weapons;
     }
+
     public void addWeapon(Weapon w) {
         weapons.add(w);
     }
+
     public void addShield(Shield s) {
         shields.add(s);
     }
+
     public void addGadget(Gadget g) {
         gadgets.add(g);
 //        if(g.getType == Gadget.Type.Cargo)

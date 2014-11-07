@@ -49,7 +49,7 @@ public class UpgradeController implements Initializable {
 //        reloadUpgradeList();
     }
     
-    private void createUpgrades(){
+    private void createUpgrades() {
         Weapon wup = GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade();
         Shield sup = GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade();
         Gadget gup = GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade();
@@ -57,93 +57,92 @@ public class UpgradeController implements Initializable {
         weaponButton.setDisable(true);
         shieldButton.setDisable(true);
         gadgetButton.setDisable(true);
-        if(wup!=null) {
+        if (wup != null) {
             weaponButton.setText(wup.getName());
             weaponButton.setDisable(false);
-            weaponCostLabel.setText("Cost: "+wup.getPrice());
+            weaponCostLabel.setText("Cost: " + wup.getPrice());
         }
-        if(sup!=null){
+        if (sup != null) {
             shieldButton.setText(sup.getName());
             shieldButton.setDisable(false);
-            shieldCostLabel.setText("Cost: "+sup.getPrice());
+            shieldCostLabel.setText("Cost: " + sup.getPrice());
         }
-        if(gup!=null){
+        if (gup != null) {
             gadgetButton.setText(gup.getName());
             gadgetButton.setDisable(false);
-            gadgetCostLabel.setText("Cost: "+gup.getPrice());
+            gadgetCostLabel.setText("Cost: " + gup.getPrice());
         }
         updateSlots();
         updatePrices();
     }
 
     @FXML
-    private void onWeaponButtonClicked(){
+    private void onWeaponButtonClicked() {
 //        weaponButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade().toString());
         selectedItem = 0;
     }
     
     @FXML
-    private void onShieldButtonClicked(){
+    private void onShieldButtonClicked() {
 //        shieldButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade().toString());
         selectedItem = 1;
     }
     
     @FXML
-    private void onGadgetButtonClicked(){
+    private void onGadgetButtonClicked() {
 //        gadgetButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade().toString());
         selectedItem = 2;
     }
 
-    private void updateSlots(){
-
+    private void updateSlots() {
         Ship ship = GameController.getGameData().getShip();
-        if(ship.getWeapons().size()>=ship.getType().weaponSlots){
+        if (ship.getWeapons().size() >= ship.getType().weaponSlots) {
             weaponButton.setDisable(true);
         }
-        if(ship.getShields().size()>=ship.getType().shieldSlots){
+        if (ship.getShields().size() >= ship.getType().shieldSlots) {
             shieldButton.setDisable(true);
         }
-        if(ship.getGadgets().size()>=ship.getType().gadgetSlots){
+        if (ship.getGadgets().size() >= ship.getType().gadgetSlots) {
             gadgetButton.setDisable(true);
         }
 
-        weaponSlotLabel.setText(ship.getWeapons().size()+"/"+ship.getType().weaponSlots);
-        shieldSlotLabel.setText(ship.getShields().size()+"/"+ship.getType().shieldSlots);
-        gadgetSlotLabel.setText(ship.getGadgets().size()+"/"+ship.getType().gadgetSlots);
+        weaponSlotLabel.setText(ship.getWeapons().size() + "/" + ship.getType().weaponSlots);
+        shieldSlotLabel.setText(ship.getShields().size() + "/" + ship.getType().shieldSlots);
+        gadgetSlotLabel.setText(ship.getGadgets().size() + "/" + ship.getType().gadgetSlots);
 
     }
 
-    private void updatePrices(){
+    private void updatePrices() {
         Weapon wup = GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade();
         Shield sup = GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade();
         Gadget gup = GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade();
-        if(wup!=null && GameController.getGameData().getPlayer().getCredits() <wup.getPrice()){
+        if (wup != null && GameController.getGameData().getPlayer().getCredits() < wup.getPrice()) {
             weaponButton.setDisable(true);
         }
-        if(sup!=null && GameController.getGameData().getPlayer().getCredits() <sup.getPrice()){
+        if (sup != null && GameController.getGameData().getPlayer().getCredits() < sup.getPrice()) {
             shieldButton.setDisable(true);
         }
-        if(gup!=null && GameController.getGameData().getPlayer().getCredits() <gup.getPrice()){
+        if (gup != null && GameController.getGameData().getPlayer().getCredits() < gup.getPrice()) {
             gadgetButton.setDisable(true);
         }
-        playerCreditsLabel.setText("Credits: "+GameController.getGameData().getPlayer().getCredits());
+        playerCreditsLabel.setText("Credits: " + GameController.getGameData().getPlayer().getCredits());
 
     }
     
     @FXML
-    private void onBuyButtonClicked(){
+    private void onBuyButtonClicked() {
         Ship ship = GameController.getGameData().getShip();
         Upgradeplace upgrades = GameController.getGameData().getPlanet().getUpgrade();
-        if(selectedItem == 0){
+        if (selectedItem == 0) {
             ship.addWeapon(upgrades.getWeaponUpgrade());
             GameController.getGameData().getPlayer().spend(upgrades.getWeaponUpgrade().getPrice());
-        } else if (selectedItem==1){
+        } else if (selectedItem == 1) {
             ship.addShield(upgrades.getShieldUpgrade());
             GameController.getGameData().getPlayer().spend(upgrades.getShieldUpgrade().getPrice());
-        }else if (selectedItem==2){
+        } else if (selectedItem == 2) {
             ship.addGadget(upgrades.getGadgetUpgrade());
             GameController.getGameData().getPlayer().spend(upgrades.getGadgetUpgrade().getPrice());
         }

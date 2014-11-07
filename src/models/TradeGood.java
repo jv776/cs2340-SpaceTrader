@@ -38,7 +38,7 @@ public enum TradeGood implements CargoItem {
             TechLevel.POST_INDUSTRIAL, 250, -10, 5, 160, 270,
             PriceEvent.BOREDOM, Optional.of(Resource.ARTISTIC),
             Optional.<Resource>empty()),
-    
+
     FIREARMS(TechLevel.RENAISSANCE, TechLevel.AGRICULTURE,
             TechLevel.INDUSTRIAL, 1250, -75, 100, 600, 1100, PriceEvent.WAR,
             Optional.of(Resource.WARLIKE), Optional.<Resource>empty()),
