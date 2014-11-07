@@ -29,9 +29,9 @@ public class CargoHold implements Serializable {
      * @param item The item to add to the cargo hold
      */
     public void addItem(CargoItem item) {
-        if (getQuantity() < capacity) {
+        if(getQuantity() < capacity) {
             boolean isNew = !cargo.keySet().contains(item);
-            if (isNew) {
+            if(isNew) {
                 cargo.put(item, 1);
             } else {
                 cargo.put(item, cargo.get(item) + 1);
@@ -41,12 +41,12 @@ public class CargoHold implements Serializable {
 
     public int getQuantity() {
         int size = 0;
-        for (CargoItem item : cargo.keySet()) {
+        for(CargoItem item : cargo.keySet()) {
             size += getQuantity(item);
         }
         return size;
     }
-    
+
     public int getCapacity() {
         return capacity;
     }
@@ -54,12 +54,12 @@ public class CargoHold implements Serializable {
     /**
      * Add many of the same item to the cargo hold at once
      *
-     * @param item The item to be added
+     * @param item   The item to be added
      * @param amount The quantity of the item to be added
      */
     public void addItemQuantity(CargoItem item, int amount) {
         boolean isNew = !cargo.keySet().contains(item);
-        if (isNew) {
+        if(isNew) {
             cargo.put(item, amount);
         } else {
             cargo.put(item, cargo.get(item) + amount);
@@ -74,8 +74,8 @@ public class CargoHold implements Serializable {
      * @return whether or not the item was successfully removed
      */
     public boolean removeItem(CargoItem item) {
-        if (cargo.keySet().contains(item)) {
-            if (cargo.get(item) == 1) {
+        if(cargo.keySet().contains(item)) {
+            if(cargo.get(item) == 1) {
                 cargo.remove(item);
             } else {
                 cargo.put(item, cargo.get(item) - 1);
@@ -92,19 +92,17 @@ public class CargoHold implements Serializable {
      *
      * @return The trade goods currently held in a cargo hold
      */
-    public TradeGood[] getTradeGoods() {
-        TradeGood[] goods = new TradeGood[10];
+    public CargoItem[] getCargoItems() {
+        CargoItem[] goods = new CargoItem[10];
         int count = 0;
-        for (CargoItem item : cargo.keySet()) {
-            if (item instanceof TradeGood) {
-                goods[count] = (TradeGood)item;
+        for(CargoItem item : cargo.keySet()) {
+            if(item instanceof CargoItem) {
+                goods[count] = item;
                 count++;
             }
         }
-        TradeGood[] finalGoods = new TradeGood[count];
-        for (int i = 0; i < count; i++) {
-            finalGoods[i] = goods[i];
-        }
+        CargoItem[] finalGoods = new CargoItem[count];
+        System.arraycopy(goods, 0, finalGoods, 0, count);
         return finalGoods;
     }
 
@@ -115,7 +113,7 @@ public class CargoHold implements Serializable {
      * @return The quantity of the item currently held
      */
     public int getQuantity(CargoItem item) {
-        if (cargo.keySet().contains(item)) {
+        if(cargo.containsKey(item)) {
             return cargo.get(item);
         } else {
             return 0;
@@ -128,16 +126,16 @@ public class CargoHold implements Serializable {
     public boolean hasSpace() {
         return getQuantity() < capacity;
     }
-    
-    public boolean hasIllegalGoods(){
-        for (TradeGood g:getTradeGoods()){
-            if (g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")){
+
+    public boolean hasIllegalGoods() {
+        for(CargoItem g : getCargoItems()) {
+            if(g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")) {
                 return true;
             }
         }
         return false;
     }
-    
+
     public int getCargoQuantity() {
         return cargo.size();
     }
