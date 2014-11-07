@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -17,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * An abstract representation of an encounter in space with another entity
+ * An abstract representation of an encounter in space with another entity.
  *
  * @author Taylor
  */
@@ -104,9 +103,7 @@ public abstract class RandomEventController implements Initializable {
         showBubble();
         speech.setText(encountered.getFleeSuccessfulText());
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
 
@@ -152,10 +149,7 @@ public abstract class RandomEventController implements Initializable {
         System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getDeathText());
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         SWButton.setDisable(true);
@@ -167,10 +161,10 @@ public abstract class RandomEventController implements Initializable {
         System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getWinText());
         NWButton.setText("Use Escape Pod");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            GameController.getGameData().getPlayer().die();
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> {
+                GameController.getGameData().getPlayer().die();
+                exitEvent();
+            });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         SWButton.setDisable(true);

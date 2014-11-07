@@ -1,14 +1,13 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import models.Pirate;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * PirateEvent FXML Controller class
+ * PirateEvent FXML Controller class.
  *
  * @author Taylor
  */
@@ -16,19 +15,13 @@ public class PirateEventController extends RandomEventController implements Init
 
     void configureButtons() {
         NWButton.setText("Attack");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            attack();
-        });
+        NWButton.setOnMouseClicked(t -> attack());
 
         NEButton.setText("Surrender");
-        NEButton.setOnMouseClicked((MouseEvent t) -> {
-            surrender();
-        });
+        NEButton.setOnMouseClicked(t -> surrender());
 
         SEButton.setText("Flee");
-        SEButton.setOnMouseClicked((MouseEvent t) -> {
-            flee();
-        });
+        SEButton.setOnMouseClicked(t -> flee());
         SWButton.setDisable(true);
     }
 
@@ -46,9 +39,7 @@ public class PirateEventController extends RandomEventController implements Init
         showBubble();
         speech.setText("Ah'har, I'll be take'n them credits now!");
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits() / 2);

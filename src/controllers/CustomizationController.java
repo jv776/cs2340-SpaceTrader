@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Customization FXML Controller class
+ * Customization FXML Controller class.
  *
  * @author Alex
  */
@@ -60,10 +60,10 @@ public class CustomizationController implements Initializable {
         skillPointsRemaining.setText("" + skillPoints);
         continueButton.setDisable(true);
         nameField.addEventFilter(KeyEvent.KEY_TYPED, (KeyEvent event) -> {
-            if (nameField.getText().length() >= 30) {
-                event.consume();
-            }
-        });
+                if (nameField.getText().length() >= 30) {
+                    event.consume();
+                }
+            });
     }
 
     /**
@@ -71,7 +71,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void pilotIncrease() {
-        updateSkillPoints(pilotSkillPoints, "increase");
+        updateSkillPoints(pilotSkillPoints, Direction.INCREASE);
     }
 
     /**
@@ -79,7 +79,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void pilotDecrease() {
-        updateSkillPoints(pilotSkillPoints, "decrease");
+        updateSkillPoints(pilotSkillPoints, Direction.DECREASE);
     }
 
     /**
@@ -87,7 +87,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void fighterIncrease() {
-        updateSkillPoints(fighterSkillPoints, "increase");
+        updateSkillPoints(fighterSkillPoints, Direction.INCREASE);
     }
 
     /**
@@ -95,7 +95,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void fighterDecrease() {
-        updateSkillPoints(fighterSkillPoints, "decrease");
+        updateSkillPoints(fighterSkillPoints, Direction.DECREASE);
     }
 
     /**
@@ -103,7 +103,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void traderIncrease() {
-        updateSkillPoints(traderSkillPoints, "increase");
+        updateSkillPoints(traderSkillPoints, Direction.INCREASE);
     }
 
     /**
@@ -111,7 +111,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void traderDecrease() {
-        updateSkillPoints(traderSkillPoints, "decrease");
+        updateSkillPoints(traderSkillPoints, Direction.DECREASE);
     }
 
     /**
@@ -119,7 +119,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void engineerIncrease() {
-        updateSkillPoints(engineerSkillPoints, "increase");
+        updateSkillPoints(engineerSkillPoints, Direction.INCREASE);
     }
 
     /**
@@ -127,7 +127,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void engineerDecrease() {
-        updateSkillPoints(engineerSkillPoints, "decrease");
+        updateSkillPoints(engineerSkillPoints, Direction.DECREASE);
     }
 
     /**
@@ -135,7 +135,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void investorIncrease() {
-        updateSkillPoints(investorSkillPoints, "increase");
+        updateSkillPoints(investorSkillPoints, Direction.INCREASE);
     }
 
     /**
@@ -143,7 +143,7 @@ public class CustomizationController implements Initializable {
      */
     @FXML
     private void investorDecrease() {
-        updateSkillPoints(investorSkillPoints, "decrease");
+        updateSkillPoints(investorSkillPoints, Direction.DECREASE);
     }
 
     /**
@@ -164,8 +164,7 @@ public class CustomizationController implements Initializable {
 
         player.earn(1000); //start with 1000 credits
 
-        SolarSystem system = universe.solarSystems[(int) (Math.random() *
-                universe.solarSystems.length)];
+        SolarSystem system = universe.solarSystems[(int) (Math.random() * universe.solarSystems.length)];
         system.discover();
         Planet planet = system.planets[(int) (Math.random() * system.planets.length)];
 
@@ -209,13 +208,13 @@ public class CustomizationController implements Initializable {
      * @param direction       "increase" if incrementing and "decrease" if
      *                        decrementing
      */
-    private void updateSkillPoints(Label attributePoints, String direction) {
-        if (direction.equals("increase")) {
+    private void updateSkillPoints(Label attributePoints, Direction direction) {
+        if (direction == Direction.INCREASE) {
             if (skillPoints > 0) {
                 attributePoints.setText(Integer.parseInt(attributePoints.getText()) + 1 + "");
                 skillPointsRemaining.setText(--skillPoints + "");
             }
-        } else if (direction.equals("decrease")) {
+        } else if (direction == Direction.DECREASE) {
             if (Integer.parseInt(attributePoints.getText()) > 0) {
                 attributePoints.setText(Integer.parseInt(attributePoints.getText()) - 1 + "");
                 skillPointsRemaining.setText(++skillPoints + "");
@@ -223,5 +222,9 @@ public class CustomizationController implements Initializable {
         }
 
         handleNameInput();
+    }
+    
+    private static enum Direction {
+        INCREASE, DECREASE
     }
 }

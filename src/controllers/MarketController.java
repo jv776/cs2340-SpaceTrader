@@ -18,12 +18,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class for Marketplace
+ * FXML Controller class for Marketplace.
  *
  * @author Alex, John
  */
 public class MarketController implements Initializable {
-
     @FXML
     private Label label_refuelCost;
     @FXML

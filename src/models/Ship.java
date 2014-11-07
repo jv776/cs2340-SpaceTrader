@@ -192,7 +192,6 @@ public class Ship implements Serializable {
 
     public void addGadget(Gadget g) {
         gadgets.add(g);
-//        if(g.getType == Gadget.Type.Cargo)
     }
 
     public ArrayList<Shield> getShields() {

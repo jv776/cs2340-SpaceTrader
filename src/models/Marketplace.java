@@ -65,9 +65,9 @@ public class Marketplace implements Serializable {
         for (TradeGood good : TradeGood.values()) {
             Random r = new Random();
 
-            int techLevelFactor = good.priceChangePerTechLevel *
-                    (location.solarSystem.getTechLevel().ordinal() -
-                            good.minTechLevelBuy.ordinal());
+            int techLevelFactor = good.priceChangePerTechLevel
+                    * (location.solarSystem.getTechLevel().ordinal()
+                    - good.minTechLevelBuy.ordinal());
 
             int variance = 1 + r.nextInt(good.priceVariance) / 100;
 

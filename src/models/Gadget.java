@@ -3,17 +3,17 @@ package models;
 import java.io.Serializable;
 
 /**
- * Model of a misc upgrade that can be applied to a ship
+ * Model of a misc upgrade that can be applied to a ship.
  *
  * @author Taylor
  */
 public class Gadget implements Upgrade, Serializable {
     public static enum Type {
-        Cargo(5, 0, 0, 0, false, 200, TechLevel.EARLY_INDUSTRIAL, "Provides 5 extra cargo slots for your ship."),
-        Navigation(0, 5, 0, 0, false, 1000, TechLevel.INDUSTRIAL, "Increases your piloting skill."),
-        Targeting(0, 0, 5, 0, false, 1000, TechLevel.INDUSTRIAL, "Increases your combat skill."),
-        Autorepair(0, 0, 0, 5, false, 1000, TechLevel.POST_INDUSTRIAL, "Increases your engineering skill."),
-        Cloaking(0, 0, 0, 0, true, 10000, TechLevel.HI_TECH, "Allows you to travel undetected through space.");
+        CARGO(5, 0, 0, 0, false, 200, TechLevel.EARLY_INDUSTRIAL, "Provides 5 extra cargo slots for your ship."),
+        NAVIGATION(0, 5, 0, 0, false, 1000, TechLevel.INDUSTRIAL, "Increases your piloting skill."),
+        TARGETING(0, 0, 5, 0, false, 1000, TechLevel.INDUSTRIAL, "Increases your combat skill."),
+        AUTOREPAIR(0, 0, 0, 5, false, 1000, TechLevel.POST_INDUSTRIAL, "Increases your engineering skill."),
+        CLOAKING(0, 0, 0, 0, true, 10000, TechLevel.HI_TECH, "Allows you to travel undetected through space.");
 
         public final TechLevel minTechLevel;
         public final int price;

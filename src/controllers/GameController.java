@@ -12,14 +12,25 @@ import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import models.GameData;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -30,7 +41,6 @@ import java.lang.reflect.InvocationTargetException;
  * @author Alex, John
  */
 public class GameController extends StackPane implements Serializable {
-
     private static GameData gameData;
     private static GameController control;
     private static File saveFile;
@@ -61,15 +71,15 @@ public class GameController extends StackPane implements Serializable {
 
         try {
             String resource = "/views/" + screenName + ".fxml";
-            Class myClass = Class.forName("controllers." + screenName + "Controller");
-            Class[] types = {};
+            Class<?> myClass = Class.forName("controllers." + screenName + "Controller");
+            Class<?>[] types = {};
             Constructor constructor = myClass.getConstructor(types);
             Object[] parameters = {};
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-            loader.setController((Initializable) constructor.newInstance(parameters));
+            loader.setController(constructor.newInstance(parameters));
 
-            Parent loadScreen = (Parent) loader.load();
+            Parent loadScreen = loader.load();
 
             //Is there is more than one screen 
             if (!getChildren().isEmpty()) {
@@ -102,10 +112,10 @@ public class GameController extends StackPane implements Serializable {
                 fadeIn.play();
             }
             return true;
-        } catch (ClassNotFoundException | NoSuchMethodException |
-                SecurityException | InstantiationException |
-                IllegalAccessException | IllegalArgumentException |
-                InvocationTargetException | IOException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException
+                | SecurityException | InstantiationException
+                | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | IOException e) {
             e.printStackTrace();
             return false;
         }

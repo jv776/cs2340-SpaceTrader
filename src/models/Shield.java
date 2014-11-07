@@ -3,7 +3,7 @@ package models;
 import java.io.Serializable;
 
 /**
- * Model of a shield that protects a ship from damage
+ * Model of a shield that protects a ship from damage.
  *
  * @author Taylor
  */

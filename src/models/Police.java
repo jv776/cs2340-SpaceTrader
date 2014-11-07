@@ -1,7 +1,7 @@
 package models;
 
 /**
- * Class representing an interstellar cop
+ * Class representing an interstellar cop.
  *
  * @author Taylor
  */

@@ -100,10 +100,10 @@ public class Planet implements Serializable {
 
     @Override
     public String toString() {
-        return "Dist: " + distance + "kmE6 \tAtm: " + atmosphere + "% \tTemp: " +
-                (temperature - 273) + "C \tM: " + metals + " \tN: " + nitrogen +
-                " \tC: " + carbon + " \tO: " + oxygen + " \tW: " + water + " \tH: " +
-                hydrogen + " \tLife: " + supportsLife + " \tResources: "
+        return "Dist: " + distance + "kmE6 \tAtm: " + atmosphere + "% \tTemp: "
+                + (temperature - 273) + "C \tM: " + metals + " \tN: " + nitrogen
+                + " \tC: " + carbon + " \tO: " + oxygen + " \tW: " + water + " \tH: "
+                + hydrogen + " \tLife: " + supportsLife + " \tResources: "
                 + resource;
     }
 
