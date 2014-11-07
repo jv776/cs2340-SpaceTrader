@@ -1,11 +1,13 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Model of a shield that protects a ship from damage
  *
  * @author Taylor
  */
-public class Shield {
+public class Shield implements Serializable {
     public static enum Type {
         Energy(25,5,1000,TechLevel.EARLY_INDUSTRIAL, "Shield that creates an absorptive energy field around the ship."),
         Reflective(150,30,10000, TechLevel.INDUSTRIAL, "Shield that creates a reflective energy field around the ship."),

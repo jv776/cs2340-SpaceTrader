@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ import java.util.Random;
  *
  * @author Taylor
  */
-public class Upgradeplace {
+public class Upgradeplace implements Serializable {
     private final SolarSystem location;
     private final Weapon weaponUpgrade;
     private final Shield shieldUpgrade;
