@@ -14,6 +14,7 @@ import models.Encounterable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 
 /**
  * An abstract representation of an encounter in space with another entity
@@ -21,21 +22,58 @@ import java.util.ResourceBundle;
  * @author Taylor
  */
 public abstract class RandomEventController implements Initializable {
+    /**
+     * The person encountered by the player (could be police, a pirate, or
+     * another trader).
+     */
     protected Encounterable encountered;
-    public Pane pane;
-    public Label otherName;
-    public ProgressBar otherHealth;
-    public ProgressBar playerHealth;
-    public Button NEButton;
-    public Button NWButton;
-    public Button SEButton;
-    public Button SWButton;
-    public ImageView playerPic;
-    public ImageView otherPic;
-    public Rectangle bubbleBox;
-    public Polygon bubbleArrow;
-    public Label speech;
+    
+    /**
+     * All of these objects are UI elements needed for the FXML to work.
+     * They are protected so that each specific random event's controller can
+     * still access them.
+     */
+    
+    @FXML
+    protected Pane pane;
+    
+    @FXML
+    protected Label otherName;
+    
+    @FXML
+    protected ProgressBar otherHealth;
+    
+    @FXML
+    protected ProgressBar playerHealth;
+    
+    @FXML
+    protected Button NEButton;
+    
+    @FXML
+    protected Button NWButton;
+    
+    @FXML
+    protected Button SEButton;
+    
+    @FXML
+    protected Button SWButton;
+    
+    @FXML
+    protected ImageView playerPic;
+    
+    @FXML
+    protected ImageView otherPic;
+    
+    @FXML
+    protected Rectangle bubbleBox;
+    
+    @FXML
+    protected Polygon bubbleArrow;
+    
+    @FXML
+    protected Label speech;
 
+    @Override
     public void initialize(URL location, ResourceBundle resources){
         configureEncountered();
         configureButtons();
