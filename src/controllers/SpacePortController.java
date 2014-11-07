@@ -32,23 +32,28 @@ public class SpacePortController implements Initializable {
     @FXML
     private Label spacePortLabel;
     
-    public void onMarketClicked() {
+    @FXML
+    private void onMarketClicked() {
         GameController.getControl().setScreen(Screens.MARKET);
     }
     
-    public void onShipYardClicked() {
+    @FXML
+    private void onShipYardClicked() {
         GameController.getControl().setScreen(Screens.SHIP_YARD);
     }
     
-    public void onMapClicked() {
+    @FXML
+    private void onMapClicked() {
         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }
     
-    public void onNewsClicked() {
+    @FXML
+    private void onNewsClicked() {
         System.out.println("NEWS CLICKED WOOOOO!");
     }
     
-    public void onStockMarketClicked() {
+    @FXML
+    private void onStockMarketClicked() {
         System.out.println("STOCK MARKET CLICKED WOOOO!");
     }
 

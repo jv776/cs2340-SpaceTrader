@@ -7,17 +7,13 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -33,6 +29,7 @@ import models.SolarSystem;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 
 /**
  * Displays and manages the map of the Solar System.
@@ -41,9 +38,14 @@ import java.util.ResourceBundle;
  */
 public class SolarSystemMapController implements Initializable {
 
-    public AnchorPane anchor;
-    public Button returnButton;
-    public Label locationLabel;
+    @FXML
+    private AnchorPane anchor;
+    
+    @FXML
+    private Button returnButton;
+    
+    @FXML
+    private Label locationLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -136,10 +138,9 @@ public class SolarSystemMapController implements Initializable {
 
         }
     }
-
-
-
-    public void returnToUniverse() {
+    
+    @FXML
+    private void returnToUniverse() {
         GameController.getControl().setScreen(Screens.UNIVERSE_MAP);
     }
 

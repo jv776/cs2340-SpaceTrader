@@ -4,9 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Glow;
-import javafx.scene.layout.Background;
 import models.*;
 
 import java.net.URL;
@@ -43,12 +40,15 @@ public class UpgradeController implements Initializable {
     private Label gadgetCostLabel;
 
     private int selectedItem;
+    
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createUpgrades();
         selectedItem = -1;
 //        createUpgradeList();
 //        reloadUpgradeList();
     }
+    
     private void createUpgrades(){
         Weapon wup = GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade();
         Shield sup = GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade();
@@ -76,18 +76,22 @@ public class UpgradeController implements Initializable {
         updatePrices();
     }
 
-
-    public void onWeaponButtonClicked(){
+    @FXML
+    private void onWeaponButtonClicked(){
 //        weaponButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade().toString());
         selectedItem = 0;
     }
-    public void onShieldButtonClicked(){
+    
+    @FXML
+    private void onShieldButtonClicked(){
 //        shieldButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade().toString());
         selectedItem = 1;
     }
-    public void onGadgetButtonClicked(){
+    
+    @FXML
+    private void onGadgetButtonClicked(){
 //        gadgetButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade().toString());
         selectedItem = 2;
@@ -128,7 +132,9 @@ public class UpgradeController implements Initializable {
         playerCreditsLabel.setText("Credits: "+GameController.getGameData().getPlayer().getCredits());
 
     }
-    public void onBuyButtonClicked(){
+    
+    @FXML
+    private void onBuyButtonClicked(){
         Ship ship = GameController.getGameData().getShip();
         Upgradeplace upgrades = GameController.getGameData().getPlanet().getUpgrade();
         if(selectedItem == 0){
@@ -146,9 +152,9 @@ public class UpgradeController implements Initializable {
         createUpgrades();
 
     }
-    public void onReturnButtonClicked(){
+    
+    @FXML
+    private void onReturnButtonClicked(){
         GameController.getControl().setScreen(Screens.SHIP_YARD);
     }
-
-
 }

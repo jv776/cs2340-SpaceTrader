@@ -17,6 +17,11 @@ public class CargoHold implements Serializable {
     private final int capacity;
     private HashMap<CargoItem, Integer> cargo;
 
+    /**
+     * Create a new cargo hold.
+     * 
+     * @param maxCapacity The capacity of the cargo hold.
+     */
     public CargoHold(int maxCapacity) {
         capacity = maxCapacity;
         cargo = new HashMap<>();

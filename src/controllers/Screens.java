@@ -70,6 +70,9 @@ public enum Screens {
         this.name = name;
     }
     
+    /**
+     * @return The name of the Screen.
+     */
     public String getName() {
         return name;
     }
