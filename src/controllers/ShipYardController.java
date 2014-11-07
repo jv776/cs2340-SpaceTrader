@@ -10,9 +10,7 @@ import javafx.scene.control.ListView;
 import models.*;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -149,11 +147,13 @@ public class ShipYardController implements Initializable {
         rangeLabel.setText(String.valueOf(shipType.fuelCapacity));
     }
 
-    public void onBackToSpacePort() {
+    @FXML
+    private void onBackToSpacePort() {
         GameController.getControl().setScreen(Screens.SPACE_PORT);
     }
 
-    public void onShipListSelectionChange() {
+    @FXML
+    private void onShipListSelectionChange() {
         String selectedItem = shipList.getSelectionModel().getSelectedItem();
 
         if(selectedItem == null)
@@ -175,13 +175,14 @@ public class ShipYardController implements Initializable {
         }
     }
 
-    public void onBuyShipClicked() {
+    @FXML
+    private void onBuyShipClicked() {
         String selectedItem = shipList.getSelectionModel().getSelectedItem();
 
-        if(selectedItem == null)
+        if (selectedItem == null)
             return;
 
-        if(selectedItem.contains("Your ship:")) {
+        if (selectedItem.contains("Your ship:")) {
             throw new IllegalStateException("Wtf?!");
         } else {
             Ship.Type shipSelected = Ship.Type.valueOf(selectedItem.substring(0, selectedItem.indexOf('-') - 1));
@@ -192,7 +193,7 @@ public class ShipYardController implements Initializable {
             int selectedShipPrice = shipSelected.price;
             int credits = player.getCredits();
 
-            if(selectedShipPrice > credits + oldShipPrice)
+            if (selectedShipPrice > credits + oldShipPrice)
                 throw new IllegalStateException("Wtf?!");
 
             player.earn(oldShipPrice);
@@ -205,7 +206,9 @@ public class ShipYardController implements Initializable {
             reloadShipList();
         }
     }
-    public void onBuyUpgrades(){
+    
+    @FXML
+    private void onBuyUpgrades(){
         GameController.getControl().setScreen(Screens.UPGRADE);
     }
 }

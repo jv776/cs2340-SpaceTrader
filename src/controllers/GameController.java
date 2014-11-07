@@ -41,6 +41,9 @@ public class GameController extends StackPane implements Serializable {
     private static GameController control;
     private static File saveFile;
     
+    /**
+     * Create a new GameController instance.
+     */
     public GameController() {
         gameData = new GameData();
         control = this; 

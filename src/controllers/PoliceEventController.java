@@ -59,6 +59,11 @@ public class PoliceEventController extends RandomEventController implements Init
             playerIsInnocent();
         }
     }
+    
+    /**
+     * Display a message informing the player that they are not guilty of
+     * any crimes.
+     */
     public void playerIsInnocent(){
         showBubble();
         speech.setText("All right you can go.");
@@ -89,6 +94,11 @@ public class PoliceEventController extends RandomEventController implements Init
         NEButton.setDisable(true);
         encounteredAttack();
     }
+    
+    /**
+     * Display a message if the player dies and give them the option to
+     * use an escape pod (if the player has one).
+     */
     public void playerDeath(){
         showBubble();
         speech.setText("Criminal disposed of, resuming patrol");

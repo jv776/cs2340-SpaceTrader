@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  */
 public class CustomizationController implements Initializable {
 
-    public final int SKILL_POINT_MAX = 15;
+    private static final int SKILL_POINT_MAX = 15;
     
     @FXML
     private TextField nameField;
