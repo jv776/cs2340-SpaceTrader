@@ -80,10 +80,8 @@ public class Planet implements Serializable {
     }
 
     private int generateTemperature(int sunTemp){ //units
-        
         float temp = (float)Math.pow((sunTemp*1000/(float)Math.pow(distance,2)),.50);
         temp -= temp*(atmosphere/100f);
-        System.out.println((int)(temp * 1000));
         return (int)(temp*1000);
     }
 
@@ -232,6 +230,6 @@ public class Planet implements Serializable {
     
     public Color getColor() {
         double prop = temperature / 2000.0;
-        return Color.hsb(240 - 240 * prop, .75, .5);
+        return Color.hsb(240 - 240 * prop, 1, .5);
     }
 }

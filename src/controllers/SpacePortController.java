@@ -56,6 +56,11 @@ public class SpacePortController implements Initializable {
     public void onStockMarketClicked() {
         System.out.println("STOCK MARKET CLICKED WOOOO!");
     }
+    
+    @FXML
+    private void shipCustomization() {
+        GameController.getControl().setScreen(Screens.SHIP_CUSTOMIZATION);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

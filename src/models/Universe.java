@@ -357,7 +357,7 @@ public class Universe implements Serializable {
             int x = (grid % (600 / sizeOfGrid)) * sizeOfGrid;
             int y = (grid / (600 / sizeOfGrid)) * sizeOfGrid;
             
-            TechLevel tech = randomTechLevel();
+            TechLevel tech = TechLevel.HI_TECH;
 
             solarSystems[i] = new SolarSystem(
                     SOLAR_SYSTEM_NAMES[i],

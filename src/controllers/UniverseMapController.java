@@ -8,6 +8,9 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tooltip;
@@ -20,9 +23,14 @@ import models.GameData;
 import models.SolarSystem;
 import models.TradeGood;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 
 /**
  * Displays and manages the map of the universe.
@@ -38,7 +46,7 @@ public class UniverseMapController implements Initializable {
 
         SolarSystem currentSystem = gameData.getSolarSystem();
 
-        //ImageView ship = new ImageView(new Image("/images/spaceship.jpg"));
+        ImageView ship = new ImageView(new Image("/images/spaceship.gif"));
         
         for(SolarSystem s : gameData.getUniverse().solarSystems) {
             double dist = distance(gameData.getSolarSystem(), s);
@@ -94,14 +102,17 @@ public class UniverseMapController implements Initializable {
                     adjust.setSaturation(-.9);
                 }
             } else {
-                /*ship.setScaleX(0.3);
-                ship.setScaleY(0.3);
-                ship.setLayoutX(s.getX() - ship.getImage().getWidth() / 2);
-                ship.setLayoutY(s.getY() - ship.getImage().getHeight() / 2);
+                ship.setScaleX(0.4);
+                ship.setScaleY(0.4);
+                ship.setOpacity(0.8);
+                ship.setRotate(-90);
+                ship.setMouseTransparent(true);
+                ship.setTranslateX(s.getX() - ship.getImage().getWidth() / 2);
+                ship.setTranslateY(s.getY() - ship.getImage().getHeight() / 2);
                 
                 ship.setOnMouseClicked((MouseEvent t) -> {
                     GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
-                });*/
+                });
 
                 adjust.setBrightness(0.25);
                 star.setOnMouseEntered((MouseEvent t) -> {
@@ -135,56 +146,66 @@ public class UniverseMapController implements Initializable {
 
             star.setOnMouseClicked((MouseEvent t) -> {
                 if(dist < gameData.getShip().getFuelAmount() && s != currentSystem) {
-                    
-                    /*boolean moveComplete = false;
-                    
-                    double targetX = s.getX() - ship.getImage().getWidth() / 2;
-                    double xDistance = targetX - ship.getLayoutX();
-                    
-                    double targetY = s.getY() - ship.getImage().getHeight() / 2;
-                    double yDistance = targetY - ship.getLayoutY();
-                    
-                    double xStep = xDistance / 100.0;
-                    double yStep = yDistance / 100.0;
-                    
-                    double xLoc = ship.getLayoutX();
-                    double yLoc = ship.getLayoutY();
-
-                    if (Math.abs(xLoc - targetX) < 1 && Math.abs(yLoc - targetY) < 1) {
-                        moveComplete = true;
+                    RotateTransition rotate = new RotateTransition(Duration.millis(500), ship);
+                    rotate.setFromAngle(ship.getRotate());
+                    if (s.getX() >= currentSystem.getX()) {
+                        rotate.setToAngle(Math.atan((s.getY() - currentSystem.getY() * 1.0) / 
+                                (s.getX() - currentSystem.getX() * 1.0)) * 180.0 / Math.PI);
                     } else {
-                        ship.setLayoutX(xLoc + xStep);
-                        ship.setLayoutY(yLoc + yStep);
-                    }*/
-                    
-                    gameData.getShip().expendFuel(dist);
-                    gameData.setSolarSystem(s);
-                    
-                    s.discover();
-                    double policeEvent = Math.random();
-                    double pirateEvent = Math.random();
-                    double tradeEvent = Math.random();
-                    
-                    double rPolice = 0.0;
-                    rPolice += gameData.getCargoHold().getQuantity(TradeGood.NARCOTICS) * 0.03;
-                    rPolice += gameData.getCargoHold().getQuantity(TradeGood.FIREARMS) * 0.01;
-                    
-                    double rPirate = 0.0;
-                    rPirate += Math.min(gameData.getCargoHold().getCargoQuantity() * .005
-                            + gameData.getPlayer().getCredits() * .00001, .5);
-                    
-                    double rTrader = 0.0;
-                    rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
-                    
-                    if(policeEvent < rPolice) {
-                        GameController.getControl().setScreen(Screens.POLICE_EVENT);
-                    } else if(pirateEvent < rPirate) {
-                        GameController.getControl().setScreen(Screens.PIRATE_EVENT);
-                    } else if(tradeEvent < rTrader) {
-                        GameController.getControl().setScreen(Screens.TRADE_EVENT);
-                    } else {
-                        GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+                        rotate.setToAngle(Math.atan((s.getY() - currentSystem.getY() * 1.0) / 
+                                (s.getX() - currentSystem.getX() * 1.0)) * 180.0 / Math.PI - 180);
                     }
+
+                    MoveTo move = new MoveTo(currentSystem.getX(), currentSystem.getY());
+                    LineTo line = new LineTo();
+                    line.setX(s.getX());
+                    line.setY(s.getY());
+                    PathTransition path = new PathTransition();
+                    
+                    Path flight = new Path();
+                    flight.getElements().add(move);
+                    flight.getElements().add(line);
+                    
+                    path.setPath(flight);
+                    path.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                    path.setNode(ship);
+                    path.setDuration(Duration.seconds(1.5));
+                    path.setOnFinished((ActionEvent event) -> {
+                        gameData.getShip().expendFuel(dist);
+                        gameData.setSolarSystem(s);
+
+                        s.discover();
+                        double policeEvent = Math.random();
+                        double pirateEvent = Math.random();
+                        double tradeEvent = Math.random();
+
+                        double rPolice = 0.0;
+                        rPolice += gameData.getCargoHold().getQuantity(TradeGood.NARCOTICS) * 0.03;
+                        rPolice += gameData.getCargoHold().getQuantity(TradeGood.FIREARMS) * 0.01;
+
+                        double rPirate = 0.0;
+                        rPirate += Math.min(gameData.getCargoHold().getCargoQuantity() * .005
+                                + gameData.getPlayer().getCredits() * .00001, .5);
+
+                        double rTrader = 0.0;
+                        rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
+                        
+                       // GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
+                        if(policeEvent < rPolice) {
+                            GameController.getControl().setScreen(Screens.POLICE_EVENT);
+                        } else if(pirateEvent < rPirate) {
+                            GameController.getControl().setScreen(Screens.PIRATE_EVENT);
+                        } else if(tradeEvent < rTrader) {
+                            GameController.getControl().setScreen(Screens.TRADE_EVENT);
+                        } else {
+                            GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+                        }
+                    });
+                    rotate.setOnFinished((ActionEvent event) -> {
+                        path.play();
+                    });
+                    rotate.play();
+                    
                 } else if (s == currentSystem) {
                     GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
                 }
@@ -194,7 +215,7 @@ public class UniverseMapController implements Initializable {
             universe_anchor.getChildren().add(star);
             
         }
-        //universe_anchor.getChildren().add(ship);
+        universe_anchor.getChildren().add(ship);
     }
 
     @Override

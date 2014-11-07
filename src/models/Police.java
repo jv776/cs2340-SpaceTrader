@@ -1,29 +1,22 @@
 package models;
 
-import controllers.GameController;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Class representing an interstellar cop
  *
- * @author Taylor
+ * @author Taylor, Alex
  */
 public class Police extends Encounterable{
 
 
     public Police(String name) {
+        super(5, 5, 5, 0, 0);
         this.name = name;
-        ship = new Ship(Ship.Type.Gnat, this);
+        ship.equipWeapon(new Weapon(Weapon.WeaponType.MILITARY_LASER));
+        ship.equipWeapon(new Weapon(Weapon.WeaponType.MILITARY_LASER));
+        ship.equipShield(new Shield(Shield.ShieldType.REFLECTIVE_SHIELD));
+        ship.equipShield(new Shield(Shield.ShieldType.REFLECTIVE_SHIELD));
         welcomeText= "Suspect, prepare to receive civil judgement.";
         deathText = "Shazbot!";
         fleeFailedText = "You will never escape from justice.";
@@ -35,23 +28,8 @@ public class Police extends Encounterable{
         return name;
     }
 
-    public boolean isDead() {
-        return ship.isDead();
-    }
-
-    public void takeDamage(int damage) {
-        ship.takeDamage(damage);
-    }
-
-    public int calculateAttack() {
-        return ship.calculateAttack();
-    }
-
-    public int getHullStrength() {
-        return ship.getHullStrength();
-    }
-
-    public int getMaxHullStrength() {
-        return ship.getMaxHullStrength();
+    @Override
+    public Image getShipImage() {
+        return new Image("/images/policeship.jpg");
     }
 }

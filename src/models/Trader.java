@@ -1,5 +1,7 @@
 package models;
 
+import javafx.scene.image.Image;
+
 /**
  * Class representing a traveling Trader
  *
@@ -23,6 +25,11 @@ public class Trader extends Encounterable {
 
     public Planet getOrigin(){
         return origin;
+    }
+
+    @Override
+    public Image getShipImage() {
+        return new Image("/images/spaceship.gif");
     }
 
 }

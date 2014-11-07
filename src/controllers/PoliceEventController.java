@@ -1,20 +1,9 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import models.Pirate;
 import models.Police;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * PoliceEvent FXML Controller class
@@ -28,7 +17,7 @@ public class PoliceEventController extends RandomEventController implements Init
     void configureButtons() {
         NWButton.setText("Attack");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
-            attack();
+            fight();
         });
 
         NEButton.setText("Comply");
@@ -54,7 +43,7 @@ public class PoliceEventController extends RandomEventController implements Init
 
     private void surrender(){
         if(GameController.getGameData().getPlayer().hasIllegalGoods()){
-            punishment();
+            fight();
         }else {
             playerIsInnocent();
         }
@@ -91,7 +80,7 @@ public class PoliceEventController extends RandomEventController implements Init
     }
     public void playerDeath(){
         showBubble();
-        speech.setText("Criminal disposed of, resuming patrol");
+        speech.setText("Criminal disposed of, resuming patrol.");
         NWButton.setText("Use Escape Pod");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
             exitEvent();

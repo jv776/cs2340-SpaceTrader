@@ -10,7 +10,7 @@
 <AnchorPane fx:id="ship_yard_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
        <Button fx:id="returnButton" layoutX="10.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#returnToSpacePort" prefHeight="50.0" prefWidth="200.0" styleClass="button1" text="Return to Space Port" />
-      <Label layoutX="261.0" layoutY="14.0" text="Ship Yard">
+      <Label layoutX="258.0" layoutY="14.0" text="Ship Yard">
          <font>
             <Font size="20.0" />
          </font>
@@ -18,14 +18,14 @@
       <Pane layoutX="367.0" layoutY="39.0" prefHeight="323.0" prefWidth="219.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="100.0" layoutY="179.0" text="Hull Strength" />
-            <Label layoutX="100.0" layoutY="162.0" text="Ship Type" />
-            <Label layoutX="100.0" layoutY="196.0" text="Cargo Bays" />
-            <Label layoutX="100.0" layoutY="213.0" text="Weapon Slots" />
-            <Label layoutX="100.0" layoutY="230.0" text="Shield Slots" />
-            <Label layoutX="100.0" layoutY="247.0" text="Gadget Slots" />
-            <Label layoutX="100.0" layoutY="264.0" text="Crew" />
-            <Label layoutX="100.0" layoutY="281.0" text="Range" />
+            <Label fx:id="hullStrengthLabel2" layoutX="100.0" layoutY="179.0" text="Hull Strength" />
+            <Label fx:id="shipTypeLabel2" layoutX="100.0" layoutY="162.0" text="Ship Type" />
+            <Label fx:id="cargoBaysLabel2" layoutX="100.0" layoutY="196.0" text="Cargo Bays" />
+            <Label fx:id="weaponSlotsLabel2" layoutX="100.0" layoutY="213.0" text="Weapon Slots" />
+            <Label fx:id="shieldSlotsLabel2" layoutX="100.0" layoutY="230.0" text="Shield Slots" />
+            <Label fx:id="gadgetSlotsLabel2" layoutX="100.0" layoutY="247.0" text="Gadget Slots" />
+            <Label fx:id="crewLabel2" layoutX="100.0" layoutY="264.0" text="Crew" />
+            <Label fx:id="rangeLabel2" layoutX="100.0" layoutY="281.0" text="Range" />
             <Label fx:id="shipTypeLabel" layoutX="14.0" layoutY="162.0" text="-" />
             <Label fx:id="hullStrengthLabel" layoutX="14.0" layoutY="179.0" text="-" />
             <Label fx:id="weaponSlotsLabel" layoutX="14.0" layoutY="213.0" text="-" />
@@ -43,6 +43,10 @@
       </Button>
       <Label layoutX="415.0" layoutY="362.0" text="Credits:" />
       <Label fx:id="money_label" alignment="CENTER_RIGHT" layoutX="480.0" layoutY="362.0" prefHeight="21.0" prefWidth="110.0" text="MONEYYYYYYYYY" />
+      <Button fx:id="shipsButton" layoutX="99.0" layoutY="129.0" mnemonicParsing="false" onMouseClicked="#shipsMode" prefHeight="70.0" prefWidth="200.0" text="Ships" />
+      <Button fx:id="weaponsButton" layoutX="301.0" layoutY="129.0" mnemonicParsing="false" onMouseClicked="#weaponsMode" prefHeight="70.0" prefWidth="200.0" text="Weapons" />
+      <Button fx:id="gadgetsButton" layoutX="301.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#gadgetsMode" prefHeight="70.0" prefWidth="200.0" text="Gadgets" />
+      <Button fx:id="shieldsButton" layoutX="99.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#shieldsMode" prefHeight="70.0" prefWidth="200.0" text="Shields" />
       
    </children>
 </AnchorPane>

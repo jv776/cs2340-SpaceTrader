@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @author Kevin Gibby, Alex, John
  */
 public class CargoHold implements Serializable {
-    private final int capacity;
+    private int capacity;
     private HashMap<CargoItem, Integer> cargo;
 
     public CargoHold(int maxCapacity) {
@@ -49,6 +49,14 @@ public class CargoHold implements Serializable {
     
     public int getCapacity() {
         return capacity;
+    }
+    
+    public void increaseCapacity(int x) {
+        capacity += x;
+    }
+    
+    public void decreaseCapacity(int x) {
+        capacity -= x;
     }
 
     /**

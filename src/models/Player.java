@@ -7,6 +7,9 @@
 package models;
 
 import java.io.Serializable;
+import models.Gadget.GadgetType;
+import models.Shield.ShieldType;
+import models.Weapon.WeaponType;
 
 /**
  * Class representing the player's character.
@@ -26,7 +29,23 @@ public class Player extends CrewMember implements Serializable {
         name = playerName;
 
         ship = new Ship(Ship.Type.Gnat, this);
-
+        
+        for (int i = 0; i < 10; i++) {
+            ship.equipWeapon(new Weapon(WeaponType.DEATH_LASER));
+            ship.equipShield(new Shield(ShieldType.IMPERVIOUS_SHIELD));
+        }
+        
+        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
+        
+        ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
+        ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
+        ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
+        
+        ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
+        ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
+        ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
+        
+        
     }
 
     @Override
@@ -130,9 +149,14 @@ public class Player extends CrewMember implements Serializable {
     public int getHullStrength(){
         return ship.getHullStrength();
     }
-
     public int getMaxHullStrength(){
         return ship.getMaxHullStrength();
+    }
+    public int getMaxShields() {
+        return ship.getMaxShields();
+    }
+    public int getCurrentShields() {
+        return ship.getCurrentShields();
     }
     public boolean isDead(){
         return ship.isDead();

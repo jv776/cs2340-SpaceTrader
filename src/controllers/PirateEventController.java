@@ -25,7 +25,7 @@ public class PirateEventController extends RandomEventController implements Init
     void configureButtons(){
         NWButton.setText("Attack");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
-            attack();
+            fight();
         });
 
         NEButton.setText("Surrender");

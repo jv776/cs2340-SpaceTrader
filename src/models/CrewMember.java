@@ -20,6 +20,7 @@ public abstract class CrewMember implements Serializable {
     transient protected int traderSkill;
     transient protected int engineerSkill;
     transient protected int investorSkill;
+    private String name;
 
     public CrewMember(final int pilotSP, final int fighterSP, final int traderSP, 
             final int engineerSP, final int investorSP) {
@@ -28,6 +29,7 @@ public abstract class CrewMember implements Serializable {
         traderSkill = traderSP;
         engineerSkill = engineerSP;
         investorSkill = investorSP;
+        name = "Bob" + Math.random();
     }
 
     /**
@@ -108,5 +110,33 @@ public abstract class CrewMember implements Serializable {
      */
     public void setInvestorSkillPoints(final int investorSkill) {
         this.investorSkill = investorSkill;
+    }
+    
+    public void increasePilot(int x) {
+        this.pilotSkill += x;
+    }
+    
+    public void decreasePilot(int x) {
+        this.pilotSkill -= x;
+    }
+    
+    public void increaseEngineer(int x) {
+        this.engineerSkill += x;
+    }
+    
+    public void decreaseEngineer(int x) {
+        this.engineerSkill -= x;
+    }
+    
+    public void increaseFighter(int x) {
+        this.fighterSkill += x;
+    }
+    
+    public void decreaseFighter(int x) {
+        this.fighterSkill -= x;
+    }
+    
+    public String getName() {
+        return name;
     }
 }

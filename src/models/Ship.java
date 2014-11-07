@@ -6,6 +6,8 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import models.Weapon.WeaponType;
 
 /**
  * Model of a ship.
@@ -15,10 +17,11 @@ import java.io.Serializable;
 public class Ship implements Serializable {
     public static enum Type {
         Flea(10, 0, 0, 0, 1, 20, TechLevel.EARLY_INDUSTRIAL, 1, 2000, 5, 2, 25, 1, 0),
-        Gnat(15, 1, 0, 1, 1, 20, TechLevel.INDUSTRIAL, 2, 10000, 50, 28, 100, 1, 1),
+        Gnat(15, 1, 0, 1, 1, 20, TechLevel.INDUSTRIAL, 2, 10000, 50, 28, 1000, 1, 1),
         Firefly(20, 1, 1, 1, 1, 17, TechLevel.INDUSTRIAL, 3, 25000, 75, 20, 100, 1, 1),
         Mosquito(15, 2, 1, 1, 1, 13, TechLevel.INDUSTRIAL, 5, 30000, 100, 20, 100, 1, 1),
-        BumbleBee(25, 1, 2, 2, 2, 15, TechLevel.INDUSTRIAL, 7, 60000, 125, 15, 100, 1, 2);
+        BumbleBee(25, 1, 2, 2, 2, 15, TechLevel.INDUSTRIAL, 7, 60000, 125, 15, 100, 1, 2),
+        Dragonfly(50, 4, 4, 4, 4, 25, TechLevel.POST_INDUSTRIAL, 10, 200000, 500, 10, 500, 1, 2);
 
         public final int cargoCapacity;
 
@@ -67,9 +70,25 @@ public class Ship implements Serializable {
     private Type type;
     private CrewMember owner; //in case the owner is an NPC (i.e. pirates/police)
     private CargoHold cargoHold;
+    
+    private int numWeapons;
+    private int numShields;
+    private int numGadgets;
+    
+    private ArrayList<Weapon> weapons;
+    private ArrayList<Shield> shields;
+    private ArrayList<Gadget> gadgets;
+    
+    private ArrayList<Weapon> equippedWeapons;
+    private ArrayList<Shield> equippedShields;
+    private ArrayList<Gadget> equippedGadgets;
 
     private double fuelAmount;
     private int hullStrength;
+    private int maxShields;
+    private double currentShields;
+    
+    private boolean scatter;
 
     public Ship(Type type, CrewMember owner) {
         this.type = type;
@@ -78,6 +97,20 @@ public class Ship implements Serializable {
         this.cargoHold = new CargoHold(type.cargoCapacity);
 
         this.owner = owner;
+        
+        this.weapons = new ArrayList<>();
+        this.equippedWeapons = new ArrayList<>();
+        this.shields = new ArrayList<>();
+        this.equippedShields = new ArrayList<>();
+        this.gadgets = new ArrayList<>();
+        this.equippedGadgets = new ArrayList<>();
+        
+        this.numWeapons = 0;
+        this.numShields = 0;
+        this.numGadgets = 0;
+        
+        this.maxShields = calculateMaxShields();
+        this.currentShields = maxShields;
     }
 
     /**
@@ -117,6 +150,12 @@ public class Ship implements Serializable {
     public int getMaxHullStrength() {
         return type.hullStrength;
     }
+    public int getMaxShields() {
+        return maxShields;
+    }
+    public int getCurrentShields() {
+        return (int)currentShields;
+    }
 
     public boolean isDead(){
         return hullStrength <= 0;
@@ -151,14 +190,130 @@ public class Ship implements Serializable {
     }
 
     public void takeDamage(int damage){
-        hullStrength -= damage; //needs to work with shields
+        if (currentShields < damage) {
+            int overflow = damage - getCurrentShields();
+            currentShields = 0;
+            hullStrength -= damage;
+        } else {
+            currentShields -= damage;
+        }
     }
 
     public int calculateAttack(){
-        return (int)(Math.random()*15); //change to use weapons when they are implemented
+        int attack = 0;
+        for (Weapon w : equippedWeapons) {
+            attack += w.getType().power;
+        }
+        return attack;
+    }
+    
+    private int calculateMaxShields() {
+        int defense = 0;
+        for (Shield s : equippedShields) {
+            defense += s.getType().protection;
+        }
+        return defense;
     }
 
     public boolean hasIllegalGoods(){
         return cargoHold.hasIllegalGoods();
+    }
+    
+    public void activateCloaking() {
+        
+    }
+    
+    public void deactivateCloaking() {
+        
+    }
+    
+    public void addWeapon(Weapon weapon) {
+        weapons.add(weapon);
+        numWeapons++;
+    }
+
+    public void addShield(Shield shield) {
+        shields.add(shield);
+        numShields++;
+    }
+    
+    public void addGadget(Gadget gadget) {
+        gadgets.add(gadget);
+        numGadgets++;
+    }
+    
+    public void equipWeapon(Weapon weapon) {
+        equippedWeapons.add(weapon);
+    }
+    
+    public void unequipWeapon(Weapon weapon) {
+        equippedWeapons.remove(weapon);
+    }
+    
+    public void equipShield(Shield shield) {
+        equippedShields.add(shield);
+        maxShields = calculateMaxShields();
+        currentShields = maxShields;
+    }
+    
+    public void unequipShield(Shield shield) {
+        equippedShields.remove(shield);
+    }
+    
+    public void equipGadget(Gadget gadget) {
+        gadget.onEquip(this);
+        equippedGadgets.add(gadget);
+    }
+    
+    public void unequipGadget(Gadget gadget) {
+        gadget.onUnequip(this);
+        equippedGadgets.remove(gadget);
+    }
+    
+    public ArrayList<Weapon> getEquippedWeapons() {
+        return equippedWeapons;
+    }
+    
+    public boolean hasOpenWeaponSlot() {
+        return !(numWeapons == type.weaponSlots);
+    }
+    
+    public boolean hasOpenShieldSlot() {
+        return !(numShields == type.shieldSlots);
+    }
+    
+    public boolean hasOpenGadgetSlot() {
+        return !(numGadgets == type.gadgetSlots);
+    }
+    
+    public ArrayList<Weapon> getWeapons() {
+        return weapons;
+    }
+    
+    public ArrayList<Shield> getShields() {
+        return shields;
+    }
+    
+    public ArrayList<Gadget> getGadgets() {
+        return gadgets;
+    }
+    
+    public void activateScatter() {
+        scatter = true;
+    }
+    
+    public void deactivateScatter() {
+        scatter = false;
+    }
+    
+    public boolean shouldScatter() {
+        return scatter;
+    }
+    
+    public void shieldRegen() {
+        currentShields += owner.getEngineerSkillPoints() / 10000.0 * maxShields;
+        if (currentShields > maxShields) {
+            currentShields = maxShields;
+        }
     }
 }

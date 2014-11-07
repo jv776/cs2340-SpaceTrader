@@ -9,8 +9,6 @@ package controllers;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -29,11 +27,13 @@ import models.SolarSystem;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.util.Duration;
 
@@ -73,11 +73,24 @@ public class SolarSystemMapController implements Initializable {
 
         star.setCenterX(x);
         star.setCenterY(y);
-        star.setRadius(5);
-        star.setFill(Color.RED);
-
+        star.setRadius(currentSystem.getSun().getRadius() * 4);
         
-
+        Color color = currentSystem.getSun().computeColor();
+        
+        RadialGradient radGrad = new RadialGradient(0,
+                0,
+                300,
+                200,
+                currentSystem.getSun().getRadius() * 4,
+                false,
+                CycleMethod.NO_CYCLE,
+                new Stop(0, color),
+                new Stop(0.5, color),
+                new Stop(1, Color.TRANSPARENT));
+            
+        star.setFill(radGrad);
+        star.setMouseTransparent(true);
+        
         Planet currentPlanet = GameController.getGameData().getPlanet();
         
         int maxDistance = currentSystem.planets[0].getDistance();
@@ -90,7 +103,7 @@ public class SolarSystemMapController implements Initializable {
                     .radiusX(p.getDistance() * scaleFactor)
                     .radiusY(p.getDistance() * scaleFactor)
                     .strokeWidth(3)
-                    .stroke(Color.DARKGRAY)
+                    .stroke(currentPlanet == p ? Color.GREEN : Color.DARKGRAY)
                     .fill(Color.TRANSPARENT)
                     .build();
             anchor.getChildren().add(orbit);
@@ -104,7 +117,9 @@ public class SolarSystemMapController implements Initializable {
             planet.setFill(linGrad);
             planet.setMouseTransparent(true);
             
-            Tooltip planetName = new Tooltip(p.getName() 
+            Tooltip planetName = new Tooltip(
+                (currentPlanet == p ? "Current Location\n" : "")
+                + p.getName() 
                 + "\nResource: " + p.getResource());
             
             orbit.setOnMouseEntered((MouseEvent t) -> {
@@ -113,28 +128,25 @@ public class SolarSystemMapController implements Initializable {
                 double yCoord = anchor.getScene().getWindow().getY();
                 planetName.show(anchor, xCoord + x + p.getDistance() * scaleFactor + 30, 
                     yCoord + y + 20);
-                orbit.setStroke(Color.YELLOW);
+                orbit.setStroke(currentPlanet == p ? Color.GREEN : Color.YELLOW);
                 
             });
             
             orbit.setOnMouseExited((MouseEvent t) -> {
                 planet.setRadius(p.getRadius());
                 planetName.hide();
-                orbit.setStroke(Color.DARKGREY);
+                orbit.setStroke(currentPlanet == p ? Color.GREEN : Color.DARKGRAY);
             });
             
             orbit.setOnMouseClicked((MouseEvent t) -> {
                 GameController.getGameData().setPlanet(p);
                 GameController.getControl().setScreen(Screens.SPACE_PORT);
             });
-            if (p == currentPlanet) {
-                planet.setEffect(new ColorAdjust(0, 0, 1, 0));
-            }
             
             double orbitDuration = p.getDistance() / 5 * (.9 + Math.random() / 5);
             
             PathTransition first = new PathTransition(Duration.seconds(orbitDuration), orbit);
-            first.setCycleCount(10000);
+            first.setCycleCount(Animation.INDEFINITE);
             first.setNode(planet);
             first.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
             first.setInterpolator(Interpolator.LINEAR);

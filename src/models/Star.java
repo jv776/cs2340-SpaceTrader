@@ -44,35 +44,35 @@ public class Star implements Serializable {
         //star coloration seems too pale
         if (0.0 <= temperature && temperature < 3.7) {
             r = 255;
-            g = (int)lerp(temperature, 0, 170, 3.7, 140);
-            b = (int)lerp(temperature, 0, 70, 3.7, 100);
+            g = (int)lerp(temperature, 0, 140, 3.7, 110);
+            b = (int)lerp(temperature, 0, 40, 3.7, 70);
         } else if (temperature < 5.2) {
             r = 255;
-            g = (int)lerp(temperature, 3.7, 140, 5.2, 130);
-            b = (int)lerp(temperature, 3.7, 90, 5.2, 120);
+            g = (int)lerp(temperature, 3.7, 110, 5.2, 100);
+            b = (int)lerp(temperature, 3.7, 60, 5.2, 90);
         } else if (temperature < 6) {
-            r = (int)lerp(temperature, 5.2, 225, 6, 220);
-            g = (int)lerp(temperature, 5.2, 155, 6, 200);
-            b = (int)lerp(temperature, 5.2, 120, 6, 170);
+            r = (int)lerp(temperature, 5.2, 195, 6, 190);
+            g = (int)lerp(temperature, 5.2, 125, 6, 170);
+            b = (int)lerp(temperature, 5.2, 90, 6, 140);
         } else if (temperature < 7.5) {
-            r = (int)lerp(temperature, 6, 220, 7.5, 170);
-            g = (int)lerp(temperature, 6, 200, 7.5, 170);
-            b = (int)lerp(temperature, 6, 170, 7.5, 225);
+            r = (int)lerp(temperature, 6, 190, 7.5, 140);
+            g = (int)lerp(temperature, 6, 170, 7.5, 140);
+            b = (int)lerp(temperature, 6, 140, 7.5, 195);
         } else if (temperature < 10) {
-            r = (int)lerp(temperature, 7.5, 170, 10, 130);
-            g = (int)lerp(temperature, 7.5, 170, 10, 150);
+            r = (int)lerp(temperature, 7.5, 140, 10, 100);
+            g = (int)lerp(temperature, 7.5, 140, 10, 120);
             b = 255;
         } else if (temperature < 20) {
-            r = (int)lerp(temperature, 10, 130, 20, 105);
-            g = (int)lerp(temperature, 10, 150, 20, 130);
+            r = (int)lerp(temperature, 10, 100, 20, 75);
+            g = (int)lerp(temperature, 10, 120, 20, 100);
             b = 255;
         } else if (temperature < 30) {
-            r = (int)lerp(temperature, 20, 105, 30, 90);
-            g = (int)lerp(temperature, 20, 130, 30, 105);
+            r = (int)lerp(temperature, 20, 75, 30, 60);
+            g = (int)lerp(temperature, 20, 100, 30, 75);
             b = 255;
         } else {
-            r = 80;
-            g = 90;
+            r = 60;
+            g = 70;
             b = 255;
         }
         return Color.rgb(r, g, b);

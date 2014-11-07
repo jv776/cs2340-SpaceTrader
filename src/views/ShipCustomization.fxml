@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" layoutX="6.0" layoutY="91.0" prefHeight="150.0" prefWidth="192.0" vbarPolicy="ALWAYS">
+        <content>
+          <AnchorPane fx:id="weapons_anchor" minHeight="0.0" minWidth="0.0" prefWidth="172.0" />
+        </content>
+      </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" layoutX="204.0" layoutY="91.0" prefHeight="150.0" prefWidth="192.0" vbarPolicy="ALWAYS">
+         <content>
+            <AnchorPane fx:id="shields_anchor" minHeight="0.0" minWidth="0.0" prefWidth="172.0" />
+         </content>
+      </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" layoutX="402.0" layoutY="91.0" prefHeight="150.0" prefWidth="192.0" vbarPolicy="ALWAYS">
+         <content>
+            <AnchorPane fx:id="gadgets_anchor" minHeight="0.0" minWidth="0.0" prefWidth="172.0" />
+         </content>
+      </ScrollPane>
+      <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="Ship Customization">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="14.0" layoutY="61.0" prefHeight="30.0" prefWidth="180.0" text="Weapons" />
+      <Label alignment="CENTER" layoutX="210.0" layoutY="61.0" prefHeight="30.0" prefWidth="180.0" text="Shields" />
+      <Label alignment="CENTER" layoutX="406.0" layoutY="61.0" prefHeight="30.0" prefWidth="180.0" text="Gadgets" />
+      <Button fx:id="return_button" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#returnToSpacePort" prefHeight="50.0" prefWidth="170.0" text="Return to Space Port" />
+   </children>
+</AnchorPane>

@@ -24,6 +24,8 @@ public abstract class RandomEventController implements Initializable {
     public Label otherName;
     public ProgressBar otherHealth;
     public ProgressBar playerHealth;
+    public ProgressBar playerShields;
+    public ProgressBar otherShields;
     public Button NEButton;
     public Button NWButton;
     public Button SEButton;
@@ -34,13 +36,16 @@ public abstract class RandomEventController implements Initializable {
     public Polygon bubbleArrow;
     public Label speech;
 
+    @Override
     public void initialize(URL location, ResourceBundle resources){
         configureEncountered();
         configureButtons();
         otherName.setText(encountered.getName());
-        playerPic.setImage(new Image("/images/current.png"));
+        playerPic.setImage(new Image("/images/spaceship.gif"));
         otherPic.setImage(new Image("/images/unreachable.png"));
         speech.setText(encountered.getWelcomeText());
+        playerHealth.setStyle("-fx-accent: red");
+        otherHealth.setStyle("-fx-accent: red");
         updateHealth();
         System.out.println("Encountered " + encountered.getName());
 
@@ -79,21 +84,18 @@ public abstract class RandomEventController implements Initializable {
     }
 
      void updateHealth(){
-        otherHealth.setProgress(((double) encountered.getHullStrength() / encountered.getMaxHullStrength()));
-        playerHealth.setProgress(((double)GameController.getGameData().getPlayer().getHullStrength()/GameController.getGameData().getPlayer().getMaxHullStrength()));
+        otherHealth.setProgress((double) encountered.getHullStrength() / encountered.getMaxHullStrength());
+        playerHealth.setProgress(((double)GameController.getGameData().getPlayer().getHullStrength()
+                / GameController.getGameData().getPlayer().getMaxHullStrength()));
+        otherShields.setProgress((double) (encountered.getCurrentShields() <= 0 ? -1 : 
+                (double) encountered.getCurrentShields()) / encountered.getMaxShields());
+        playerShields.setProgress((double)(GameController.getGameData().getPlayer().getCurrentShields() <= 0 
+                ? -1 : GameController.getGameData().getPlayer().getCurrentShields())
+                / GameController.getGameData().getPlayer().getMaxShields());
     }
 
-     void attack(){
-        hideBubble();
-        playerAttack();
-        encounteredAttack();
-        if(encountered.isDead()){
-            encounteredDeath();
-        }
-        if(GameController.getGameData().getPlayer().isDead()){
-            playerDeath();
-        }
-        updateHealth();
+     void fight(){
+        GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
     }
 
      void playerAttack(){
@@ -146,7 +148,4 @@ public abstract class RandomEventController implements Initializable {
      void exitEvent(){
          GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }
-
-
-
 }
