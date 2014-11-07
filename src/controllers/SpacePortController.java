@@ -13,19 +13,19 @@ import java.util.ResourceBundle;
  */
 public class SpacePortController implements Initializable {
     @FXML
-    private Button btn_Market;
+    private Button btnMarket;
 
     @FXML
-    private Button btn_ShipYard;
+    private Button btnShipYard;
 
     @FXML
-    private Button btn_Map;
+    private Button btnMap;
 
     @FXML
-    private Button btn_News;
+    private Button btnNews;
 
     @FXML
-    private Button btn_StockMarket;
+    private Button btnStockMarket;
 
     @FXML
     private Label spacePortLabel;
@@ -53,6 +53,6 @@ public class SpacePortController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         spacePortLabel.setText("Space Port: " + GameController.getGameData().getPlanet().getName());
-        btn_Map.setText("Return to " + GameController.getGameData().getSolarSystem().getName());
+        btnMap.setText("Return to " + GameController.getGameData().getSolarSystem().getName());
     }
 }
