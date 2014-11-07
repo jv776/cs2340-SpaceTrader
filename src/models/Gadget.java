@@ -1,11 +1,13 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Model of a misc upgrade that can be applied to a ship
  *
  * @author Taylor
  */
-public class Gadget implements Upgrade {
+public class Gadget implements Upgrade, Serializable {
     public static enum Type {
         Cargo(5,0,0,0,false,200,TechLevel.EARLY_INDUSTRIAL, "Provides 5 extra cargo slots for your ship."),
         Navigation(0,5,0,0,false,1000,TechLevel.INDUSTRIAL, "Increases your piloting skill."),
