@@ -30,9 +30,9 @@ public class TradeEventController extends RandomEventController implements Initi
         encountered = new Trader("The Trader", GameController.getGameData().getUniverse().getRandomPlanet());
     }
 
-    private void trade(){// THIS PROBABLY NEEDS TO BE CHANGED, VERY DIRTY HACK
+    private void trade() {// THIS PROBABLY NEEDS TO BE CHANGED, VERY DIRTY HACK
         Planet temp = GameController.getGameData().getPlayer().getCurrentPlanet();
-        GameController.getGameData().getPlayer().setCurrentPlanet(((Trader)(encountered)).getOrigin());
+        GameController.getGameData().getPlayer().setCurrentPlanet(((Trader) (encountered)).getOrigin());
         GameController.getControl().setScreen(Screens.MARKET);
         GameController.getGameData().getPlayer().setCurrentPlanet(temp);
     }

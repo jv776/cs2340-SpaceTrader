@@ -5,7 +5,7 @@ package models;
  *
  * @author Taylor
  */
-public abstract class Encounterable extends CrewMember{
+public abstract class Encounterable extends CrewMember {
 
     protected String name;
     protected String welcomeText;
@@ -20,40 +20,47 @@ public abstract class Encounterable extends CrewMember{
     protected Ship ship;
 
     protected int bounty;
-    public Encounterable(){
-        super(0,0,0,0,0);
+
+    public Encounterable() {
+        super(0, 0, 0, 0, 0);
         ship = new Ship(Ship.Type.Gnat, this);
     }
 
     public abstract String getName();
-    public int calculateAttack(){
-        return ship.calculateAttack()*(5 + (fighterSkill / 2));
+
+    public int calculateAttack() {
+        return ship.calculateAttack() * (5 + (fighterSkill / 2));
     }
-    public boolean isDead(){
+
+    public boolean isDead() {
         return ship.isDead();
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(int damage) {
         ship.takeDamage(damage);
     }
 
-    public int getHullStrength(){
+    public int getHullStrength() {
         return ship.getHullStrength();
     }
 
 
-    public int getMaxHullStrength(){
+    public int getMaxHullStrength() {
         return ship.getMaxHullStrength();
     }
+
     public String getWelcomeText() {
         return welcomeText;
     }
+
     public String getWinText() {
         return winText;
     }
+
     public String getDeathText() {
         return deathText;
     }
+
     public int getBounty() {
         return bounty;
     }
@@ -61,6 +68,7 @@ public abstract class Encounterable extends CrewMember{
     public String getFleeSuccessfulText() {
         return fleeSuccessfulText;
     }
+
     public String getFleeFailedText() {
         return fleeFailedText;
     }

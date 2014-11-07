@@ -1,20 +1,8 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import models.Pirate;
 import models.Police;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * PoliceEvent FXML Controller class
@@ -50,21 +38,19 @@ public class PoliceEventController extends RandomEventController implements Init
     }
 
 
-
-
-    private void surrender(){
-        if(GameController.getGameData().getPlayer().hasIllegalGoods()){
+    private void surrender() {
+        if (GameController.getGameData().getPlayer().hasIllegalGoods()) {
             punishment();
-        }else {
+        } else {
             playerIsInnocent();
         }
     }
-    
+
     /**
      * Display a message informing the player that they are not guilty of
      * any crimes.
      */
-    public void playerIsInnocent(){
+    public void playerIsInnocent() {
         showBubble();
         speech.setText("All right you can go.");
         NWButton.setText("Okay");
@@ -76,7 +62,7 @@ public class PoliceEventController extends RandomEventController implements Init
     }
 
 
-    private void fleeSuccessful(){
+    private void fleeSuccessful() {
         showBubble();
         speech.setText("They got away!");
         NWButton.setText("Okay");
@@ -88,18 +74,18 @@ public class PoliceEventController extends RandomEventController implements Init
 
     }
 
-    private void punishment(){
+    private void punishment() {
         showBubble();
         speech.setText("You have broken the law, criminal scum. Prepare to die.");
         NEButton.setDisable(true);
         encounteredAttack();
     }
-    
+
     /**
      * Display a message if the player dies and give them the option to
      * use an escape pod (if the player has one).
      */
-    public void playerDeath(){
+    public void playerDeath() {
         showBubble();
         speech.setText("Criminal disposed of, resuming patrol");
         NWButton.setText("Use Escape Pod");
@@ -110,7 +96,8 @@ public class PoliceEventController extends RandomEventController implements Init
         SEButton.setDisable(true);
         GameController.getGameData().getPlayer().die();
     }
-    private void playerWins(){
+
+    private void playerWins() {
         showBubble();
         speech.setText("This cannot be happening!");
         NWButton.setText("Okay");

@@ -1,15 +1,7 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import models.Pirate;
 
 import java.net.URL;
@@ -22,7 +14,7 @@ import java.util.ResourceBundle;
  */
 public class PirateEventController extends RandomEventController implements Initializable {
 
-    void configureButtons(){
+    void configureButtons() {
         NWButton.setText("Attack");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
             attack();
@@ -39,19 +31,18 @@ public class PirateEventController extends RandomEventController implements Init
         });
         SWButton.setDisable(true);
     }
-    void configureEncountered(){
+
+    void configureEncountered() {
         encountered = new Pirate("Pirate");
     }
 
 
-
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
     }
 
 
-
-    private void surrender(){
+    private void surrender() {
         showBubble();
         speech.setText("Ah'har, I'll be take'n them credits now!");
         NWButton.setText("Okay");
@@ -60,13 +51,13 @@ public class PirateEventController extends RandomEventController implements Init
         });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
-        GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits()/2);
+        GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits() / 2);
     }
 
     @Override
-    void playerDeath(){
+    void playerDeath() {
         super.playerDeath();
-        GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits()/2);
+        GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits() / 2);
     }
 
 

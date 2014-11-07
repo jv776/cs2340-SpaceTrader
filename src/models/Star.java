@@ -15,8 +15,8 @@ public class Star implements Serializable {
 
     public Star(String name) {
         this.name = name;
-        temperature = (int)(5 + (10 * (Math.pow(Math.random(), 2))));
-        radius = (int)(3.2678 * Math.exp(0.0983 * temperature));
+        temperature = (int) (5 + (10 * (Math.pow(Math.random(), 2))));
+        radius = (int) (3.2678 * Math.exp(0.0983 * temperature));
     }
 
     /**
@@ -25,7 +25,7 @@ public class Star implements Serializable {
     public int getTemperature() {
         return temperature;
     }
-    
+
     /**
      * @return The radius of the star
      */

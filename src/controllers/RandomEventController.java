@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +15,6 @@ import models.Encounterable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 
 /**
  * An abstract representation of an encounter in space with another entity
@@ -27,54 +27,54 @@ public abstract class RandomEventController implements Initializable {
      * another trader).
      */
     protected Encounterable encountered;
-    
+
     /**
      * All of these objects are UI elements needed for the FXML to work.
      * They are protected so that each specific random event's controller can
      * still access them.
      */
-    
+
     @FXML
     protected Pane pane;
-    
+
     @FXML
     protected Label otherName;
-    
+
     @FXML
     protected ProgressBar otherHealth;
-    
+
     @FXML
     protected ProgressBar playerHealth;
-    
+
     @FXML
     protected Button NEButton;
-    
+
     @FXML
     protected Button NWButton;
-    
+
     @FXML
     protected Button SEButton;
-    
+
     @FXML
     protected Button SWButton;
-    
+
     @FXML
     protected ImageView playerPic;
-    
+
     @FXML
     protected ImageView otherPic;
-    
+
     @FXML
     protected Rectangle bubbleBox;
-    
+
     @FXML
     protected Polygon bubbleArrow;
-    
+
     @FXML
     protected Label speech;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
         configureEncountered();
         configureButtons();
         otherName.setText(encountered.getName());
@@ -87,18 +87,20 @@ public abstract class RandomEventController implements Initializable {
     }
 
     abstract void configureButtons();
+
     abstract void configureEncountered();
 
-    void flee(){
-        if (GameController.getGameData().getPlayer().getPilotSkillPoints()*.1*Math.random() > .2){
+    void flee() {
+        if (GameController.getGameData().getPlayer().getPilotSkillPoints() * .1 * Math.random() > .2) {
             //print you escaped message
             fleeSuccessful();
-        } else{
+        } else {
             fleeFailed();
 
         }
     }
-    private void fleeSuccessful(){
+
+    private void fleeSuccessful() {
         showBubble();
         speech.setText(encountered.getFleeSuccessfulText());
         NWButton.setText("Okay");
@@ -110,7 +112,7 @@ public abstract class RandomEventController implements Initializable {
 
     }
 
-    private void fleeFailed(){
+    private void fleeFailed() {
         showBubble();
         speech.setText(encountered.getFleeFailedText());
         encounteredAttack();
@@ -118,35 +120,36 @@ public abstract class RandomEventController implements Initializable {
 
     }
 
-     void updateHealth(){
+    void updateHealth() {
         otherHealth.setProgress(((double) encountered.getHullStrength() / encountered.getMaxHullStrength()));
-        playerHealth.setProgress(((double)GameController.getGameData().getPlayer().getHullStrength()/GameController.getGameData().getPlayer().getMaxHullStrength()));
+        playerHealth.setProgress(((double) GameController.getGameData().getPlayer().getHullStrength() / GameController.getGameData().getPlayer().getMaxHullStrength()));
     }
 
-     void attack(){
+    void attack() {
         hideBubble();
         playerAttack();
         encounteredAttack();
-        if(encountered.isDead()){
+        if (encountered.isDead()) {
             encounteredDeath();
         }
-        if(GameController.getGameData().getPlayer().isDead()){
+        if (GameController.getGameData().getPlayer().isDead()) {
             playerDeath();
         }
         updateHealth();
     }
 
-     void playerAttack(){
+    void playerAttack() {
         encountered.takeDamage(GameController.getGameData().getPlayer().calculateAttack());
     }
-     void encounteredAttack(){
-         GameController.getGameData().getPlayer().takeDamage(encountered.calculateAttack());
+
+    void encounteredAttack() {
+        GameController.getGameData().getPlayer().takeDamage(encountered.calculateAttack());
     }
 
-     void encounteredDeath(){
+    void encounteredDeath() {
         showBubble();
-         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
-         System.out.println("Ending "+ encountered.getName() +" Health: " + encountered.getHullStrength());
+        System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
+        System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getDeathText());
         NWButton.setText("Okay");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
@@ -157,10 +160,11 @@ public abstract class RandomEventController implements Initializable {
         SEButton.setDisable(true);
         SWButton.setDisable(true);
     }
-     void playerDeath(){
+
+    void playerDeath() {
         showBubble();
-         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
-         System.out.println("Ending "+ encountered.getName() +" Health: " + encountered.getHullStrength());
+        System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
+        System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getWinText());
         NWButton.setText("Use Escape Pod");
         NWButton.setOnMouseClicked((MouseEvent t) -> {
@@ -172,21 +176,21 @@ public abstract class RandomEventController implements Initializable {
         SWButton.setDisable(true);
     }
 
-     void showBubble(){
+    void showBubble() {
         bubbleArrow.setOpacity(1);
         bubbleBox.setOpacity(1);
         speech.setOpacity(1);
     }
 
-     void hideBubble(){
+    void hideBubble() {
         bubbleArrow.setOpacity(0);
         bubbleBox.setOpacity(0);
         speech.setOpacity(0);
     }
-     void exitEvent(){
-         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
-    }
 
+    void exitEvent() {
+        GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+    }
 
 
 }

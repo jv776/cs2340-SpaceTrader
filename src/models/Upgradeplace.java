@@ -23,38 +23,38 @@ public class Upgradeplace implements Serializable {
 
     }
 
-    private Weapon generateWeapon(){
+    private Weapon generateWeapon() {
         Random rand = new Random();
-        if(location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()){
+        if (location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()) {
             return (new Weapon(Arrays.stream(Weapon.Type.values())
-                    .filter((Weapon.Type type) ->  location.getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
+                    .filter((Weapon.Type type) -> location.getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
 
-        }
-        else{
+        } else {
             return null;
         }
     }
-    private Shield generateShield(){
+
+    private Shield generateShield() {
         Random rand = new Random();
-        if(location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()){
+        if (location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()) {
             return (new Shield(Arrays.stream(Shield.Type.values())
-                    .filter((Shield.Type type) ->  (location.getTechLevel().ordinal() == type.minTechLevel.ordinal())).findAny().get()));
+                    .filter((Shield.Type type) -> (location.getTechLevel().ordinal() == type.minTechLevel.ordinal())).findAny().get()));
 
-        }
-        else{
+        } else {
             return null;
         }
     }
-    private Gadget generateGadget(){
-        if(location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()){
+
+    private Gadget generateGadget() {
+        if (location.getTechLevel().ordinal() >= TechLevel.EARLY_INDUSTRIAL.ordinal()) {
             return (new Gadget(Arrays.stream(Gadget.Type.values())
-                    .filter((Gadget.Type type) ->  location.getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
+                    .filter((Gadget.Type type) -> location.getTechLevel().ordinal() == type.minTechLevel.ordinal()).findAny().get()));
 
-        }
-        else{
+        } else {
             return null;
         }
     }
+
     public Gadget getGadgetUpgrade() {
         return gadgetUpgrade;
     }

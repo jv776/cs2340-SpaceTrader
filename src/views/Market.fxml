@@ -1,166 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="marketNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="571.0" text="Market: PlanetName" textAlignment="CENTER" textOverrun="CLIP">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <AnchorPane layoutX="14.0" layoutY="55.0" prefHeight="300.0" prefWidth="204.0">
-         <children>
-            <Button fx:id="buyButton" alignment="CENTER" layoutX="4.0" layoutY="83.0" mnemonicParsing="false" onMouseClicked="#handleBuyButton" prefHeight="50.0" prefWidth="100.0" styleClass="button1" text="Buy" />
-            <Button fx:id="sellButton" layoutX="104.0" layoutY="83.0" mnemonicParsing="false" onMouseClicked="#handleSellButton" prefHeight="50.0" prefWidth="100.0" styleClass="button1" text="Sell" />
-            <Label alignment="BOTTOM_RIGHT" layoutX="68.0" layoutY="310.0" prefHeight="21.0" prefWidth="55.0" text="Credits:" />
-            <Label fx:id="moneyLabel" alignment="CENTER_RIGHT" layoutX="123.0" layoutY="310.0" prefHeight="21.0" prefWidth="75.0" text="0" />
-            <Button fx:id="returnButton" layoutX="3.0" layoutY="3.0" mnemonicParsing="false" onMouseClicked="#returnToUniverse" prefHeight="50.0" prefWidth="200.0" styleClass="button1" text="Return to SolarSystem" />
-            <Label layoutX="88.0" layoutY="170.0" prefWidth="35.0" text="Fuel:" />
-            <Label fx:id="label_fuelAmount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="123.0" layoutY="170.0" prefWidth="75.0" text="fuelAmount" />
-            <Button fx:id="button_Refuel" layoutX="4.0" layoutY="163.0" mnemonicParsing="false" onMouseClicked="#handleRefuelButton" prefHeight="50.0" prefWidth="80.0" styleClass="button1" text="Refuel" />
-            <Label layoutX="88.0" layoutY="194.0" prefWidth="35.0" text="Cost:" />
-            <Label fx:id="label_refuelCost" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="123.0" layoutY="194.0" prefWidth="75.0" text="refuelCost" />
-         </children>
-      </AnchorPane>
-      <GridPane fx:id="buyPane" gridLinesVisible="true" layoutX="236.0" layoutY="56.0" styleClass="grid_pane">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Resource" textAlignment="CENTER" GridPane.hgrow="ALWAYS">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Quantity" textAlignment="CENTER" GridPane.columnIndex="2">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label fx:id="valueLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="100.0" text="Cost" textAlignment="CENTER" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Button fx:id="buyFoodButton" mnemonicParsing="false" onMouseClicked="#buyFood" prefHeight="30.0" prefWidth="150.0" text="Food" GridPane.rowIndex="2" />
-            <Button fx:id="buyWaterButton" mnemonicParsing="false" onMouseClicked="#buyWater" prefHeight="30.0" prefWidth="150.0" text="Water" GridPane.rowIndex="1" />
-            <Button fx:id="buyFursButton" mnemonicParsing="false" onMouseClicked="#buyFurs" prefHeight="30.0" prefWidth="150.0" text="Furs" GridPane.rowIndex="3" />
-            <Button fx:id="buyOreButton" mnemonicParsing="false" onMouseClicked="#buyOre" prefHeight="30.0" prefWidth="150.0" text="Ore" GridPane.rowIndex="4" />
-            <Button fx:id="buyGamesButton" mnemonicParsing="false" onMouseClicked="#buyGames" prefHeight="30.0" prefWidth="150.0" text="Games" GridPane.rowIndex="5" />
-            <Button fx:id="buyFirearmsButton" mnemonicParsing="false" onMouseClicked="#buyFirearms" prefHeight="30.0" prefWidth="150.0" text="Firearms" GridPane.rowIndex="6" />
-            <Button fx:id="buyMedicineButton" mnemonicParsing="false" onMouseClicked="#buyMedicine" prefHeight="30.0" prefWidth="150.0" text="Medicine" GridPane.rowIndex="7" />
-            <Button fx:id="buyMachinesButton" mnemonicParsing="false" onMouseClicked="#buyMachines" prefHeight="30.0" prefWidth="150.0" text="Machines" GridPane.rowIndex="8" />
-            <Button fx:id="buyNarcoticsButton" mnemonicParsing="false" onMouseClicked="#buyNarcotics" prefHeight="30.0" prefWidth="150.0" text="Narcotics" GridPane.rowIndex="9" />
-            <Button fx:id="buyRobotsButton" mnemonicParsing="false" onMouseClicked="#buyRobots" prefHeight="30.0" prefWidth="150.0" text="Robots" GridPane.rowIndex="10" />
-            <Label fx:id="buyWaterValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="buyFoodValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="buyFursValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="buyOreValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="buyGamesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label fx:id="buyFirearmsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label fx:id="buyMedicineValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="buyMachinesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label fx:id="buyNarcoticsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label fx:id="buyRobotsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label fx:id="buyWaterQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="buyFoodQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="buyFursQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="buyOreQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Label fx:id="buyGamesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label fx:id="buyFirearmsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label fx:id="buyMedicineQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Label fx:id="buyMachinesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Label fx:id="buyNarcoticsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <Label fx:id="buyRobotsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-         </children>
-      </GridPane>
-      <GridPane fx:id="sellPane" gridLinesVisible="true" layoutX="236.0" layoutY="56.0" styleClass="grid_pane">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Resource" textAlignment="CENTER" GridPane.hgrow="ALWAYS">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Quantity" textAlignment="CENTER" GridPane.columnIndex="2">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="valueLabel1" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Sell For" textAlignment="CENTER" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <Button fx:id="sellFoodButton" mnemonicParsing="false" onMouseClicked="#sellFood" prefHeight="30.0" prefWidth="150.0" text="Food" GridPane.rowIndex="2" />
-            <Button fx:id="sellWaterButton" mnemonicParsing="false" onMouseClicked="#sellWater" prefHeight="30.0" prefWidth="150.0" text="Water" GridPane.rowIndex="1" />
-            <Button fx:id="sellFursButton" mnemonicParsing="false" onMouseClicked="#sellFurs" prefHeight="30.0" prefWidth="150.0" text="Furs" GridPane.rowIndex="3" />
-            <Button fx:id="sellOreButton" mnemonicParsing="false" onMouseClicked="#sellOre" prefHeight="30.0" prefWidth="150.0" text="Ore" GridPane.rowIndex="4" />
-            <Button fx:id="sellGamesButton" mnemonicParsing="false" onMouseClicked="#sellGames" prefHeight="30.0" prefWidth="150.0" text="Games" GridPane.rowIndex="5" />
-            <Button fx:id="sellFirearmsButton" mnemonicParsing="false" onMouseClicked="#sellFirearms" prefHeight="30.0" prefWidth="150.0" text="Firearms" GridPane.rowIndex="6" />
-            <Button fx:id="sellMedicineButton" mnemonicParsing="false" onMouseClicked="#sellMedicine" prefHeight="30.0" prefWidth="150.0" text="Medicine" GridPane.rowIndex="7" />
-            <Button fx:id="sellMachinesButton" mnemonicParsing="false" onMouseClicked="#sellMachines" prefHeight="30.0" prefWidth="150.0" text="Machines" GridPane.rowIndex="8" />
-            <Button fx:id="sellNarcoticsButton" mnemonicParsing="false" onMouseClicked="#sellNarcotics" prefHeight="30.0" prefWidth="150.0" text="Narcotics" GridPane.rowIndex="9" />
-            <Button fx:id="sellRobotsButton" mnemonicParsing="false" onMouseClicked="#sellRobots" prefHeight="30.0" prefWidth="150.0" text="Robots" GridPane.rowIndex="10" />
-            <Label fx:id="sellWaterValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="sellFoodValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="sellFursValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="sellOreValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="sellGamesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label fx:id="sellFirearmsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label fx:id="sellMedicineValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="sellMachinesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label fx:id="sellNarcoticsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label fx:id="sellRobotsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label fx:id="sellWaterQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="sellFoodQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="sellFursQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="sellOreQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Label fx:id="sellGamesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label fx:id="sellFirearmsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label fx:id="sellMedicineQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Label fx:id="sellMachinesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Label fx:id="sellNarcoticsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <Label fx:id="sellRobotsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-         </children>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <Button fx:id="saveButton" layoutX="536.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#handleSaveButton" prefHeight="40.0" styleClass="button1" text="Save" />
-   </children>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="marketNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0"
+               prefHeight="34.0" prefWidth="571.0" text="Market: PlanetName" textAlignment="CENTER" textOverrun="CLIP">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <AnchorPane layoutX="14.0" layoutY="55.0" prefHeight="300.0" prefWidth="204.0">
+            <children>
+                <Button fx:id="buyButton" alignment="CENTER" layoutX="4.0" layoutY="83.0" mnemonicParsing="false"
+                        onMouseClicked="#handleBuyButton" prefHeight="50.0" prefWidth="100.0" styleClass="button1"
+                        text="Buy"/>
+                <Button fx:id="sellButton" layoutX="104.0" layoutY="83.0" mnemonicParsing="false"
+                        onMouseClicked="#handleSellButton" prefHeight="50.0" prefWidth="100.0" styleClass="button1"
+                        text="Sell"/>
+                <Label alignment="BOTTOM_RIGHT" layoutX="68.0" layoutY="310.0" prefHeight="21.0" prefWidth="55.0"
+                       text="Credits:"/>
+                <Label fx:id="moneyLabel" alignment="CENTER_RIGHT" layoutX="123.0" layoutY="310.0" prefHeight="21.0"
+                       prefWidth="75.0" text="0"/>
+                <Button fx:id="returnButton" layoutX="3.0" layoutY="3.0" mnemonicParsing="false"
+                        onMouseClicked="#returnToUniverse" prefHeight="50.0" prefWidth="200.0" styleClass="button1"
+                        text="Return to SolarSystem"/>
+                <Label layoutX="88.0" layoutY="170.0" prefWidth="35.0" text="Fuel:"/>
+                <Label fx:id="label_fuelAmount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="123.0"
+                       layoutY="170.0" prefWidth="75.0" text="fuelAmount"/>
+                <Button fx:id="button_Refuel" layoutX="4.0" layoutY="163.0" mnemonicParsing="false"
+                        onMouseClicked="#handleRefuelButton" prefHeight="50.0" prefWidth="80.0" styleClass="button1"
+                        text="Refuel"/>
+                <Label layoutX="88.0" layoutY="194.0" prefWidth="35.0" text="Cost:"/>
+                <Label fx:id="label_refuelCost" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="123.0"
+                       layoutY="194.0" prefWidth="75.0" text="refuelCost"/>
+            </children>
+        </AnchorPane>
+        <GridPane fx:id="buyPane" gridLinesVisible="true" layoutX="236.0" layoutY="56.0" styleClass="grid_pane">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Resource"
+                       textAlignment="CENTER" GridPane.hgrow="ALWAYS">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Quantity"
+                       textAlignment="CENTER" GridPane.columnIndex="2">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="valueLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       text="Cost" textAlignment="CENTER" GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Button fx:id="buyFoodButton" mnemonicParsing="false" onMouseClicked="#buyFood" prefHeight="30.0"
+                        prefWidth="150.0" text="Food" GridPane.rowIndex="2"/>
+                <Button fx:id="buyWaterButton" mnemonicParsing="false" onMouseClicked="#buyWater" prefHeight="30.0"
+                        prefWidth="150.0" text="Water" GridPane.rowIndex="1"/>
+                <Button fx:id="buyFursButton" mnemonicParsing="false" onMouseClicked="#buyFurs" prefHeight="30.0"
+                        prefWidth="150.0" text="Furs" GridPane.rowIndex="3"/>
+                <Button fx:id="buyOreButton" mnemonicParsing="false" onMouseClicked="#buyOre" prefHeight="30.0"
+                        prefWidth="150.0" text="Ore" GridPane.rowIndex="4"/>
+                <Button fx:id="buyGamesButton" mnemonicParsing="false" onMouseClicked="#buyGames" prefHeight="30.0"
+                        prefWidth="150.0" text="Games" GridPane.rowIndex="5"/>
+                <Button fx:id="buyFirearmsButton" mnemonicParsing="false" onMouseClicked="#buyFirearms"
+                        prefHeight="30.0" prefWidth="150.0" text="Firearms" GridPane.rowIndex="6"/>
+                <Button fx:id="buyMedicineButton" mnemonicParsing="false" onMouseClicked="#buyMedicine"
+                        prefHeight="30.0" prefWidth="150.0" text="Medicine" GridPane.rowIndex="7"/>
+                <Button fx:id="buyMachinesButton" mnemonicParsing="false" onMouseClicked="#buyMachines"
+                        prefHeight="30.0" prefWidth="150.0" text="Machines" GridPane.rowIndex="8"/>
+                <Button fx:id="buyNarcoticsButton" mnemonicParsing="false" onMouseClicked="#buyNarcotics"
+                        prefHeight="30.0" prefWidth="150.0" text="Narcotics" GridPane.rowIndex="9"/>
+                <Button fx:id="buyRobotsButton" mnemonicParsing="false" onMouseClicked="#buyRobots" prefHeight="30.0"
+                        prefWidth="150.0" text="Robots" GridPane.rowIndex="10"/>
+                <Label fx:id="buyWaterValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label fx:id="buyFoodValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="buyFursValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label fx:id="buyOreValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <Label fx:id="buyGamesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <Label fx:id="buyFirearmsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                <Label fx:id="buyMedicineValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                <Label fx:id="buyMachinesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                <Label fx:id="buyNarcoticsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                <Label fx:id="buyRobotsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                <Label fx:id="buyWaterQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <Label fx:id="buyFoodQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <Label fx:id="buyFursQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <Label fx:id="buyOreQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                <Label fx:id="buyGamesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+                <Label fx:id="buyFirearmsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+                <Label fx:id="buyMedicineQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+                <Label fx:id="buyMachinesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="8"/>
+                <Label fx:id="buyNarcoticsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="9"/>
+                <Label fx:id="buyRobotsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="200.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="10"/>
+            </children>
+        </GridPane>
+        <GridPane fx:id="sellPane" gridLinesVisible="true" layoutX="236.0" layoutY="56.0" styleClass="grid_pane">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Resource"
+                       textAlignment="CENTER" GridPane.hgrow="ALWAYS">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Quantity"
+                       textAlignment="CENTER" GridPane.columnIndex="2">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="valueLabel1" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0"
+                       prefWidth="200.0" text="Sell For" textAlignment="CENTER" GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Button fx:id="sellFoodButton" mnemonicParsing="false" onMouseClicked="#sellFood" prefHeight="30.0"
+                        prefWidth="150.0" text="Food" GridPane.rowIndex="2"/>
+                <Button fx:id="sellWaterButton" mnemonicParsing="false" onMouseClicked="#sellWater" prefHeight="30.0"
+                        prefWidth="150.0" text="Water" GridPane.rowIndex="1"/>
+                <Button fx:id="sellFursButton" mnemonicParsing="false" onMouseClicked="#sellFurs" prefHeight="30.0"
+                        prefWidth="150.0" text="Furs" GridPane.rowIndex="3"/>
+                <Button fx:id="sellOreButton" mnemonicParsing="false" onMouseClicked="#sellOre" prefHeight="30.0"
+                        prefWidth="150.0" text="Ore" GridPane.rowIndex="4"/>
+                <Button fx:id="sellGamesButton" mnemonicParsing="false" onMouseClicked="#sellGames" prefHeight="30.0"
+                        prefWidth="150.0" text="Games" GridPane.rowIndex="5"/>
+                <Button fx:id="sellFirearmsButton" mnemonicParsing="false" onMouseClicked="#sellFirearms"
+                        prefHeight="30.0" prefWidth="150.0" text="Firearms" GridPane.rowIndex="6"/>
+                <Button fx:id="sellMedicineButton" mnemonicParsing="false" onMouseClicked="#sellMedicine"
+                        prefHeight="30.0" prefWidth="150.0" text="Medicine" GridPane.rowIndex="7"/>
+                <Button fx:id="sellMachinesButton" mnemonicParsing="false" onMouseClicked="#sellMachines"
+                        prefHeight="30.0" prefWidth="150.0" text="Machines" GridPane.rowIndex="8"/>
+                <Button fx:id="sellNarcoticsButton" mnemonicParsing="false" onMouseClicked="#sellNarcotics"
+                        prefHeight="30.0" prefWidth="150.0" text="Narcotics" GridPane.rowIndex="9"/>
+                <Button fx:id="sellRobotsButton" mnemonicParsing="false" onMouseClicked="#sellRobots" prefHeight="30.0"
+                        prefWidth="150.0" text="Robots" GridPane.rowIndex="10"/>
+                <Label fx:id="sellWaterValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label fx:id="sellFoodValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="sellFursValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label fx:id="sellOreValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <Label fx:id="sellGamesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <Label fx:id="sellFirearmsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                <Label fx:id="sellMedicineValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                <Label fx:id="sellMachinesValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                <Label fx:id="sellNarcoticsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                <Label fx:id="sellRobotsValueLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                <Label fx:id="sellWaterQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <Label fx:id="sellFoodQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <Label fx:id="sellFursQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <Label fx:id="sellOreQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                <Label fx:id="sellGamesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+                <Label fx:id="sellFirearmsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+                <Label fx:id="sellMedicineQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+                <Label fx:id="sellMachinesQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="8"/>
+                <Label fx:id="sellNarcoticsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="9"/>
+                <Label fx:id="sellRobotsQuantityLabel" alignment="CENTER" prefHeight="30.0" prefWidth="100.0"
+                       GridPane.columnIndex="2" GridPane.rowIndex="10"/>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+        </GridPane>
+        <Button fx:id="saveButton" layoutX="536.0" layoutY="8.0" mnemonicParsing="false"
+                onMouseClicked="#handleSaveButton" prefHeight="40.0" styleClass="button1" text="Save"/>
+    </children>
 </AnchorPane>

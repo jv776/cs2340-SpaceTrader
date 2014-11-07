@@ -11,17 +11,18 @@ public class Trader extends Encounterable {
 
     protected String escapeText;
 
-    public Trader(String name, Planet origin){
+    public Trader(String name, Planet origin) {
         this.name = name;
         this.origin = origin;
         escapeText = "Is that all, stranger?";
         welcomeText = "What're ya buy'in?";
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
-    public Planet getOrigin(){
+    public Planet getOrigin() {
         return origin;
     }
 

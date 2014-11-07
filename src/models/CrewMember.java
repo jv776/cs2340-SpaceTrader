@@ -15,14 +15,14 @@ import java.io.Serializable;
  * @author John
  */
 public abstract class CrewMember implements Serializable {
-    transient protected int pilotSkill;
-    transient protected int fighterSkill;
-    transient protected int traderSkill;
-    transient protected int engineerSkill;
-    transient protected int investorSkill;
+    protected int pilotSkill;
+    protected int fighterSkill;
+    protected int traderSkill;
+    protected int engineerSkill;
+    protected int investorSkill;
 
-    public CrewMember(final int pilotSP, final int fighterSP, final int traderSP, 
-            final int engineerSP, final int investorSP) {
+    public CrewMember(final int pilotSP, final int fighterSP, final int traderSP,
+                      final int engineerSP, final int investorSP) {
         pilotSkill = pilotSP;
         fighterSkill = fighterSP;
         traderSkill = traderSP;
@@ -39,7 +39,7 @@ public abstract class CrewMember implements Serializable {
 
     /**
      * Set the number of skill points for the pilot category.
-     * 
+     *
      * @param pilotSkill The new number of skill points in piloting
      */
     public void setPilotSkillPoints(final int pilotSkill) {
@@ -55,7 +55,7 @@ public abstract class CrewMember implements Serializable {
 
     /**
      * Set the number of skill points in the fighter category.
-     * 
+     *
      * @param fighterSkill The new number of fighting skill points
      */
     public void setFighterSkillPoints(final int fighterSkill) {
@@ -71,7 +71,7 @@ public abstract class CrewMember implements Serializable {
 
     /**
      * Set the number of skill points in the trader category.
-     * 
+     *
      * @param traderSkill The new number of fighting skill points
      */
     public void setTraderSkillPoints(final int traderSkill) {
@@ -87,7 +87,7 @@ public abstract class CrewMember implements Serializable {
 
     /**
      * Set the number of skill points in the engineer category.
-     * 
+     *
      * @param engineerSkill The new number of engineering skill points
      */
     public void setEngineerSkillPoints(final int engineerSkill) {
@@ -103,7 +103,7 @@ public abstract class CrewMember implements Serializable {
 
     /**
      * Set the number of skill points in the investor category.
-     * 
+     *
      * @param investorSkill The new number of fighting skill points
      */
     public void setInvestorSkillPoints(final int investorSkill) {

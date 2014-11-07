@@ -7,24 +7,15 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.EllipseBuilder;
@@ -36,7 +27,7 @@ import java.util.ResourceBundle;
 
 /**
  * Displays and manages the map of the Solar System.
- * 
+ *
  * @author Alex, Taylor
  */
 public class SolarSystemMapController implements Initializable {
@@ -47,7 +38,7 @@ public class SolarSystemMapController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         anchor.setBackground(new Background(new BackgroundImage(
                 new Image("/images/solar_system_map.jpg"),
                 BackgroundRepeat.NO_REPEAT,
@@ -55,9 +46,9 @@ public class SolarSystemMapController implements Initializable {
                 BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT
         )));
-        
+
         SolarSystem currentSystem = GameController.getGameData().getSolarSystem();
-        
+
         returnButton.setText("Return to Universe");
         locationLabel.setTextFill(Color.WHITE);
         locationLabel.setText(currentSystem.getName() + ": " +
@@ -83,10 +74,10 @@ public class SolarSystemMapController implements Initializable {
         anchor.getChildren().add(image);
 
         Planet currentPlanet = GameController.getGameData().getPlanet();
-        
+
         int maxDistance = currentSystem.planets[currentSystem.planets.length - 1].getDistance();
         double scaleFactor = 350.0 / maxDistance / 2;
-        
+
         for (Planet p : currentSystem.planets) {
             Ellipse orbit = EllipseBuilder.create() //deprecated!
                     .centerX(image.impl_getPivotX()) //deprecated!
@@ -99,26 +90,26 @@ public class SolarSystemMapController implements Initializable {
                     .build();
             orbit.setMouseTransparent(true);
             anchor.getChildren().add(orbit);
-            
+
             ImageView planet = new ImageView("/images/star.png");
-            
+
             if (p == currentPlanet) {
                 planet.setEffect(new ColorAdjust(0, 0, 1, 0));
             }
             planet.setScaleX(15.0 / planet.getImage().getWidth());
             planet.setScaleY(15.0 / planet.getImage().getWidth());
-            
+
             double angleFactor = Math.random();
             planet.setX(x + Math.cos(angleFactor * 2 * Math.PI) * p.getDistance() * scaleFactor);
             planet.setY(y + Math.sin(angleFactor * 2 * Math.PI) * p.getDistance() * scaleFactor);
-            
+
             Circle circle = new Circle();
             circle.setCenterX(planet.getX() + planet.getImage().getWidth() / 2.0);
             circle.setCenterY(planet.getY() + planet.getImage().getHeight() / 2.0);
             circle.setRadius(planet.getImage().getWidth() * planet.getScaleX() / 2.0 + 1);
             circle.setFill(Color.YELLOW);
             circle.setVisible(false);
-            
+
             Tooltip planetName = new Tooltip(p.getName());
             Tooltip.install(planet, planetName);
             planet.setOnMouseClicked((MouseEvent t) -> {
@@ -136,7 +127,6 @@ public class SolarSystemMapController implements Initializable {
 
         }
     }
-
 
 
     public void returnToUniverse() {
@@ -190,23 +180,23 @@ public class SolarSystemMapController implements Initializable {
         return rgbtohsv(r, g, b);
     }
 
-    private double[] rgbtohsv( double r, double g, double b) {
-	r /= 255;
+    private double[] rgbtohsv(double r, double g, double b) {
+        r /= 255;
         g /= 255;
         b /= 255;
         double h, s, v;
         double min = Math.min(Math.min(r, g), b);
-	double max = Math.max(Math.max(r, g), b);
-	v = max;
-	double delta = max - min;
-	if (max != 0) {
+        double max = Math.max(Math.max(r, g), b);
+        v = max;
+        double delta = max - min;
+        if (max != 0) {
             s = delta / max;
         } else {
             s = 0;
             h = -1;
-            return new double[] {h, s, v};
-	}
-	if (r == max) {
+            return new double[]{h, s, v};
+        }
+        if (r == max) {
             h = (g - b) / delta;
         } else if (g == max) {
             h = 2 + (b - r) / delta;
@@ -214,10 +204,10 @@ public class SolarSystemMapController implements Initializable {
             h = 4 + (r - g) / delta;
             h *= 60;
         }
-	if (h < 0) {
+        if (h < 0) {
             h += 360;
         }
         System.out.println("H: " + h + " S: " + s + " V: " + v);
-        return new double[] {h, s, v};
+        return new double[]{h, s, v};
     }
 }

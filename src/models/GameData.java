@@ -66,7 +66,7 @@ public class GameData implements Serializable {
      *
      * @param s The solar system where the player will be located
      */
-    public void setSolarSystem(SolarSystem s){
+    public void setSolarSystem(SolarSystem s) {
         player.setCurrentSystem(s);
     }
 
@@ -82,7 +82,7 @@ public class GameData implements Serializable {
      *
      * @param p The planet the player will be moved to
      */
-    public void setPlanet(Planet p){
+    public void setPlanet(Planet p) {
         player.setCurrentPlanet(p);
     }
 
@@ -111,7 +111,7 @@ public class GameData implements Serializable {
      *
      * @param s The player's new ship
      */
-    public void setShip(Ship s){
+    public void setShip(Ship s) {
         // TODO: will need code for buying ships to implement properly
         player.setShip(s);
     }
