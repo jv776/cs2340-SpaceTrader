@@ -167,7 +167,7 @@ public class CustomizationController implements Initializable {
         SolarSystem system = universe.solarSystems[(int) (Math.random() *
                 universe.solarSystems.length)];
         system.discover();
-        Planet planet = system.planets[(int) (Math.random() * system.planets.length)];
+        Planet planet = system.getPlanets()[(int) (Math.random() * system.getPlanets().length)];
 
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);

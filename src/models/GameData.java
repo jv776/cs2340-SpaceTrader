@@ -112,7 +112,6 @@ public class GameData implements Serializable {
      * @param s The player's new ship
      */
     public void setShip(Ship s) {
-        // TODO: will need code for buying ships to implement properly
         player.setShip(s);
     }
 }

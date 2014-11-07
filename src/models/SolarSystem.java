@@ -15,13 +15,13 @@ import java.io.Serializable;
  * @author Alex, Taylor
  */
 public class SolarSystem implements Serializable {
-    public final String name;
+    private final String name;
     private final int x;
     private final int y;
-    final TechLevel tech;
-    final PoliticalSystem government;
+    private final TechLevel tech;
+    private final PoliticalSystem government;
     private final Star sun;
-    public final Planet[] planets;
+    private final Planet[] planets;
     private boolean isDiscovered;
 
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
@@ -35,16 +35,6 @@ public class SolarSystem implements Serializable {
         planets = generatePlanets();
         isDiscovered = false;
     }
-
-    /*
-    public SolarSystem(String name, int xLoc, int yLoc) {
-        this.name = name;
-        x = xLoc;
-        y = yLoc;
-        sun = new Star(""); //add name
-        planets = generatePlanets();
-    }
-    */
 
     /*
      * Ugly helper function for randomly choosing resources on each
@@ -84,11 +74,11 @@ public class SolarSystem implements Serializable {
 
     private Planet[] generatePlanets() {
         Planet[] planetArray = new Planet[(int) (Math.random() * 4.0 + 4.0)];
-        int dist = sun.getRadius() + 40;
+        int dist = getSun().getRadius() + 40;
 
         for (int i = 0; i < planetArray.length; i++) {
             dist += 2 + (i + 0.25) * 6.5 * (0.76 + (0.24 * Math.random()));
-            planetArray[i] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
+            planetArray[i] = new Planet(this, getName() + " " + i, dist, getSun().getTemperature()); //add name
         }
 
         return planetArray;
@@ -96,11 +86,11 @@ public class SolarSystem implements Serializable {
 
     @Override
     public String toString() {
-        String temp = "System name: " + name + "\n";
-        temp += "Sun:\n" + sun + "\nTech Level:\t" + tech + "\nGovernment:\t"
-                + government + "\n\nPlanets:\n";
+        String temp = "System name: " + getName() + "\n";
+        temp += "Sun:\n" + getSun() + "\nTech Level:\t" + getTech() + "\nGovernment:\t"
+                + getGovernment() + "\n\nPlanets:\n";
 
-        for (Planet p : planets) {
+        for (Planet p : getPlanets()) {
             temp += p + "\n~~~~~\n";
         }
 
@@ -111,7 +101,7 @@ public class SolarSystem implements Serializable {
      * @return The tech level of the solar system
      */
     public TechLevel getTechLevel() {
-        return tech;
+        return getTech();
     }
 
     /**
@@ -143,7 +133,7 @@ public class SolarSystem implements Serializable {
     }
 
     public Planet getRandomPlanet() {
-        return planets[3];
+        return getPlanets()[3];
     }
 
     public boolean isDiscovered() {
@@ -152,6 +142,27 @@ public class SolarSystem implements Serializable {
 
     public void discover() {
         isDiscovered = true;
+    }
+
+    /**
+     * @return the tech
+     */
+    public TechLevel getTech() {
+        return tech;
+    }
+
+    /**
+     * @return the government
+     */
+    public PoliticalSystem getGovernment() {
+        return government;
+    }
+
+    /**
+     * @return the planets
+     */
+    public Planet[] getPlanets() {
+        return planets;
     }
 }
 

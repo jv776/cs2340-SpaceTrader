@@ -15,9 +15,9 @@ import java.util.Random;
  * @author Alex, John
  */
 public class Planet implements Serializable {
-    final SolarSystem solarSystem;
-    final String name;
-    final Resource resource;
+    private final SolarSystem solarSystem;
+    private final String name;
+    private final Resource resource;
 
     private final int distance; //Representing radial distance from the sun in kmE6
     private final int radius; //Radius of the planet in km * 10^3
@@ -60,38 +60,38 @@ public class Planet implements Serializable {
 
         currentEvent = PriceEvent.NONE;
         market = new Marketplace(this);
-        upgrade = new Upgradeplace(this.solarSystem);
+        upgrade = new Upgradeplace(this.getSolarSystem());
     }
 
     private int generateAtmosphere() {
         double atm = 0;
 
-        if (nitrogen) {
+        if (isNitrogen()) {
             atm += 15;
         }
 
-        if (carbon) {
+        if (isCarbon()) {
             atm += 7;
         }
 
-        if (oxygen) {
+        if (isOxygen()) {
             atm += 5;
         }
         return (int) (atm - atm * (.50 * (Math.random())));
     }
 
     private int generateTemperature(int sunTemp) { //units
-        float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(distance, 2)), .50);
-        temp -= temp * (atmosphere / 100f);
+        float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(getDistance(), 2)), .50);
+        temp -= temp * (getAtmosphere() / 100f);
         return (int) (temp * 1000);
     }
 
     private boolean generateWater() {
-        return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
+        return ((isOxygen() && isHydrogen()) && (getTemperature() > 100 && getTemperature() < 400));
     }
 
     private boolean generateLife() {
-        if (nitrogen && carbon && water && metals) {
+        if (isNitrogen() && isCarbon() && isWater() && isMetals()) {
             return true;
         } else {
             return (Math.random() < 0.01);
@@ -100,11 +100,11 @@ public class Planet implements Serializable {
 
     @Override
     public String toString() {
-        return "Dist: " + distance + "kmE6 \tAtm: " + atmosphere + "% \tTemp: " +
-                (temperature - 273) + "C \tM: " + metals + " \tN: " + nitrogen +
-                " \tC: " + carbon + " \tO: " + oxygen + " \tW: " + water + " \tH: " +
-                hydrogen + " \tLife: " + supportsLife + " \tResources: "
-                + resource;
+        return "Dist: " + getDistance() + "kmE6 \tAtm: " + getAtmosphere() + "% \tTemp: "
+                + (getTemperature() - 273) + "C \tM: " + isMetals() + " \tN: " + isNitrogen()
+                + " \tC: " + isCarbon() + " \tO: " + isOxygen() + " \tW: " + isWater() + " \tH: "
+                + isHydrogen() + " \tLife: " + isSupportsLife() + " \tResources: "
+                + getResource();
     }
 
     /**
@@ -131,7 +131,7 @@ public class Planet implements Serializable {
      * @return The type of government on the planet
      */
     public String governmentType() {
-        return solarSystem.government.toString().toLowerCase().replace('_', ' ');
+        return getSolarSystem().getGovernment().toString().toLowerCase().replace('_', ' ');
     }
 
     /**
@@ -141,7 +141,7 @@ public class Planet implements Serializable {
      * @return The technology available on the planet
      */
     public String technologyLevel() {
-        return solarSystem.tech.toString().toLowerCase().replace('_', ' ');
+        return getSolarSystem().getTech().toString().toLowerCase().replace('_', ' ');
     }
 
     /**
@@ -150,7 +150,7 @@ public class Planet implements Serializable {
      * @return Description of available resources
      */
     public String resourceType() {
-        return resource.toString().toLowerCase().replace('_', ' ');
+        return getResource().toString().toLowerCase().replace('_', ' ');
     }
 
     /**
@@ -192,7 +192,7 @@ public class Planet implements Serializable {
      * @return Whether or not the planet naturally supports life
      */
     public boolean supportsLife() {
-        return supportsLife;
+        return isSupportsLife();
     }
 
     /**
@@ -240,5 +240,68 @@ public class Planet implements Serializable {
 
     public Upgradeplace getUpgrade() {
         return upgrade;
+    }
+
+    /**
+     * @return the nitrogen
+     */
+    public boolean isNitrogen() {
+        return nitrogen;
+    }
+
+    /**
+     * @return the oxygen
+     */
+    public boolean isOxygen() {
+        return oxygen;
+    }
+
+    /**
+     * @return the carbon
+     */
+    public boolean isCarbon() {
+        return carbon;
+    }
+
+    /**
+     * @return the hydrogen
+     */
+    public boolean isHydrogen() {
+        return hydrogen;
+    }
+
+    /**
+     * @return the metals
+     */
+    public boolean isMetals() {
+        return metals;
+    }
+
+    /**
+     * @return the atmosphere
+     */
+    public int getAtmosphere() {
+        return atmosphere;
+    }
+
+    /**
+     * @return the water
+     */
+    public boolean isWater() {
+        return water;
+    }
+
+    /**
+     * @return the temperature
+     */
+    public int getTemperature() {
+        return temperature;
+    }
+
+    /**
+     * @return the supportsLife
+     */
+    public boolean isSupportsLife() {
+        return supportsLife;
     }
 }

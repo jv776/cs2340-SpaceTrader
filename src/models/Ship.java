@@ -142,10 +142,12 @@ public class Ship implements Serializable {
     }
 
     public void addFuel(double amount) {
-        if (fuelAmount + amount > type.fuelCapacity)
+        if (fuelAmount + amount > type.fuelCapacity) {
             fuelAmount = type.fuelCapacity;
-        else
+        }
+        else {
             fuelAmount += amount;
+        }
     }
 
     public void refuel() {

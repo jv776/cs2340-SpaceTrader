@@ -25,11 +25,11 @@ import java.util.ResourceBundle;
 public class MarketController implements Initializable {
 
     @FXML
-    private Label label_refuelCost;
+    private Label labelRefuelCost;
     @FXML
-    private Button button_Refuel;
+    private Button buttonRefuel;
     @FXML
-    private Label label_fuelAmount;
+    private Label labelFuelAmount;
 
     @FXML
     private Label buyNarcoticsValueLabel;
@@ -258,7 +258,7 @@ public class MarketController implements Initializable {
 
         returnButton.setText("Return to Space Port");
         if (player.getShip().getFuelCapacity() == player.getShip().getFuelAmount()) {
-            button_Refuel.setDisable(true);
+            buttonRefuel.setDisable(true);
         }
 
         Label[] buyQuantities = {
@@ -342,8 +342,8 @@ public class MarketController implements Initializable {
         }
 
         // Fuel stuff
-        this.label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
-        this.label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
+        this.labelFuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
+        this.labelRefuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
 
         marketNameLabel.setText("Market: " + player.getCurrentPlanet().getName()
                 + ", " + player.getCurrentSystem().getTechLevel().toString());
@@ -383,9 +383,9 @@ public class MarketController implements Initializable {
         player.spend((int) (Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost()));
         player.getShip().refuel();
 
-        label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
-        label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
-        button_Refuel.setDisable(true);
+        labelFuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
+        labelRefuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
+        buttonRefuel.setDisable(true);
         update();
     }
 
