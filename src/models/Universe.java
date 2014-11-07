@@ -148,6 +148,8 @@ public class Universe implements Serializable {
     private static TechLevel randomTechLevel() {
         double r = Math.random();
 
+        // Breaks PMD rule "OnlyOneReturn"
+        // Justification: Most obvious implementation for this code.
         if(0.0 <= r && r < 0.25) {
             return TechLevel.PRE_AGRICULTURE; //25% chance
         } else if(0.25 <= r && r < 0.45) {
