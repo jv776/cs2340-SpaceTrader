@@ -15,24 +15,80 @@ public class Gadget implements Upgrade, Serializable {
         AUTOREPAIR(0, 0, 0, 5, false, 1000, TechLevel.POST_INDUSTRIAL, "Increases your engineering skill."),
         CLOAKING(0, 0, 0, 0, true, 10000, TechLevel.HI_TECH, "Allows you to travel undetected through space.");
 
-        public final TechLevel minTechLevel;
-        public final int price;
-        public final String description;
-        int cargo;
-        int pilot;
-        int combat;
-        int engineering;
-        boolean cloak;
+        private final TechLevel minTechLevel;
+        private final int price;
+        private final String description;
+        private final int cargoSlotModifier;
+        private final int pilotSkillModifier;
+        private final int combatSkillModifier;
+        private final int engineeringSkillModifier;
+        private final boolean cloakingAbility;
 
         Type(int cargo, int pilot, int combat, int engineering, boolean cloak, int price, TechLevel minTechLevel, String description) {
-            this.cargo = cargo;
-            this.cloak = cloak;
-            this.pilot = pilot;
-            this.combat = combat;
-            this.engineering = engineering;
+            this.cargoSlotModifier = cargo;
+            this.cloakingAbility = cloak;
+            this.pilotSkillModifier = pilot;
+            this.combatSkillModifier = combat;
+            this.engineeringSkillModifier = engineering;
             this.minTechLevel = minTechLevel;
             this.price = price;
             this.description = description;
+        }
+
+        /**
+         * @return the minTechLevel
+         */
+        public TechLevel getMinTechLevel() {
+            return minTechLevel;
+        }
+
+        /**
+         * @return the price
+         */
+        public int getPrice() {
+            return price;
+        }
+
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+
+        /**
+         * @return the cargoSlotModifier
+         */
+        public int getCargoSlotModifier() {
+            return cargoSlotModifier;
+        }
+
+        /**
+         * @return the pilotSkillModifier
+         */
+        public int getPilotSkillModifier() {
+            return pilotSkillModifier;
+        }
+
+        /**
+         * @return the combatSkillModifier
+         */
+        public int getCombatSkillModifier() {
+            return combatSkillModifier;
+        }
+
+        /**
+         * @return the engineeringSkillModifier
+         */
+        public int getEngineeringSkillModifier() {
+            return engineeringSkillModifier;
+        }
+
+        /**
+         * @return the cloakingAbility
+         */
+        public boolean isCloakingAbility() {
+            return cloakingAbility;
         }
     }
 
@@ -42,7 +98,7 @@ public class Gadget implements Upgrade, Serializable {
 
     public Gadget(Type type) {
         this.type = type;
-        this.price = type.price;
+        this.price = type.getPrice();
         name = type + " Upgrade";
     }
 
@@ -55,7 +111,7 @@ public class Gadget implements Upgrade, Serializable {
     }
 
     public TechLevel getTechLevel() {
-        return type.minTechLevel;
+        return type.getMinTechLevel();
     }
 
     public String getName() {
@@ -63,6 +119,6 @@ public class Gadget implements Upgrade, Serializable {
     }
 
     public String toString() {
-        return type.description;
+        return type.getDescription();
     }
 }

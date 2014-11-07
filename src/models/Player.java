@@ -35,8 +35,8 @@ public class Player extends CrewMember implements Serializable {
                 + fighterSkill + ", Trader: " + traderSkill
                 + ", Engineer: " + engineerSkill + ", Investor: "
                 + investorSkill + "\nCurrently in the "
-                + currentPlanet.solarSystem.name + " system on planet "
-                + currentPlanet.name;
+                + currentPlanet.getSolarSystem().getName() + " system on planet "
+                + currentPlanet.getName();
     }
 
     /**
@@ -47,7 +47,7 @@ public class Player extends CrewMember implements Serializable {
     }
 
     public void setShip(Ship s) {
-        this.ship = s; // TODO: implement proper ship buying
+        this.ship = s;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Player extends CrewMember implements Serializable {
      */
     public void setCurrentPlanet(Planet planet) {
         currentPlanet = planet;
-        currentSystem = planet.solarSystem;
+        currentSystem = planet.getSolarSystem();
     }
 
     public String getName() {

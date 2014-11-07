@@ -14,10 +14,10 @@ public class Shield implements Serializable {
         Overcharged(150, 40, 10000, TechLevel.POST_INDUSTRIAL, "Shield that creates a reflective energy field around the ship."),
         Alien(150, 50, 10000, TechLevel.HI_TECH, "Shield that creates a reflective energy field around the ship.");
 
-        public final int strength;
-        public final TechLevel minTechLevel;
-        public final int price;
-        public final String description;
+        private final int strength;
+        private final TechLevel minTechLevel;
+        private final int price;
+        private final String description;
 
         Type(int strength, int chargeRate, int price, TechLevel minTechLevel, String description) {
             this.strength = strength;
@@ -25,22 +25,36 @@ public class Shield implements Serializable {
             this.price = price;
             this.description = description;
         }
-    }
 
-    //    public static enum Quality {
-//        Weak(0, TechLevel.EARLY_INDUSTRIAL, ""),
-//        Standard(25,TechLevel.INDUSTRIAL, ""),
-//        Powerful(75, TechLevel.POST_INDUSTRIAL, ""),
-//
-//
-//        public final int damage;
-//        public final TechLevel techLevel;
-//
-//        Type(int damage, TechLevel techLevel, String description) {
-//            this.damage = damage;
-//            this.techLevel = techLevel;
-//        }
-//    }
+        /**
+         * @return the strength
+         */
+        public int getStrength() {
+            return strength;
+        }
+
+        /**
+         * @return the minTechLevel
+         */
+        public TechLevel getMinTechLevel() {
+            return minTechLevel;
+        }
+
+        /**
+         * @return the price
+         */
+        public int getPrice() {
+            return price;
+        }
+
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+    }
+    
     private int strength;
     private Type type;
     private int price;
@@ -48,8 +62,8 @@ public class Shield implements Serializable {
 
     public Shield(Type type) {
         this.type = type;
-        strength = type.strength;
-        price = type.price;
+        strength = type.getStrength();
+        price = type.getPrice();
         name = type + " Shield";
     }
 
@@ -62,11 +76,11 @@ public class Shield implements Serializable {
     }
 
     public String toString() {
-        return type.description + "\n\nStrength: " + strength;
+        return type.getDescription() + "\n\nStrength: " + strength;
     }
 
     public TechLevel getTechLevel() {
-        return type.minTechLevel;
+        return type.getMinTechLevel();
     }
 
     public String getName() {

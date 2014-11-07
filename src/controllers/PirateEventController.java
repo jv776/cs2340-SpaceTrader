@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  */
 public class PirateEventController extends RandomEventController implements Initializable {
 
-    void configureButtons() {
+    protected void configureButtons() {
         NWButton.setText("Attack");
         NWButton.setOnMouseClicked(t -> attack());
 
@@ -25,7 +25,7 @@ public class PirateEventController extends RandomEventController implements Init
         SWButton.setDisable(true);
     }
 
-    void configureEncountered() {
+    protected void configureEncountered() {
         encountered = new Pirate("Pirate");
     }
 
@@ -46,7 +46,7 @@ public class PirateEventController extends RandomEventController implements Init
     }
 
     @Override
-    void playerDeath() {
+    protected void playerDeath() {
         super.playerDeath();
         GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits() / 2);
     }

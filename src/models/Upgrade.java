@@ -4,12 +4,12 @@ package models;
  * Interface for any upgrade that can be applied to a ship
  */
 public interface Upgrade {
-    public TechLevel getTechLevel();
+    TechLevel getTechLevel();
 
-    public int getPrice();
+    int getPrice();
 
-    public String getSlot();
+    String getSlot();
 
-    public String getName();
+    String getName();
 
 }

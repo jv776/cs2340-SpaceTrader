@@ -23,28 +23,60 @@ public class Weapon implements Upgrade, Serializable {
         /**
          * Damage dealt by the weapon.
          */
-        public final int damage;
+        private final int damage;
 
         /**
          * The minimum technology level at which the weapon can be bought.
          */
-        public final TechLevel minTechLevel;
+        private final TechLevel minTechLevel;
 
         /**
          * A description of the weapon to be shown in-game.
          */
-        public final String description;
+        private final String description;
 
         /**
          * The price of the weapon.
          */
-        public final int price;
+        private final int price;
 
         Type(int damage, int price, TechLevel minTechLevel, String description) {
             this.damage = damage;
             this.minTechLevel = minTechLevel;
             this.description = description;
             this.price = price;
+        }
+
+        /**
+         * Damage dealt by the weapon.
+         * @return the damage
+         */
+        public int getDamage() {
+            return damage;
+        }
+
+        /**
+         * The minimum technology level at which the weapon can be bought.
+         * @return the minTechLevel
+         */
+        public TechLevel getMinTechLevel() {
+            return minTechLevel;
+        }
+
+        /**
+         * A description of the weapon to be shown in-game.
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+
+        /**
+         * The price of the weapon.
+         * @return the price
+         */
+        public int getPrice() {
+            return price;
         }
     }
 
@@ -55,16 +87,44 @@ public class Weapon implements Upgrade, Serializable {
         Perfected(4, 1000, 4, "Tuned and modified to absolute perfection.");
 
 
-        public final int damage;
-        public final int rarity;
-        public final String description;
-        public final int price;
+        private final int damage;
+        private final int rarity;
+        private final String description;
+        private final int price;
 
         Quality(int damage, int rarity, int price, String description) {
             this.damage = damage;
             this.rarity = rarity;
             this.description = description;
             this.price = price;
+        }
+
+        /**
+         * @return the damage
+         */
+        public int getDamage() {
+            return damage;
+        }
+
+        /**
+         * @return the rarity
+         */
+        public int getRarity() {
+            return rarity;
+        }
+
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+
+        /**
+         * @return the price
+         */
+        public int getPrice() {
+            return price;
         }
     }
 
@@ -73,13 +133,13 @@ public class Weapon implements Upgrade, Serializable {
     private String name;
     private int damage;
     private int price;
-    public final double DAMAGE_MODIFIER = 1;
+    public static final double DAMAGE_MODIFIER = 1;
 
     public Weapon(Type type, Quality quality) {
         this.type = type;
         name = quality + " " + type + " Laser";
-        damage = (int) (DAMAGE_MODIFIER * (type.damage + quality.damage));
-        price = type.price * quality.price;
+        damage = (int) (DAMAGE_MODIFIER * (type.getDamage() + quality.getDamage()));
+        price = type.getPrice() * quality.getPrice();
     }
 
     public Weapon(Type type) {
@@ -96,8 +156,8 @@ public class Weapon implements Upgrade, Serializable {
         }
 
         name = quality + " " + type + " Laser";
-        damage = (int) (DAMAGE_MODIFIER * (type.damage + quality.damage));
-        price = type.price * quality.price;
+        damage = (int) (DAMAGE_MODIFIER * (type.getDamage() + quality.getDamage()));
+        price = type.getPrice() * quality.getPrice();
     }
 
     public int getDamage() {
@@ -109,7 +169,7 @@ public class Weapon implements Upgrade, Serializable {
     }
 
     public String toString() {
-        return type.description + "\n\n" + quality.description + "\n\nDamage: " + damage;
+        return type.getDescription() + "\n\n" + quality.getDescription() + "\n\nDamage: " + damage;
     }
 
     public int getPrice() {
@@ -121,7 +181,7 @@ public class Weapon implements Upgrade, Serializable {
     }
 
     public TechLevel getTechLevel() {
-        return type.minTechLevel;
+        return type.getMinTechLevel();
     }
 
 

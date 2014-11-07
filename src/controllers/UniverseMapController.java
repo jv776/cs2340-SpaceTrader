@@ -96,7 +96,7 @@ public class UniverseMapController implements Initializable {
             image.setOnMouseClicked((MouseEvent t) -> {
                 if (dist < gameData.getShip().getFuelAmount()) {
                     gameData.getShip().expendFuel(dist);
-                    System.out.println(s.name);
+                    System.out.println(s.getName());
                     gameData.setSolarSystem(s);
 
                     s.discover();
