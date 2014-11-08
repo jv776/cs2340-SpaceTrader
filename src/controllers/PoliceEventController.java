@@ -62,7 +62,7 @@ public class PoliceEventController extends RandomEventController implements Init
     }
 
 
-    private void fleeSuccessful() {
+    protected void fleeSuccessful() {
         showBubble();
         speech.setText("They got away!");
         NWButton.setText("Okay");

@@ -90,7 +90,7 @@ public abstract class RandomEventController implements Initializable {
 
     abstract void configureEncountered();
 
-    void flee() {
+    protected void flee() {
         if (GameController.getGameData().getPlayer().getPilotSkillPoints() * .1 * Math.random() > .2) {
             //print you escaped message
             fleeSuccessful();
@@ -100,7 +100,7 @@ public abstract class RandomEventController implements Initializable {
         }
     }
 
-    private void fleeSuccessful() {
+    protected void fleeSuccessful() {
         showBubble();
         speech.setText(encountered.getFleeSuccessfulText());
         NWButton.setText("Okay");
@@ -112,7 +112,7 @@ public abstract class RandomEventController implements Initializable {
 
     }
 
-    private void fleeFailed() {
+    protected void fleeFailed() {
         showBubble();
         speech.setText(encountered.getFleeFailedText());
         encounteredAttack();
@@ -120,12 +120,12 @@ public abstract class RandomEventController implements Initializable {
 
     }
 
-    void updateHealth() {
+    protected void updateHealth() {
         otherHealth.setProgress(((double) encountered.getHullStrength() / encountered.getMaxHullStrength()));
         playerHealth.setProgress(((double) GameController.getGameData().getPlayer().getHullStrength() / GameController.getGameData().getPlayer().getMaxHullStrength()));
     }
 
-    void attack() {
+    protected void attack() {
         hideBubble();
         playerAttack();
         encounteredAttack();
@@ -138,15 +138,15 @@ public abstract class RandomEventController implements Initializable {
         updateHealth();
     }
 
-    void playerAttack() {
+    protected void playerAttack() {
         encountered.takeDamage(GameController.getGameData().getPlayer().calculateAttack());
     }
 
-    void encounteredAttack() {
+    protected void encounteredAttack() {
         GameController.getGameData().getPlayer().takeDamage(encountered.calculateAttack());
     }
 
-    void encounteredDeath() {
+    protected void encounteredDeath() {
         showBubble();
         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
         System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
@@ -161,7 +161,7 @@ public abstract class RandomEventController implements Initializable {
         SWButton.setDisable(true);
     }
 
-    void playerDeath() {
+    protected void playerDeath() {
         showBubble();
         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
         System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
@@ -176,19 +176,19 @@ public abstract class RandomEventController implements Initializable {
         SWButton.setDisable(true);
     }
 
-    void showBubble() {
+    protected void showBubble() {
         bubbleArrow.setOpacity(1);
         bubbleBox.setOpacity(1);
         speech.setOpacity(1);
     }
 
-    void hideBubble() {
+    protected void hideBubble() {
         bubbleArrow.setOpacity(0);
         bubbleBox.setOpacity(0);
         speech.setOpacity(0);
     }
 
-    void exitEvent() {
+    protected void exitEvent() {
         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }
 
