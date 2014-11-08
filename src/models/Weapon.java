@@ -8,16 +8,36 @@ import java.io.Serializable;
  * @author Taylor
  */
 public class Weapon implements Upgrade, Serializable {
+    
+    /**
+     * Enum representing the types of weapons available.
+     * 
+     * @author Taylor
+     */
     public static enum Type {
         Pulse(5,1000,TechLevel.EARLY_INDUSTRIAL, "Plasma repeating laser, only able to fire in single bursts."),
         Beam(10,10000, TechLevel.INDUSTRIAL, "Plasma laser able to sustain fire for more than a few seconds."),
         Military(15,10000, TechLevel.POST_INDUSTRIAL, "Quantum laser built with top of the line military technology."),
         Alien(30,100000, TechLevel.HI_TECH, "The most advanced and powerful laser, more complex than you could ever comprehend.");
 
-
+        /**
+         * Damage dealt by the weapon.
+         */
         public final int damage;
+        
+        /**
+         * The minimum technology level at which the weapon can be bought.
+         */
         public final TechLevel minTechLevel;
+        
+        /**
+         * A description of the weapon to be shown in-game.
+         */
         public final String description;
+        
+        /**
+         * The price of the weapon.
+         */
         public final int price;
 
         Type(int damage, int price, TechLevel minTechLevel, String description) {
