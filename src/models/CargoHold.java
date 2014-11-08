@@ -102,9 +102,10 @@ public class CargoHold implements Serializable {
             }
         }
         TradeGood[] finalGoods = new TradeGood[count];
-        for (int i = 0; i < count; i++) {
-            finalGoods[i] = goods[i];
-        }
+        System.arraycopy(goods,0, finalGoods,0,goods.length);
+//        for (int i = 0; i < count; i++) {
+//            finalGoods[i] = goods[i];
+//        }
         return finalGoods;
     }
 
