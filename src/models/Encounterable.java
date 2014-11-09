@@ -1,12 +1,11 @@
 package models;
 
 /**
- * Abstract class representing an entity that can be encountered during travel
+ * Abstract class representing an entity that can be encountered during travel.
  *
  * @author Taylor
  */
 public abstract class Encounterable extends CrewMember {
-
     protected String name;
     protected String welcomeText;
     protected String deathText;

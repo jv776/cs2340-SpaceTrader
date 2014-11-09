@@ -86,10 +86,10 @@ public class SolarSystemMapController implements Initializable {
 
         Planet currentPlanet = GameController.getGameData().getPlanet();
 
-        int maxDistance = currentSystem.planets[currentSystem.planets.length - 1].getDistance();
+        int maxDistance = currentSystem.getPlanets()[currentSystem.getPlanets().length - 1].getDistance();
         double scaleFactor = 350.0 / maxDistance / 2;
 
-        for (Planet p : currentSystem.planets) {
+        for (Planet p : currentSystem.getPlanets()) {
             Ellipse orbit = EllipseBuilder.create() //deprecated!
                     .centerX(image.impl_getPivotX()) //deprecated!
                     .centerY(image.impl_getPivotY()) //deprecated!

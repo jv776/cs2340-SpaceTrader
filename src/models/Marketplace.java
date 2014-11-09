@@ -41,13 +41,13 @@ public class Marketplace implements Serializable {
         HashMap<TradeGood, Integer> goods = new HashMap<>();
 
         for (TradeGood good : TradeGood.values()) {
-            int localTechFactor = location.solarSystem.getTechLevel().ordinal();
+            int localTechFactor = location.getSolarSystem().getTechLevel().ordinal();
 
-            int minTechFactor = (localTechFactor < good.minTechLevelBuy.ordinal())
-                    ? 0 : (localTechFactor - good.minTechLevelBuy.ordinal() + 1);
+            int minTechFactor = (localTechFactor < good.getMinTechLevelBuy().ordinal())
+                    ? 0 : (localTechFactor - good.getMinTechLevelBuy().ordinal() + 1);
 
             int preferredTechFactor = Math.abs(localTechFactor
-                    - good.preferredTechLevel.ordinal());
+                    - good.getPreferredTechLevel().ordinal());
 
             double quantityFactor = Math.exp(-Math.pow(preferredTechFactor
                     / (Math.random() + 1), 0.5));
@@ -65,25 +65,25 @@ public class Marketplace implements Serializable {
         for (TradeGood good : TradeGood.values()) {
             Random r = new Random();
 
-            int techLevelFactor = good.priceChangePerTechLevel *
-                    (location.solarSystem.getTechLevel().ordinal() -
-                            good.minTechLevelBuy.ordinal());
+            int techLevelFactor = good.getPriceChangePerTechLevel() *
+                    (location.getSolarSystem().getTechLevel().ordinal() -
+                            good.getMinTechLevelBuy().ordinal());
 
-            int variance = 1 + r.nextInt(good.priceVariance) / 100;
+            int variance = 1 + r.nextInt(good.getPriceVariance()) / 100;
 
             double scarcityFactor = 1;
-            Optional<Resource> expensiveResource = good.expensiveConditions;
+            Optional<Resource> expensiveResource = good.getExpensiveConditions();
 
             if (expensiveResource.isPresent()) {
-                scarcityFactor = (expensiveResource.get() == location.resource)
+                scarcityFactor = (expensiveResource.get() == location.getResource())
                         ? 0.75 : 1;
             }
 
             double abundanceFactor = 1;
-            Optional<Resource> cheapResource = good.cheapConditions;
+            Optional<Resource> cheapResource = good.getCheapConditions();
 
             if (cheapResource.isPresent()) {
-                abundanceFactor = (cheapResource.get() == location.resource)
+                abundanceFactor = (cheapResource.get() == location.getResource())
                         ? 0.75 : 1;
             }
 
@@ -91,10 +91,10 @@ public class Marketplace implements Serializable {
             PriceEvent currentEvent = location.getCurrentEvent();
 
 
-            eventFactor = (currentEvent == good.priceIncreaseEvent) ? 1.5 : 1;
+            eventFactor = (currentEvent == good.getPriceIncreaseEvent()) ? 1.5 : 1;
 
 
-            priceMap.put(good, (int) ((good.basePrice + techLevelFactor)
+            priceMap.put(good, (int) ((good.getBasePrice() + techLevelFactor)
                     * variance * scarcityFactor * abundanceFactor
                     * eventFactor));
         }

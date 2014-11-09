@@ -1,7 +1,6 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import models.Police;
 
 /**
@@ -15,21 +14,14 @@ public class PoliceEventController extends RandomEventController implements Init
     @Override
     void configureButtons() {
         NWButton.setText("Attack");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            attack();
-        });
+        NWButton.setOnMouseClicked(t -> attack());
 
         NEButton.setText("Comply");
-        NEButton.setOnMouseClicked((MouseEvent t) -> {
-            surrender();
-        });
+        NEButton.setOnMouseClicked(t -> surrender());
 
         SEButton.setText("Flee");
-        SEButton.setOnMouseClicked((MouseEvent t) -> {
-            flee();
-        });
+        SEButton.setOnMouseClicked(t -> flee());
         SWButton.setDisable(true);
-
     }
 
     @Override
@@ -54,21 +46,16 @@ public class PoliceEventController extends RandomEventController implements Init
         showBubble();
         speech.setText("All right you can go.");
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
     }
 
-
-    private void fleeSuccessful() {
+    protected void fleeSuccessful() {
         showBubble();
         speech.setText("They got away!");
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
 
@@ -89,9 +76,7 @@ public class PoliceEventController extends RandomEventController implements Init
         showBubble();
         speech.setText("Criminal disposed of, resuming patrol");
         NWButton.setText("Use Escape Pod");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         GameController.getGameData().getPlayer().die();
@@ -101,12 +86,8 @@ public class PoliceEventController extends RandomEventController implements Init
         showBubble();
         speech.setText("This cannot be happening!");
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
     }
-
-
 }

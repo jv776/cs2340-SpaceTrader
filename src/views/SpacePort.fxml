@@ -6,15 +6,15 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
       prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button fx:id="btn_Market" layoutX="20.0" layoutY="50.0" mnemonicParsing="false" onAction="#onMarketClicked"
+        <Button fx:id="btnMarket" layoutX="20.0" layoutY="50.0" mnemonicParsing="false" onAction="#onMarketClicked"
                 prefHeight="50.0" prefWidth="200.0" text="Market"/>
-        <Button fx:id="btn_ShipYard" layoutX="20.0" layoutY="110.0" mnemonicParsing="false"
+        <Button fx:id="btnShipYard" layoutX="20.0" layoutY="110.0" mnemonicParsing="false"
                 onAction="#onShipYardClicked" prefHeight="50.0" prefWidth="200.0" text="Ship Yard"/>
-        <Button fx:id="btn_Map" layoutX="20.0" layoutY="290.0" mnemonicParsing="false" onAction="#onMapClicked"
+        <Button fx:id="btnMap" layoutX="20.0" layoutY="290.0" mnemonicParsing="false" onAction="#onMapClicked"
                 prefHeight="50.0" prefWidth="200.0" text="Solar System"/>
-        <Button fx:id="btn_News" layoutX="20.0" layoutY="170.0" mnemonicParsing="false" onAction="#onNewsClicked"
+        <Button fx:id="btnNews" layoutX="20.0" layoutY="170.0" mnemonicParsing="false" onAction="#onNewsClicked"
                 prefHeight="50.0" prefWidth="200.0" text="News"/>
-        <Button fx:id="btn_StockMarket" layoutX="20.0" layoutY="230.0" mnemonicParsing="false"
+        <Button fx:id="btnStockMarket" layoutX="20.0" layoutY="230.0" mnemonicParsing="false"
                 onAction="#onStockMarketClicked" prefHeight="50.0" prefWidth="200.0" text="Stock Market"/>
         <Label fx:id="spacePortLabel" alignment="CENTER" layoutY="5.0" prefHeight="29.0" prefWidth="600.0"
                text="Space Port: PLANET">

@@ -35,8 +35,8 @@ public class Player extends CrewMember implements Serializable {
                 + fighterSkill + ", Trader: " + traderSkill
                 + ", Engineer: " + engineerSkill + ", Investor: "
                 + investorSkill + "\nCurrently in the "
-                + currentPlanet.solarSystem.name + " system on planet "
-                + currentPlanet.name;
+                + currentPlanet.getSolarSystem().getName() + " system on planet "
+                + currentPlanet.getName();
     }
 
     /**
@@ -47,7 +47,7 @@ public class Player extends CrewMember implements Serializable {
     }
 
     public void setShip(Ship s) {
-        this.ship = s; // TODO: implement proper ship buying
+        this.ship = s;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Player extends CrewMember implements Serializable {
      */
     public void setCurrentPlanet(Planet planet) {
         currentPlanet = planet;
-        currentSystem = planet.solarSystem;
+        currentSystem = planet.getSolarSystem();
     }
 
     public String getName() {
@@ -91,7 +91,7 @@ public class Player extends CrewMember implements Serializable {
      * to change the planet the player is located on as well (so that they
      * aren't on a planet in a different system).
      *
-     * @param system
+     * @param system The SolarSystem instance to be set.
      */
     public void setCurrentSystem(SolarSystem system) {
         currentSystem = system;

@@ -1,7 +1,7 @@
 package models;
 
 /**
- * Class representing a space-pirate
+ * Class representing a space-pirate.
  *
  * @author Taylor
  */

@@ -6,8 +6,7 @@
 package models;
 
 /**
- * Represents various ongoing events that affect the market
- * of a planet
+ * Represents various ongoing events that affect the market of a planet.
  *
  * @author John Varela
  */

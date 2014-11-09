@@ -19,15 +19,14 @@ public class GameData implements Serializable {
     private Universe universe;
 
     /**
-     * @return The in-game representation of the current player
+     * @return The in-game representation of the current player.
      */
     public Player getPlayer() {
         return player;
     }
 
     /**
-     * Change the current player to a new one (possibly when switching between
-     * save files or starting a new game)
+     * Change the current player to a new one (possibly when switching between save files or starting a new game).
      *
      * @param p The new player
      */
@@ -112,7 +111,6 @@ public class GameData implements Serializable {
      * @param s The player's new ship
      */
     public void setShip(Ship s) {
-        // TODO: will need code for buying ships to implement properly
         player.setShip(s);
     }
 }

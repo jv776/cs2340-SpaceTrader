@@ -57,7 +57,7 @@ public class CargoHold implements Serializable {
     }
 
     /**
-     * Add many of the same item to the cargo hold at once
+     * Add many of the same item to the cargo hold at once.
      *
      * @param item   The item to be added
      * @param amount The quantity of the item to be added

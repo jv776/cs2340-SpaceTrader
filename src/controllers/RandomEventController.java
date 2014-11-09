@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -17,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * An abstract representation of an encounter in space with another entity
+ * An abstract representation of an encounter in space with another entity.
  *
  * @author Taylor
  */
@@ -90,7 +89,7 @@ public abstract class RandomEventController implements Initializable {
 
     abstract void configureEncountered();
 
-    void flee() {
+    protected void flee() {
         if (GameController.getGameData().getPlayer().getPilotSkillPoints() * .1 * Math.random() > .2) {
             //print you escaped message
             fleeSuccessful();
@@ -100,19 +99,17 @@ public abstract class RandomEventController implements Initializable {
         }
     }
 
-    private void fleeSuccessful() {
+    protected void fleeSuccessful() {
         showBubble();
         speech.setText(encountered.getFleeSuccessfulText());
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
 
     }
 
-    private void fleeFailed() {
+    protected void fleeFailed() {
         showBubble();
         speech.setText(encountered.getFleeFailedText());
         encounteredAttack();
@@ -120,12 +117,12 @@ public abstract class RandomEventController implements Initializable {
 
     }
 
-    void updateHealth() {
+    protected void updateHealth() {
         otherHealth.setProgress(((double) encountered.getHullStrength() / encountered.getMaxHullStrength()));
         playerHealth.setProgress(((double) GameController.getGameData().getPlayer().getHullStrength() / GameController.getGameData().getPlayer().getMaxHullStrength()));
     }
 
-    void attack() {
+    protected void attack() {
         hideBubble();
         playerAttack();
         encounteredAttack();
@@ -138,57 +135,54 @@ public abstract class RandomEventController implements Initializable {
         updateHealth();
     }
 
-    void playerAttack() {
+    protected void playerAttack() {
         encountered.takeDamage(GameController.getGameData().getPlayer().calculateAttack());
     }
 
-    void encounteredAttack() {
+    protected void encounteredAttack() {
         GameController.getGameData().getPlayer().takeDamage(encountered.calculateAttack());
     }
 
-    void encounteredDeath() {
+    protected void encounteredDeath() {
         showBubble();
         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
         System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getDeathText());
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         SWButton.setDisable(true);
     }
 
-    void playerDeath() {
+    protected void playerDeath() {
         showBubble();
         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
         System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getWinText());
         NWButton.setText("Use Escape Pod");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            GameController.getGameData().getPlayer().die();
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> {
+                GameController.getGameData().getPlayer().die();
+                exitEvent();
+            });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         SWButton.setDisable(true);
     }
 
-    void showBubble() {
+    protected void showBubble() {
         bubbleArrow.setOpacity(1);
         bubbleBox.setOpacity(1);
         speech.setOpacity(1);
     }
 
-    void hideBubble() {
+    protected void hideBubble() {
         bubbleArrow.setOpacity(0);
         bubbleBox.setOpacity(0);
         speech.setOpacity(0);
     }
 
-    void exitEvent() {
+    protected void exitEvent() {
         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }
 
