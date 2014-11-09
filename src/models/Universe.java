@@ -333,7 +333,14 @@ public class Universe implements Serializable {
         return result;
     }
 
+    /**
+     * The highest possible x-coordinate of a solar system.
+     */
     public final int MAX_X = 590;
+    
+    /**
+     * The highest possible y-coordinate of a solar system.
+     */
     public final int MAX_Y = 390;
 
 

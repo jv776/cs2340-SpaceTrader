@@ -15,6 +15,11 @@ public class Upgradeplace implements Serializable {
     private final Shield shieldUpgrade;
     private final Gadget gadgetUpgrade;
 
+    /**
+     * Create a new location where upgrades can be bought.
+     * 
+     * @param marketLocation The market where upgrades are purchased.
+     */
     public Upgradeplace(SolarSystem marketLocation) {
         location = marketLocation;
         weaponUpgrade = generateWeapon();
@@ -55,14 +60,23 @@ public class Upgradeplace implements Serializable {
         }
     }
 
+    /**
+     * @return The gadget available for purchase.
+     */
     public Gadget getGadgetUpgrade() {
         return gadgetUpgrade;
     }
 
+    /**
+     * @return The weapon upgrade available for purchase.
+     */
     public Weapon getWeaponUpgrade() {
         return weaponUpgrade;
     }
 
+    /**
+     * @return The shield upgrade available for purchase.
+     */
     public Shield getShieldUpgrade() {
         return shieldUpgrade;
     }

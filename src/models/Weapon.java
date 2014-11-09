@@ -75,6 +75,12 @@ public class Weapon implements Upgrade, Serializable {
     private int price;
     public final double DAMAGE_MODIFIER = 1;
 
+    /**
+     * Create a new Weapon of a given type and level of quality.
+     * 
+     * @param type The type of the weapon.
+     * @param quality The quality of the weapon.
+     */
     public Weapon(Type type, Quality quality) {
         this.type = type;
         name = quality + " " + type + " Laser";
@@ -82,6 +88,11 @@ public class Weapon implements Upgrade, Serializable {
         price = type.price * quality.price;
     }
 
+    /**
+     * Create a new Weapon of a given type.
+     * 
+     * @param type The type of the weapon.
+     */
     public Weapon(Type type) {
         this.type = type;
         double r = Math.random();
@@ -100,29 +111,36 @@ public class Weapon implements Upgrade, Serializable {
         price = type.price * quality.price;
     }
 
+    /**
+     * @return The amount of damage dealt by the weapon.
+     */
     public int getDamage() {
         return damage;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String toString() {
         return type.description + "\n\n" + quality.description + "\n\nDamage: " + damage;
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public String getSlot() {
         return "weapon";
     }
 
+    @Override
     public TechLevel getTechLevel() {
         return type.minTechLevel;
     }
-
 
 }
