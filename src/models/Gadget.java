@@ -92,9 +92,9 @@ public class Gadget implements Upgrade, Serializable {
         }
     }
 
-    private Type type;
-    private int price;
-    private String name;
+    private final Type type;
+    private final int price;
+    private final String name;
 
     public Gadget(Type type) {
         this.type = type;
@@ -102,22 +102,27 @@ public class Gadget implements Upgrade, Serializable {
         name = type + " Upgrade";
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public String getSlot() {
         return "gadget";
     }
 
+    @Override
     public TechLevel getTechLevel() {
         return type.getMinTechLevel();
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String toString() {
         return type.getDescription();
     }

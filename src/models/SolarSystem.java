@@ -24,6 +24,16 @@ public class SolarSystem implements Serializable {
     private final Planet[] planets;
     private boolean isDiscovered;
 
+    /**
+     * Create a new solar system.
+     *
+     * @param name The name of the system.
+     * @param xLoc The x-coordinate of the system's location on the universe
+     * map.
+     * @param yLoc The y-coordinate of the system's location.
+     * @param techLevel The level of technology in the solar system.
+     * @param governmentType The type of government in the solar system.
+     */
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
                        PoliticalSystem governmentType) {
         this.name = name;
@@ -132,14 +142,23 @@ public class SolarSystem implements Serializable {
         return sun;
     }
 
+    /**
+     * @return A randomly chosen planet in the solar system.
+     */
     public Planet getRandomPlanet() {
-        return getPlanets()[3];
+        return planets[(int)(Math.random() * planets.length)];
     }
 
+    /**
+     * @return Whether or not the solar system has been discovered.
+     */
     public boolean isDiscovered() {
         return isDiscovered;
     }
 
+    /**
+     * Store that a solar system has been discovered by the player.
+     */
     public void discover() {
         isDiscovered = true;
     }

@@ -22,6 +22,11 @@ public class Marketplace implements Serializable {
     //private HashMap<TradeGood, Integer> basket; //keeps track of quantities of goods marked for purchase
     //private int transactionValue;
 
+    /**
+     * Create a new Marketplace on a given planet.
+     *
+     * @param marketLocation The planet where the market is located.
+     */
     public Marketplace(Planet marketLocation) {
         location = marketLocation;
         productSupply = generateSupplies();

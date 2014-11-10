@@ -44,6 +44,9 @@ public class CargoHold implements Serializable {
         }
     }
 
+    /**
+     * @return The quantity of all items in the CargoHold.
+     */
     public int getQuantity() {
         int size = 0;
         for (CargoItem item : cargo.keySet()) {
@@ -52,6 +55,9 @@ public class CargoHold implements Serializable {
         return size;
     }
 
+    /**
+     * @return The capacity of the CargoHold.
+     */
     public int getCapacity() {
         return capacity;
     }
@@ -132,6 +138,9 @@ public class CargoHold implements Serializable {
         return getQuantity() < capacity;
     }
 
+    /**
+     * @return True if the player has illegal goods, otherwise false.
+     */
     public boolean hasIllegalGoods() {
         for (CargoItem g : getCargoItems()) {
             if (g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")) {
@@ -141,6 +150,9 @@ public class CargoHold implements Serializable {
         return false;
     }
 
+    /**
+     * @return The quantity of cargo currently held.
+     */
     public int getCargoQuantity() {
         return cargo.size();
     }

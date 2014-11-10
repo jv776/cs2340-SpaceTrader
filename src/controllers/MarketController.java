@@ -23,10 +23,13 @@ import java.util.ResourceBundle;
  * @author Alex, John
  */
 public class MarketController implements Initializable {
+
     @FXML
     private Label labelRefuelCost;
+
     @FXML
     private Button buttonRefuel;
+
     @FXML
     private Label labelFuelAmount;
 

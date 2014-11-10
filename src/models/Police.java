@@ -7,7 +7,11 @@ package models;
  */
 public class Police extends Encounterable {
 
-
+    /**
+     * Create a new police officer.
+     *
+     * @param name The officer's name
+     */
     public Police(String name) {
         this.name = name;
         ship = new Ship(Ship.Type.Gnat, this);

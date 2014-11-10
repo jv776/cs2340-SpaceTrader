@@ -38,10 +38,19 @@ public class Planet implements Serializable {
     private Upgradeplace upgrade;
     private PriceEvent currentEvent;
 
-    public Planet(SolarSystem s, String name, int distance, int sunTemperature) {
+    /**
+     * Create a new Planet and calculate it's resources and atmospheric
+     * properties.
+     *
+     * @param system The solar system in which the planet is located.
+     * @param name The name of the planet.
+     * @param distance The distance of the planet from it's sun.
+     * @param sunTemperature The temperature of the sun on the new planet.
+     */
+    public Planet(SolarSystem system, String name, int distance, int sunTemperature) {
         Random rand = new Random();
 
-        this.solarSystem = s;
+        this.solarSystem = system;
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
@@ -238,6 +247,9 @@ public class Planet implements Serializable {
         }
     }
 
+    /**
+     * @return The ship upgrade available on this planet.
+     */
     public Upgradeplace getUpgrade() {
         return upgrade;
     }

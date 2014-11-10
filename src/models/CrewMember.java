@@ -15,12 +15,40 @@ import java.io.Serializable;
  * @author John
  */
 public abstract class CrewMember implements Serializable {
+    /**
+     * The CrewMember's skill as a pilot.
+     */
     protected int pilotSkill;
+
+    /**
+     * The CrewMember's skill as a fighter.
+     */
     protected int fighterSkill;
+
+    /**
+     * The CrewMember's skill as a trader.
+     */
     protected int traderSkill;
+
+    /**
+     * The CrewMember's skill as an engineer.
+     */
     protected int engineerSkill;
+
+    /**
+     * The CrewMember's skill as an investor.
+     */
     protected int investorSkill;
 
+    /**
+     * Create a new CrewMember object with given skills.
+     *
+     * @param pilotSP The CrewMember's skill as a pilot.
+     * @param fighterSP The CrewMember's skill as a fighter.
+     * @param traderSP The CrewMember's skill as a trader.
+     * @param engineerSP The CrewMember's skill as an engineer.
+     * @param investorSP The CrewMember's skill as an investor.
+     */
     public CrewMember(final int pilotSP, final int fighterSP, final int traderSP,
                       final int engineerSP, final int investorSP) {
         pilotSkill = pilotSP;

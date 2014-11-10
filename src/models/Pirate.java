@@ -7,6 +7,11 @@ package models;
  */
 public class Pirate extends Encounterable {
 
+    /**
+     * Create a new Pirate.
+     *
+     * @param name The pirate's name.
+     */
     public Pirate(String name) {
 //        super(0,0,0,0,0);
         this.name = name;

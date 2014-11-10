@@ -85,10 +85,21 @@ public abstract class RandomEventController implements Initializable {
 
     }
 
+    /**
+     * Configure the UI layout for a particular type of encounter.
+     */
     abstract void configureButtons();
 
+    /**
+     * Configure the entity being encountered (implementation depends upon the
+     * type of encounter).
+     */
     abstract void configureEncountered();
 
+    /**
+     * Attempt to flee an encounter. Notifies the player whether or not
+     * fleeing was successful
+     */
     protected void flee() {
         if (GameController.getGameData().getPlayer().getPilotSkillPoints() * .1 * Math.random() > .2) {
             //print you escaped message
@@ -99,6 +110,10 @@ public abstract class RandomEventController implements Initializable {
         }
     }
 
+    /**
+     * Display a message indicating that the player has successfully fled and
+     * exit the random event.
+     */
     protected void fleeSuccessful() {
         showBubble();
         speech.setText(encountered.getFleeSuccessfulText());
@@ -109,19 +124,29 @@ public abstract class RandomEventController implements Initializable {
 
     }
 
+    /**
+     * Display a message indicating that fleeing the event failed. The event
+     * will continue after the failed attempt to run away.
+     */
     protected void fleeFailed() {
         showBubble();
         speech.setText(encountered.getFleeFailedText());
         encounteredAttack();
         updateHealth();
-
     }
 
+    /**
+     * Update the health of the player and the person they have encountered.
+     */
     protected void updateHealth() {
         otherHealth.setProgress(((double) encountered.getHullStrength() / encountered.getMaxHullStrength()));
         playerHealth.setProgress(((double) GameController.getGameData().getPlayer().getHullStrength() / GameController.getGameData().getPlayer().getMaxHullStrength()));
     }
 
+    /**
+     * The player and the person they have encountered both perform an
+     * attack when this method is called.
+     */
     protected void attack() {
         hideBubble();
         playerAttack();
@@ -135,14 +160,25 @@ public abstract class RandomEventController implements Initializable {
         updateHealth();
     }
 
+    /**
+     * The person encountered takes damage based on the player's weapons and
+     * fighting skill.
+     */
     protected void playerAttack() {
         encountered.takeDamage(GameController.getGameData().getPlayer().calculateAttack());
     }
 
+    /**
+     * The player will be damaged by the person they are fighting.
+     */
     protected void encounteredAttack() {
         GameController.getGameData().getPlayer().takeDamage(encountered.calculateAttack());
     }
 
+    /**
+     * This method is called when the person encountered during an event is
+     * killed in combat.
+     */
     protected void encounteredDeath() {
         showBubble();
         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
@@ -155,6 +191,10 @@ public abstract class RandomEventController implements Initializable {
         SWButton.setDisable(true);
     }
 
+    /**
+     * This method is called when the player's ship is destroyed in combat,
+     * giving the player the option to use an escape pod to survive.
+     */
     protected void playerDeath() {
         showBubble();
         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
@@ -170,18 +210,28 @@ public abstract class RandomEventController implements Initializable {
         SWButton.setDisable(true);
     }
 
+    /**
+     * Displays the text bubble used to show messages during events.
+     */
     protected void showBubble() {
         bubbleArrow.setOpacity(1);
         bubbleBox.setOpacity(1);
         speech.setOpacity(1);
     }
 
+    /**
+     * Hides the text bubble.
+     */
     protected void hideBubble() {
         bubbleArrow.setOpacity(0);
         bubbleBox.setOpacity(0);
         speech.setOpacity(0);
     }
 
+    /**
+     * End the event and return to the map of the solar system the player is
+     * traveling through.
+     */
     protected void exitEvent() {
         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }

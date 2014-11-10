@@ -14,7 +14,7 @@ public class Weapon implements Upgrade, Serializable {
      *
      * @author Taylor
      */
-    public static enum Type {
+    static enum Type {
         Pulse(5, 1000, TechLevel.EARLY_INDUSTRIAL, "Plasma repeating laser, only able to fire in single bursts."),
         Beam(10, 10000, TechLevel.INDUSTRIAL, "Plasma laser able to sustain fire for more than a few seconds."),
         Military(15, 10000, TechLevel.POST_INDUSTRIAL, "Quantum laser built with top of the line military technology."),
@@ -80,7 +80,7 @@ public class Weapon implements Upgrade, Serializable {
         }
     }
 
-    public static enum Quality {
+    static enum Quality {
         Standard(0, 1, 1, "Standard-issue with no modifications."),
         Overclocked(1, 10, 2, "Standard with software modification for a little extra kick."),
         Kitted(2, 100, 3, "Overclocked with some extra hardware modification for even more power."),
