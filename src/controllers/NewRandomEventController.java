@@ -93,7 +93,7 @@ public class NewRandomEventController implements Initializable {
         double policeChance = 0.05 + player.getShip().getCargoHold().getQuantity(TradeGood.NARCOTICS) * 0.015
                 + player.getShip().getCargoHold().getQuantity(TradeGood.FIREARMS) * 0.005;
 
-        double pirateChance = 1 + Math.min(player.getShip().getCargoHold().getCargoQuantity() * .001
+        double pirateChance = 0.02 + Math.min(player.getShip().getCargoHold().getCargoQuantity() * .001
                 + player.getCredits() * .00001, .3);
 
         double traderChance = 0.02;

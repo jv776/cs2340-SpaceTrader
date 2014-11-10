@@ -140,7 +140,7 @@ public class CustomizationController implements Initializable {
             Integer.parseInt(investorSkillPoints.getText())
         );
         
-        player.earn(10000000); //start with 1000 credits
+        player.earn(1000); //start with 1000 credits
         
         SolarSystem system = universe.solarSystems[(int) (Math.random() *
                 universe.solarSystems.length)];
