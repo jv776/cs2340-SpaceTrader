@@ -813,7 +813,6 @@ public class NewRandomEventController implements Initializable {
                         anchor.getChildren().remove(shield);
                         if (ship.getOwner() instanceof Encounterable) {
                             explode(shipImage);
-                            createEnemy(new Pirate("Edward"));
                             enemies.remove(ship.getOwner());
                             enemyHealths.remove(health);
                             enemyShields.remove(shield);

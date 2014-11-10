@@ -21,34 +21,6 @@ public class Pirate extends Encounterable{
         fleeFailedText = "Ye have no escape, ye scallywag!";
         fleeSuccessfulText = "Aye, ye might 'ave escaped this time, but I'll find yea, ye scurvey dog!";
         winText = "Ye should 'ave given up while yea had a chance";
-        
-                
-                ship.equipWeapon(new Weapon(WeaponType.MILITARY_LASER));
-                ship.equipWeapon(new Weapon(WeaponType.MILITARY_LASER));
-                ship.equipWeapon(new Weapon(WeaponType.MILITARY_LASER));
-                
-                ship.equipShield(new Shield(ShieldType.ENERGY_SHIELD));
-                ship.equipShield(new Shield(ShieldType.ENERGY_SHIELD));
-                ship.equipShield(new Shield(ShieldType.ENERGY_SHIELD));
-                
-                ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        
-        
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-
 
         }
 

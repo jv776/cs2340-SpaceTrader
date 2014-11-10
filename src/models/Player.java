@@ -31,41 +31,6 @@ public class Player extends CrewMember implements Serializable {
         name = playerName;
 
         ship = new Ship(Ship.Type.Gnat, this);
-        
-        for (int i = 0; i < 5; i++) {
-            ship.equipWeapon(new Weapon(WeaponType.DEATH_LASER));
-            
-            ship.equipShield(new Shield(ShieldType.IMPERVIOUS_SHIELD));
-        }
-        
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        
-        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
-        
-        ship.equipGadget(new Gadget(GadgetType.PIERCING_SHOT));
-        
-        ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
-        ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
-        ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
-        
-        ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
-        ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
-        ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
-        
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
     }
 
     @Override
