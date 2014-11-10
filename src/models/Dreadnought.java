@@ -16,22 +16,10 @@ public class Dreadnought extends Encounterable{
         super(5, 5, 5, 0, 0);
         this.name = name;
         ship = new Ship(Ship.Type.Dragonfly, this);
-        ship.equipWeapon(new Weapon(Weapon.WeaponType.DEATH_LASER));
-        ship.equipWeapon(new Weapon(Weapon.WeaponType.MILITARY_LASER));
-        ship.equipWeapon(new Weapon(Weapon.WeaponType.PULSE_LASER));
-        ship.equipWeapon(new Weapon(Weapon.WeaponType.BEAM_LASER));
-        
-        ship.equipShield(new Shield(Shield.ShieldType.IMPERVIOUS_SHIELD));
-        
-        ship.equipGadget(new Gadget(Gadget.GadgetType.PILOT_INCREASE));
-        ship.equipGadget(new Gadget(Gadget.GadgetType.FIGHTER_INCREASE));
-        ship.equipGadget(new Gadget(Gadget.GadgetType.ENGINEER_INCREASE));
-        ship.equipGadget(new Gadget(Gadget.GadgetType.HOMING_SHOT));
-        
-        ship.equipGadget(new Gadget(Gadget.GadgetType.REFLECTOR));
         
         welcomeText= "Prepare to die.";
         deathText = "Wha-what?!";
+        complyText = "Run while you still can.";
         fleeFailedText = "You will never escape.";
         fleeSuccessfulText = "We will find you. And we will kill you.";
         winText = "Target destroyed.";

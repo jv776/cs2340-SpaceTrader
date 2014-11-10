@@ -23,16 +23,6 @@ public class Police extends Encounterable{
         fleeSuccessfulText = "They got away!";
         winText = "Criminal disposed of, resuming patrol";
         
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
-        
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
-        
     }
 
     public String getName() {
