@@ -18,15 +18,17 @@ public class Dreadnought extends Encounterable{
         ship = new Ship(Ship.Type.Dragonfly, this);
         ship.equipWeapon(new Weapon(Weapon.WeaponType.DEATH_LASER));
         ship.equipWeapon(new Weapon(Weapon.WeaponType.MILITARY_LASER));
-        ship.equipWeapon(new Weapon(Weapon.WeaponType.DEATH_LASER));
+        ship.equipWeapon(new Weapon(Weapon.WeaponType.PULSE_LASER));
+        ship.equipWeapon(new Weapon(Weapon.WeaponType.BEAM_LASER));
         
-        ship.equipShield(new Shield(Shield.ShieldType.IMPERVIOUS_SHIELD));
         ship.equipShield(new Shield(Shield.ShieldType.IMPERVIOUS_SHIELD));
         
         ship.equipGadget(new Gadget(Gadget.GadgetType.PILOT_INCREASE));
         ship.equipGadget(new Gadget(Gadget.GadgetType.FIGHTER_INCREASE));
         ship.equipGadget(new Gadget(Gadget.GadgetType.ENGINEER_INCREASE));
-        ship.equipGadget(new Gadget(Gadget.GadgetType.SCATTER_SHOT));
+        ship.equipGadget(new Gadget(Gadget.GadgetType.HOMING_SHOT));
+        
+        ship.equipGadget(new Gadget(Gadget.GadgetType.REFLECTOR));
         
         welcomeText= "Prepare to die.";
         deathText = "Wha-what?!";
@@ -42,5 +44,29 @@ public class Dreadnought extends Encounterable{
     @Override
     public Image getShipImage() {
         return new Image("/images/dreadnoughtship.png");
+    }
+
+    @Override
+    public void equipForDifficulty(int difficulty) {
+        for (int i = 0; i < difficulty; i++) {
+            ship.equipWeapon(new Weapon(Weapon.WeaponType.DEATH_LASER));
+            ship.equipWeapon(new Weapon(Weapon.WeaponType.DEATH_LASER));
+            ship.equipShield(new Shield(Shield.ShieldType.IMPERVIOUS_SHIELD));
+        }
+        if (difficulty > 2) {
+            ship.equipGadget(new Gadget(Gadget.GadgetType.PILOT_INCREASE));
+            ship.equipGadget(new Gadget(Gadget.GadgetType.ENGINEER_INCREASE));
+            ship.equipGadget(new Gadget(Gadget.GadgetType.FIGHTER_INCREASE));
+        }
+        if (difficulty > 3) {
+            ship.equipGadget(new Gadget(Gadget.GadgetType.REFLECTOR));
+            ship.equipGadget(new Gadget(Gadget.GadgetType.HOMING_SHOT));
+            ship.equipGadget(new Gadget(Gadget.GadgetType.FIGHTER_INCREASE));
+        } 
+        if (difficulty > 4) {
+            ship.equipGadget(new Gadget(Gadget.GadgetType.REFLECTOR));
+            ship.equipGadget(new Gadget(Gadget.GadgetType.HOMING_SHOT));
+            ship.equipGadget(new Gadget(Gadget.GadgetType.ENGINEER_INCREASE));
+        }
     }
 }

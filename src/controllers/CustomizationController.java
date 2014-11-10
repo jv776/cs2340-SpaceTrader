@@ -18,6 +18,8 @@ import models.Universe;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -59,6 +61,13 @@ public class CustomizationController implements Initializable {
     @FXML
     private Label skillPointsRemaining;
     
+    @FXML 
+    private Slider pilotSlider, fighterSlider, traderSlider, engineerSlider, investorSlider;
+    
+    Label[] labels;
+    Slider[] sliders;
+    
+    
     @FXML
     private Button continueButton;
     
@@ -77,87 +86,43 @@ public class CustomizationController implements Initializable {
         skillPointsRemaining.setText("" + skillPoints);
         continueButton.setDisable(true);
         nameField.addEventFilter(KeyEvent.KEY_TYPED, (KeyEvent event) -> {
-            if (nameField.getText().length() >= 30) {
+            if (nameField.getText().length() >= 18) {
                 event.consume();
             }
         });
-    }    
-    
-    /**
-     * Increments "Pilot" label counter if any skill points are left.
-     */
-    @FXML
-    private void pilotIncrease() {
-        updateSkillPoints(pilotSkillPoints, "increase");
-    }
-    /**
-     * Decrements "Pilot" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void pilotDecrease() {
-        updateSkillPoints(pilotSkillPoints, "decrease");
-    }
-    /**
-     * Increments "Fighter" label counter if any skill points are left.
-     */
-    @FXML
-    private void fighterIncrease() {
-        updateSkillPoints(fighterSkillPoints, "increase");
-    }
-    /**
-     * Decrements "Fighter" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void fighterDecrease() {
-        updateSkillPoints(fighterSkillPoints, "decrease");
-    }
-    /**
-     * Increments "Trader" label counter if any skill points are left.
-     */
-    @FXML
-    private void traderIncrease() {
-        updateSkillPoints(traderSkillPoints, "increase");
-    }
-    
-    /**
-     * Decrements "Trader" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void traderDecrease() {
-        updateSkillPoints(traderSkillPoints, "decrease");
-    }
-    
-    /**
-     * Increments "Engineer" label counter if any skill points are left.
-     */
-    @FXML
-    private void engineerIncrease() {
-        updateSkillPoints(engineerSkillPoints, "increase");
-    }
-    
-    /**
-     * Decrements "Engineer" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void engineerDecrease() {
-        updateSkillPoints(engineerSkillPoints, "decrease");
-    }
-    
-    /**
-     * Increments "Investor" label counter if any skill points are left.
-     */
-    @FXML
-    private void investorIncrease() {
-        updateSkillPoints(investorSkillPoints, "increase");
-    }
-    
-    /**
-     * Decrements "Investor" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void investorDecrease() {
-        updateSkillPoints(investorSkillPoints, "decrease");
-    }
+        
+        Slider[] fxsliders = {pilotSlider, fighterSlider, traderSlider, engineerSlider, investorSlider};
+        Label[] fxlabels = {pilotSkillPoints, fighterSkillPoints, traderSkillPoints, engineerSkillPoints, investorSkillPoints};
+        this.sliders = fxsliders;
+        this.labels = fxlabels;
+        
+        for (int i = 0; i < sliders.length; i++) {
+            System.out.println(sliders[i]);
+            Slider s = sliders[i];
+            final int j = i;
+            s.setMax(15);
+            s.setMajorTickUnit(1.0);
+            s.setMinorTickCount(0);
+            s.setSnapToTicks(true);
+            s.valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                skillPoints -= (new_val.intValue() - old_val.intValue());
+                if (skillPoints < 0) {
+                    s.setValue(new_val.intValue() + skillPoints);
+                    skillPoints = 0;
+                    skillPointsRemaining.setText("" + skillPoints);
+                } else {
+                    labels[j].setText(new_val.intValue() + "");
+                    skillPointsRemaining.setText("" + skillPoints);
+                }
+                
+                if (skillPoints == 0 && !nameField.getText().isEmpty()) {
+                    continueButton.setDisable(false);
+                } else {
+                    continueButton.setDisable(true);
+                }
+            });
+        }
+    }   
     
     /**
      * Handles what occurs after player has allocated skill points and given

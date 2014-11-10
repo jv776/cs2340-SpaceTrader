@@ -86,12 +86,54 @@ public class Gadget extends ShipUpgrade {
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
-                    ship.activateScatter();
+                    ship.addScatter();
                 }
 
                 @Override
                 public void onUnequip(Ship ship) {
-                    ship.deactivateScatter();
+                    ship.removeScatter();
+                }
+        }),
+        
+        PIERCING_SHOT("Piercing Shot", TechLevel.HI_TECH, 100000,
+            "Lasers travel through enemies, and are not consumed on impact.", 
+            new Effect() {
+                @Override
+                public void onEquip(Ship ship) {
+                    ship.activatePiercing();
+                }
+
+                @Override
+                public void onUnequip(Ship ship) {
+                    ship.deactivatePiercing();
+                }
+        }),
+        
+        HOMING_SHOT("Homing Shot", TechLevel.HI_TECH, 200000,
+            "Adds a homing effect to all laser shots. Target nearest enemy.", 
+            new Effect() {
+                @Override
+                public void onEquip(Ship ship) {
+                    ship.addHoming();
+                }
+
+                @Override
+                public void onUnequip(Ship ship) {
+                    ship.removeHoming();
+                }
+        }),
+        
+        REFLECTOR("Reflector", TechLevel.HI_TECH, 200000,
+            "Adds a 20% chance to reflect enemy fire.", 
+            new Effect() {
+                @Override
+                public void onEquip(Ship ship) {
+                    ship.addReflector();
+                }
+
+                @Override
+                public void onUnequip(Ship ship) {
+                    ship.removeReflector();
                 }
         });
         

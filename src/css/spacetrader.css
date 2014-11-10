@@ -74,3 +74,17 @@ and open the template in the editor.
     -fx-border-radius: 3;
     -fx-background-radius: 3;
 }
+
+#encountered_text {
+    -fx-border-radius: 0;
+    -fx-border-color: #888888;
+    -fx-background-color: #000000;
+    -fx-background-radius: 0;
+    -fx-text-fill: #FFFFFF;
+}
+
+.slider .thumb {
+    -fx-border-color: #888888;
+    -fx-border-radius: 100%;
+
+}

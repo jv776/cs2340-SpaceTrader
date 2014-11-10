@@ -12,6 +12,7 @@ public abstract class Encounterable extends CrewMember{
 
     protected String name;
     protected String welcomeText;
+    protected String complyText;
     protected String deathText;
 
     protected String fleeFailedText;
@@ -69,6 +70,9 @@ public abstract class Encounterable extends CrewMember{
     public String getDeathText() {
         return deathText;
     }
+    public String getComplyText() {
+        return complyText;
+    }
     public int getBounty() {
         return bounty;
     }
@@ -90,4 +94,5 @@ public abstract class Encounterable extends CrewMember{
     
     public abstract Image getShipImage();
 
+    public abstract void equipForDifficulty(int difficulty);
 }

@@ -22,6 +22,8 @@ public class Player extends CrewMember implements Serializable {
     private SolarSystem currentSystem;
     private Planet currentPlanet;
     private int credits;
+    private int totalCredits;
+    private int bounty;
 
     public Player (String playerName, int pilotSP, int fighterSP, int traderSP,
             int engineerSP, int investorSP) {
@@ -30,13 +32,27 @@ public class Player extends CrewMember implements Serializable {
 
         ship = new Ship(Ship.Type.Gnat, this);
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             ship.equipWeapon(new Weapon(WeaponType.DEATH_LASER));
+            
             ship.equipShield(new Shield(ShieldType.IMPERVIOUS_SHIELD));
         }
         
+        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.HOMING_SHOT));
+        
+        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
+        ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
         ship.equipGadget(new Gadget(GadgetType.SCATTER_SHOT));
         
+        ship.equipGadget(new Gadget(GadgetType.PIERCING_SHOT));
+        
         ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
         ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
         ship.equipGadget(new Gadget(GadgetType.ENGINEER_INCREASE));
@@ -45,7 +61,11 @@ public class Player extends CrewMember implements Serializable {
         ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
         ship.equipGadget(new Gadget(GadgetType.FIGHTER_INCREASE));
         
-        
+        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
+        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
+        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
+        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
+        ship.equipGadget(new Gadget(GadgetType.REFLECTOR));
     }
 
     @Override
@@ -88,6 +108,14 @@ public class Player extends CrewMember implements Serializable {
      */
     public int getCredits() {
         return credits;
+    }
+    
+    public void increaseBounty(int x) {
+        bounty += x;
+    }
+    
+    public int getBounty() {
+        return bounty;
     }
     
     /**
@@ -138,6 +166,11 @@ public class Player extends CrewMember implements Serializable {
      */
     public void earn(int amount) {
         credits += amount;
+        totalCredits += amount;
+    }
+    
+    public int getTotalCredits() {
+        return totalCredits;
     }
 
     public int calculateAttack(){

@@ -88,7 +88,10 @@ public class Ship implements Serializable {
     private int maxShields;
     private double currentShields;
     
-    private boolean scatter;
+    private double scatter;
+    private double homing;
+    private boolean piercing;
+    private double reflectChance;
 
     public Ship(Type type, CrewMember owner) {
         this.type = type;
@@ -298,16 +301,52 @@ public class Ship implements Serializable {
         return gadgets;
     }
     
-    public void activateScatter() {
-        scatter = true;
+    public void addScatter() {
+        scatter += 10;
     }
     
-    public void deactivateScatter() {
-        scatter = false;
+    public void removeScatter() {
+        scatter -= 10;
     }
     
-    public boolean shouldScatter() {
+    public double getScatter() {
         return scatter;
+    }
+    
+    public void addHoming() {
+        homing += 3;
+    }
+    
+    public void removeHoming() {
+        homing -= 3;
+    }
+    
+    public double getHoming() {
+        return homing;
+    }
+    
+    public void activatePiercing() {
+        piercing = true;
+    }
+    
+    public void deactivatePiercing() {
+        piercing = false;
+    }
+    
+    public boolean shouldPierce() {
+        return piercing;
+    }
+    
+    public void addReflector() {
+        reflectChance += .2;
+    }
+    
+    public void removeReflector() {
+        reflectChance -= .2;
+    }
+    
+    public double getReflectChance() {
+        return reflectChance;
     }
     
     public void shieldRegen() {

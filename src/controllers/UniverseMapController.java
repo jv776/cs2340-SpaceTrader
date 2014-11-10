@@ -190,8 +190,8 @@ public class UniverseMapController implements Initializable {
                         double rTrader = 0.0;
                         rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
                         
-                       // GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
-                        if(policeEvent < rPolice) {
+                        GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
+                        /*if(policeEvent < rPolice) {
                             GameController.getControl().setScreen(Screens.POLICE_EVENT);
                         } else if(pirateEvent < rPirate) {
                             GameController.getControl().setScreen(Screens.PIRATE_EVENT);
@@ -199,7 +199,7 @@ public class UniverseMapController implements Initializable {
                             GameController.getControl().setScreen(Screens.TRADE_EVENT);
                         } else {
                             GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
-                        }
+                        }*/
                     });
                     rotate.setOnFinished((ActionEvent event) -> {
                         path.play();
