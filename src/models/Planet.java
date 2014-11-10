@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.Random;
+import javafx.scene.paint.Color;
 
 /**
  * Models various aspects of a Planet (currently its atmosphere, natural
@@ -54,7 +55,7 @@ public class Planet implements Serializable {
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
-        radius = (int) (3 + Math.random() * 15 + Math.pow(Math.random(), 3) * 80);
+        radius = (int)(5 * Math.random() + 6);
 
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
@@ -315,5 +316,10 @@ public class Planet implements Serializable {
      */
     public boolean isSupportsLife() {
         return supportsLife;
+    }
+    
+    public Color getColor() {
+        double prop = temperature / 2000.0;
+        return Color.hsb(240 - 240 * prop, 1, .5);
     }
 }

@@ -83,12 +83,12 @@ public class SolarSystem implements Serializable {
     }
 
     private Planet[] generatePlanets() {
-        Planet[] planetArray = new Planet[(int) (Math.random() * 4.0 + 4.0)];
-        int dist = getSun().getRadius() + 40;
+        Planet [] planetArray = new Planet[(int)(Math.random() * 4.0 + 4.0)];
+        int dist = sun.getRadius() + 40;
 
-        for (int i = 0; i < planetArray.length; i++) {
-            dist += 2 + (i + 0.25) * 6.5 * (0.76 + (0.24 * Math.random()));
-            planetArray[i] = new Planet(this, getName() + " " + i, dist, getSun().getTemperature()); //add name
+        for (int i = 0; i < planetArray.length; i++){
+            dist += 2 + (i + 0.25) * 6.5 * (0.76 + (0.24 * (Math.random() + 1)));
+            planetArray[planetArray.length - i - 1] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
 
         return planetArray;
