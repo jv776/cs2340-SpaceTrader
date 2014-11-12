@@ -106,6 +106,9 @@ public class Planet implements Serializable {
         }
     }
 
+    /**
+     * @return A string providing information about the planet.
+     */
     @Override
     public String toString() {
         return "Dist: " + getDistance() + "kmE6 \tAtm: " + getAtmosphere() + "% \tTemp: "
@@ -315,7 +318,10 @@ public class Planet implements Serializable {
     public boolean isSupportsLife() {
         return supportsLife;
     }
-    
+
+    /**
+     * @return The visible color of the planet from space.
+     */
     public Color getColor() {
         double prop = temperature / 2000.0;
         return Color.hsb(240 - 240 * prop, 1, .5);

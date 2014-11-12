@@ -14,6 +14,11 @@ public class Star implements Serializable {
     private final int temperature; //In Kelvin * 10^3
     private final int radius; //based on the website above (relative to our sun)
 
+    /**
+     * Create a new star.
+     *
+     * @param name The name of the star.
+     */
     public Star(String name) {
         this.name = name;
         temperature = (int)(5 + (10 * (Math.pow(Math.random(), 2))));
@@ -34,11 +39,17 @@ public class Star implements Serializable {
         return radius;
     }
 
+    /**
+     * @return A string describing the star.
+     */
     @Override
     public String toString() {
         return name + "\t " + temperature + "KE3";
     }
-    
+
+    /**
+     * @return The color of the star, calculated based on its temperature.
+     */
     public Color computeColor() {
         int r, g, b;
         //star coloration seems too pale
@@ -85,7 +96,7 @@ public class Star implements Serializable {
     /**
      * The classification of the star.
      */
-    public enum Type {
+    private enum Type {
         B,
         A,
         F,

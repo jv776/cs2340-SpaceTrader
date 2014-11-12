@@ -31,6 +31,7 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
+import javafx.fxml.FXML;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.RadialGradient;
@@ -44,9 +45,14 @@ import javafx.util.Duration;
  */
 public class SolarSystemMapController implements Initializable {
 
-    public AnchorPane anchor;
-    public Button returnButton;
-    public Label locationLabel;
+    @FXML
+    private AnchorPane anchor;
+
+    @FXML
+    private Button returnButton;
+    
+    @FXML
+    private Label locationLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -158,8 +164,9 @@ public class SolarSystemMapController implements Initializable {
         anchor.getChildren().add(star);
     }
 
-
-
+    /**
+     * Go back to the map of the universe.
+     */
     public void returnToUniverse() {
         GameController.getControl().setScreen(Screens.UNIVERSE_MAP);
     }

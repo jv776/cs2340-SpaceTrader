@@ -106,14 +106,26 @@ public class Marketplace implements Serializable {
 
         return priceMap;
     }
-    
+
+    /**
+     * Determine whether or not a good can be bought in a marketplace.
+     *
+     * @param good The good requested.
+     * @return True if the good is available or false if it is not.
+     */
     public boolean isGoodBuy(TradeGood good) {
         int techLevelFactor = good.getPriceChangePerTechLevel()*
             (location.getSolarSystem().getTechLevel().ordinal() -
             good.getMinTechLevelBuy().ordinal());
         return getPrice(good) < (good.getBasePrice() + techLevelFactor) * .9;
     }
-    
+
+    /**
+     * Determine whether or not a good can be sold in a marketplace.
+     *
+     * @param good The good being sold.
+     * @return True if the good will be purchased or false if it will not.
+     */
     public boolean isGoodSell(TradeGood good) {
         int techLevelFactor = good.getPriceChangePerTechLevel() *
             (location.getSolarSystem().getTechLevel().ordinal() -

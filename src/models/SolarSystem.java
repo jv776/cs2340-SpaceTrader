@@ -59,6 +59,9 @@ public class SolarSystem implements Serializable {
         return planetArray;
     }
 
+    /**
+     * @return A string describing this solar system.
+     */
     @Override
     public String toString() {
         String temp = "System name: " + getName() + "\n";

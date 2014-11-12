@@ -15,12 +15,27 @@ public class Weapon implements Upgrade, Serializable {
      * @author Taylor
      */
     public static enum Type {
+        /**
+         * The simplest and weakest type of weapon.
+         */
         Pulse(5, 1000, TechLevel.EARLY_INDUSTRIAL, "Plasma repeating laser, " +
                 "only able to fire in single bursts."),
+
+        /**
+         * A moderately powerful beam laser.
+         */
         Beam(10, 10000, TechLevel.INDUSTRIAL, "Plasma laser able to sustain " +
                 "fire for more than a few seconds."),
+
+        /**
+         * Powerful but expensive military-grade weaponry.
+         */
         Military(15, 10000, TechLevel.POST_INDUSTRIAL,
                 "Quantum laser built with top of the line military technology."),
+
+        /**
+         * Extremely advanced alien weaponry.
+         */
         Alien(30, 100000, TechLevel.HI_TECH, "The most advanced and powerful " +
                 "laser, more complex than you could ever comprehend.");
 
@@ -143,6 +158,10 @@ public class Weapon implements Upgrade, Serializable {
     private String name;
     private int damage;
     private int price;
+
+    /**
+     * Affects the overall damage output of the weapon.
+     */
     public static final double DAMAGE_MODIFIER = 1;
 
     /**
@@ -195,6 +214,9 @@ public class Weapon implements Upgrade, Serializable {
         return name;
     }
 
+    /**
+     * @return A string describing the weapon.
+     */
     @Override
     public String toString() {
         return type.getDescription() + "\n\n" + quality.getDescription()

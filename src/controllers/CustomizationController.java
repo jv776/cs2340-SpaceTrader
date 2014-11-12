@@ -36,8 +36,19 @@ import javafx.scene.layout.GridPane;
  */
 public class CustomizationController implements Initializable {
 
+    /**
+     * The maximum number of skill points to allocate.
+     */
     public final int SKILL_POINT_MAX = 15;
+
+    /**
+     * The maximum length for a player's name.
+     */
     public final int NAME_LEGNTH_MAX = 18;
+
+    /**
+     * The amount of money with which the player begins.
+     */
     public final int STARTING_CREDITS = 1000;
 
     @FXML
