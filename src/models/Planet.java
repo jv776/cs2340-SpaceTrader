@@ -86,6 +86,7 @@ public class Planet implements Serializable {
         return (int) (atm - atm * (.50 * (Math.random())));
     }
 
+
     private int generateTemperature(int sunTemp) { //units
         float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(getDistance(), 2)), .50);
         temp -= temp * (getAtmosphere() / 100f);
@@ -95,6 +96,7 @@ public class Planet implements Serializable {
     private boolean generateWater() {
         return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
     }
+
 
     private boolean generateLife() {
         if (nitrogen && carbon && water && metals) {

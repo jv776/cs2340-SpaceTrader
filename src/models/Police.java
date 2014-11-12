@@ -26,14 +26,29 @@ public class Police extends Encounterable {
         return name;
     }
 
+    /**
+     * Returns whether the police has been defeated
+     *
+     * @return whether the police has been defeated
+     */
     public boolean isDead() {
         return ship.isDead();
     }
 
+    /**
+     * Deals damage to the Police
+     *
+     * @param damage How much damage to inflict.
+     */
     public void takeDamage(int damage) {
         ship.takeDamage(damage);
     }
 
+    /**
+     * Returns the attack of the Police
+     *
+     * @return attack of the Police
+     */
     public int calculateAttack() {
         return ship.calculateAttack();
     }

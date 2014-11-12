@@ -74,9 +74,12 @@ public class Ship implements Serializable {
     private double fuelAmount;
     private int hullStrength;
 
+    private ArrayList<Weapon> weapons;
+
     private ArrayList<Shield> shields;
 
     private ArrayList<Gadget> gadgets;
+
 
     public Ship(Type type, CrewMember owner) {
         this.type = type;
@@ -89,7 +92,6 @@ public class Ship implements Serializable {
 
         this.owner = owner;
     }
-
 
     /**
      * @return The type of the ship
@@ -130,6 +132,11 @@ public class Ship implements Serializable {
         return type.hullStrength;
     }
 
+    /**
+     * Returns whether ship is dead.
+     *
+     * @return ship is dead
+     */
     public boolean isDead() {
         return hullStrength <= 0;
     }
@@ -143,6 +150,11 @@ public class Ship implements Serializable {
         fuelAmount -= distance;
     }
 
+    /**
+     * Adds fuel to ship.
+     *
+     * @param amount amount of fuel to be added
+     */
     public void addFuel(double amount) {
         if (fuelAmount + amount > type.fuelCapacity) {
             fuelAmount = type.fuelCapacity;
@@ -152,10 +164,18 @@ public class Ship implements Serializable {
         }
     }
 
+    /**
+     * Restores ship fuel to maximum.
+     */
     public void refuel() {
         fuelAmount = type.fuelCapacity;
     }
 
+    /**
+     * Returns maximum amound of fuel ship can carry
+     *
+     * @return Maximum amount of fuel
+     */
     public int getFuelCapacity() {
         return this.type.fuelCapacity;
     }
@@ -164,10 +184,20 @@ public class Ship implements Serializable {
         return this.type.fuelCost;
     }
 
+    /**
+     * Damages ship
+     *
+     * @param damage amount of base damage to be detracted
+     */
     public void takeDamage(int damage) {
         hullStrength -= damage; //needs to work with shields
     }
 
+    /**
+     * Returns the Attack value of the ship.
+     *
+     * @return the attack of the ship
+     */
     public int calculateAttack() {
         int attack = 0;
         for (Weapon w : weapons) {
@@ -176,32 +206,64 @@ public class Ship implements Serializable {
         return attack; //change to use weapons when they are implemented
     }
 
+    /**
+     * Tells if the ship is carrying illegal goods
+     *
+     * @return ship has illegal goods
+     */
     public boolean hasIllegalGoods() {
         return cargoHold.hasIllegalGoods();
     }
 
-    private ArrayList<Weapon> weapons;
-
+    /**
+     * Returns weapons on ship
+     *
+     * @return List of weapons equipped
+     */
     public ArrayList<Weapon> getWeapons() {
         return weapons;
     }
 
+    /**
+     * Adds a weapon to ship
+     *
+     * @param w weapon to be added
+     */
     public void addWeapon(Weapon w) {
         weapons.add(w);
     }
 
+    /**
+     * Adds a shield to ship
+     *
+     * @param s shield to be added
+     */
     public void addShield(Shield s) {
         shields.add(s);
     }
 
+    /**
+     * Adds a gadget to ship
+     *
+     * @param g gadget to be added
+     */
     public void addGadget(Gadget g) {
         gadgets.add(g);
     }
 
+    /**
+     * Returns shields on ship
+     *
+     * @return List of shields equipped
+     */
     public ArrayList<Shield> getShields() {
         return shields;
     }
-
+    /**
+     * Returns gadgets on ship
+     *
+     * @return List of gadgets equipped
+     */
     public ArrayList<Gadget> getGadgets() {
         return gadgets;
     }

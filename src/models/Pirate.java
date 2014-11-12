@@ -26,14 +26,28 @@ public class Pirate extends Encounterable {
         return name;
     }
 
+    /**
+     * Returns whether the pirate has been defeated.
+     *
+     * @return whether the pirate has been defeated
+     */
     public boolean isDead() {
         return ship.isDead();
     }
-
+    /**
+     * Deals damage to the Pirate
+     *
+     * @param damage How much damage to inflict.
+     */
     public void takeDamage(int damage) {
         ship.takeDamage(damage);
     }
 
+    /**
+     * Returns the attack of the Pirate
+     *
+     * @return attack of the Pirate
+     */
     public int calculateAttack() {
         return ship.calculateAttack();
     }
