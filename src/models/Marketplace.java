@@ -22,6 +22,11 @@ public class Marketplace implements Serializable {
     //private HashMap<TradeGood, Integer> basket; //keeps track of quantities of goods marked for purchase
     //private int transactionValue;
 
+    /**
+     * Create a new Marketplace on a given planet.
+     *
+     * @param marketLocation The planet where the market is located.
+     */
     public Marketplace(Planet marketLocation) {
         location = marketLocation;
         productSupply = generateSupplies();
@@ -69,14 +74,14 @@ public class Marketplace implements Serializable {
                     (location.getSolarSystem().getTechLevel().ordinal() -
                             good.getMinTechLevelBuy().ordinal());
 
-            int variance = 1 + r.nextInt(good.getPriceVariance()) / 100;
+            int variance = r.nextInt(11) - 2;
 
             double scarcityFactor = 1;
             Optional<Resource> expensiveResource = good.getExpensiveConditions();
 
             if (expensiveResource.isPresent()) {
                 scarcityFactor = (expensiveResource.get() == location.getResource())
-                        ? 0.75 : 1;
+                        ? 1.5 : 1;
             }
 
             double abundanceFactor = 1;
@@ -84,7 +89,7 @@ public class Marketplace implements Serializable {
 
             if (cheapResource.isPresent()) {
                 abundanceFactor = (cheapResource.get() == location.getResource())
-                        ? 0.75 : 1;
+                        ? 0.5 : 1;
             }
 
             double eventFactor = 1;
@@ -94,12 +99,38 @@ public class Marketplace implements Serializable {
             eventFactor = (currentEvent == good.getPriceIncreaseEvent()) ? 1.5 : 1;
 
 
-            priceMap.put(good, (int) ((good.getBasePrice() + techLevelFactor)
-                    * variance * scarcityFactor * abundanceFactor
+            priceMap.put(good, (int) ((good.getBasePrice() + techLevelFactor + variance)
+                    * scarcityFactor * abundanceFactor
                     * eventFactor));
         }
 
         return priceMap;
+    }
+
+    /**
+     * Determine whether or not a good can be bought in a marketplace.
+     *
+     * @param good The good requested.
+     * @return True if the good is available or false if it is not.
+     */
+    public boolean isGoodBuy(TradeGood good) {
+        int techLevelFactor = good.getPriceChangePerTechLevel() *
+                (location.getSolarSystem().getTechLevel().ordinal() -
+                        good.getMinTechLevelBuy().ordinal());
+        return getPrice(good) < (good.getBasePrice() + techLevelFactor) * .9;
+    }
+
+    /**
+     * Determine whether or not a good can be sold in a marketplace.
+     *
+     * @param good The good being sold.
+     * @return True if the good will be purchased or false if it will not.
+     */
+    public boolean isGoodSell(TradeGood good) {
+        int techLevelFactor = good.getPriceChangePerTechLevel() *
+                (location.getSolarSystem().getTechLevel().ordinal() -
+                        good.getMinTechLevelBuy().ordinal());
+        return getSalePrice(good) > (good.getBasePrice() + techLevelFactor);
     }
 
     /**

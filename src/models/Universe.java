@@ -333,14 +333,26 @@ public class Universe implements Serializable {
         return result;
     }
 
-    public final int MAX_X = 590;
-    public final int MAX_Y = 390;
+    /**
+     * The highest possible x-coordinate of a solar system.
+     */
+    public static final int MAX_X = 590;
 
+    /**
+     * The highest possible y-coordinate of a solar system.
+     */
+    public static final int MAX_Y = 390;
 
-    public static final int NUM_SOLAR_SYSTEMS = SOLAR_SYSTEM_NAMES.length;
+    private static final int NUM_SOLAR_SYSTEMS = SOLAR_SYSTEM_NAMES.length;
+
+    /**
+     * An array of every solar system in the universe.
+     */
     public final SolarSystem[] solarSystems;
 
-
+    /**
+     * Creates a new universe and generates solar systems in the universe.
+     */
     public Universe() {
         solarSystems = new SolarSystem[NUM_SOLAR_SYSTEMS];
         Random r = new Random();
@@ -363,6 +375,12 @@ public class Universe implements Serializable {
         }
     }
 
+    /**
+     * This method gets a randomly-chosen planet from a random solar system
+     * in the Universe from which it is called.
+     *
+     * @return A randomly selected plan within the universe
+     */
     public Planet getRandomPlanet() {
         Random r = new Random();
         SolarSystem s = solarSystems[r.nextInt(solarSystems.length)];

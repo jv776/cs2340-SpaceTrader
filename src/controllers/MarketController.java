@@ -17,18 +17,25 @@ import models.TradeGood;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+
 /**
- * FXML Controller class for Marketplace.
+ * FXML Controller class.
  *
  * @author Alex, John
  */
 public class MarketController implements Initializable {
+
     @FXML
-    private Label labelRefuelCost;
+    private Label label_refuelCost;
     @FXML
-    private Button buttonRefuel;
+    private Button button_Refuel;
     @FXML
-    private Label labelFuelAmount;
+    private Label label_fuelAmount;
 
     @FXML
     private Label buyNarcoticsValueLabel;
@@ -255,10 +262,10 @@ public class MarketController implements Initializable {
         player = GameController.getGameData().getPlayer();
         market = player.getCurrentPlanet().getMarket();
 
-        returnButton.setText("Return to Space Port");
         if (player.getShip().getFuelCapacity() == player.getShip().getFuelAmount()) {
-            buttonRefuel.setDisable(true);
+            button_Refuel.setDisable(true);
         }
+
 
         Label[] buyQuantities = {
                 buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
@@ -270,7 +277,7 @@ public class MarketController implements Initializable {
         this.buyQuantities = buyQuantities;
 
         for (int i = 0; i < buyQuantities.length; i++) {
-            int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
+            int quantity = market.getSupply(TradeGood.values()[i]);
             buyQuantities[i].setText(Integer.toString(quantity));
         }
 
@@ -285,6 +292,10 @@ public class MarketController implements Initializable {
         for (int i = 0; i < buyValues.length; i++) {
             int price = market.getPrice(TradeGood.values()[i]);
             buyValues[i].setText(Integer.toString(price));
+            if (market.isGoodBuy(TradeGood.values()[i]) && market.getSupply(TradeGood.values()[i]) > 0) {
+                buyValues[i].setBackground(new Background(new BackgroundFill(
+                        Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
         }
 
         Label[] sellQuantities = {
@@ -312,6 +323,11 @@ public class MarketController implements Initializable {
         for (int i = 0; i < sellValues.length; i++) {
             int price = market.getSalePrice(TradeGood.values()[i]);
             sellValues[i].setText(Integer.toString(price));
+            if (market.isGoodSell(TradeGood.values()[i]) &&
+                    player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]) > 0) {
+                sellValues[i].setBackground(new Background(new BackgroundFill(
+                        Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
         }
 
         Button[] buyButtons = {
@@ -341,8 +357,8 @@ public class MarketController implements Initializable {
         }
 
         // Fuel stuff
-        this.labelFuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
-        this.labelRefuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
+        this.label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
+        this.label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
 
         marketNameLabel.setText("Market: " + player.getCurrentPlanet().getName()
                 + ", " + player.getCurrentSystem().getTechLevel().toString());
@@ -353,7 +369,7 @@ public class MarketController implements Initializable {
 
     private void update() {
         for (int i = 0; i < buyQuantities.length; i++) {
-            int quantity = player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]);
+            int quantity = market.getSupply(TradeGood.values()[i]);
             buyQuantities[i].setText(Integer.toString(quantity));
         }
 
@@ -382,9 +398,9 @@ public class MarketController implements Initializable {
         player.spend((int) (Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost()));
         player.getShip().refuel();
 
-        labelFuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
-        labelRefuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
-        buttonRefuel.setDisable(true);
+        label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
+        label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
+        button_Refuel.setDisable(true);
         update();
     }
 
@@ -548,7 +564,7 @@ public class MarketController implements Initializable {
     }
 
     @FXML
-    void returnToUniverse() {
+    void returnToSpacePort() {
         GameController.getControl().setScreen(Screens.SPACE_PORT);
     }
 }

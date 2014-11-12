@@ -17,6 +17,11 @@ public class CargoHold implements Serializable {
     private final int capacity;
     private HashMap<CargoItem, Integer> cargo;
 
+    /**
+     * Create a new cargo hold.
+     *
+     * @param maxCapacity The capacity of the cargo hold.
+     */
     public CargoHold(int maxCapacity) {
         capacity = maxCapacity;
         cargo = new HashMap<>();
@@ -39,6 +44,9 @@ public class CargoHold implements Serializable {
         }
     }
 
+    /**
+     * @return The quantity of all items in the CargoHold.
+     */
     public int getQuantity() {
         int size = 0;
         for (CargoItem item : cargo.keySet()) {
@@ -47,6 +55,9 @@ public class CargoHold implements Serializable {
         return size;
     }
 
+    /**
+     * @return The capacity of the CargoHold.
+     */
     public int getCapacity() {
         return capacity;
     }
@@ -127,15 +138,22 @@ public class CargoHold implements Serializable {
         return getQuantity() < capacity;
     }
 
+    /**
+     * @return True if the player has illegal goods, otherwise false.
+     */
     public boolean hasIllegalGoods() {
         for (CargoItem g : getCargoItems()) {
-            if (g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")) {
+            if (g.getItemName().equals("Narcotics")
+                    || g.getItemName().equals("Firearms")) {
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * @return The quantity of cargo currently held.
+     */
     public int getCargoQuantity() {
         return cargo.size();
     }

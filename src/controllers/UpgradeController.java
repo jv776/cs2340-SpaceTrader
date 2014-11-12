@@ -41,6 +41,7 @@ public class UpgradeController implements Initializable {
 
     private int selectedItem;
 
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createUpgrades();
         selectedItem = -1;
@@ -52,7 +53,6 @@ public class UpgradeController implements Initializable {
         Weapon wup = GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade();
         Shield sup = GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade();
         Gadget gup = GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade();
-        Ship ship = GameController.getGameData().getShip();
         weaponButton.setDisable(true);
         shieldButton.setDisable(true);
         gadgetButton.setDisable(true);
@@ -75,27 +75,28 @@ public class UpgradeController implements Initializable {
         updatePrices();
     }
 
-
-    public void onWeaponButtonClicked() {
+    @FXML
+    private void onWeaponButtonClicked() {
 //        weaponButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade().toString());
         selectedItem = 0;
     }
 
-    public void onShieldButtonClicked() {
+    @FXML
+    private void onShieldButtonClicked() {
 //        shieldButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade().toString());
         selectedItem = 1;
     }
 
-    public void onGadgetButtonClicked() {
+    @FXML
+    private void onGadgetButtonClicked() {
 //        gadgetButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade().toString());
         selectedItem = 2;
     }
 
     private void updateSlots() {
-
         Ship ship = GameController.getGameData().getShip();
         if (ship.getWeapons().size() >= ship.getType().weaponSlots) {
             weaponButton.setDisable(true);
@@ -130,7 +131,8 @@ public class UpgradeController implements Initializable {
 
     }
 
-    public void onBuyButtonClicked() {
+    @FXML
+    private void onBuyButtonClicked() {
         Ship ship = GameController.getGameData().getShip();
         Upgradeplace upgrades = GameController.getGameData().getPlanet().getUpgrade();
         if (selectedItem == 0) {
@@ -149,9 +151,8 @@ public class UpgradeController implements Initializable {
 
     }
 
-    public void onReturnButtonClicked() {
+    @FXML
+    private void onReturnButtonClicked() {
         GameController.getControl().setScreen(Screens.SHIP_YARD);
     }
-
-
 }

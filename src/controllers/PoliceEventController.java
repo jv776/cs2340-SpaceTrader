@@ -51,6 +51,7 @@ public class PoliceEventController extends RandomEventController implements Init
         SEButton.setDisable(true);
     }
 
+    @Override
     protected void fleeSuccessful() {
         showBubble();
         speech.setText("They got away!");

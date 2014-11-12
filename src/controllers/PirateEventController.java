@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
  */
 public class PirateEventController extends RandomEventController implements Initializable {
 
+    @Override
     protected void configureButtons() {
         NWButton.setText("Attack");
         NWButton.setOnMouseClicked(t -> attack());
@@ -25,11 +26,12 @@ public class PirateEventController extends RandomEventController implements Init
         SWButton.setDisable(true);
     }
 
+    @Override
     protected void configureEncountered() {
         encountered = new Pirate("Pirate");
     }
 
-
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
     }

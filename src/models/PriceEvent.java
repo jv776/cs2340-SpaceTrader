@@ -10,7 +10,7 @@ package models;
  *
  * @author John Varela
  */
-public enum PriceEvent {
+enum PriceEvent {
     DROUGHT,
     COLD,
     CROP_FAILURE,

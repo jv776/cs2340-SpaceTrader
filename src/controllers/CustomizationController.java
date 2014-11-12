@@ -19,6 +19,16 @@ import models.Universe;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.GridPane;
+
 /**
  * Customization FXML Controller class.
  *
@@ -26,7 +36,23 @@ import java.util.ResourceBundle;
  */
 public class CustomizationController implements Initializable {
 
-    private static final int SKILL_POINT_MAX = 15;
+    /**
+     * The maximum number of skill points to allocate.
+     */
+    public final int SKILL_POINT_MAX = 15;
+
+    /**
+     * The maximum length for a player's name.
+     */
+    public final int NAME_LEGNTH_MAX = 18;
+
+    /**
+     * The amount of money with which the player begins.
+     */
+    public final int STARTING_CREDITS = 1000;
+
+    @FXML
+    private GridPane grid;
 
     @FXML
     private TextField nameField;
@@ -50,100 +76,71 @@ public class CustomizationController implements Initializable {
     private Label skillPointsRemaining;
 
     @FXML
+    private Slider pilotSlider, fighterSlider,
+            traderSlider, engineerSlider, investorSlider;
+
+    Label[] labels;
+    Slider[] sliders;
+
+
+    @FXML
     private Button continueButton;
 
     private int skillPoints;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        grid.setBackground(new Background(new BackgroundImage(
+                new Image("/images/welcome.jpg"),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        )));
         skillPoints = SKILL_POINT_MAX;
         skillPointsRemaining.setText("" + skillPoints);
         continueButton.setDisable(true);
         nameField.addEventFilter(KeyEvent.KEY_TYPED, (KeyEvent event) -> {
-                if (nameField.getText().length() >= 30) {
-                    event.consume();
-                }
-            });
-    }
+            if (nameField.getText().length() >= NAME_LEGNTH_MAX) {
+                event.consume();
+            }
+        });
 
-    /**
-     * Increments "Pilot" label counter if any skill points are left.
-     */
-    @FXML
-    private void pilotIncrease() {
-        updateSkillPoints(pilotSkillPoints, Direction.INCREASE);
-    }
+        Slider[] fxsliders = {pilotSlider, fighterSlider,
+                traderSlider, engineerSlider, investorSlider};
+        Label[] fxlabels = {pilotSkillPoints, fighterSkillPoints,
+                traderSkillPoints, engineerSkillPoints, investorSkillPoints};
+        this.sliders = fxsliders;
+        this.labels = fxlabels;
 
-    /**
-     * Decrements "Pilot" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void pilotDecrease() {
-        updateSkillPoints(pilotSkillPoints, Direction.DECREASE);
-    }
+        for (int i = 0; i < sliders.length; i++) {
+            System.out.println(sliders[i]);
+            Slider s = sliders[i];
+            final int j = i;
+            s.setMax(SKILL_POINT_MAX);
+            s.setMajorTickUnit(1.0);
+            s.setMinorTickCount(0);
+            s.setSnapToTicks(true);
+            s.valueProperty().addListener(
+                    (ObservableValue<? extends Number> ov,
+                     Number old_val, Number new_val) -> {
+                        skillPoints -= (new_val.intValue() - old_val.intValue());
+                        if (skillPoints < 0) {
+                            s.setValue(new_val.intValue() + skillPoints);
+                            skillPoints = 0;
+                            skillPointsRemaining.setText("" + skillPoints);
+                        } else {
+                            labels[j].setText(new_val.intValue() + "");
+                            skillPointsRemaining.setText("" + skillPoints);
+                        }
 
-    /**
-     * Increments "Fighter" label counter if any skill points are left.
-     */
-    @FXML
-    private void fighterIncrease() {
-        updateSkillPoints(fighterSkillPoints, Direction.INCREASE);
-    }
-
-    /**
-     * Decrements "Fighter" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void fighterDecrease() {
-        updateSkillPoints(fighterSkillPoints, Direction.DECREASE);
-    }
-
-    /**
-     * Increments "Trader" label counter if any skill points are left.
-     */
-    @FXML
-    private void traderIncrease() {
-        updateSkillPoints(traderSkillPoints, Direction.INCREASE);
-    }
-
-    /**
-     * Decrements "Trader" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void traderDecrease() {
-        updateSkillPoints(traderSkillPoints, Direction.DECREASE);
-    }
-
-    /**
-     * Increments "Engineer" label counter if any skill points are left.
-     */
-    @FXML
-    private void engineerIncrease() {
-        updateSkillPoints(engineerSkillPoints, Direction.INCREASE);
-    }
-
-    /**
-     * Decrements "Engineer" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void engineerDecrease() {
-        updateSkillPoints(engineerSkillPoints, Direction.DECREASE);
-    }
-
-    /**
-     * Increments "Investor" label counter if any skill points are left.
-     */
-    @FXML
-    private void investorIncrease() {
-        updateSkillPoints(investorSkillPoints, Direction.INCREASE);
-    }
-
-    /**
-     * Decrements "Investor" label counter if any skill points are allocated there.
-     */
-    @FXML
-    private void investorDecrease() {
-        updateSkillPoints(investorSkillPoints, Direction.DECREASE);
+                        if (skillPoints == 0 && !nameField.getText().isEmpty()) {
+                            continueButton.setDisable(false);
+                        } else {
+                            continueButton.setDisable(true);
+                        }
+                    });
+        }
     }
 
     /**
@@ -162,11 +159,13 @@ public class CustomizationController implements Initializable {
                 Integer.parseInt(investorSkillPoints.getText())
         );
 
-        player.earn(1000); //start with 1000 credits
+        player.earn(STARTING_CREDITS); //start with 1000 credits
 
-        SolarSystem system = universe.solarSystems[(int) (Math.random() * universe.solarSystems.length)];
+        SolarSystem system = universe.solarSystems[(int) (Math.random()
+                * universe.solarSystems.length)];
         system.discover();
-        Planet planet = system.getPlanets()[(int) (Math.random() * system.getPlanets().length)];
+        Planet planet = system.getPlanets()[(int) (Math.random()
+                * system.getPlanets().length)];
 
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);
@@ -208,23 +207,21 @@ public class CustomizationController implements Initializable {
      * @param direction       "increase" if incrementing and "decrease" if
      *                        decrementing
      */
-    private void updateSkillPoints(Label attributePoints, Direction direction) {
-        if (direction == Direction.INCREASE) {
+    private void updateSkillPoints(Label attributePoints, String direction) {
+        if (direction.equals("increase")) {
             if (skillPoints > 0) {
-                attributePoints.setText(Integer.parseInt(attributePoints.getText()) + 1 + "");
+                attributePoints.setText(Integer.parseInt(
+                        attributePoints.getText()) + 1 + "");
                 skillPointsRemaining.setText(--skillPoints + "");
             }
-        } else if (direction == Direction.DECREASE) {
+        } else if (direction.equals("decrease")) {
             if (Integer.parseInt(attributePoints.getText()) > 0) {
-                attributePoints.setText(Integer.parseInt(attributePoints.getText()) - 1 + "");
+                attributePoints.setText(Integer.parseInt(
+                        attributePoints.getText()) - 1 + "");
                 skillPointsRemaining.setText(++skillPoints + "");
             }
         }
 
         handleNameInput();
-    }
-    
-    private static enum Direction {
-        INCREASE, DECREASE
     }
 }

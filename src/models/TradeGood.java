@@ -14,49 +14,79 @@ import java.util.Optional;
  * @author John Varela
  */
 public enum TradeGood implements CargoItem {
+    /**
+     * TradeGood representing water.
+     */
     WATER(TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
             TechLevel.MEDIEVAL, 30, 3, 4, 30, 50, PriceEvent.DROUGHT,
             Optional.of(Resource.LOTS_OF_WATER),
             Optional.of(Resource.DESERT)),
 
+    /**
+     * TradeGood representing food.
+     */
     FOOD(TechLevel.AGRICULTURE, TechLevel.PRE_AGRICULTURE,
             TechLevel.AGRICULTURE, 100, 5, 5, 90, 160,
             PriceEvent.CROP_FAILURE, Optional.of(Resource.RICH_SOIL),
             Optional.of(Resource.POOR_SOIL)),
 
+    /**
+     * TradeGood representing furs.
+     */
     FURS(TechLevel.PRE_AGRICULTURE, TechLevel.PRE_AGRICULTURE,
             TechLevel.PRE_AGRICULTURE, 250, 10, 10, 230, 280,
             PriceEvent.COLD, Optional.of(Resource.RICH_FAUNA),
             Optional.of(Resource.LIFELESS)),
 
+    /**
+     * TradeGood representing ore.
+     */
     ORE(TechLevel.MEDIEVAL, TechLevel.MEDIEVAL,
             TechLevel.RENAISSANCE, 350, 20, 10, 350, 420, PriceEvent.WAR,
             Optional.of(Resource.MINERAL_RICH),
             Optional.of(Resource.MINERAL_POOR)),
 
+    /**
+     * TradeGood representing games.
+     */
     GAMES(TechLevel.RENAISSANCE, TechLevel.AGRICULTURE,
             TechLevel.POST_INDUSTRIAL, 250, -10, 5, 160, 270,
             PriceEvent.BOREDOM, Optional.of(Resource.ARTISTIC),
             Optional.<Resource>empty()),
 
+    /**
+     * TradeGood representing firearms.
+     */
     FIREARMS(TechLevel.RENAISSANCE, TechLevel.AGRICULTURE,
             TechLevel.INDUSTRIAL, 1250, -75, 100, 600, 1100, PriceEvent.WAR,
             Optional.of(Resource.WARLIKE), Optional.<Resource>empty()),
 
+    /**
+     * TradeGood representing medicine.
+     */
     MEDICINE(TechLevel.EARLY_INDUSTRIAL, TechLevel.AGRICULTURE,
             TechLevel.POST_INDUSTRIAL, 650, -20, 10, 400, 700,
             PriceEvent.PLAGUE, Optional.of(Resource.LOTS_OF_HERBS),
             Optional.<Resource>empty()),
 
+    /**
+     * TradeGood representing machines.
+     */
     MACHINES(TechLevel.EARLY_INDUSTRIAL, TechLevel.RENAISSANCE,
             TechLevel.INDUSTRIAL, 900, -30, 5, 600, 800,
             PriceEvent.LACK_OF_WORKERS, Optional.<Resource>empty(), Optional.<Resource>empty()),
 
+    /**
+     * TradeGood representing narcotics.
+     */
     NARCOTICS(TechLevel.INDUSTRIAL, TechLevel.AGRICULTURE,
             TechLevel.INDUSTRIAL, 3500, -125, 150, 2000, 3000,
             PriceEvent.BOREDOM, Optional.of(Resource.WEIRD_MUSHROOMS),
             Optional.<Resource>empty()),
 
+    /**
+     * TradeGood representing robots.
+     */
     ROBOTS(TechLevel.POST_INDUSTRIAL, TechLevel.EARLY_INDUSTRIAL,
             TechLevel.HI_TECH, 5000, -150, 100, 3500, 5000,
             PriceEvent.LACK_OF_WORKERS, Optional.<Resource>empty(), Optional.<Resource>empty());
@@ -90,9 +120,6 @@ public enum TradeGood implements CargoItem {
         expensiveConditions = expensiveResource;
     }
 
-    /**
-     * @return This item's name, as specified by the enum value.
-     */
     @Override
     public String getItemName() {
         String s = this.toString();

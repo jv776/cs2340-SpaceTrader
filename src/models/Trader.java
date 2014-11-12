@@ -6,22 +6,32 @@ package models;
  * @author Taylor
  */
 public class Trader extends Encounterable {
-    protected String name;
-    private Planet origin;
 
-    protected String escapeText;
+    private final Planet origin;
 
-    public Trader(String name, Planet origin) {
-        this.name = name;
-        this.origin = origin;
-        escapeText = "Is that all, stranger?";
+    private static final String escapeText = "Is that all, stranger?";
+
+    /**
+     * Create a new trader to be encountered while traveling through a
+     * solar system.
+     *
+     * @param traderName   The trader's name.
+     * @param traderOrigin The trader's home planet.
+     */
+    public Trader(String traderName, Planet traderOrigin) {
+        name = traderName;
+        origin = traderOrigin;
         welcomeText = "What're ya buy'in?";
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * @return The home planet of the trader.
+     */
     public Planet getOrigin() {
         return origin;
     }
