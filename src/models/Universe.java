@@ -336,12 +336,12 @@ public class Universe implements Serializable {
     /**
      * The highest possible x-coordinate of a solar system.
      */
-    public final int MAX_X = 590;
+    public static final int MAX_X = 590;
     
     /**
      * The highest possible y-coordinate of a solar system.
      */
-    public final int MAX_Y = 390;
+    public static final int MAX_Y = 390;
 
     private static final int NUM_SOLAR_SYSTEMS = SOLAR_SYSTEM_NAMES.length;
     

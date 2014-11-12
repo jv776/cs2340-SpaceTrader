@@ -7,21 +7,21 @@ public interface Upgrade {
     /**
      * @return The tech level required to buy the upgrade.
      */
-    public TechLevel getTechLevel();
+    TechLevel getTechLevel();
 
     /**
      * @return The price of the upgrade.
      */
-    public int getPrice();
+    int getPrice();
 
     /**
      * @return The upgrade slot needed for the upgrade.
      */
-    public String getSlot();
+    String getSlot();
 
     /**
      * @return The name of the upgrade.
      */
-    public String getName();
+    String getName();
 
 }

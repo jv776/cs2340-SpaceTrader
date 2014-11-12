@@ -33,8 +33,6 @@ public class Planet implements Serializable {
 
     private final boolean supportsLife; //Whether a planet can support native life
 
-    private boolean colonized;
-
     private Marketplace market;
     private Upgradeplace upgrade;
     private PriceEvent currentEvent;
@@ -49,8 +47,6 @@ public class Planet implements Serializable {
      * @param sunTemperature The temperature of the sun on the new planet.
      */
     public Planet(SolarSystem system, String name, int distance, int sunTemperature) {
-        Random rand = new Random();
-
         this.solarSystem = system;
         this.name = name;
         this.distance = distance;
@@ -70,21 +66,21 @@ public class Planet implements Serializable {
 
         currentEvent = PriceEvent.NONE;
         market = new Marketplace(this);
-        upgrade = new Upgradeplace(this.getSolarSystem());
+        upgrade = new Upgradeplace(solarSystem);
     }
 
     private int generateAtmosphere() {
         double atm = 0;
 
-        if (isNitrogen()) {
+        if (nitrogen) {
             atm += 15;
         }
 
-        if (isCarbon()) {
+        if (carbon) {
             atm += 7;
         }
 
-        if (isOxygen()) {
+        if (oxygen) {
             atm += 5;
         }
         return (int) (atm - atm * (.50 * (Math.random())));
@@ -97,11 +93,11 @@ public class Planet implements Serializable {
     }
 
     private boolean generateWater() {
-        return ((isOxygen() && isHydrogen()) && (getTemperature() > 100 && getTemperature() < 400));
+        return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
     }
 
     private boolean generateLife() {
-        if (isNitrogen() && isCarbon() && isWater() && isMetals()) {
+        if (nitrogen && carbon && water && metals) {
             return true;
         } else {
             return (Math.random() < 0.01);

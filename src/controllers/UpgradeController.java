@@ -53,7 +53,6 @@ public class UpgradeController implements Initializable {
         Weapon wup = GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade();
         Shield sup = GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade();
         Gadget gup = GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade();
-        Ship ship = GameController.getGameData().getShip();
         weaponButton.setDisable(true);
         shieldButton.setDisable(true);
         gadgetButton.setDisable(true);

@@ -23,7 +23,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author Alex, John
  */

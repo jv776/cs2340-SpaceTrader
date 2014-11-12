@@ -19,7 +19,7 @@ public class CargoHold implements Serializable {
 
     /**
      * Create a new cargo hold.
-     * 
+     *
      * @param maxCapacity The capacity of the cargo hold.
      */
     public CargoHold(int maxCapacity) {
