@@ -143,7 +143,8 @@ public class CargoHold implements Serializable {
      */
     public boolean hasIllegalGoods() {
         for (CargoItem g : getCargoItems()) {
-            if (g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")) {
+            if (g.getItemName().equals("Narcotics")
+                    || g.getItemName().equals("Firearms")) {
                 return true;
             }
         }

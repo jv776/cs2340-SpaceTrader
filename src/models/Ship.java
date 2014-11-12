@@ -41,8 +41,10 @@ public class Ship implements Serializable {
         public final int repairCost;
         public final int size;
 
-        Type(int cargoCapacity, int weaponSlots, int shieldSlots, int gadgetSlots, int crewCapacity, int fuelCapacity,
-             TechLevel minTechLevel, int fuelCost, int price, int bounty, int occurrence, int hullStrength, int repairCost, int size) {
+        Type(int cargoCapacity, int weaponSlots, int shieldSlots,
+             int gadgetSlots, int crewCapacity, int fuelCapacity,
+             TechLevel minTechLevel, int fuelCost, int price, int bounty,
+             int occurrence, int hullStrength, int repairCost, int size) {
             this.cargoCapacity = cargoCapacity;
 
             this.weaponSlots = weaponSlots;
