@@ -69,7 +69,7 @@ public enum Screens {
     Screens(String name) {
         this.name = name;
     }
-    
+
     /**
      * @return The name of the Screen.
      */

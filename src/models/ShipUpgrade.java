@@ -6,7 +6,6 @@
 package models;
 
 /**
- *
  * @author Alex
  */
 public abstract class ShipUpgrade {

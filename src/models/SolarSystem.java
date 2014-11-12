@@ -28,11 +28,11 @@ public class SolarSystem implements Serializable {
     /**
      * Create a new solar system.
      *
-     * @param name The name of the system.
-     * @param xLoc The x-coordinate of the system's location on the universe
-     * map.
-     * @param yLoc The y-coordinate of the system's location.
-     * @param techLevel The level of technology in the solar system.
+     * @param name           The name of the system.
+     * @param xLoc           The x-coordinate of the system's location on the universe
+     *                       map.
+     * @param yLoc           The y-coordinate of the system's location.
+     * @param techLevel      The level of technology in the solar system.
      * @param governmentType The type of government in the solar system.
      */
     public SolarSystem(String name, int xLoc, int yLoc, TechLevel techLevel,
@@ -48,10 +48,10 @@ public class SolarSystem implements Serializable {
     }
 
     private Planet[] generatePlanets() {
-        Planet [] planetArray = new Planet[(int)(Math.random() * 4.0 + 4.0)];
+        Planet[] planetArray = new Planet[(int) (Math.random() * 4.0 + 4.0)];
         int dist = sun.getRadius() + 40;
 
-        for (int i = 0; i < planetArray.length; i++){
+        for (int i = 0; i < planetArray.length; i++) {
             dist += 2 + (i + 0.25) * 6.5 * (0.76 + 0.24 * (Math.random() + 1));
             planetArray[planetArray.length - i - 1] = new Planet(this, name + " " + i, dist, sun.getTemperature()); //add name
         }
@@ -114,7 +114,7 @@ public class SolarSystem implements Serializable {
      * @return A randomly chosen planet in the solar system.
      */
     public Planet getRandomPlanet() {
-        return planets[(int)(Math.random() * planets.length)];
+        return planets[(int) (Math.random() * planets.length)];
     }
 
     /**

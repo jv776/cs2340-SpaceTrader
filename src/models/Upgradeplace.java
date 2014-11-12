@@ -17,7 +17,7 @@ public class Upgradeplace implements Serializable {
 
     /**
      * Create a new location where upgrades can be bought.
-     * 
+     *
      * @param marketLocation The market where upgrades are purchased.
      */
     public Upgradeplace(SolarSystem marketLocation) {

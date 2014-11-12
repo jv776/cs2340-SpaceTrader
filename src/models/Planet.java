@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.Random;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -41,9 +42,9 @@ public class Planet implements Serializable {
      * Create a new Planet and calculate it's resources and atmospheric
      * properties.
      *
-     * @param system The solar system in which the planet is located.
-     * @param name The name of the planet.
-     * @param distance The distance of the planet from it's sun.
+     * @param system         The solar system in which the planet is located.
+     * @param name           The name of the planet.
+     * @param distance       The distance of the planet from it's sun.
      * @param sunTemperature The temperature of the sun on the new planet.
      */
     public Planet(SolarSystem system, String name, int distance, int sunTemperature) {
@@ -51,7 +52,7 @@ public class Planet implements Serializable {
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
-        radius = (int)(5 * Math.random() + 6);
+        radius = (int) (5 * Math.random() + 6);
 
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);

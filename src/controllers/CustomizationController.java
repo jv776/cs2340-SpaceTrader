@@ -124,22 +124,22 @@ public class CustomizationController implements Initializable {
             s.valueProperty().addListener(
                     (ObservableValue<? extends Number> ov,
                      Number old_val, Number new_val) -> {
-                skillPoints -= (new_val.intValue() - old_val.intValue());
-                if (skillPoints < 0) {
-                    s.setValue(new_val.intValue() + skillPoints);
-                    skillPoints = 0;
-                    skillPointsRemaining.setText("" + skillPoints);
-                } else {
-                    labels[j].setText(new_val.intValue() + "");
-                    skillPointsRemaining.setText("" + skillPoints);
-                }
+                        skillPoints -= (new_val.intValue() - old_val.intValue());
+                        if (skillPoints < 0) {
+                            s.setValue(new_val.intValue() + skillPoints);
+                            skillPoints = 0;
+                            skillPointsRemaining.setText("" + skillPoints);
+                        } else {
+                            labels[j].setText(new_val.intValue() + "");
+                            skillPointsRemaining.setText("" + skillPoints);
+                        }
 
-                if (skillPoints == 0 && !nameField.getText().isEmpty()) {
-                    continueButton.setDisable(false);
-                } else {
-                    continueButton.setDisable(true);
-                }
-            });
+                        if (skillPoints == 0 && !nameField.getText().isEmpty()) {
+                            continueButton.setDisable(false);
+                        } else {
+                            continueButton.setDisable(true);
+                        }
+                    });
         }
     }
 

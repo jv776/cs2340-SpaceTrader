@@ -34,6 +34,7 @@ public class Pirate extends Encounterable {
     public boolean isDead() {
         return ship.isDead();
     }
+
     /**
      * Deals damage to the Pirate
      *

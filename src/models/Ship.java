@@ -148,7 +148,7 @@ public class Ship implements Serializable {
     /**
      * Create a new ship of a given type and set its owner.
      *
-     * @param type The type of the new ship.
+     * @param type  The type of the new ship.
      * @param owner The owner of the new ship.
      */
     public Ship(Type type, CrewMember owner) {
@@ -231,8 +231,7 @@ public class Ship implements Serializable {
     public void addFuel(double amount) {
         if (fuelAmount + amount > type.fuelCapacity) {
             fuelAmount = type.fuelCapacity;
-        }
-        else {
+        } else {
             fuelAmount += amount;
         }
     }
@@ -335,6 +334,7 @@ public class Ship implements Serializable {
     public ArrayList<Shield> getShields() {
         return shields;
     }
+
     /**
      * Returns gadgets on ship
      *

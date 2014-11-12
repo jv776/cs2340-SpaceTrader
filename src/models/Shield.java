@@ -72,7 +72,7 @@ public class Shield implements Serializable {
             return description;
         }
     }
-    
+
     private int strength;
     private Type type;
     private int price;

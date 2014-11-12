@@ -2,7 +2,7 @@ package models;
 
 /**
  * Represents various political structures
- * <p>
+ * <p/>
  * Created by Taylor on 9/18/14.
  */
 enum PoliticalSystem {

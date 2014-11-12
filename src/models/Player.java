@@ -27,11 +27,11 @@ public class Player extends CrewMember implements Serializable {
      * Create a new player with given name and skills.
      *
      * @param playerName The player's name.
-     * @param pilotSP The player's skill as a pilot.
-     * @param fighterSP The player's skill as a fighter.
-     * @param traderSP The player's skill as a trader.
+     * @param pilotSP    The player's skill as a pilot.
+     * @param fighterSP  The player's skill as a fighter.
+     * @param traderSP   The player's skill as a trader.
      * @param engineerSP The player's skill as an engineer.
-     * @param investorSP  The player's skill as an investor.
+     * @param investorSP The player's skill as an investor.
      */
     public Player(String playerName, int pilotSP, int fighterSP, int traderSP,
                   int engineerSP, int investorSP) {

@@ -27,6 +27,7 @@ import models.SolarSystem;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
@@ -40,7 +41,7 @@ import javafx.util.Duration;
 
 /**
  * Displays and manages the map of the Solar System.
- * 
+ *
  * @author Alex, Taylor
  */
 public class SolarSystemMapController implements Initializable {
@@ -50,13 +51,13 @@ public class SolarSystemMapController implements Initializable {
 
     @FXML
     private Button returnButton;
-    
+
     @FXML
     private Label locationLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         anchor.setBackground(new Background(new BackgroundImage(
                 new Image("/images/solar_system_map.jpg"),
                 BackgroundRepeat.NO_REPEAT,
@@ -64,9 +65,9 @@ public class SolarSystemMapController implements Initializable {
                 BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT
         )));
-        
+
         SolarSystem currentSystem = GameController.getGameData().getSolarSystem();
-        
+
         returnButton.setText("Return to Universe");
         locationLabel.setTextFill(Color.WHITE);
         locationLabel.setText(currentSystem.getName() + ": " +
@@ -80,9 +81,9 @@ public class SolarSystemMapController implements Initializable {
         star.setCenterX(x);
         star.setCenterY(y);
         star.setRadius(currentSystem.getSun().getRadius() * 4);
-        
+
         Color color = currentSystem.getSun().computeColor();
-        
+
         RadialGradient radGrad = new RadialGradient(0,
                 0,
                 300,
@@ -93,15 +94,15 @@ public class SolarSystemMapController implements Initializable {
                 new Stop(0, color),
                 new Stop(0.5, color),
                 new Stop(1, Color.TRANSPARENT));
-            
+
         star.setFill(radGrad);
         star.setMouseTransparent(true);
-        
+
         Planet currentPlanet = GameController.getGameData().getPlanet();
-        
+
         int maxDistance = currentSystem.getPlanets()[0].getDistance();
         double scaleFactor = 375.0 / maxDistance / 2;
-        
+
         for (Planet p : currentSystem.getPlanets()) {
             Ellipse orbit = EllipseBuilder.create() //deprecated!
                     .centerX(x) //deprecated!
@@ -113,44 +114,44 @@ public class SolarSystemMapController implements Initializable {
                     .fill(Color.TRANSPARENT)
                     .build();
             anchor.getChildren().add(orbit);
-            
+
             Circle planet = new Circle();
             planet.setRadius(p.getRadius());
-            
-            LinearGradient linGrad = new LinearGradient(0, 1, 0, 0, true, 
-                    CycleMethod.NO_CYCLE, new Stop(0, p.getColor()), 
+
+            LinearGradient linGrad = new LinearGradient(0, 1, 0, 0, true,
+                    CycleMethod.NO_CYCLE, new Stop(0, p.getColor()),
                     new Stop(0.3, p.getColor()), new Stop(1, Color.BLACK));
             planet.setFill(linGrad);
             planet.setMouseTransparent(true);
-            
+
             Tooltip planetName = new Tooltip(
-                (currentPlanet == p ? "Current Location\n" : "")
-                + p.getName() 
-                + "\nResource: " + p.getResource());
-            
+                    (currentPlanet == p ? "Current Location\n" : "")
+                            + p.getName()
+                            + "\nResource: " + p.getResource());
+
             orbit.setOnMouseEntered((MouseEvent t) -> {
                 planet.setRadius(p.getRadius() + 1);
                 double xCoord = anchor.getScene().getWindow().getX();
                 double yCoord = anchor.getScene().getWindow().getY();
-                planetName.show(anchor, xCoord + x + p.getDistance() * scaleFactor + 30, 
-                    yCoord + y + 20);
+                planetName.show(anchor, xCoord + x + p.getDistance() * scaleFactor + 30,
+                        yCoord + y + 20);
                 orbit.setStroke(currentPlanet == p ? Color.GREEN : Color.YELLOW);
-                
+
             });
-            
+
             orbit.setOnMouseExited((MouseEvent t) -> {
                 planet.setRadius(p.getRadius());
                 planetName.hide();
                 orbit.setStroke(currentPlanet == p ? Color.GREEN : Color.DARKGRAY);
             });
-            
+
             orbit.setOnMouseClicked((MouseEvent t) -> {
                 GameController.getGameData().setPlanet(p);
                 GameController.getControl().setScreen(Screens.SPACE_PORT);
             });
-            
+
             double orbitDuration = p.getDistance() / 5 * (.9 + Math.random() / 5);
-            
+
             PathTransition first = new PathTransition(Duration.seconds(orbitDuration), orbit);
             first.setCycleCount(Animation.INDEFINITE);
             first.setNode(planet);
