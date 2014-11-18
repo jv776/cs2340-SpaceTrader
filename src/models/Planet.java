@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Random;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -33,8 +33,6 @@ public class Planet implements Serializable {
 
     private final boolean supportsLife; //Whether a planet can support native life
 
-    private boolean colonized;
-
     private Marketplace market;
     private Upgradeplace upgrade;
     private PriceEvent currentEvent;
@@ -43,19 +41,17 @@ public class Planet implements Serializable {
      * Create a new Planet and calculate it's resources and atmospheric
      * properties.
      *
-     * @param system The solar system in which the planet is located.
-     * @param name The name of the planet.
-     * @param distance The distance of the planet from it's sun.
+     * @param system         The solar system in which the planet is located.
+     * @param name           The name of the planet.
+     * @param distance       The distance of the planet from it's sun.
      * @param sunTemperature The temperature of the sun on the new planet.
      */
     public Planet(SolarSystem system, String name, int distance, int sunTemperature) {
-        Random rand = new Random();
-
         this.solarSystem = system;
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
-        radius = (int)(5 * Math.random() + 6);
+        radius = (int) (5 * Math.random() + 6);
 
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
@@ -70,25 +66,26 @@ public class Planet implements Serializable {
 
         currentEvent = PriceEvent.NONE;
         market = new Marketplace(this);
-        upgrade = new Upgradeplace(this.getSolarSystem());
+        upgrade = new Upgradeplace(solarSystem);
     }
 
     private int generateAtmosphere() {
         double atm = 0;
 
-        if (isNitrogen()) {
+        if (nitrogen) {
             atm += 15;
         }
 
-        if (isCarbon()) {
+        if (carbon) {
             atm += 7;
         }
 
-        if (isOxygen()) {
+        if (oxygen) {
             atm += 5;
         }
         return (int) (atm - atm * (.50 * (Math.random())));
     }
+
 
     private int generateTemperature(int sunTemp) { //units
         float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(getDistance(), 2)), .50);
@@ -97,17 +94,21 @@ public class Planet implements Serializable {
     }
 
     private boolean generateWater() {
-        return ((isOxygen() && isHydrogen()) && (getTemperature() > 100 && getTemperature() < 400));
+        return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
     }
 
+
     private boolean generateLife() {
-        if (isNitrogen() && isCarbon() && isWater() && isMetals()) {
+        if (nitrogen && carbon && water && metals) {
             return true;
         } else {
             return (Math.random() < 0.01);
         }
     }
 
+    /**
+     * @return A string providing information about the planet.
+     */
     @Override
     public String toString() {
         return "Dist: " + getDistance() + "kmE6 \tAtm: " + getAtmosphere() + "% \tTemp: "
@@ -317,7 +318,10 @@ public class Planet implements Serializable {
     public boolean isSupportsLife() {
         return supportsLife;
     }
-    
+
+    /**
+     * @return The visible color of the planet from space.
+     */
     public Color getColor() {
         double prop = temperature / 2000.0;
         return Color.hsb(240 - 240 * prop, 1, .5);

@@ -6,6 +6,7 @@
 package controllers;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -13,21 +14,28 @@ import javafx.scene.layout.HBox;
 import models.GameData;
 
 /**
- *
  * @author Alex
  */
 public class StatusBar extends HBox {
-    @FXML private Label name_tab;
-    @FXML private Label location_tab;
-    @FXML private Label cargo_tab;
-    @FXML private Label credits_tab;
-    @FXML private Label fuel_tab;
-    
+    @FXML
+    private Label name_tab;
+    @FXML
+    private Label location_tab;
+    @FXML
+    private Label cargo_tab;
+    @FXML
+    private Label credits_tab;
+    @FXML
+    private Label fuel_tab;
+
     private GameData gameData;
-    
+
+    /**
+     * Create a new status bar.
+     */
     public StatusBar() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-            "/views/StatusBar.fxml"));
+                "/views/StatusBar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -36,28 +44,43 @@ public class StatusBar extends HBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        
+
         gameData = GameController.getGameData();
     }
-    
+
+    /**
+     * Update the display of the player's name in the status bar.
+     */
     public void updateName() {
         name_tab.setText(gameData.getPlayer().getName());
     }
-    
+
+    /**
+     * Update the player's location displayed in the status bar.
+     */
     public void updateLocation() {
         location_tab.setText(gameData.getPlanet() != null ? gameData.getPlanet().getName()
                 : gameData.getSolarSystem().getName());
     }
-    
+
+    /**
+     * Update information about the player's cargo displayed in the status bar.
+     */
     public void updateCargo() {
         cargo_tab.setText("Cargo: " + gameData.getShip().getCargoHold().getCargoQuantity() + "/"
-            + gameData.getShip().getCargoHold().getCapacity());
+                + gameData.getShip().getCargoHold().getCapacity());
     }
-    
+
+    /**
+     * Update the player's credits displayed in the status bar.
+     */
     public void updateCredits() {
         credits_tab.setText("Credits: " + gameData.getPlayer().getCredits());
     }
-    
+
+    /**
+     * Update the amount of fuel shown in the status bar.
+     */
     public void updateFuel() {
         double fuelAmount = gameData.getShip().getFuelAmount();
         int fuelCapacity = gameData.getShip().getFuelCapacity();

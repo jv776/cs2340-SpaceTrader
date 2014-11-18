@@ -68,13 +68,6 @@ public class CustomizationController implements Initializable {
     private Label skillPointsRemaining;
 
     @FXML
-    private Slider pilotSlider, fighterSlider, traderSlider, engineerSlider, investorSlider;
-
-    Label[] labels;
-    Slider[] sliders;
-
-
-    @FXML
     private Label pilotLabel, fighterLabel, engineerLabel, traderLabel, investorLabel;
 
     @FXML

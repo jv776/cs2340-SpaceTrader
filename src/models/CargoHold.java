@@ -19,7 +19,7 @@ public class CargoHold implements Serializable {
 
     /**
      * Create a new cargo hold.
-     * 
+     *
      * @param maxCapacity The capacity of the cargo hold.
      */
     public CargoHold(int maxCapacity) {
@@ -151,7 +151,8 @@ public class CargoHold implements Serializable {
      */
     public boolean hasIllegalGoods() {
         for (CargoItem g : getCargoItems()) {
-            if (g.getItemName().equals("Narcotics") || g.getItemName().equals("Firearms")) {
+            if (g.getItemName().equals("Narcotics")
+                    || g.getItemName().equals("Firearms")) {
                 return true;
             }
         }

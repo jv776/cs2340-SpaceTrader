@@ -3,7 +3,7 @@ package models;
 import java.io.Serializable;
 
 /**
- * Model of a weapon that can be attached to a ship to deal damage
+ * Model of a weapon that can be attached to a ship to deal damage.
  *
  * @author Taylor, Alex
  */
@@ -13,11 +13,32 @@ public class Weapon extends Upgrade implements Serializable {
      *
      * @author Taylor
      */
+<<<<<<< HEAD
     public enum Type {
-        Pulse(5, 1000, TechLevel.EARLY_INDUSTRIAL, "Plasma repeating laser, only able to fire in single bursts."),
-        Beam(10, 10000, TechLevel.INDUSTRIAL, "Plasma laser able to sustain fire for more than a few seconds."),
-        Military(15, 10000, TechLevel.POST_INDUSTRIAL, "Quantum laser built with top of the line military technology."),
-        Alien(30, 100000, TechLevel.HI_TECH, "The most advanced and powerful laser, more complex than you could ever comprehend.");
+        /**
+         * The simplest and weakest type of weapon.
+         */
+        Pulse(5, 1000, TechLevel.EARLY_INDUSTRIAL,
+            "Plasma repeating laser, only able to fire in single bursts."),
+
+         /**
+         * A moderately powerful beam laser.
+         */
+        Beam(10, 10000, TechLevel.INDUSTRIAL,
+            "Plasma laser able to sustain fire for more than a few seconds."),
+
+        /**
+         * Powerful but expensive military-grade weaponry.
+         */
+        Military(15, 10000, TechLevel.POST_INDUSTRIAL,
+            "Quantum laser built with top of the line military technology."),
+
+        /**
+         * Extremely advanced alien weaponry.
+         */
+        Alien(30, 100000, TechLevel.HI_TECH,
+            "The most advanced and powerful laser,"
+            + "more complex than you could ever comprehend.");
 
         /**
          * Damage dealt by the weapon.
@@ -48,6 +69,7 @@ public class Weapon extends Upgrade implements Serializable {
 
         /**
          * Damage dealt by the weapon.
+         *
          * @return the damage
          */
         public int getDamage() {
@@ -56,6 +78,7 @@ public class Weapon extends Upgrade implements Serializable {
 
         /**
          * The minimum technology level at which the weapon can be bought.
+         *
          * @return the minTechLevel
          */
         public TechLevel getMinTechLevel() {
@@ -64,6 +87,7 @@ public class Weapon extends Upgrade implements Serializable {
 
         /**
          * A description of the weapon to be shown in-game.
+         *
          * @return the description
          */
         public String getDescription() {
@@ -72,6 +96,7 @@ public class Weapon extends Upgrade implements Serializable {
 
         /**
          * The price of the weapon.
+         *
          * @return the price
          */
         public int getPrice() {
@@ -81,17 +106,19 @@ public class Weapon extends Upgrade implements Serializable {
 
     enum Quality {
         Standard(0, 1, 1, "Standard-issue with no modifications."),
-        Overclocked(1, 10, 2, "Standard with software modification for a little extra kick."),
-        Kitted(2, 100, 3, "Overclocked with some extra hardware modification for even more power."),
-        Perfected(4, 1000, 4, "Tuned and modified to absolute perfection.");
+        Overclocked(1, .35, 2, "Standard with software modification for a " +
+                "little extra kick."),
+        Kitted(2, .15, 3, "Overclocked with some extra hardware modification" +
+                " for even more power."),
+        Perfected(4, .02, 4, "Tuned and modified to absolute perfection.");
 
 
         private final int damage;
-        private final int rarity;
+        private final double rarity;
         private final String description;
         private final int price;
 
-        Quality(int damage, int rarity, int price, String description) {
+        Quality(int damage, double rarity, int price, String description) {
             this.damage = damage;
             this.rarity = rarity;
             this.description = description;
@@ -108,7 +135,7 @@ public class Weapon extends Upgrade implements Serializable {
         /**
          * @return the rarity
          */
-        public int getRarity() {
+        public double getRarity() {
             return rarity;
         }
 
@@ -132,6 +159,10 @@ public class Weapon extends Upgrade implements Serializable {
     private String name;
     private int damage;
     private int price;
+
+    /**
+     * Affects the overall damage output of the weapon.
+     */
     public static final double DAMAGE_MODIFIER = 1;
 
     /**
@@ -143,7 +174,8 @@ public class Weapon extends Upgrade implements Serializable {
     public Weapon(Type type, Quality quality) {
         this.type = type;
         name = quality + " " + type + " Laser";
-        damage = (int) (DAMAGE_MODIFIER * (type.getDamage() + quality.getDamage()));
+        damage = (int) (DAMAGE_MODIFIER * (type.getDamage()
+                + quality.getDamage()));
         price = type.getPrice() * quality.getPrice();
     }
 
@@ -155,18 +187,19 @@ public class Weapon extends Upgrade implements Serializable {
     public Weapon(Type type) {
         this.type = type;
         double r = Math.random();
-        if (r < .02) {
+        if (r < Quality.Perfected.rarity) {
             quality = Quality.Perfected;
-        } else if (r < .15) {
+        } else if (r < Quality.Kitted.rarity) {
             quality = Quality.Kitted;
-        } else if (r < .35) {
+        } else if (r < Quality.Overclocked.rarity) {
             quality = Quality.Overclocked;
         } else {
             quality = Quality.Standard;
         }
 
         name = quality + " " + type + " Laser";
-        damage = (int) (DAMAGE_MODIFIER * (type.getDamage() + quality.getDamage()));
+        damage = (int) (DAMAGE_MODIFIER * (type.getDamage()
+                + quality.getDamage()));
         price = type.getPrice() * quality.getPrice();
     }
 
@@ -186,9 +219,13 @@ public class Weapon extends Upgrade implements Serializable {
         return name;
     }
 
+    /**
+     * @return A string describing the weapon.
+     */
     @Override
     public String toString() {
-        return type.getDescription() + "\n\n" + quality.getDescription() + "\n\nDamage: " + damage;
+        return type.getDescription() + "\n\n" + quality.getDescription()
+                + "\n\nDamage: " + damage;
     }
 
     public int getPrice() {

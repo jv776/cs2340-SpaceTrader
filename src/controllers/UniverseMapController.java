@@ -8,6 +8,7 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
@@ -81,21 +82,21 @@ public class UniverseMapController implements Initializable {
 
             Tooltip systemInfo = new Tooltip(
                     String.format("%s\nTech Level: %s\nDistance: %.2f light-years\nStatus: %s",
-                        s.isDiscovered() ? s.getName() + " System" : "????????",
-                        s.isDiscovered() ? s.getTechLevel() : "????????",
-                        dist,
-                        s.isDiscovered() ? "Discovered" : "Undiscovered"));
+                            s.isDiscovered() ? s.getName() + " System" : "????????",
+                            s.isDiscovered() ? s.getTechLevel() : "????????",
+                            dist,
+                            s.isDiscovered() ? "Discovered" : "Undiscovered"));
             systemInfo.setAutoHide(false);
 
-            if(s != currentSystem && distance(gameData.getSolarSystem(), s)
+            if (s != currentSystem && distance(gameData.getSolarSystem(), s)
                     < gameData.getShip().getFuelAmount()) {
-                if(s.isDiscovered()) {
+                if (s.isDiscovered()) {
                     adjust.setSaturation(.2);
                 } else {
                     adjust.setSaturation(-.75);
                 }
-            } else if(s != currentSystem) {
-                if(s.isDiscovered()) {
+            } else if (s != currentSystem) {
+                if (s.isDiscovered()) {
                     adjust.setBrightness(-.75);
                 } else {
                     adjust.setBrightness(-.75);
@@ -124,7 +125,7 @@ public class UniverseMapController implements Initializable {
             }
 
             star.setOnMouseEntered((MouseEvent t) -> {
-                if(distance(gameData.getSolarSystem(), s)
+                if (distance(gameData.getSolarSystem(), s)
                         < gameData.getShip().getFuelAmount()) {
                     circle.setVisible(true);
                 }
@@ -145,7 +146,7 @@ public class UniverseMapController implements Initializable {
             circle.setEffect(adjust);
 
             star.setOnMouseClicked((MouseEvent t) -> {
-                if(dist < gameData.getShip().getFuelAmount() && s != currentSystem) {
+                if (dist < gameData.getShip().getFuelAmount() && s != currentSystem) {
                     RotateTransition rotate = new RotateTransition(Duration.millis(500), ship);
                     rotate.setFromAngle(ship.getRotate());
                     if (s.getX() >= currentSystem.getX()) {

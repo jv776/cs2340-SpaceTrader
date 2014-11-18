@@ -43,9 +43,9 @@ public abstract class CrewMember implements Serializable {
     /**
      * Create a new CrewMember object with given skills.
      *
-     * @param pilotSP The CrewMember's skill as a pilot.
-     * @param fighterSP The CrewMember's skill as a fighter.
-     * @param traderSP The CrewMember's skill as a trader.
+     * @param pilotSP    The CrewMember's skill as a pilot.
+     * @param fighterSP  The CrewMember's skill as a fighter.
+     * @param traderSP   The CrewMember's skill as a trader.
      * @param engineerSP The CrewMember's skill as an engineer.
      * @param investorSP The CrewMember's skill as an investor.
      */
