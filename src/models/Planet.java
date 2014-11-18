@@ -12,14 +12,14 @@ import javafx.scene.paint.Color;
 /**
  * Models various aspects of a Planet (currently its atmosphere, natural
  * resources, and trading market).
- * 
+ *
  * @author Alex, John
  */
 public class Planet implements Serializable {
-    final SolarSystem solarSystem;
-    final String name;
-    final Resource resource;
-    
+    private final SolarSystem solarSystem;
+    private final String name;
+    private final Resource resource;
+
     private final int distance; //Representing radial distance from the sun in kmE6
     private final int radius; //Radius of the planet in km * 10^3
     private final boolean nitrogen; //N, O, C, and H dont really need to be instance variable
@@ -34,19 +34,29 @@ public class Planet implements Serializable {
     private final boolean supportsLife; //Whether a planet can support native life
 
     private boolean colonized;
-    
+
     private Marketplace market;
+    private Upgradeplace upgrade;
     private PriceEvent currentEvent;
 
-    public Planet(SolarSystem s, String name, int distance, int sunTemperature){
+    /**
+     * Create a new Planet and calculate it's resources and atmospheric
+     * properties.
+     *
+     * @param system The solar system in which the planet is located.
+     * @param name The name of the planet.
+     * @param distance The distance of the planet from it's sun.
+     * @param sunTemperature The temperature of the sun on the new planet.
+     */
+    public Planet(SolarSystem system, String name, int distance, int sunTemperature) {
         Random rand = new Random();
-        
-        this.solarSystem = s;
+
+        this.solarSystem = system;
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
         radius = (int)(5 * Math.random() + 6);
-        
+
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
         oxygen = (Math.random() < 0.85);
@@ -57,40 +67,41 @@ public class Planet implements Serializable {
         temperature = generateTemperature(sunTemperature);
         water = generateWater();
         supportsLife = generateLife();
-        
+
         currentEvent = PriceEvent.NONE;
         market = new Marketplace(this);
+        upgrade = new Upgradeplace(this.getSolarSystem());
     }
 
-    private int generateAtmosphere(){
+    private int generateAtmosphere() {
         double atm = 0;
-        
-        if (nitrogen) {
+
+        if (isNitrogen()) {
             atm += 15;
         }
-        
-        if (carbon) {
+
+        if (isCarbon()) {
             atm += 7;
         }
-        
-        if (oxygen) {
+
+        if (isOxygen()) {
             atm += 5;
         }
-        return (int)(atm - atm * (.50*(Math.random())));
+        return (int) (atm - atm * (.50 * (Math.random())));
     }
 
-    private int generateTemperature(int sunTemp){ //units
-        float temp = (float)Math.pow((sunTemp*1000/(float)Math.pow(distance,2)),.50);
-        temp -= temp*(atmosphere/100f);
-        return (int)(temp*1000);
+    private int generateTemperature(int sunTemp) { //units
+        float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(getDistance(), 2)), .50);
+        temp -= temp * (getAtmosphere() / 100f);
+        return (int) (temp * 1000);
     }
 
-    private boolean generateWater(){
-        return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
+    private boolean generateWater() {
+        return ((isOxygen() && isHydrogen()) && (getTemperature() > 100 && getTemperature() < 400));
     }
 
-    private boolean generateLife(){
-        if(nitrogen && carbon && water&&metals){
+    private boolean generateLife() {
+        if (isNitrogen() && isCarbon() && isWater() && isMetals()) {
             return true;
         } else {
             return (Math.random() < 0.01);
@@ -98,93 +109,102 @@ public class Planet implements Serializable {
     }
 
     @Override
-    public String toString(){
-        return "Dist: " + distance + "kmE6 \tAtm: "+ atmosphere + "% \tTemp: " +
-                (temperature - 273) + "C \tM: "+ metals + " \tN: "+ nitrogen +
-                " \tC: "+ carbon +" \tO: "+ oxygen +" \tW: "+ water +" \tH: "+
-                hydrogen + " \tLife: "+ supportsLife + " \tResources: "
-                + resource;
+    public String toString() {
+        return "Dist: " + getDistance() + "kmE6 \tAtm: " + getAtmosphere() + "% \tTemp: "
+                + (getTemperature() - 273) + "C \tM: " + isMetals() + " \tN: " + isNitrogen()
+                + " \tC: " + isCarbon() + " \tO: " + isOxygen() + " \tW: " + isWater() + " \tH: "
+                + isHydrogen() + " \tLife: " + isSupportsLife() + " \tResources: "
+                + getResource();
     }
 
     /**
      * Get the event (if any) currently happening on the planet.
-     * 
+     *
      * @return The current planetary event, if any
      */
     PriceEvent getCurrentEvent() {
         return currentEvent;
     }
-    
+
     /**
      * Get a description of the current event on the planet.
-     * 
+     *
      * @return The type of event on this planet, if any
      */
     public String currentEvent() {
         return currentEvent.toString().toLowerCase();
     }
-    
+
     /**
      * Get a string containing the type of government ruling the planet.
-     * 
+     *
      * @return The type of government on the planet
      */
     public String governmentType() {
-        return solarSystem.government.toString().toLowerCase().replace('_', ' ');
+        return getSolarSystem().getGovernment().toString().toLowerCase().replace('_', ' ');
     }
-    
+
     /**
      * Get a string containing the level of technology in the planet's
      * solar system.
-     * 
+     *
      * @return The technology available on the planet
      */
     public String technologyLevel() {
-        return solarSystem.tech.toString().toLowerCase().replace('_', ' ');
+        return getSolarSystem().getTech().toString().toLowerCase().replace('_', ' ');
     }
-    
+
+    /**
+     * Get a string containing the special resources on this planet.
+     *
+     * @return Description of available resources
+     */
+    public String resourceType() {
+        return getResource().toString().toLowerCase().replace('_', ' ');
+    }
+
     /**
      * @return The most abundant resource on the planet
      */
     public Resource getResource() {
         return resource;
     }
-    
+
     /**
      * @return The solar system in which the planet is located
      */
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
-    
+
     /**
      * @return The name of the planet
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @return The distance between the planet and its sun
      */
     public int getDistance() {
         return distance;
     }
-    
+
     /**
      * @return The radius of the planet in thousands of kilometers
      */
     public int getRadius() {
         return radius;
     }
-    
+
     /**
      * @return Whether or not the planet naturally supports life
      */
     public boolean supportsLife() {
-        return supportsLife;
+        return isSupportsLife();
     }
-    
+
     /**
      * @return The marketplace located on the planet
      */
@@ -198,7 +218,7 @@ public class Planet implements Serializable {
      */
     private static Resource randomResource() {
         double r = Math.random();
-        
+
         if (0.0 <= r && r < 0.3) {
             return Resource.NO_SPECIAL_RESOURCES; //30% chance
         } else if (0.3 <= r && r < 0.35) {
@@ -226,6 +246,76 @@ public class Planet implements Serializable {
         } else {
             return Resource.WARLIKE; //5% chance
         }
+    }
+
+    /**
+     * @return The ship upgrade available on this planet.
+     */
+    public Upgradeplace getUpgrade() {
+        return upgrade;
+    }
+
+    /**
+     * @return the nitrogen
+     */
+    public boolean isNitrogen() {
+        return nitrogen;
+    }
+
+    /**
+     * @return the oxygen
+     */
+    public boolean isOxygen() {
+        return oxygen;
+    }
+
+    /**
+     * @return the carbon
+     */
+    public boolean isCarbon() {
+        return carbon;
+    }
+
+    /**
+     * @return the hydrogen
+     */
+    public boolean isHydrogen() {
+        return hydrogen;
+    }
+
+    /**
+     * @return the metals
+     */
+    public boolean isMetals() {
+        return metals;
+    }
+
+    /**
+     * @return the atmosphere
+     */
+    public int getAtmosphere() {
+        return atmosphere;
+    }
+
+    /**
+     * @return the water
+     */
+    public boolean isWater() {
+        return water;
+    }
+
+    /**
+     * @return the temperature
+     */
+    public int getTemperature() {
+        return temperature;
+    }
+
+    /**
+     * @return the supportsLife
+     */
+    public boolean isSupportsLife() {
+        return supportsLife;
     }
     
     public Color getColor() {

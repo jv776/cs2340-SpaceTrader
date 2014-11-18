@@ -7,7 +7,6 @@
 package models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -149,19 +148,21 @@ public class Universe implements Serializable {
     private static TechLevel randomTechLevel() {
         double r = Math.random();
 
-        if(0.0 <= r && r < 0.25) {
+        // Breaks PMD rule "OnlyOneReturn"
+        // Justification: Most obvious implementation for this code.
+        if (0.0 <= r && r < 0.25) {
             return TechLevel.PRE_AGRICULTURE; //25% chance
-        } else if(0.25 <= r && r < 0.45) {
+        } else if (0.25 <= r && r < 0.45) {
             return TechLevel.AGRICULTURE; //20% chance
-        } else if(0.45 <= r && r < 0.6) {
+        } else if (0.45 <= r && r < 0.6) {
             return TechLevel.MEDIEVAL; //15% chance
-        } else if(0.6 <= r && r < 0.7) {
+        } else if (0.6 <= r && r < 0.7) {
             return TechLevel.RENAISSANCE; //10% chance
-        } else if(0.7 <= r && r < 0.8) {
+        } else if (0.7 <= r && r < 0.8) {
             return TechLevel.EARLY_INDUSTRIAL; //10% chance
-        } else if(0.8 <= r && r < 0.875) {
+        } else if (0.8 <= r && r < 0.875) {
             return TechLevel.INDUSTRIAL; //7.5% chance
-        } else if(0.875 <= r && r < 0.95) {
+        } else if (0.875 <= r && r < 0.95) {
             return TechLevel.POST_INDUSTRIAL; //7.5% chance
         } else {
             return TechLevel.HI_TECH; //5% chance
@@ -174,134 +175,134 @@ public class Universe implements Serializable {
 
         PoliticalSystem p;
 
-        if(level == TechLevel.PRE_AGRICULTURE) {
-            if(0.0 <= r && r < 0.9) {
+        if (level == TechLevel.PRE_AGRICULTURE) {
+            if (0.0 <= r && r < 0.9) {
                 p = PoliticalSystem.ANARCHY;
-            } else if(0.9 <= r && r < 0.98) {
+            } else if (0.9 <= r && r < 0.98) {
                 p = PoliticalSystem.PACIFIST_STATE;
             } else {
                 p = PoliticalSystem.STATE_OF_SATORI;
             }
-        } else if(level == TechLevel.AGRICULTURE) {
-            if(0.0 <= r && r < 0.4) {
+        } else if (level == TechLevel.AGRICULTURE) {
+            if (0.0 <= r && r < 0.4) {
                 p = PoliticalSystem.ANARCHY;
-            } else if(0.4 <= r && r < 0.6) {
+            } else if (0.4 <= r && r < 0.6) {
                 p = PoliticalSystem.FEUDAL_STATE;
-            } else if(0.6 <= r && r < 0.7) {
+            } else if (0.6 <= r && r < 0.7) {
                 p = PoliticalSystem.MILITARY_STATE;
-            } else if(0.7 <= r && r < 0.8) {
+            } else if (0.7 <= r && r < 0.8) {
                 p = PoliticalSystem.PACIFIST_STATE;
-            } else if(0.8 <= r && r < 0.98) {
+            } else if (0.8 <= r && r < 0.98) {
                 p = PoliticalSystem.THEOCRACY;
             } else {
                 p = PoliticalSystem.STATE_OF_SATORI;
             }
-        } else if(level == TechLevel.MEDIEVAL) {
-            if(0.0 <= r && r < 0.05) {
+        } else if (level == TechLevel.MEDIEVAL) {
+            if (0.0 <= r && r < 0.05) {
                 p = PoliticalSystem.ANARCHY;
-            } else if(0.05 <= r && r < 0.15) {
+            } else if (0.05 <= r && r < 0.15) {
                 p = PoliticalSystem.DICTATORSHIP;
-            } else if(0.15 <= r && r < 0.35) {
+            } else if (0.15 <= r && r < 0.35) {
                 p = PoliticalSystem.FEUDAL_STATE;
-            } else if(0.35 <= r && r < 0.4) {
+            } else if (0.35 <= r && r < 0.4) {
                 p = PoliticalSystem.MILITARY_STATE;
-            } else if(0.4 <= r && r < 0.8) {
+            } else if (0.4 <= r && r < 0.8) {
                 p = PoliticalSystem.MONARCHY;
-            } else if(0.8 <= r && r < 0.9) {
+            } else if (0.8 <= r && r < 0.9) {
                 p = PoliticalSystem.PACIFIST_STATE;
-            } else if(0.9 <= r && r < 0.99) {
+            } else if (0.9 <= r && r < 0.99) {
                 p = PoliticalSystem.THEOCRACY;
             } else {
                 p = PoliticalSystem.STATE_OF_SATORI;
             }
-        } else if(level == TechLevel.RENAISSANCE) {
-            if(0.0 <= r && r < 0.15) {
+        } else if (level == TechLevel.RENAISSANCE) {
+            if (0.0 <= r && r < 0.15) {
                 p = PoliticalSystem.CONFEDERACY;
-            } else if(0.15 <= r && r < 0.25) {
+            } else if (0.15 <= r && r < 0.25) {
                 p = PoliticalSystem.DEMOCRACY;
-            } else if(0.25 <= r && r < 0.35) {
+            } else if (0.25 <= r && r < 0.35) {
                 p = PoliticalSystem.DICTATORSHIP;
-            } else if(0.35 <= r && r < 0.45) {
+            } else if (0.35 <= r && r < 0.45) {
                 p = PoliticalSystem.MILITARY_STATE;
-            } else if(0.45 <= r && r < 0.8) {
+            } else if (0.45 <= r && r < 0.8) {
                 p = PoliticalSystem.MONARCHY;
-            } else if(0.8 <= r && r < 0.9) {
+            } else if (0.8 <= r && r < 0.9) {
                 p = PoliticalSystem.PACIFIST_STATE;
             } else {
                 p = PoliticalSystem.THEOCRACY;
             }
-        } else if(level == TechLevel.EARLY_INDUSTRIAL) {
-            if(0.0 <= r && r < 0.2) {
+        } else if (level == TechLevel.EARLY_INDUSTRIAL) {
+            if (0.0 <= r && r < 0.2) {
                 p = PoliticalSystem.CAPITALIST_STATE;
-            } else if(0.2 <= r && r < 0.3) {
+            } else if (0.2 <= r && r < 0.3) {
                 p = PoliticalSystem.COMMUNIST_STATE;
-            } else if(0.3 <= r && r < 0.5) {
+            } else if (0.3 <= r && r < 0.5) {
                 p = PoliticalSystem.DEMOCRACY;
-            } else if(0.5 <= r && r < 0.55) {
+            } else if (0.5 <= r && r < 0.55) {
                 p = PoliticalSystem.DICTATORSHIP;
-            } else if(0.55 <= r && r < 0.6) {
+            } else if (0.55 <= r && r < 0.6) {
                 p = PoliticalSystem.FASCIST_STATE;
-            } else if(0.6 <= r && r < 0.7) {
+            } else if (0.6 <= r && r < 0.7) {
                 p = PoliticalSystem.MILITARY_STATE;
-            } else if(0.7 <= r && r < 0.8) {
+            } else if (0.7 <= r && r < 0.8) {
                 p = PoliticalSystem.PACIFIST_STATE;
-            } else if(0.8 <= r && r < 0.9) {
+            } else if (0.8 <= r && r < 0.9) {
                 p = PoliticalSystem.SOCIALIST_STATE;
             } else {
                 p = PoliticalSystem.TECHNOCRACY;
             }
-        } else if(level == TechLevel.INDUSTRIAL) {
-            if(0.0 <= r && r < 0.3) {
+        } else if (level == TechLevel.INDUSTRIAL) {
+            if (0.0 <= r && r < 0.3) {
                 p = PoliticalSystem.CAPITALIST_STATE;
-            } else if(0.3 <= r && r < 0.4) {
+            } else if (0.3 <= r && r < 0.4) {
                 p = PoliticalSystem.COMMUNIST_STATE;
-            } else if(0.4 <= r && r < 0.6) {
+            } else if (0.4 <= r && r < 0.6) {
                 p = PoliticalSystem.DEMOCRACY;
-            } else if(0.6 <= r && r < 0.65) {
+            } else if (0.6 <= r && r < 0.65) {
                 p = PoliticalSystem.DICTATORSHIP;
-            } else if(0.65 <= r && r < 0.7) {
+            } else if (0.65 <= r && r < 0.7) {
                 p = PoliticalSystem.FASCIST_STATE;
-            } else if(0.7 <= r && r < 0.8) {
+            } else if (0.7 <= r && r < 0.8) {
                 p = PoliticalSystem.MILITARY_STATE;
-            } else if(0.8 <= r && r < 0.85) {
+            } else if (0.8 <= r && r < 0.85) {
                 p = PoliticalSystem.PACIFIST_STATE;
-            } else if(0.85 <= r && r < 0.95) {
+            } else if (0.85 <= r && r < 0.95) {
                 p = PoliticalSystem.SOCIALIST_STATE;
             } else {
                 p = PoliticalSystem.TECHNOCRACY;
             }
-        } else if(level == TechLevel.POST_INDUSTRIAL) {
-            if(0.0 <= r && r < 0.25) {
+        } else if (level == TechLevel.POST_INDUSTRIAL) {
+            if (0.0 <= r && r < 0.25) {
                 p = PoliticalSystem.CAPITALIST_STATE;
-            } else if(0.25 <= r && r < 0.3) {
+            } else if (0.25 <= r && r < 0.3) {
                 p = PoliticalSystem.COMMUNIST_STATE;
-            } else if(0.3 <= r && r < 0.6) {
+            } else if (0.3 <= r && r < 0.6) {
                 p = PoliticalSystem.DEMOCRACY;
-            } else if(0.6 <= r && r < 0.65) {
+            } else if (0.6 <= r && r < 0.65) {
                 p = PoliticalSystem.DICTATORSHIP;
-            } else if(0.65 <= r && r < 0.7) {
+            } else if (0.65 <= r && r < 0.7) {
                 p = PoliticalSystem.FASCIST_STATE;
-            } else if(0.7 <= r && r < 0.75) {
+            } else if (0.7 <= r && r < 0.75) {
                 p = PoliticalSystem.MILITARY_STATE;
-            } else if(0.75 <= r && r < 0.85) {
+            } else if (0.75 <= r && r < 0.85) {
                 p = PoliticalSystem.PACIFIST_STATE;
-            } else if(0.85 <= r && r < 0.9) {
+            } else if (0.85 <= r && r < 0.9) {
                 p = PoliticalSystem.SOCIALIST_STATE;
             } else {
                 p = PoliticalSystem.TECHNOCRACY;
             }
         } else {
-            if(0.0 <= r && r < 0.1) {
+            if (0.0 <= r && r < 0.1) {
                 p = PoliticalSystem.CAPITALIST_STATE;
-            } else if(0.1 <= r && r < 0.3) {
+            } else if (0.1 <= r && r < 0.3) {
                 p = PoliticalSystem.DEMOCRACY;
-            } else if(0.3 <= r && r < 0.4) {
+            } else if (0.3 <= r && r < 0.4) {
                 p = PoliticalSystem.DICTATORSHIP;
-            } else if(0.4 <= r && r < 0.45) {
+            } else if (0.4 <= r && r < 0.45) {
                 p = PoliticalSystem.MILITARY_STATE;
-            } else if(0.45 <= r && r < 0.55) {
+            } else if (0.45 <= r && r < 0.55) {
                 p = PoliticalSystem.PACIFIST_STATE;
-            } else if(0.55 <= r && r < 0.7) {
+            } else if (0.55 <= r && r < 0.7) {
                 p = PoliticalSystem.TECHNOCRACY;
             } else {
                 p = PoliticalSystem.CYBERNETIC_STATE;
@@ -323,7 +324,7 @@ public class Universe implements Serializable {
         double result = 0;
         int denominator = 2;
 
-        while(n > 0) {
+        while (n > 0) {
             result += n % 2.0 / (denominator);
             denominator *= 2;
             n /= 2;
@@ -332,32 +333,37 @@ public class Universe implements Serializable {
         return result;
     }
 
+    /**
+     * The highest possible x-coordinate of a solar system.
+     */
     public final int MAX_X = 590;
+    
+    /**
+     * The highest possible y-coordinate of a solar system.
+     */
     public final int MAX_Y = 390;
 
-
-    public static final int NUM_SOLAR_SYSTEMS = SOLAR_SYSTEM_NAMES.length;
+    private static final int NUM_SOLAR_SYSTEMS = SOLAR_SYSTEM_NAMES.length;
+    
+    /**
+     * An array of every solar system in the universe.
+     */
     public final SolarSystem[] solarSystems;
 
-
+    /**
+     * Creates a new universe and generates solar systems in the universe.
+     */
     public Universe() {
         solarSystems = new SolarSystem[NUM_SOLAR_SYSTEMS];
-        Random random = new Random();
-        int offset = random.nextInt();
-        
-        ArrayList<Integer> list = new ArrayList<>(150);
-        for(int i = 1; i < 150; i++) {
-            list.add(i);
-        }
-        
-        int sizeOfGrid = 40;
+        Random r = new Random();
+        int offset = r.nextInt();
+
 
         for (int i = 0; i < NUM_SOLAR_SYSTEMS; i++) {
-            int grid = list.remove(random.nextInt(list.size()));//random.nextInt(600*400/(sizeOfGrid * sizeOfGrid));
-            int x = (grid % (600 / sizeOfGrid)) * sizeOfGrid;
-            int y = (grid / (600 / sizeOfGrid)) * sizeOfGrid;
-            
+
             TechLevel tech = TechLevel.HI_TECH;
+            int x = (int) (vanDerCorput(Math.abs(i + offset)) * MAX_X);
+            int y = (int) (vanDerCorput(Math.abs(x + offset)) * MAX_Y);
 
             solarSystems[i] = new SolarSystem(
                     SOLAR_SYSTEM_NAMES[i],
@@ -366,13 +372,15 @@ public class Universe implements Serializable {
                     tech,
                     randomGovernment(tech)
             );
-
-            int sizeOfPlanet = solarSystems[i].getSun().getRadius() * 2;
-            solarSystems[i].setX(x + random.nextInt(sizeOfGrid - sizeOfPlanet) + sizeOfPlanet / 2); //change for size of planets
-            solarSystems[i].setY(y + random.nextInt(sizeOfGrid - sizeOfPlanet) + sizeOfPlanet / 2);
         }
     }
 
+    /**
+     * This method gets a randomly-chosen planet from a random solar system
+     * in the Universe from which it is called.
+     * 
+     * @return A randomly selected plan within the universe
+     */
     public Planet getRandomPlanet() {
         Random r = new Random();
         SolarSystem s = solarSystems[r.nextInt(solarSystems.length)];

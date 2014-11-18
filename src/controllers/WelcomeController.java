@@ -20,12 +20,6 @@ import javafx.stage.Window;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 
 /**
  * FXML Controller class
@@ -36,30 +30,23 @@ public class WelcomeController implements Initializable {
 
     @FXML
     private AnchorPane anchor;
-    
+
     @FXML
     private Label title;
-    
+
     @FXML
     private Label subtitle;
 
     @FXML
     private Button newGameButton;
-    
+
     @FXML
     private Button loadGameButton;
-    
+
     private FileChooser saveChooser;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        anchor.setBackground(new Background(new BackgroundImage(
-            new Image("/images/welcome.jpg"),
-            BackgroundRepeat.NO_REPEAT,
-            BackgroundRepeat.NO_REPEAT,
-            BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT
-        )));
         saveChooser = new FileChooser();
         saveChooser.setTitle("Load previous game");
         saveChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Save files",
@@ -76,15 +63,15 @@ public class WelcomeController implements Initializable {
     private void handleNewGame() {
         GameController.getControl().setScreen(Screens.CUSTOMIZATION);
     }
-    
+
     @FXML
     private void handleLoadGame(Event e) {
         Node n = (Node) e.getTarget();
         Scene s = n.getScene();
         Window w = s.getWindow();
-        
+
         File newSave = saveChooser.showOpenDialog(w);
-        
+
         if (newSave != null) {
             GameController.loadGameData(newSave);
             GameController.getControl().setScreen(Screens.MARKET);

@@ -12,7 +12,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -24,6 +27,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -69,8 +73,14 @@ public class NewRandomEventController implements Initializable {
     boolean rightDown;
     boolean upDown;
     boolean space;
+    boolean shift;
+    boolean enter;
 
+    private int escapeCount;
     private int delay;
+    
+    private ProgressBar escapeBar;
+    private Label escapeLabel;
 
     int pilotSP;
     int fighterSP;
@@ -82,13 +92,20 @@ public class NewRandomEventController implements Initializable {
     private ImageView endImage;
 
     private boolean endGame;
+    private boolean gamePaused;
+    private Label pausedLabel;
+    
     private int difficulty;
     private String name;
     private Encounterable enemy;
+    
+    private AudioClip explode;
+    private AudioClip laser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Player player = GameController.getGameData().getPlayer();
+
 
         double policeChance = 0.05 + player.getShip().getCargoHold().getQuantity(TradeGood.NARCOTICS) * 0.015
                 + player.getShip().getCargoHold().getQuantity(TradeGood.FIREARMS) * 0.005;
@@ -102,7 +119,7 @@ public class NewRandomEventController implements Initializable {
 
         name = "";
 
-        if (Math.random() < 0) {
+        if (Math.random() < policeChance) {
             name = "Police";
             enemy = new Police("Bob");
         } else if (Math.random() < pirateChance) {
@@ -146,6 +163,23 @@ public class NewRandomEventController implements Initializable {
 
         timer = getGameLoop();
 
+        explode = new AudioClip(getClass().getResource("/sounds/explosion.mp3").toString());
+        laser = new AudioClip(getClass().getResource("/sounds/laser.mp3").toString());
+        laser.setVolume(0.5); 
+        
+        pausedLabel = new Label("PAUSED");
+        pausedLabel.setFont(Font.font(30));
+        pausedLabel.setMinSize(600, 400);
+        pausedLabel.setTranslateX(scroll.getHvalue());
+        pausedLabel.setTranslateY(scroll.getVvalue());
+        pausedLabel.setMouseTransparent(true);
+        pausedLabel.setAlignment(Pos.CENTER);
+        pausedLabel.setOnKeyPressed((KeyEvent t) -> {
+            if (t.getCode() == KeyCode.ENTER) {
+                unPauseGame();
+            }
+        });
+
         shots = new ArrayList<>();
         enemies = new ArrayList<>();
         enemyShips = new ArrayList<>();
@@ -157,12 +191,28 @@ public class NewRandomEventController implements Initializable {
         rightDown = false;
         upDown = false;
         space = false;
+        shift = false;
+        enter = false;
+        
+        escapeCount = 0;
+        escapeBar = new ProgressBar();
+        escapeBar.setProgress(0.0);
+        escapeBar.setMinSize(200.0, 30.0);
+        escapeBar.setVisible(false);
+        escapeLabel = new Label("Flee: " + (int)(escapeCount / 100.0) + "%");
+        escapeLabel.setText((int)(escapeCount / 100.0) + "%");
+        escapeLabel.setMinSize(200.0, 30.0);
+        escapeLabel.setVisible(false);
+        escapeLabel.setAlignment(Pos.CENTER);
+        
+        anchor.getChildren().add(escapeBar);
+        anchor.getChildren().add(escapeLabel);
 
         pilotSP = getPlayerShip().getOwner().getPilotSkillPoints();
         fighterSP = getPlayerShip().getOwner().getFighterSkillPoints();
         if (!name.equals("")) {
             initializePlayer();
-            initializeEnemy(name, 23);//difficulty * 4 + player.getBounty() / 1000);
+            initializeEnemy(name, difficulty * 4 + player.getBounty() / 1000);
 
             for (Encounterable enc : enemies) {
                 enc.equipForDifficulty(difficulty);
@@ -175,8 +225,8 @@ public class NewRandomEventController implements Initializable {
 
     private void encounter(Encounterable enc) {
         Label title = new Label("You have encountered " + (name.equals("Police") ? "the Police!" : name + "s!"));
-        title.setMinSize(600, 400);
-        title.setMaxSize(600, 400);
+        title.setMinSize(600, 200);
+        title.setMaxSize(600, 200);
         title.setWrapText(true);
         title.setFont(Font.font(40));
         title.setAlignment(Pos.CENTER);
@@ -203,7 +253,6 @@ public class NewRandomEventController implements Initializable {
             title.setTranslateY(scroll.getVvalue());
             okayButton.setTranslateX(scroll.getHvalue() + 200);
             okayButton.setTranslateY(scroll.getVvalue() + 300);
-            okayButton.requestFocus();
         });
         fade.play();
         anchor.getChildren().add(title);
@@ -211,7 +260,7 @@ public class NewRandomEventController implements Initializable {
     }
 
     private void enemyText(Encounterable enc) {
-        ImageView image = new ImageView(enc.getShipImage());
+        ImageView image = new ImageView(enc.getShip().getImage());
         image.setScaleX(100.0 / image.getImage().getWidth());
         image.setScaleY(100.0 / image.getImage().getHeight());
         image.setTranslateX(scroll.getHvalue() + (image.getImage().getWidth() * image.getScaleX() - image.getImage().getWidth()) / 2.0);
@@ -243,23 +292,79 @@ public class NewRandomEventController implements Initializable {
             fadeOut(engage);
             fadeOut(image);
             fadeOut(comply);
-            scroll.setMouseTransparent(true);
-            anchor.requestFocus();
-            timer.start();
+            if (GameController.getGameData().getPlayer().isFirstFight()) {
+                anchor.setEffect(new ColorAdjust(0, 0, -0.5, 0));
+                Tooltip controls = new Tooltip("-Use Left and Right buttons to rotate your ship."
+                        + "\n-Use Up to move your ship in the direction you are facing."
+                        + "\n-Use Space Bar to fire lasers if you have any equipped."
+                        + "\n-Hold down Shift to escape from battle."
+                        + "\n-Click outside box to start fight.");
+                controls.setMinSize(600, 200);
+                controls.setFont(Font.font(20));
+                controls.setX(scroll.getHvalue() - 25);
+                controls.setY(scroll.getVvalue() - 200);
+               
+                anchor.setOnMouseClicked((MouseEvent e) -> {
+                    controls.hide();
+                    GameController.getGameData().getPlayer().finishedFirstFight();
+                    anchor.removeEventHandler(MouseEvent.MOUSE_CLICKED, anchor.getOnMouseClicked());
+                    anchor.setEffect(new ColorAdjust(0, 0, 0, 0));
+                    anchor.getChildren().remove(controls);
+                    scroll.setMouseTransparent(true);
+                    anchor.requestFocus();
+                    timer.start();
+                });
+                
+                controls.show(anchor.getScene().getWindow());
+            } else {
+                scroll.setMouseTransparent(true);
+                anchor.requestFocus();
+                timer.start();
+            }
         });
 
         comply.setOnMouseClicked((MouseEvent t) -> {
-            fadeOut(engage);
-            fadeOut(comply);
-            speech.setText(enc.getComplyText());
-            Button cont = new Button("Continue");
-            cont.setMinSize(200, 50);
-            cont.setTranslateX(scroll.getHvalue() + 200);
-            cont.setTranslateY(scroll.getVvalue() + 175);
-            cont.setOnMouseClicked((MouseEvent e) -> {
-                GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
-            });
-            fadeIn(cont);
+            boolean fightAnyway = false;
+            if (enc instanceof Pirate) {
+                fightAnyway = pirateComply();
+            } else if (enc instanceof Police) {
+                fightAnyway = policeComply();
+            } else if (enc instanceof Trader) {
+                traderComply();
+            } else {
+                fightAnyway = dreadnoughtComply();
+            }
+            
+            if (true) {
+                fadeOut(engage);
+                fadeOut(comply);
+                speech.setText(enc.getBadComplyText());
+                Button cont = new Button("Continue");
+                cont.setMinSize(200, 50);
+                cont.setTranslateX(scroll.getHvalue() + 200);
+                cont.setTranslateY(scroll.getVvalue() + 175);
+                cont.setOnMouseClicked((MouseEvent e) -> {
+                    fadeOut(cont);
+                    fadeOut(speech);
+                    fadeOut(image);
+                    scroll.setMouseTransparent(true);
+                    anchor.requestFocus();
+                    timer.start();
+                });
+                fadeIn(cont);
+            } else {
+                fadeOut(engage);
+                fadeOut(comply);
+                speech.setText(enc.getGoodComplyText());
+                Button cont = new Button("Continue");
+                cont.setMinSize(200, 50);
+                cont.setTranslateX(scroll.getHvalue() + 200);
+                cont.setTranslateY(scroll.getVvalue() + 175);
+                cont.setOnMouseClicked((MouseEvent e) -> {
+                    GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+                });
+                fadeIn(cont);
+            }
         });
 
         anchor.getChildren().add(speech);
@@ -276,7 +381,7 @@ public class NewRandomEventController implements Initializable {
     }
 
     private void playerWin(Encounterable enc) {
-        endImage = new ImageView(enc.getShipImage());
+        endImage = new ImageView(enc.getShip().getImage());
         endImage.setScaleX(100.0 / endImage.getImage().getWidth());
         endImage.setScaleY(100.0 / endImage.getImage().getHeight());
         endImage.setTranslateX(scroll.getHvalue() + (endImage.getImage().getWidth() * endImage.getScaleX() - endImage.getImage().getWidth()) / 2.0);
@@ -315,7 +420,7 @@ public class NewRandomEventController implements Initializable {
     }
 
     private void playerLose(Encounterable enc) {
-        endImage = new ImageView(enc.getShipImage());
+        endImage = new ImageView(enc.getShip().getImage());
         endImage.setScaleX(100.0 / endImage.getImage().getWidth());
         endImage.setScaleY(100.0 / endImage.getImage().getHeight());
         endImage.setTranslateX(scroll.getHvalue() + (endImage.getImage().getWidth() * endImage.getScaleX() - endImage.getImage().getWidth()) / 2.0);
@@ -378,8 +483,42 @@ public class NewRandomEventController implements Initializable {
                     centerOnScreen(ship.getTranslateX() + ship.getImage().getWidth() * ship.getScaleX() / 2,
                             ship.getTranslateY() + ship.getImage().getHeight() * ship.getScaleY() / 2);
                 }
-                if (space && delay % 4 == 0) {
+                if (space && delay % 10 == 0) {
                     shoot(getPlayerShip(), ship);
+                }
+                
+                if (shift) {
+                    if (escapeCount == 0) {
+                        escapeBar.setVisible(true);
+                        escapeLabel.setVisible(true);
+                    } else if (escapeCount <= 250) {
+                        escapeBar.setProgress(escapeCount / 250.0);
+                        escapeLabel.setText("Flee: " + (int)(escapeCount / 250.0 * 100.0) + "%");
+                        if (escapeBar.getProgress() == 1.0) {
+                            GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+                            timer.stop();
+                        }
+                    } 
+                    escapeBar.setTranslateX(scroll.getHvalue() + 200);
+                    escapeBar.setTranslateY(scroll.getVvalue() + 300);
+                    escapeLabel.setTranslateX(scroll.getHvalue() + 200);
+                    escapeLabel.setTranslateY(scroll.getVvalue() + 330);
+                    escapeCount++;
+                } else {
+                    escapeBar.setVisible(false);
+                    escapeLabel.setVisible(false);
+                    escapeCount = 0;
+                }
+                
+                if (enter) {
+                    enter = false;
+                    if (gamePaused) {
+                        unPauseGame();
+                        gamePaused = false;
+                    } else {
+                        pauseGame();
+                        gamePaused = true;
+                    }
                 }
 
                 for (int i = 0; i < shots.size(); i++) {
@@ -461,12 +600,36 @@ public class NewRandomEventController implements Initializable {
             }
         };
     }
+    
+    private void pauseGame() {
+        timer.stop();
+        for (Node n : anchor.getChildren()) {
+            n.setEffect(new ColorAdjust(0, 0, -0.5, 0));
+        }
+        
+        pausedLabel.setTranslateX(scroll.getHvalue());
+        pausedLabel.setTranslateY(scroll.getVvalue());
+        
+        
+        anchor.getChildren().add(pausedLabel);
+        
+        pausedLabel.requestFocus();
+    }
+    
+    private void unPauseGame() {
+        for (Node n : anchor.getChildren()) {
+            n.setEffect(new ColorAdjust(0, 0, 0, 0));
+        }
+        anchor.getChildren().remove(pausedLabel);
+        anchor.requestFocus();
+        timer.start();
+    }
 
     private void initializePlayer() {
         int eventCenterX = 1000;
         int eventCenterY = 750;
 
-        ship = new ImageView(new Image("/images/spaceship.gif"));
+        ship = new ImageView(GameController.getGameData().getPlayer().getShip().getImage());
         ship.setScaleX(.5);
         ship.setScaleY(.5);
         ship.setTranslateX(eventCenterX - ship.getImage().getWidth() / 2);
@@ -484,6 +647,12 @@ public class NewRandomEventController implements Initializable {
             if (k.getCode() == KeyCode.SPACE) {
                 space = !getPlayerShip().isDead();
             }
+            if (k.getCode() == KeyCode.SHIFT) {
+                shift = !getPlayerShip().isDead();
+            }
+            if (k.getCode() == KeyCode.ENTER) {
+                enter = !getPlayerShip().isDead();
+            }
         });
 
         anchor.setOnKeyReleased((KeyEvent k) -> {
@@ -497,6 +666,9 @@ public class NewRandomEventController implements Initializable {
             }
             if (k.getCode() == KeyCode.SPACE) {
                 space = false;
+            }
+            if (k.getCode() == KeyCode.SHIFT) {
+                shift = false;
             }
         });
 
@@ -540,7 +712,7 @@ public class NewRandomEventController implements Initializable {
     }
 
     private void createEnemy(Encounterable enemy) {
-        ImageView enemyShip = new ImageView(enemy.getShipImage());
+        ImageView enemyShip = new ImageView(enemy.getShip().getImage());
         enemyShip.setScaleX(0.5);
         enemyShip.setScaleY(0.5);
 
@@ -794,6 +966,9 @@ public class NewRandomEventController implements Initializable {
                     ship.takeDamage(damage);
                     boolean reflected = false;
                     double reflect = ship.getReflectChance();
+                    if (ship.getOwner() instanceof Player) {
+                        escapeCount = 0;
+                    }
                     if (reflect > 0) {
                         if (Math.random() < reflect) {
                             owner = ship.getOwner();
@@ -836,6 +1011,7 @@ public class NewRandomEventController implements Initializable {
         for (int i = 0; i < 75; i++) {
             Particle particle = new Particle(centerX, centerY);
         }
+        explode.play();
     }
 
     private Ship getPlayerShip() {
@@ -853,7 +1029,7 @@ public class NewRandomEventController implements Initializable {
             double angle = shipImage.getRotate() + (scatter > 0 ? Math.random() * scatter - scatter / 2 : 0);
             Shot s = new Shot(ship.getOwner(), shipImage, ship, shipImage.getTranslateX() + deltaX + shipImage.getImage().getWidth() / 2,
                     shipImage.getTranslateY() + deltaY + shipImage.getImage().getHeight() / 2, angle, 5
-                    + ship.getOwner().getFighterSkillPoints() / 1.5, (int) (w.getPower() * (1 + ship.getOwner().getFighterSkillPoints() / 30.0)));
+                    + ship.getOwner().getFighterSkillPoints() / 1.5, (int) (w.getDamage()* (1 + ship.getOwner().getFighterSkillPoints() / 30.0)));
             shots.add(s);
             anchor.getChildren().add(s.line);
             shipImage.toFront();
@@ -871,6 +1047,9 @@ public class NewRandomEventController implements Initializable {
                     s.line.setStroke(Color.VIOLET);
                     break;
             }
+        }
+        if (weapons.size() > 0) {
+            laser.play();
         }
     }
 
@@ -967,13 +1146,17 @@ public class NewRandomEventController implements Initializable {
     }
     
     private boolean pirateComply() {
-        GameController.getGameData().getPlayer().spend(3 * GameController.getGameData().getPlayer().getCredits() / 4);
-        return Math.random() < 0.05;
+        if (Math.random() < 0.05) {
+            return true;
+        } else {
+            GameController.getGameData().getPlayer().spend(3 * GameController.getGameData().getPlayer().getCredits() / 4);
+            return false;
+        }
     }
     
     private boolean policeComply() {
         return GameController.getGameData().getPlayer().hasIllegalGoods() 
-                || GameController.getGameData().getPlayer().getBounty() > 10000;
+                || GameController.getGameData().getPlayer().getBounty() > 5000;
     } 
     
     private boolean dreadnoughtComply() {
@@ -983,5 +1166,9 @@ public class NewRandomEventController implements Initializable {
             return false;
         }
         return true;
+    }
+    
+    private boolean traderComply() {
+        return false;
     }
 }

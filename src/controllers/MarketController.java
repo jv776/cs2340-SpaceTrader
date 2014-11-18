@@ -28,13 +28,6 @@ import javafx.scene.paint.Color;
  * @author Alex, John
  */
 public class MarketController implements Initializable {
-
-    @FXML
-    private Label label_refuelCost;
-    @FXML
-    private Button button_Refuel;
-    @FXML
-    private Label label_fuelAmount;
     
     @FXML
     private Label buyNarcoticsValueLabel;
@@ -261,9 +254,7 @@ public class MarketController implements Initializable {
         player = GameController.getGameData().getPlayer();
         market = player.getCurrentPlanet().getMarket();
         
-        if (player.getShip().getFuelCapacity() == player.getShip().getFuelAmount()) {
-            button_Refuel.setDisable(true);
-        }
+        
         
         
         
@@ -288,6 +279,14 @@ public class MarketController implements Initializable {
             buyNarcoticsValueLabel, buyRobotsValueLabel
         };
         this.buyValues = buyValues;
+        
+        int trader = player.getTraderSkillPoints();
+        
+        System.out.println(market.getPrice(TradeGood.WATER));
+        
+        market.discountPrices(trader);
+        
+        System.out.println(market.getPrice(TradeGood.WATER));
         
         for (int i = 0; i < buyValues.length; i++) {
             int price = market.getPrice(TradeGood.values()[i]);
@@ -320,8 +319,10 @@ public class MarketController implements Initializable {
         };
         this.sellValues = sellValues;
         
+
+        
         for (int i = 0; i < sellValues.length; i++) {
-            int price = market.getSalePrice(TradeGood.values()[i]);
+            int price = market.getSalePrice(TradeGood.values()[i], trader);
             sellValues[i].setText(Integer.toString(price));
             if (market.isGoodSell(TradeGood.values()[i]) &&
                     player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]) > 0) {
@@ -356,10 +357,6 @@ public class MarketController implements Initializable {
             sellButtons[i].setDisable(quantity <= 0);
         }
         
-        // Fuel stuff
-        this.label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
-        this.label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
-        
         marketNameLabel.setText("Market: " + player.getCurrentPlanet().getName()
                 + ", " + player.getCurrentSystem().getTechLevel().toString());
         moneyLabel.setText("" + player.getCredits());
@@ -391,17 +388,6 @@ public class MarketController implements Initializable {
         }
         
         moneyLabel.setText("" + player.getCredits());
-    }
-    
-    @FXML
-    void handleRefuelButton() {
-        player.spend((int) (Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost()));
-        player.getShip().refuel();
-        
-        label_fuelAmount.setText(Math.ceil(player.getShip().getFuelAmount()) + "");
-        label_refuelCost.setText(Math.ceil(player.getShip().getFuelCapacity() - player.getShip().getFuelAmount()) * player.getShip().getFuelCost() + "");
-        button_Refuel.setDisable(true);
-        update();
     }
     
     @FXML
@@ -492,7 +478,7 @@ public class MarketController implements Initializable {
     //sell a good - add one more to the market, earn money, and remove from cargo
     private void sellGood(TradeGood good) {
         market.sellGood(good);
-        player.earn(market.getSalePrice(good));
+        player.earn(market.getSalePrice(good, player.getTraderSkillPoints()));
         
         //there is probably a better way to do this
         player.getShip().getCargoHold().removeItem(good);

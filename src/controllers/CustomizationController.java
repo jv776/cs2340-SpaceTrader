@@ -20,7 +20,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -61,11 +63,16 @@ public class CustomizationController implements Initializable {
     @FXML
     private Label skillPointsRemaining;
     
+    @FXML
+    private Label pilotLabel, fighterLabel, engineerLabel, traderLabel, investorLabel;
+    
     @FXML 
     private Slider pilotSlider, fighterSlider, traderSlider, engineerSlider, investorSlider;
     
     Label[] labels;
     Slider[] sliders;
+    
+    Tooltip pilot, fighter, engineer, trader, investor;
     
     
     @FXML
@@ -97,7 +104,6 @@ public class CustomizationController implements Initializable {
         this.labels = fxlabels;
         
         for (int i = 0; i < sliders.length; i++) {
-            System.out.println(sliders[i]);
             Slider s = sliders[i];
             final int j = i;
             s.setMax(15);
@@ -122,6 +128,73 @@ public class CustomizationController implements Initializable {
                 }
             });
         }
+        
+        pilot = new Tooltip("Increases ship speed in battle and makes fleeing and pursing much easier.");
+        pilot.setMaxWidth(200);
+        pilot.setWrapText(true);
+        fighter = new Tooltip("Increases laser speed and damage in battle.");
+        fighter.setMaxWidth(200);
+        fighter.setWrapText(true);
+        engineer = new Tooltip("Increases shield regeneration rate in battle.");
+        engineer.setMaxWidth(200);
+        engineer.setWrapText(true);
+        trader = new Tooltip("Increases sell prices up to 10% of their original value and lowers buy prices the same amount.");
+        trader.setMaxWidth(200);
+        trader.setWrapText(true);
+        investor = new Tooltip("Increases chances of success in the stoack market.");
+        investor.setMaxWidth(200);
+        investor.setWrapText(true);
+        
+        pilotLabel.setOnMouseEntered((MouseEvent t) -> {
+            double xCoord = grid.getScene().getWindow().getX();
+            double yCoord = grid.getScene().getWindow().getY();
+            pilot.show(grid, xCoord + pilotLabel.getLayoutX() + pilotLabel.getWidth() + 20, 
+                    yCoord + pilotLabel.getLayoutY() + 40);
+        });
+        pilotLabel.setOnMouseExited((MouseEvent t) -> {
+            pilot.hide();
+        });
+        
+        fighterLabel.setOnMouseEntered((MouseEvent t) -> {
+            double xCoord = grid.getScene().getWindow().getX();
+            double yCoord = grid.getScene().getWindow().getY();
+            fighter.show(grid, xCoord + fighterLabel.getLayoutX() + fighterLabel.getWidth() + 20, 
+                    yCoord + fighterLabel.getLayoutY() + 40);
+        });
+        fighterLabel.setOnMouseExited((MouseEvent t) -> {
+            fighter.hide();
+        });
+        
+        traderLabel.setOnMouseEntered((MouseEvent t) -> {
+            double xCoord = grid.getScene().getWindow().getX();
+            double yCoord = grid.getScene().getWindow().getY();
+            trader.show(grid, xCoord + traderLabel.getLayoutX() + + traderLabel.getWidth() + 20, 
+                    yCoord + traderLabel.getLayoutY() + 40);
+        });
+        traderLabel.setOnMouseExited((MouseEvent t) -> {
+            trader.hide();
+        });
+        
+        engineerLabel.setOnMouseEntered((MouseEvent t) -> {
+            double xCoord = grid.getScene().getWindow().getX();
+            double yCoord = grid.getScene().getWindow().getY();
+            engineer.show(grid, xCoord + engineerLabel.getLayoutX() + engineerLabel.getWidth() + 20, 
+                    yCoord + engineerLabel.getLayoutY() + 40);
+        });
+        engineerLabel.setOnMouseExited((MouseEvent t) -> {
+            engineer.hide();
+        });
+        
+        investorLabel.setOnMouseEntered((MouseEvent t) -> {
+            double xCoord = grid.getScene().getWindow().getX();
+            double yCoord = grid.getScene().getWindow().getY();
+            investor.show(grid, xCoord + investorLabel.getLayoutX() + investorLabel.getWidth() + 20, 
+                    yCoord + investorLabel.getLayoutY() + 40);
+        });
+        investorLabel.setOnMouseExited((MouseEvent t) -> {
+            investor.hide();
+        });
+        
     }   
     
     /**
@@ -140,12 +213,12 @@ public class CustomizationController implements Initializable {
             Integer.parseInt(investorSkillPoints.getText())
         );
         
-        player.earn(1000); //start with 1000 credits
+        player.earn(10000000); //start with 1000 credits
         
         SolarSystem system = universe.solarSystems[(int) (Math.random() *
                 universe.solarSystems.length)];
         system.discover();
-        Planet planet = system.planets[(int) (Math.random() * system.planets.length)];
+        Planet planet = system.getPlanets()[(int) (Math.random() * system.getPlanets().length)];
         
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);

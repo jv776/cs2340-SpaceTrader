@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
+import java.io.Serializable;
+
 /**
+ * Model of a misc upgrade that can be applied to a ship.
  *
- * @author Alex
+ * @author Taylor
  */
-public class Gadget extends ShipUpgrade {
-    public enum GadgetType {
-        CARGO_INCREASE("Extra Cargo Bays", TechLevel.EARLY_INDUSTRIAL, 6000,
+public class Gadget extends Upgrade implements Serializable {
+    public static enum Type {
+         CARGO_INCREASE("Extra Cargo Bays", TechLevel.EARLY_INDUSTRIAL, 6000,
             "Increases the maximum amount of cargo you can carry by 5.",
             new Effect() {
                 @Override
@@ -30,12 +28,12 @@ public class Gadget extends ShipUpgrade {
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
-                    ship.getOwner().increasePilot(5);
+                    ship.getOwner().setPilotSkillPoints(ship.getOwner().getPilotSkillPoints() + 5);
                 }
 
                 @Override
                 public void onUnequip(Ship ship) {
-                   ship.getOwner().decreasePilot(5);
+                   ship.getOwner().setPilotSkillPoints(ship.getOwner().getPilotSkillPoints() - 5);
                 }
         }),
         
@@ -44,12 +42,12 @@ public class Gadget extends ShipUpgrade {
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
-                    ship.getOwner().increaseEngineer(5);
+                    ship.getOwner().setEngineerSkillPoints(ship.getOwner().getEngineerSkillPoints() + 5);
                 }
 
                 @Override
                 public void onUnequip(Ship ship) {
-                    ship.getOwner().decreaseEngineer(5);
+                    ship.getOwner().setEngineerSkillPoints(ship.getOwner().getEngineerSkillPoints() - 5);
                 }
         }),
         
@@ -58,16 +56,17 @@ public class Gadget extends ShipUpgrade {
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
-                    ship.getOwner().increaseFighter(5);
+                    ship.getOwner().setFighterSkillPoints(ship.getOwner().getFighterSkillPoints() + 5);
+
                 }
 
                 @Override
                 public void onUnequip(Ship ship) {
-                    ship.getOwner().decreaseFighter(5);
+                    ship.getOwner().setFighterSkillPoints(ship.getOwner().getFighterSkillPoints() - 5);
                 }
         }),
         
-        CLOAKING_DEVICE("Cloaking Device", TechLevel.HI_TECH, 70000,
+        CLOAKING_DEVICE("Cloaking Device", TechLevel.HI_TECH, 30000,
             "Allows player to travel unseen by some ships.", 
             new Effect() {
                 @Override
@@ -137,42 +136,68 @@ public class Gadget extends ShipUpgrade {
                 }
         });
         
-        public final String name;
-        public final TechLevel minTechLevel;
-        public final int price;
-        public final String info;
+        private final String name;
+        private final TechLevel minTechLevel;
+        private final int price;
         private Effect effect;
+        private final String description;
         
-        GadgetType(String name, TechLevel minTechLevel, int price, String info, Effect effect) {
+        Type(String name, TechLevel minTechLevel, int price, String info, Effect effect) {
             this.name = name;
             this.minTechLevel = minTechLevel;
             this.price = price;
-            this.info = info;
+            this.description = info;
             this.effect = effect;
         }
         
+        public String getName() {
+            return name;
+        }
+        
+        public TechLevel getMinTechLevel() {
+            return minTechLevel;
+        }
+
+        /**
+         * @return the price
+         */
+        public int getPrice() {
+            return price;
+        }
+
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
     }
 
-    private GadgetType type;
-    
-    public Gadget(GadgetType type) {
+    private final Type type;
+    private final int price;
+    private final String name;
+
+    public Gadget(Type type) {
         this.type = type;
+        this.price = type.getPrice();
+        name = type.name;
     }
-    
-    public String toString() {
-        return type.name;
-    }
-    
-    public TechLevel getMinTechLevel() {
-        return type.minTechLevel;
-    }
-    
+
     public int getPrice() {
-        return type.price;
+        return price;
     }
-    
-    public String getInfo() {
-        return type.info;
+
+    public TechLevel getTechLevel() {
+        return type.getMinTechLevel();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return type.getDescription();
     }
     
     @Override

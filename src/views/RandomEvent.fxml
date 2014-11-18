@@ -1,43 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.image.*?>
+
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
 <?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-
-
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Region id="PlayerRegion" layoutX="39.0" layoutY="14.0" prefHeight="238.0" prefWidth="249.0" />
-      <Region id="PirateRegion" layoutX="314.0" layoutY="14.0" prefHeight="238.0" prefWidth="249.0" />
-      <Button fx:id="NWButton" layoutX="14.0" layoutY="263.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
-      <Label layoutX="93.0" layoutY="22.0" text="You" />
-      <ProgressBar fx:id="playerHealth" layoutX="117.0" layoutY="47.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
-      <Label layoutX="50.0" layoutY="52.0" text="Health" />
-      <Button fx:id="NEButton" layoutX="296.0" layoutY="263.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
-      <Button fx:id="SWButton" layoutX="14.0" layoutY="328.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
-      <Button fx:id="SEButton" layoutX="296.0" layoutY="328.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="284.0" />
-      <Label layoutX="50.0" layoutY="72.0" text="Shields" />
-      <ProgressBar fx:id="playerShields" layoutX="117.0" layoutY="67.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
-      <ProgressBar fx:id="otherShields" layoutX="392.0" layoutY="67.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
-      <Label layoutX="325.0" layoutY="72.0" text="Shields" />
-      <Label layoutX="325.0" layoutY="52.0" text="Health" />
-      <ProgressBar fx:id="otherHealth" layoutX="392.0" layoutY="47.0" prefHeight="20.0" prefWidth="122.0" progress="0.0" />
-      <Label fx:id="otherName" layoutX="368.0" layoutY="22.0" text="Other" />
-      <ImageView fx:id="playerPic" fitHeight="150.0" fitWidth="190.0" layoutX="50.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="otherPic" fitHeight="150.0" fitWidth="190.0" layoutX="325.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
-      <Polygon fx:id="bubbleArrow" layoutX="386.0" layoutY="170.0" rotate="91.7" stroke="BLACK" strokeType="INSIDE">
-        <points>
-          <Double fx:value="-50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="0.0" />
-          <Double fx:value="-60.0" />
-        </points>
-      </Polygon>
-      <Rectangle fx:id="bubbleBox" arcHeight="5.0" arcWidth="5.0" height="150.0" layoutX="259.0" layoutY="72.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
-      <Label fx:id="speech" layoutX="265.0" layoutY="76.0" prefHeight="142.0" prefWidth="122.0" text="Label" textFill="#e5ff3b" wrapText="true" />
-   </children>
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Region id="PlayerRegion" layoutX="39.0" layoutY="14.0" prefHeight="238.0" prefWidth="249.0"/>
+        <Region id="PirateRegion" layoutX="314.0" layoutY="14.0" prefHeight="238.0" prefWidth="249.0"/>
+        <Button fx:id="NWButton" layoutX="14.0" layoutY="263.0" mnemonicParsing="false" prefHeight="65.0"
+                prefWidth="284.0"/>
+        <Label layoutX="93.0" layoutY="22.0" text="You"/>
+        <ProgressBar fx:id="playerHealth" layoutX="117.0" layoutY="47.0" prefHeight="20.0" prefWidth="122.0"
+                     progress="0.0"/>
+        <Label layoutX="50.0" layoutY="52.0" text="Health"/>
+        <Button fx:id="NEButton" layoutX="296.0" layoutY="263.0" mnemonicParsing="false" prefHeight="65.0"
+                prefWidth="284.0"/>
+        <Button fx:id="SWButton" layoutX="14.0" layoutY="328.0" mnemonicParsing="false" prefHeight="65.0"
+                prefWidth="284.0"/>
+        <Button fx:id="SEButton" layoutX="296.0" layoutY="328.0" mnemonicParsing="false" prefHeight="65.0"
+                prefWidth="284.0"/>
+        <Label layoutX="50.0" layoutY="72.0" text="Sheilds"/>
+        <ProgressBar fx:id="playerSheilds" layoutX="117.0" layoutY="67.0" prefHeight="20.0" prefWidth="122.0"
+                     progress="0.0"/>
+        <ProgressBar fx:id="otherSheilds" layoutX="392.0" layoutY="67.0" prefHeight="20.0" prefWidth="122.0"
+                     progress="0.0"/>
+        <Label layoutX="325.0" layoutY="72.0" text="Sheilds"/>
+        <Label layoutX="325.0" layoutY="52.0" text="Health"/>
+        <ProgressBar fx:id="otherHealth" layoutX="392.0" layoutY="47.0" prefHeight="20.0" prefWidth="122.0"
+                     progress="0.0"/>
+        <Label fx:id="otherName" layoutX="368.0" layoutY="22.0" text="Other"/>
+        <ImageView fx:id="playerPic" fitHeight="150.0" fitWidth="190.0" layoutX="50.0" layoutY="95.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="otherPic" fitHeight="150.0" fitWidth="190.0" layoutX="325.0" layoutY="95.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <Polygon fx:id="bubbleArrow" layoutX="386.0" layoutY="170.0" rotate="91.7" stroke="BLACK" strokeType="INSIDE">
+            <points>
+                <Double fx:value="-50.0"/>
+                <Double fx:value="40.0"/>
+                <Double fx:value="50.0"/>
+                <Double fx:value="40.0"/>
+                <Double fx:value="0.0"/>
+                <Double fx:value="-60.0"/>
+            </points>
+        </Polygon>
+        <Rectangle fx:id="bubbleBox" arcHeight="5.0" arcWidth="5.0" height="150.0" layoutX="259.0" layoutY="72.0"
+                   stroke="BLACK" strokeType="INSIDE" width="133.0"/>
+        <Label fx:id="speech" layoutX="265.0" layoutY="76.0" prefHeight="142.0" prefWidth="122.0" text="Label"
+               textFill="#e5ff3b" wrapText="true"/>
+    </children>
 </Pane>

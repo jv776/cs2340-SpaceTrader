@@ -7,7 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import models.Weapon.WeaponType;
+import javafx.scene.image.Image;
 
 /**
  * Model of a ship.
@@ -15,13 +15,19 @@ import models.Weapon.WeaponType;
  * @author John Varela
  */
 public class Ship implements Serializable {
-    public static enum Type {
-        Flea(10, 0, 0, 0, 1, 20, TechLevel.EARLY_INDUSTRIAL, 1, 2000, 5, 2, 25, 1, 0),
-        Gnat(15, 1, 0, 1, 1, 20, TechLevel.INDUSTRIAL, 2, 10000, 50, 28, 1000, 1, 1),
-        Firefly(20, 1, 1, 1, 1, 17, TechLevel.INDUSTRIAL, 3, 25000, 75, 20, 100, 1, 1),
-        Mosquito(15, 2, 1, 1, 1, 13, TechLevel.INDUSTRIAL, 5, 30000, 100, 20, 100, 1, 1),
-        BumbleBee(25, 1, 2, 2, 2, 15, TechLevel.INDUSTRIAL, 7, 60000, 125, 15, 100, 1, 2),
-        Dragonfly(50, 4, 4, 4, 4, 25, TechLevel.POST_INDUSTRIAL, 10, 200000, 500, 10, 500, 1, 2);
+    public enum Type {
+        Flea(10, 0, 0, 0, 1, 20, TechLevel.EARLY_INDUSTRIAL, 1, 2000, 5, 2, 25, 1, 0,
+                new Image("/images/flea.png")),
+        Gnat(15, 1, 0, 1, 1, 20, TechLevel.INDUSTRIAL, 2, 10000, 50, 28, 100, 1, 1,
+                new Image("/images/gnat.gif")),
+        Firefly(20, 1, 1, 1, 1, 17, TechLevel.INDUSTRIAL, 3, 25000, 75, 20, 100, 1, 1,
+                new Image("/images/firefly.png")),
+        Mosquito(15, 2, 1, 1, 1, 13, TechLevel.INDUSTRIAL, 5, 30000, 100, 20, 100, 1, 1,
+                new Image("/images/mosquito.gif")),
+        BumbleBee(25, 1, 2, 2, 2, 15, TechLevel.INDUSTRIAL, 7, 60000, 125, 15, 100, 1, 2,
+                new Image("/images/bumblebee.jpg")),
+        Dragonfly(50, 4, 4, 4, 4, 25, TechLevel.POST_INDUSTRIAL, 10, 200000, 500, 10, 500, 1, 2,
+                new Image("/images/dragonfly.png"));
 
         public final int cargoCapacity;
 
@@ -42,9 +48,12 @@ public class Ship implements Serializable {
         public final int hullStrength;
         public final int repairCost;
         public final int size;
+        public final Image image;
+        
 
         Type(int cargoCapacity, int weaponSlots, int shieldSlots, int gadgetSlots, int crewCapacity, int fuelCapacity,
-             TechLevel minTechLevel, int fuelCost, int price, int bounty, int occurrence, int hullStrength, int repairCost, int size) {
+             TechLevel minTechLevel, int fuelCost, int price, int bounty, int occurrence, int hullStrength, int repairCost, int size,
+             Image image) {
             this.cargoCapacity = cargoCapacity;
 
             this.weaponSlots = weaponSlots;
@@ -64,6 +73,8 @@ public class Ship implements Serializable {
             this.hullStrength = hullStrength;
             this.repairCost = repairCost;
             this.size = size;
+            
+            this.image = image;
         }
     }
 
@@ -83,6 +94,7 @@ public class Ship implements Serializable {
     private ArrayList<Shield> equippedShields;
     private ArrayList<Gadget> equippedGadgets;
 
+
     private double fuelAmount;
     private int hullStrength;
     private int maxShields;
@@ -98,8 +110,6 @@ public class Ship implements Serializable {
         this.fuelAmount = type.fuelCapacity;
         this.hullStrength = type.hullStrength;
         this.cargoHold = new CargoHold(type.cargoCapacity);
-
-        this.owner = owner;
         
         this.weapons = new ArrayList<>();
         this.equippedWeapons = new ArrayList<>();
@@ -114,7 +124,10 @@ public class Ship implements Serializable {
         
         this.maxShields = calculateMaxShields();
         this.currentShields = maxShields;
+
+        this.owner = owner;
     }
+
 
     /**
      * @return The type of the ship
@@ -150,17 +163,24 @@ public class Ship implements Serializable {
     public int getHullStrength() {
         return hullStrength;
     }
+
     public int getMaxHullStrength() {
         return type.hullStrength;
     }
+    
     public int getMaxShields() {
         return maxShields;
     }
+    
     public int getCurrentShields() {
         return (int)currentShields;
     }
+    
+    public int getRepairCost() {
+        return type.repairCost;
+    }
 
-    public boolean isDead(){
+    public boolean isDead() {
         return hullStrength <= 0;
     }
 
@@ -172,24 +192,34 @@ public class Ship implements Serializable {
     public void expendFuel(double distance) {
         fuelAmount -= distance;
     }
-    
+
     public void addFuel(double amount) {
-        if(fuelAmount + amount > type.fuelCapacity)
+        if (fuelAmount + amount > type.fuelCapacity) {
             fuelAmount = type.fuelCapacity;
-        else
+        }
+        else {
             fuelAmount += amount;
+        }
     }
-    
+
     public void refuel() {
         fuelAmount = type.fuelCapacity;
     }
     
+    public void repair() {
+        hullStrength = type.hullStrength;
+    }
+
     public int getFuelCapacity() {
         return this.type.fuelCapacity;
     }
-    
+
     public int getFuelCost() {
         return this.type.fuelCost;
+    }
+    
+    public Image getImage() {
+        return this.type.image;
     }
 
     public void takeDamage(int damage){
@@ -205,7 +235,7 @@ public class Ship implements Serializable {
     public int calculateAttack(){
         int attack = 0;
         for (Weapon w : equippedWeapons) {
-            attack += w.getType().power;
+            attack += w.getType().getDamage();
         }
         return attack;
     }
@@ -213,23 +243,19 @@ public class Ship implements Serializable {
     private int calculateMaxShields() {
         int defense = 0;
         for (Shield s : equippedShields) {
-            defense += s.getType().protection;
+            defense += s.getType().getStrength();
         }
         return defense;
     }
 
-    public boolean hasIllegalGoods(){
+    public boolean hasIllegalGoods() {
         return cargoHold.hasIllegalGoods();
     }
-    
-    public void activateCloaking() {
-        
+
+    public ArrayList<Weapon> getWeapons() {
+        return weapons;
     }
-    
-    public void deactivateCloaking() {
-        
-    }
-    
+
     public void addWeapon(Weapon weapon) {
         weapons.add(weapon);
         numWeapons++;
@@ -276,32 +302,16 @@ public class Ship implements Serializable {
     public ArrayList<Weapon> getEquippedWeapons() {
         return equippedWeapons;
     }
-    
-    public boolean hasOpenWeaponSlot() {
-        return !(numWeapons == type.weaponSlots);
-    }
-    
-    public boolean hasOpenShieldSlot() {
-        return !(numShields == type.shieldSlots);
-    }
-    
-    public boolean hasOpenGadgetSlot() {
-        return !(numGadgets == type.gadgetSlots);
-    }
-    
-    public ArrayList<Weapon> getWeapons() {
-        return weapons;
-    }
-    
+
     public ArrayList<Shield> getShields() {
         return shields;
     }
-    
+
     public ArrayList<Gadget> getGadgets() {
         return gadgets;
     }
     
-    public void addScatter() {
+        public void addScatter() {
         scatter += 10;
     }
     
@@ -355,4 +365,13 @@ public class Ship implements Serializable {
             currentShields = maxShields;
         }
     }
+        
+    public void activateCloaking() {
+        
+    }
+    
+    public void deactivateCloaking() {
+        
+    }
+    
 }

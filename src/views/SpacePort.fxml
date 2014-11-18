@@ -27,5 +27,11 @@
       <Label fx:id="tech_level" layoutX="410.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" text="Label" />
       <Label fx:id="resource" layoutX="410.0" layoutY="215.0" prefHeight="30.0" prefWidth="150.0" text="Label" />
       <Button layoutX="300.0" layoutY="290.0" mnemonicParsing="false" onMouseClicked="#shipCustomization" prefHeight="50.0" prefWidth="200.0" text="Ship Customization" />
+      <Button fx:id="button_Refuel" layoutX="300.0" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#handleRefuelButton" prefHeight="50.0" prefWidth="100.0" styleClass="button1" text="Refuel" />
+      <Button fx:id="button_Repair" layoutX="400.0" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#handleRepairButton" prefHeight="50.0" prefWidth="100.0" styleClass="button1" text="Repair" />
+      <Label layoutY="360.0" prefHeight="40.0" prefWidth="80.0" text="Ship Health:" />
+      <ProgressBar fx:id="health_bar" layoutX="101.0" layoutY="370.0" prefHeight="20.0" prefWidth="180.0" progress="0.0" />
+      <Label layoutX="320.0" layoutY="360.0" prefHeight="40.0" prefWidth="80.0" text="Ship Fuel:" />
+      <ProgressBar fx:id="fuel_bar" layoutX="400.0" layoutY="370.0" prefHeight="20.0" prefWidth="180.0" progress="0.0" />
     </children>
 </Pane>

@@ -75,7 +75,7 @@ public class ShipCustomizationController implements Initializable {
         
         for (Weapon w : ship.getWeapons()) {
             if (w.isActive()) {
-                weaponSlots.get(weaponIndex).setText(w.toString());
+                weaponSlots.get(weaponIndex).setText(w.getName());
                 weaponIndex++;
             }
         }
@@ -103,7 +103,7 @@ public class ShipCustomizationController implements Initializable {
         
         for (Shield s : ship.getShields()) {
             if (s.isActive()) {
-                shieldSlots.get(shieldIndex).setText(s.toString());
+                shieldSlots.get(shieldIndex).setText(s.getName());
                 shieldIndex++;
             }
         }
@@ -129,7 +129,7 @@ public class ShipCustomizationController implements Initializable {
         }
         for (Gadget g : ship.getGadgets()) {
             if (g.isActive()) {
-                gadgetSlots.get(gadgetIndex).setText(g.toString());
+                gadgetSlots.get(gadgetIndex).setText(g.getName());
                 gadgetIndex++;
             }
         }
@@ -144,7 +144,7 @@ public class ShipCustomizationController implements Initializable {
         if (weapons.size() > 0) {
             int y = 0;
             for (Weapon w : weapons) {
-                Button button = new Button(w.toString());
+                Button button = new Button(w.getName());
                 button.setLayoutX(30);
                 button.setLayoutY(y);
                 button.setMinSize(142, 30);
@@ -169,7 +169,7 @@ public class ShipCustomizationController implements Initializable {
                         button.setId("inactive");
                         
                         for (int i = 0; i < weaponIndex; i++) {
-                            if (weaponSlots.get(i).getText().equals(w.toString())) {
+                            if (weaponSlots.get(i).getText().equals(w.getName())) {
                                 if (i + 1 == weaponIndex) {
                                     weaponSlots.get(i).setText("");
                                 } else {
@@ -193,7 +193,7 @@ public class ShipCustomizationController implements Initializable {
                         w.activate(ship);
                         button.setId("active");
                         checkBox.setSelected(true);
-                        weaponSlots.get(weaponIndex).setText(w.toString());
+                        weaponSlots.get(weaponIndex).setText(w.getName());
                         weaponIndex++;
                         if (weaponIndex == ship.getType().weaponSlots) {
                             for (Node n : weaponControls) {
@@ -221,7 +221,7 @@ public class ShipCustomizationController implements Initializable {
         if (shields.size() > 0) {
             int y = 0;
             for (Shield s : shields) {
-                Button button = new Button(s.toString());
+                Button button = new Button(s.getName());
                 button.setLayoutX(30);
                 button.setLayoutY(y);
                 button.setMinSize(142, 30);
@@ -246,7 +246,7 @@ public class ShipCustomizationController implements Initializable {
                         button.setId("inactive");
                         
                         for (int i = 0; i < shieldIndex; i++) {
-                            if (shieldSlots.get(i).getText().equals(s.toString())) {
+                            if (shieldSlots.get(i).getText().equals(s.getName())) {
                                 if (i + 1 == shieldIndex) {
                                     shieldSlots.get(i).setText("");
                                 } else {
@@ -270,7 +270,7 @@ public class ShipCustomizationController implements Initializable {
                         s.activate(ship);
                         button.setId("active");
                         checkBox.setSelected(true);
-                        shieldSlots.get(shieldIndex).setText(s.toString());
+                        shieldSlots.get(shieldIndex).setText(s.getName());
                         shieldIndex++;
                         if (shieldIndex == ship.getType().shieldSlots) {
                             for (Node n : shieldControls) {
@@ -298,7 +298,7 @@ public class ShipCustomizationController implements Initializable {
         if (gadgets.size() > 0) {
             int y = 0;
             for (Gadget g : gadgets) {
-                Button button = new Button(g.toString());
+                Button button = new Button(g.getName());
                 button.setLayoutX(30);
                 button.setLayoutY(y);
                 button.setMinSize(142, 30);
@@ -323,7 +323,7 @@ public class ShipCustomizationController implements Initializable {
                         button.setId("inactive");
                         
                         for (int i = 0; i < gadgetIndex; i++) {
-                            if (gadgetSlots.get(i).getText().equals(g.toString())) {
+                            if (gadgetSlots.get(i).getText().equals(g.getName())) {
                                 if (i + 1 == gadgetIndex) {
                                     gadgetSlots.get(i).setText("");
                                 } else {
@@ -347,7 +347,7 @@ public class ShipCustomizationController implements Initializable {
                         g.activate(ship);
                         button.setId("active");
                         checkBox.setSelected(true);
-                        gadgetSlots.get(gadgetIndex).setText(g.toString());
+                        gadgetSlots.get(gadgetIndex).setText(g.getName());
                         gadgetIndex++;
                         if (gadgetIndex == ship.getType().gadgetSlots) {
                             for (Node n : gadgetControls) {

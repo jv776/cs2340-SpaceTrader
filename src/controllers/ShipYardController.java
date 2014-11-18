@@ -22,20 +22,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import models.CargoItem;
 import models.Gadget;
-import models.Gadget.GadgetType;
 import models.Shield;
-import models.Shield.ShieldType;
-import models.Ship.Type;
 import models.Shipyard;
 import models.Weapon;
-import models.Weapon.WeaponType;
 
 /**
  * @author Roi Atalla
  */
 public class ShipYardController implements Initializable {
     private Shipyard shipyard;
-    private Type typeSelected;
+    private Ship.Type typeSelected;
     
     @FXML AnchorPane ship_yard_anchor;
     
@@ -91,6 +87,8 @@ public class ShipYardController implements Initializable {
     
     private Button[] menuButtons;
     
+    private ImageView image;
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Node[] controls = {shipTypeLabel, hullStrengthLabel, cargoBaysLabel,
@@ -140,7 +138,7 @@ public class ShipYardController implements Initializable {
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
     
-    private void setLabels(Type ship) {
+    private void setLabels(Ship.Type ship) {
         shipTypeLabel.setText(ship.name());
         hullStrengthLabel.setText("" + ship.hullStrength);
         cargoBaysLabel.setText("" + ship.cargoCapacity);
@@ -194,7 +192,7 @@ public class ShipYardController implements Initializable {
     }
     
     private void createShips() {
-        HashMap<Type, Integer> ships = shipyard.getShips();
+        HashMap<Ship.Type, Integer> ships = shipyard.getShips();
         int y = 100;
         
         Button back = new Button("Back");
@@ -207,7 +205,7 @@ public class ShipYardController implements Initializable {
         ship_yard_anchor.getChildren().add(back);
         shipControls.add(back);
         
-        for (Type ship : ships.keySet()) {
+        for (Ship.Type ship : ships.keySet()) {
             Button shipName = new Button(ship.name());
             shipName.setLayoutX(50);
             shipName.setLayoutY(y += 31);
@@ -239,7 +237,7 @@ public class ShipYardController implements Initializable {
             shipControls.add(price);
             
             if (shipyard.ownsShip(ship, GameController.getGameData().getPlayer())) {
-                ImageView image = new ImageView(new Image("/images/star.png"));
+                image = new ImageView(new Image("/images/star.png"));
                 image.setLayoutX(28);
                 image.setLayoutY(y + 5);
                 Tooltip currentShip = new Tooltip("Current Ship");
@@ -252,7 +250,7 @@ public class ShipYardController implements Initializable {
     
     private ArrayList<Node> createWeapons() {
         ArrayList<Node> controls = new ArrayList<>();
-        ArrayList<WeaponType> weapons = shipyard.getWeapons();
+        ArrayList<Weapon.Type> weapons = shipyard.getWeapons();
         int y = 100;
         
         Button back = new Button("Back");
@@ -274,19 +272,19 @@ public class ShipYardController implements Initializable {
         ship_yard_anchor.getChildren().add(purchaseWeapon);
         controls.add(purchaseWeapon);
         
-        for (WeaponType weapon : weapons) {
-            Button weaponName = new Button(weapon.toString());
+        for (Weapon.Type weapon : weapons) {
+            Button weaponName = new Button(weapon.toString() + " Laser");
             weaponName.setLayoutX(50);
             weaponName.setLayoutY(y += 31);
             weaponName.setMinSize(150, 30);
             weaponName.setOnMouseClicked((MouseEvent t) -> {
-                if (weapon.price > GameController.getGameData().getPlayer().getCredits()) {
+                if (weapon.getPrice() > GameController.getGameData().getPlayer().getCredits()) {
                     purchaseWeapon.setDisable(true);
                     purchaseWeapon.setOpacity(0.5);
                 } else {
                     purchaseWeapon.setOnMouseClicked((MouseEvent event) -> {
                         purchaseWeapon(weapon);
-                        if (weapon.price > GameController.getGameData().getPlayer().getCredits()) {
+                        if (weapon.getPrice() > GameController.getGameData().getPlayer().getCredits()) {
                             purchaseWeapon.setDisable(true);
                             purchaseWeapon.setOpacity(0.5);
                         }
@@ -298,7 +296,7 @@ public class ShipYardController implements Initializable {
             ship_yard_anchor.getChildren().add(weaponName);
             controls.add(weaponName);
             
-            Label price = new Label(weapon.price + "");
+            Label price = new Label(weapon.getPrice() + "");
             price.setLayoutX(250);
             price.setLayoutY(y);
             price.setMinSize(100, 30);
@@ -310,7 +308,7 @@ public class ShipYardController implements Initializable {
             ship_yard_anchor.getChildren().add(price);
             controls.add(price);
             
-            Label power = new Label(weapon.power + "");
+            Label power = new Label(weapon.getDamage() + "");
             power.setLayoutX(400);
             power.setLayoutY(y);
             power.setMinSize(100, 30);
@@ -327,7 +325,7 @@ public class ShipYardController implements Initializable {
     
     private ArrayList<Node> createShields() {
         ArrayList<Node> controls = new ArrayList<>();
-        ArrayList<ShieldType> shields = shipyard.getShields();
+        ArrayList<Shield.Type> shields = shipyard.getShields();
         int y = 100;
         
         Button back = new Button("Back");
@@ -348,19 +346,19 @@ public class ShipYardController implements Initializable {
         ship_yard_anchor.getChildren().add(purchaseShields);
         controls.add(purchaseShields);
         
-        for (ShieldType shield : shields) {
-            Button shieldName = new Button(shield.toString());
+        for (Shield.Type shield : shields) {
+            Button shieldName = new Button(shield.toString() +" Shield");
             shieldName.setLayoutX(50);
             shieldName.setLayoutY(y += 31);
             shieldName.setMinSize(150, 30);
             shieldName.setOnMouseClicked((MouseEvent t) -> {
-                if (shield.price > GameController.getGameData().getPlayer().getCredits()) {
+                if (shield.getPrice() > GameController.getGameData().getPlayer().getCredits()) {
                     purchaseShields.setDisable(true);
                     purchaseShields.setOpacity(0.5);
                 } else {
                     purchaseShields.setOnMouseClicked((MouseEvent event) -> {
                         purchaseShield(shield);
-                        if (shield.price > GameController.getGameData().getPlayer().getCredits()) {
+                        if (shield.getPrice() > GameController.getGameData().getPlayer().getCredits()) {
                             purchaseShields.setDisable(true);
                             purchaseShields.setOpacity(0.5);
                         }
@@ -372,7 +370,7 @@ public class ShipYardController implements Initializable {
             ship_yard_anchor.getChildren().add(shieldName);
             controls.add(shieldName);
             
-            Label price = new Label(shield.price + "");
+            Label price = new Label(shield.getPrice() + "");
             price.setLayoutX(250);
             price.setLayoutY(y);
             price.setMinSize(100, 30);
@@ -384,7 +382,7 @@ public class ShipYardController implements Initializable {
             ship_yard_anchor.getChildren().add(price);
             controls.add(price);
             
-            Label protection = new Label(shield.protection + "");
+            Label protection = new Label(shield.getStrength() + "");
             protection.setLayoutX(400);
             protection.setLayoutY(y);
             protection.setMinSize(100, 30);
@@ -402,7 +400,7 @@ public class ShipYardController implements Initializable {
     
     private ArrayList<Node> createGadgets() {
         ArrayList<Node> controls = new ArrayList<>();
-        ArrayList<GadgetType> gadgets = shipyard.getGadgets();
+        ArrayList<Gadget.Type> gadgets = shipyard.getGadgets();
         int y = 100;
         
         Button back = new Button("Back");
@@ -436,20 +434,20 @@ public class ShipYardController implements Initializable {
         ship_yard_anchor.getChildren().add(info);
         controls.add(info);
         
-        for (GadgetType gadget : gadgets) {
-            Button gadgetName = new Button(gadget.name);
+        for (Gadget.Type gadget : gadgets) {
+            Button gadgetName = new Button(gadget.getName());
             gadgetName.setLayoutX(50);
             gadgetName.setLayoutY(y += 31);
             gadgetName.setMinSize(150, 30);
             gadgetName.setOnMouseClicked((MouseEvent t) -> {
-                info.setText(gadget.info);
-                if (gadget.price > GameController.getGameData().getPlayer().getCredits()) {
+                info.setText(gadget.getDescription());
+                if (gadget.getPrice() > GameController.getGameData().getPlayer().getCredits()) {
                     purchaseGadgets.setDisable(true);
                     purchaseGadgets.setOpacity(0.5);
                 } else {
                     purchaseGadgets.setOnMouseClicked((MouseEvent event) -> {
                         purchaseGadget(gadget);
-                        if (gadget.price > GameController.getGameData().getPlayer().getCredits()) {
+                        if (gadget.getPrice() > GameController.getGameData().getPlayer().getCredits()) {
                             purchaseGadgets.setDisable(true);
                             purchaseGadgets.setOpacity(0.5);
                         }
@@ -461,7 +459,7 @@ public class ShipYardController implements Initializable {
             ship_yard_anchor.getChildren().add(gadgetName);
             controls.add(gadgetName);
             
-            Label price = new Label(gadget.price + "");
+            Label price = new Label(gadget.getPrice() + "");
             price.setLayoutX(250);
             price.setLayoutY(y);
             price.setMinSize(100, 30);
@@ -490,23 +488,24 @@ public class ShipYardController implements Initializable {
         
         GameController.getGameData().getPlayer().setShip(ship);
         
+        
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
     
-    private void purchaseWeapon(WeaponType weapon) {
-        GameController.getGameData().getPlayer().spend(weapon.price);
+    private void purchaseWeapon(Weapon.Type weapon) {
+        GameController.getGameData().getPlayer().spend(weapon.getPrice());
         GameController.getGameData().getShip().addWeapon(new Weapon(weapon));
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
     
-    private void purchaseShield(ShieldType shield) {
-        GameController.getGameData().getPlayer().spend(shield.price);
+    private void purchaseShield(Shield.Type shield) {
+        GameController.getGameData().getPlayer().spend(shield.getPrice());
         GameController.getGameData().getShip().addShield(new Shield(shield));
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
     
-    private void purchaseGadget(GadgetType gadget) {
-        GameController.getGameData().getPlayer().spend(gadget.price);
+    private void purchaseGadget(Gadget.Type gadget) {
+        GameController.getGameData().getPlayer().spend(gadget.getPrice());
         GameController.getGameData().getShip().addGadget(new Gadget(gadget));
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }

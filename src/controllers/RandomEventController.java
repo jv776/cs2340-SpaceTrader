@@ -1,12 +1,12 @@
 package controllers;
 
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -16,136 +16,225 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Taylor on 10/14/14.
+ * An abstract representation of an encounter in space with another entity.
+ *
+ * @author Taylor
  */
 public abstract class RandomEventController implements Initializable {
+    /**
+     * The person encountered by the player (could be police, a pirate, or
+     * another trader).
+     */
     protected Encounterable encountered;
-    public Pane pane;
-    public Label otherName;
-    public ProgressBar otherHealth;
-    public ProgressBar playerHealth;
-    public ProgressBar playerShields;
-    public ProgressBar otherShields;
-    public Button NEButton;
-    public Button NWButton;
-    public Button SEButton;
-    public Button SWButton;
-    public ImageView playerPic;
-    public ImageView otherPic;
-    public Rectangle bubbleBox;
-    public Polygon bubbleArrow;
-    public Label speech;
+
+    /**
+     * All of these objects are UI elements needed for the FXML to work.
+     * They are protected so that each specific random event's controller can
+     * still access them.
+     */
+
+    @FXML
+    protected Pane pane;
+
+    @FXML
+    protected Label otherName;
+
+    @FXML
+    protected ProgressBar otherHealth;
+
+    @FXML
+    protected ProgressBar playerHealth;
+
+    @FXML
+    protected Button NEButton;
+
+    @FXML
+    protected Button NWButton;
+
+    @FXML
+    protected Button SEButton;
+
+    @FXML
+    protected Button SWButton;
+
+    @FXML
+    protected ImageView playerPic;
+
+    @FXML
+    protected ImageView otherPic;
+
+    @FXML
+    protected Rectangle bubbleBox;
+
+    @FXML
+    protected Polygon bubbleArrow;
+
+    @FXML
+    protected Label speech;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
         configureEncountered();
         configureButtons();
         otherName.setText(encountered.getName());
-        playerPic.setImage(new Image("/images/spaceship.gif"));
+        playerPic.setImage(new Image("/images/current.png"));
         otherPic.setImage(new Image("/images/unreachable.png"));
         speech.setText(encountered.getWelcomeText());
-        playerHealth.setStyle("-fx-accent: red");
-        otherHealth.setStyle("-fx-accent: red");
         updateHealth();
         System.out.println("Encountered " + encountered.getName());
 
     }
 
+    /**
+     * Configure the UI layout for a particular type of encounter.
+     */
     abstract void configureButtons();
+
+    /**
+     * Configure the entity being encountered (implementation depends upon the
+     * type of encounter).
+     */
     abstract void configureEncountered();
 
-    void flee(){
-        if (GameController.getGameData().getPlayer().getPilotSkillPoints()*.1*Math.random() > .2){
+    /**
+     * Attempt to flee an encounter. Notifies the player whether or not
+     * fleeing was successful
+     */
+    protected void flee() {
+        if (GameController.getGameData().getPlayer().getPilotSkillPoints() * .1 * Math.random() > .2) {
             //print you escaped message
             fleeSuccessful();
-        } else{
+        } else {
             fleeFailed();
 
         }
     }
-    private void fleeSuccessful(){
+
+    /**
+     * Display a message indicating that the player has successfully fled and
+     * exit the random event.
+     */
+    protected void fleeSuccessful() {
         showBubble();
         speech.setText(encountered.getFleeSuccessfulText());
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
 
     }
 
-    private void fleeFailed(){
+    /**
+     * Display a message indicating that fleeing the event failed. The event
+     * will continue after the failed attempt to run away.
+     */
+    protected void fleeFailed() {
         showBubble();
         speech.setText(encountered.getFleeFailedText());
         encounteredAttack();
         updateHealth();
-
     }
 
-     void updateHealth(){
-        otherHealth.setProgress((double) encountered.getHullStrength() / encountered.getMaxHullStrength());
-        playerHealth.setProgress(((double)GameController.getGameData().getPlayer().getHullStrength()
-                / GameController.getGameData().getPlayer().getMaxHullStrength()));
-        otherShields.setProgress((double) (encountered.getCurrentShields() <= 0 ? -1 : 
-                (double) encountered.getCurrentShields()) / encountered.getMaxShields());
-        playerShields.setProgress((double)(GameController.getGameData().getPlayer().getCurrentShields() <= 0 
-                ? -1 : GameController.getGameData().getPlayer().getCurrentShields())
-                / GameController.getGameData().getPlayer().getMaxShields());
+    /**
+     * Update the health of the player and the person they have encountered.
+     */
+    protected void updateHealth() {
+        otherHealth.setProgress(((double) encountered.getHullStrength() / encountered.getMaxHullStrength()));
+        playerHealth.setProgress(((double) GameController.getGameData().getPlayer().getHullStrength() / GameController.getGameData().getPlayer().getMaxHullStrength()));
     }
 
-     void fight(){
-        GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
+    /**
+     * The player and the person they have encountered both perform an
+     * attack when this method is called.
+     */
+    protected void attack() {
+        hideBubble();
+        playerAttack();
+        encounteredAttack();
+        if (encountered.isDead()) {
+            encounteredDeath();
+        }
+        if (GameController.getGameData().getPlayer().isDead()) {
+            playerDeath();
+        }
+        updateHealth();
     }
 
-     void playerAttack(){
+    /**
+     * The person encountered takes damage based on the player's weapons and
+     * fighting skill.
+     */
+    protected void playerAttack() {
         encountered.takeDamage(GameController.getGameData().getPlayer().calculateAttack());
     }
-     void encounteredAttack(){
-         GameController.getGameData().getPlayer().takeDamage(encountered.calculateAttack());
+
+    /**
+     * The player will be damaged by the person they are fighting.
+     */
+    protected void encounteredAttack() {
+        GameController.getGameData().getPlayer().takeDamage(encountered.calculateAttack());
     }
 
-     void encounteredDeath(){
+    /**
+     * This method is called when the person encountered during an event is
+     * killed in combat.
+     */
+    protected void encounteredDeath() {
         showBubble();
-         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
-         System.out.println("Ending "+ encountered.getName() +" Health: " + encountered.getHullStrength());
+        System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
+        System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getDeathText());
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         SWButton.setDisable(true);
     }
-     void playerDeath(){
+
+    /**
+     * This method is called when the player's ship is destroyed in combat,
+     * giving the player the option to use an escape pod to survive.
+     */
+    protected void playerDeath() {
         showBubble();
-         System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
-         System.out.println("Ending "+ encountered.getName() +" Health: " + encountered.getHullStrength());
+        System.out.println("Ending Player Health: " + GameController.getGameData().getPlayer().getHullStrength());
+        System.out.println("Ending " + encountered.getName() + " Health: " + encountered.getHullStrength());
         speech.setText(encountered.getWinText());
         NWButton.setText("Use Escape Pod");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            GameController.getGameData().getPlayer().die();
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> {
+                GameController.getGameData().getPlayer().die();
+                exitEvent();
+            });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         SWButton.setDisable(true);
     }
 
-     void showBubble(){
+    /**
+     * Displays the text bubble used to show messages during events.
+     */
+    protected void showBubble() {
         bubbleArrow.setOpacity(1);
         bubbleBox.setOpacity(1);
         speech.setOpacity(1);
     }
 
-     void hideBubble(){
+    /**
+     * Hides the text bubble.
+     */
+    protected void hideBubble() {
         bubbleArrow.setOpacity(0);
         bubbleBox.setOpacity(0);
         speech.setOpacity(0);
     }
-     void exitEvent(){
-         GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+
+    /**
+     * End the event and return to the map of the solar system the player is
+     * traveling through.
+     */
+    protected void exitEvent() {
+        GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
     }
+
+
 }

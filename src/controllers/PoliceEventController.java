@@ -1,9 +1,7 @@
 package controllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import models.Police;
-
 
 /**
  * PoliceEvent FXML Controller class
@@ -16,21 +14,14 @@ public class PoliceEventController extends RandomEventController implements Init
     @Override
     void configureButtons() {
         NWButton.setText("Attack");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            fight();
-        });
+        NWButton.setOnMouseClicked(t -> attack());
 
         NEButton.setText("Comply");
-        NEButton.setOnMouseClicked((MouseEvent t) -> {
-            surrender();
-        });
+        NEButton.setOnMouseClicked(t -> surrender());
 
         SEButton.setText("Flee");
-        SEButton.setOnMouseClicked((MouseEvent t) -> {
-            flee();
-        });
+        SEButton.setOnMouseClicked(t -> flee());
         SWButton.setDisable(true);
-
     }
 
     @Override
@@ -39,66 +30,65 @@ public class PoliceEventController extends RandomEventController implements Init
     }
 
 
-
-
-    private void surrender(){
-        if(GameController.getGameData().getPlayer().hasIllegalGoods()){
-            fight();
-        }else {
+    private void surrender() {
+        if (GameController.getGameData().getPlayer().hasIllegalGoods()) {
+            punishment();
+        } else {
             playerIsInnocent();
         }
     }
-    public void playerIsInnocent(){
+
+    /**
+     * Display a message informing the player that they are not guilty of
+     * any crimes.
+     */
+    public void playerIsInnocent() {
         showBubble();
         speech.setText("All right you can go.");
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
     }
 
-
-    private void fleeSuccessful(){
+    @Override
+    protected void fleeSuccessful() {
         showBubble();
         speech.setText("They got away!");
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
 
     }
 
-    private void punishment(){
+    private void punishment() {
         showBubble();
         speech.setText("You have broken the law, criminal scum. Prepare to die.");
         NEButton.setDisable(true);
         encounteredAttack();
     }
-    public void playerDeath(){
+
+    /**
+     * Display a message if the player dies and give them the option to
+     * use an escape pod (if the player has one).
+     */
+    public void playerDeath() {
         showBubble();
-        speech.setText("Criminal disposed of, resuming patrol.");
+        speech.setText("Criminal disposed of, resuming patrol");
         NWButton.setText("Use Escape Pod");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         GameController.getGameData().getPlayer().die();
     }
-    private void playerWins(){
+
+    private void playerWins() {
         showBubble();
         speech.setText("This cannot be happening!");
         NWButton.setText("Okay");
-        NWButton.setOnMouseClicked((MouseEvent t) -> {
-            exitEvent();
-        });
+        NWButton.setOnMouseClicked(t -> exitEvent());
         NEButton.setDisable(true);
         SEButton.setDisable(true);
     }
-
-
 }

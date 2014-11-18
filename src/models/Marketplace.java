@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * Model of a planet's marketplace.
- * 
+ *
  * @author John Varela
  */
 public class Marketplace implements Serializable {
@@ -21,7 +21,12 @@ public class Marketplace implements Serializable {
     private HashMap<TradeGood, Integer> prices;
     //private HashMap<TradeGood, Integer> basket; //keeps track of quantities of goods marked for purchase
     //private int transactionValue;
-    
+
+    /**
+     * Create a new Marketplace on a given planet.
+     *
+     * @param marketLocation The planet where the market is located.
+     */
     public Marketplace(Planet marketLocation) {
         location = marketLocation;
         productSupply = generateSupplies();
@@ -35,55 +40,55 @@ public class Marketplace implements Serializable {
         }
         */
     }
-    
+
     //Determine the number of goods available on a planet
     private HashMap<TradeGood, Integer> generateSupplies() {
         HashMap<TradeGood, Integer> goods = new HashMap<>();
-        
+
         for (TradeGood good : TradeGood.values()) {
-            int localTechFactor = location.solarSystem.getTechLevel().ordinal();
-            
-            int minTechFactor = (localTechFactor < good.minTechLevelBuy.ordinal())
-                    ? 0 : (localTechFactor - good.minTechLevelBuy.ordinal() + 1);
-            
+            int localTechFactor = location.getSolarSystem().getTechLevel().ordinal();
+
+            int minTechFactor = (localTechFactor < good.getMinTechLevelBuy().ordinal())
+                    ? 0 : (localTechFactor - good.getMinTechLevelBuy().ordinal() + 1);
+
             int preferredTechFactor = Math.abs(localTechFactor
-                    - good.preferredTechLevel.ordinal());
-            
-            double quantityFactor =  Math.exp(-Math.pow(preferredTechFactor
+                    - good.getPreferredTechLevel().ordinal());
+
+            double quantityFactor = Math.exp(-Math.pow(preferredTechFactor
                     / (Math.random() + 1), 0.5));
-            
-            goods.put(good, (int) (40 * quantityFactor) * minTechFactor);
+
+            goods.put(good, (int) (100 * quantityFactor) * minTechFactor);
         }
-        
+
         return goods;
     }
-    
+
     //Determine the price of each good
     private HashMap<TradeGood, Integer> generatePrices() {
         HashMap<TradeGood, Integer> priceMap = new HashMap<>();
-        
+
         for (TradeGood good : TradeGood.values()) {
             Random r = new Random();
         
-            int techLevelFactor = good.priceChangePerTechLevel *
-                    (location.solarSystem.getTechLevel().ordinal() -
-                    good.minTechLevelBuy.ordinal());
+            int techLevelFactor = good.getPriceChangePerTechLevel() *
+                    (location.getSolarSystem().getTechLevel().ordinal() -
+                    good.getMinTechLevelBuy().ordinal());
         
             int variance = r.nextInt(11) - 2;
         
             double scarcityFactor = 1;
-            Optional<Resource> expensiveResource = good.expensiveConditions;
+            Optional<Resource> expensiveResource = good.getExpensiveConditions();
             
             if (expensiveResource.isPresent()) {
-                scarcityFactor = (expensiveResource.get() == location.resource)
+                scarcityFactor = (expensiveResource.get() == location.getResource())
                         ? 1.5 : 1;
             }
 
             double abundanceFactor = 1;
-            Optional<Resource> cheapResource = good.cheapConditions;
+            Optional<Resource> cheapResource = good.getCheapConditions();
             
             if (cheapResource.isPresent()) {
-                abundanceFactor = (cheapResource.get() == location.resource)
+                abundanceFactor = (cheapResource.get() == location.getResource())
                         ? 0.5 : 1;
             }
             
@@ -91,80 +96,84 @@ public class Marketplace implements Serializable {
             PriceEvent currentEvent = location.getCurrentEvent();
             
             
-            eventFactor = (currentEvent == good.priceIncreaseEvent) ? 1.5 : 1;
+            eventFactor = (currentEvent == good.getPriceIncreaseEvent()) ? 1.5 : 1;
             
             
-            priceMap.put(good, (int) ((good.basePrice + techLevelFactor + variance)
+            priceMap.put(good, (int) ((good.getBasePrice() + techLevelFactor + variance)
                     * scarcityFactor * abundanceFactor
                     * eventFactor));
         }
-        
+
         return priceMap;
     }
     
     public boolean isGoodBuy(TradeGood good) {
-        int techLevelFactor = good.priceChangePerTechLevel *
-            (location.solarSystem.getTechLevel().ordinal() -
-            good.minTechLevelBuy.ordinal());
-        System.out.println(good + ": " + techLevelFactor + " " + good.basePrice 
-            + " " + (good.basePrice + techLevelFactor) + " " + getPrice(good));
-        return getPrice(good) < (good.basePrice + techLevelFactor) * .9;
+        int techLevelFactor = good.getPriceChangePerTechLevel()*
+            (location.getSolarSystem().getTechLevel().ordinal() -
+            good.getMinTechLevelBuy().ordinal());
+        return getPrice(good) < (good.getBasePrice() + techLevelFactor) * .9;
     }
     
     public boolean isGoodSell(TradeGood good) {
-        int techLevelFactor = good.priceChangePerTechLevel *
-            (location.solarSystem.getTechLevel().ordinal() -
-            good.minTechLevelBuy.ordinal());
-        System.out.println(good + ": " + techLevelFactor + " " + good.basePrice 
-            + " " + (good.basePrice + techLevelFactor) + " " + getSalePrice(good));
-        return getSalePrice(good) > (good.basePrice + techLevelFactor);
+        int techLevelFactor = good.getPriceChangePerTechLevel() *
+            (location.getSolarSystem().getTechLevel().ordinal() -
+            good.getMinTechLevelBuy().ordinal());
+        return getPrice(good) * 0.9 > (good.getBasePrice() + techLevelFactor);
     }
+
     /**
      * Find the price of a specific good.
-     * 
+     *
      * @param good The good being checked for its price
      * @return The price of the specified trade good
      */
     public int getPrice(TradeGood good) {
         return prices.get(good);
     }
-    
+
     /**
      * Find the sale price of a specific good.
-     * 
+     *
      * @param good The good being checked for its sale price
      * @return The price for this good when sold in this market
      */
-    public int getSalePrice(TradeGood good) {
-        return (int) (prices.get(good) * 0.9);
+    public int getSalePrice(TradeGood good, int traderSkill) {
+        return (int) (0.9 * prices.get(good) * (1 + 2.0 * traderSkill / 3 / 100.0));
     }
-    
+
     /**
      * Find the supply of particular trade good.
-     * 
+     *
      * @param good The good being checked for its supply
      * @return The quantity of the good available in this market
      */
     public int getSupply(TradeGood good) {
         return productSupply.get(good);
     }
-    
+
     /**
      * Buy a good from the market.
-     * 
+     *
      * @param good The good being purchased.
      */
     public void buyGood(TradeGood good) {
         productSupply.put(good, getSupply(good) - 1);
     }
-    
+
     /**
      * Sell a good at the market.
-     * 
+     *
      * @param good The good being sold.
      */
     public void sellGood(TradeGood good) {
         productSupply.put(good, getSupply(good) + 1);
+    }
+    
+    public void discountPrices(int traderFactor) {
+        double discount = 1 - ((traderFactor * 2.0 / 3) / 100.0);
+        for (TradeGood good : prices.keySet()) { 
+            prices.put(good, (int)(prices.get(good) * discount));
+        }
     }
     
     /*
@@ -176,4 +185,6 @@ public class Marketplace implements Serializable {
         
     }
     */
+    
+    
 }

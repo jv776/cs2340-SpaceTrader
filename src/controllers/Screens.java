@@ -16,7 +16,8 @@ public enum Screens {
     UNIVERSE_MAP("UniverseMap"),
     WELCOME("Welcome"),
     SHIP_CUSTOMIZATION("ShipCustomization"),
-    NEW_RANDOM_EVENT("NewRandomEvent");
+    NEW_RANDOM_EVENT("NewRandomEvent"),
+    NEW_SOLAR_SYSTEM("NewSolarSystem");
     
     private String name;
     

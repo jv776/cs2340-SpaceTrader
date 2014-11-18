@@ -35,23 +35,23 @@
             <Glow />
          </effect></Label>
       <TextField fx:id="nameField" onKeyReleased="#handleNameInput" styleClass="text_field" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-      <Label text="Pilot:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Label fx:id="pilotLabel" text="Pilot:" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <effect>
             <Glow />
          </effect></Label>
-      <Label text="Fighter:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Label fx:id="fighterLabel" text="Fighter:" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <effect>
             <Glow />
          </effect></Label>
-      <Label text="Trader:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Label fx:id="traderLabel" text="Trader:" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <effect>
             <Glow />
          </effect></Label>
-      <Label text="Engineer:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <Label fx:id="engineerLabel" text="Engineer:" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <effect>
             <Glow />
          </effect></Label>
-      <Label text="Investor:" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <Label fx:id="investorLabel" text="Investor:" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <effect>
             <Glow />
          </effect></Label>

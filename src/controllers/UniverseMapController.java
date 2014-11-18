@@ -46,7 +46,7 @@ public class UniverseMapController implements Initializable {
 
         SolarSystem currentSystem = gameData.getSolarSystem();
 
-        ImageView ship = new ImageView(new Image("/images/spaceship.gif"));
+        ImageView ship = new ImageView(gameData.getPlayer().getShip().getImage());
         
         for(SolarSystem s : gameData.getUniverse().solarSystems) {
             double dist = distance(gameData.getSolarSystem(), s);

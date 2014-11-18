@@ -7,9 +7,6 @@
 package models;
 
 import java.io.Serializable;
-import models.Gadget.GadgetType;
-import models.Shield.ShieldType;
-import models.Weapon.WeaponType;
 
 /**
  * Class representing the player's character.
@@ -24,13 +21,25 @@ public class Player extends CrewMember implements Serializable {
     private int credits;
     private int totalCredits;
     private int bounty;
+    private boolean firstFight;
 
-    public Player (String playerName, int pilotSP, int fighterSP, int traderSP,
-            int engineerSP, int investorSP) {
+    public Player(String playerName, int pilotSP, int fighterSP, int traderSP,
+                  int engineerSP, int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         name = playerName;
 
-        ship = new Ship(Ship.Type.Gnat, this);
+        ship = new Ship(Ship.Type.Flea, this);
+        
+        ship.equipWeapon(new Weapon(Weapon.Type.Alien));
+        ship.equipShield(new Shield(Shield.Type.Alien));
+        ship.equipShield(new Shield(Shield.Type.Alien));
+        ship.equipShield(new Shield(Shield.Type.Alien));
+        ship.equipShield(new Shield(Shield.Type.Alien));
+        ship.equipShield(new Shield(Shield.Type.Alien));
+        
+        ship.equipGadget(new Gadget(Gadget.Type.HOMING_SHOT));
+        
+        firstFight = true;
     }
 
     @Override
@@ -39,8 +48,8 @@ public class Player extends CrewMember implements Serializable {
                 + fighterSkill + ", Trader: " + traderSkill
                 + ", Engineer: " + engineerSkill + ", Investor: "
                 + investorSkill + "\nCurrently in the "
-                + currentPlanet.solarSystem.name + " system on planet "
-                + currentPlanet.name;
+                + currentPlanet.getSolarSystem().getName() + " system on planet "
+                + currentPlanet.getName();
     }
 
     /**
@@ -49,9 +58,9 @@ public class Player extends CrewMember implements Serializable {
     public Ship getShip() {
         return ship;
     }
-    
+
     public void setShip(Ship s) {
-        this.ship = s; // TODO: implement proper ship buying
+        this.ship = s;
     }
 
     /**
@@ -74,15 +83,7 @@ public class Player extends CrewMember implements Serializable {
     public int getCredits() {
         return credits;
     }
-    
-    public void increaseBounty(int x) {
-        bounty += x;
-    }
-    
-    public int getBounty() {
-        return bounty;
-    }
-    
+
     /**
      * Set the location of the player to a different planet.
      *
@@ -90,9 +91,10 @@ public class Player extends CrewMember implements Serializable {
      */
     public void setCurrentPlanet(Planet planet) {
         currentPlanet = planet;
-        currentSystem = planet.solarSystem;
+        currentSystem = planet.getSolarSystem();
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
@@ -102,7 +104,7 @@ public class Player extends CrewMember implements Serializable {
      * to change the planet the player is located on as well (so that they
      * aren't on a planet in a different system).
      *
-     * @param system
+     * @param system The SolarSystem instance to be set.
      */
     public void setCurrentSystem(SolarSystem system) {
         currentSystem = system;
@@ -114,8 +116,8 @@ public class Player extends CrewMember implements Serializable {
     public String shipType() {
         return ship.getType().toString().toLowerCase();
     }
-
-    /**
+    
+   /**
      * Spend a certain amount of money.
      *
      * @param amount How much money to spend
@@ -138,31 +140,43 @@ public class Player extends CrewMember implements Serializable {
         return totalCredits;
     }
 
-    public int calculateAttack(){
+    public int calculateAttack() {
         return ship.calculateAttack();
     }
-    public void takeDamage(int damage){
+
+    public void takeDamage(int damage) {
         ship.takeDamage(damage);
     }
-    public int getHullStrength(){
+
+    public int getHullStrength() {
         return ship.getHullStrength();
     }
-    public int getMaxHullStrength(){
+
+    public int getMaxHullStrength() {
         return ship.getMaxHullStrength();
     }
-    public int getMaxShields() {
-        return ship.getMaxShields();
-    }
-    public int getCurrentShields() {
-        return ship.getCurrentShields();
-    }
-    public boolean isDead(){
+
+    public boolean isDead() {
         return ship.isDead();
     }
-    public boolean hasIllegalGoods(){
+
+    public boolean hasIllegalGoods() {
         return ship.hasIllegalGoods();
     }
-    public void die(){
+
+    public void die() {
         ship = new Ship(Ship.Type.Flea, this);
+    }
+    
+    public int getBounty() {
+        return bounty;
+    }
+    
+    public boolean isFirstFight() {
+        return firstFight;
+    }
+    
+    public void finishedFirstFight() {
+        firstFight = false;
     }
 }
