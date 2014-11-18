@@ -27,68 +27,70 @@ import models.Shipyard;
 import models.Weapon;
 
 /**
+ * Shipyard FXML Controller class that allows the buying and selling of ships
+ *
  * @author Roi Atalla
  */
 public class ShipYardController implements Initializable {
     private Shipyard shipyard;
     private Ship.Type typeSelected;
-    
+
     @FXML AnchorPane ship_yard_anchor;
-    
+
     @FXML
     private Label money_label;
-    
+
     @FXML
     private Label shipTypeLabel, shipTypeLabel2;
-    
+
     @FXML
     private Label hullStrengthLabel, hullStrengthLabel2;
-    
+
     @FXML
     private Label cargoBaysLabel, cargoBaysLabel2;
-    
+
     @FXML
     private Label weaponSlotsLabel, weaponSlotsLabel2;
-    
+
     @FXML
     private Label shieldSlotsLabel, shieldSlotsLabel2;
-    
+
     @FXML
     private Label gadgetSlotsLabel, gadgetSlotsLabel2;
-    
+
     @FXML
     private Label crewLabel, crewLabel2;
-    
+
     @FXML
     private Label rangeLabel, rangeLabel2;
-    
+
     @FXML
     private Button buy_ship;
-    
+
     @FXML
     private Button shipsButton;
-    
-    @FXML 
+
+    @FXML
     private Button weaponsButton;
-    
+
     @FXML
     private Button gadgetsButton;
-    
+
     @FXML
     private Button shieldsButton;
-    
+
     private ArrayList<Node> shipControls;
-    
+
     private ArrayList<Node> weaponControls;
-    
+
     private ArrayList<Node> shieldControls;
-    
+
     private ArrayList<Node> gadgetControls;
-    
+
     private Button[] menuButtons;
-    
+
     private ImageView image;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Node[] controls = {shipTypeLabel, hullStrengthLabel, cargoBaysLabel,
@@ -97,47 +99,47 @@ public class ShipYardController implements Initializable {
             weaponSlotsLabel2, shieldSlotsLabel2, gadgetSlotsLabel2, crewLabel2,
             rangeLabel2
         };
-        
+
         shipyard = new Shipyard(GameController.getGameData().getPlanet());
-        
+
         this.shipControls = new ArrayList<>(Arrays.asList(controls));
         shipControls.addAll(createHeaders("Ship"));
         createShips();
-        
+
         this.weaponControls = createWeapons();
         weaponControls.addAll(createHeaders("Weapon"));
-        
+
         this.shieldControls = createShields();
         shieldControls.addAll(createHeaders("Shield"));
-        
+
         this.gadgetControls = createGadgets();
         gadgetControls.addAll(createHeaders("Gadget"));
-        
+
         for (Node c : shipControls) {
             c.setOpacity(0.0);
             c.setMouseTransparent(true);
         }
-        
+
         for (Node c : weaponControls) {
             c.setOpacity(0.0);
             c.setMouseTransparent(true);
         }
-        
+
         for (Node c : shieldControls) {
             c.setOpacity(0.0);
             c.setMouseTransparent(true);
         }
-        
+
         for (Node c : gadgetControls) {
             c.setOpacity(0.0);
             c.setMouseTransparent(true);
         }
-        
+
         Button[] buttons = {shipsButton, weaponsButton, shieldsButton, gadgetsButton};
         menuButtons = buttons;
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
-    
+
     private void setLabels(Ship.Type ship) {
         shipTypeLabel.setText(ship.name());
         hullStrengthLabel.setText("" + ship.hullStrength);
@@ -148,7 +150,7 @@ public class ShipYardController implements Initializable {
         crewLabel.setText("" + ship.crewCapacity);
         rangeLabel.setText("" + ship.fuelCapacity);
     }
-    
+
     private ArrayList<Node> createHeaders(String nameHeader) {
         ArrayList<Node> controls = new  ArrayList<>();
         Label header = new Label(nameHeader);
@@ -156,19 +158,19 @@ public class ShipYardController implements Initializable {
         header.setLayoutY(100);
         header.setMinSize(150, 30);
         header.setAlignment(Pos.CENTER);
-        
+
         ship_yard_anchor.getChildren().add(header);
         controls.add(header);
-        
+
         Label price = new Label("Price");
         price.setLayoutX(250);
         price.setLayoutY(100);
         price.setMinSize(100, 30);
         price.setAlignment(Pos.CENTER);
-        
+
         ship_yard_anchor.getChildren().add(price);
         controls.add(price);
-        
+
         if (nameHeader.equals("Weapon")) {
             Label power = new Label("Power");
             power.setLayoutX(400);
@@ -190,11 +192,11 @@ public class ShipYardController implements Initializable {
         }
         return controls;
     }
-    
+
     private void createShips() {
         HashMap<Ship.Type, Integer> ships = shipyard.getShips();
         int y = 100;
-        
+
         Button back = new Button("Back");
         back.setLayoutX(10);
         back.setLayoutY(350);
@@ -204,7 +206,7 @@ public class ShipYardController implements Initializable {
         });
         ship_yard_anchor.getChildren().add(back);
         shipControls.add(back);
-        
+
         for (Ship.Type ship : ships.keySet()) {
             Button shipName = new Button(ship.name());
             shipName.setLayoutX(50);
@@ -220,10 +222,10 @@ public class ShipYardController implements Initializable {
                     buy_ship.setDisable(false);
                 }
             });
-            
+
             ship_yard_anchor.getChildren().add(shipName);
             shipControls.add(shipName);
-            
+
             Label price = new Label(ships.get(ship).toString());
             price.setLayoutX(250);
             price.setLayoutY(y);
@@ -235,7 +237,7 @@ public class ShipYardController implements Initializable {
                     "-fx-background-radius: 5;");
             ship_yard_anchor.getChildren().add(price);
             shipControls.add(price);
-            
+
             if (shipyard.ownsShip(ship, GameController.getGameData().getPlayer())) {
                 image = new ImageView(new Image("/images/star.png"));
                 image.setLayoutX(28);
@@ -247,12 +249,12 @@ public class ShipYardController implements Initializable {
             }
         }
     }
-    
+
     private ArrayList<Node> createWeapons() {
         ArrayList<Node> controls = new ArrayList<>();
         ArrayList<Weapon.Type> weapons = shipyard.getWeapons();
         int y = 100;
-        
+
         Button back = new Button("Back");
         back.setLayoutX(10);
         back.setLayoutY(350);
@@ -262,16 +264,16 @@ public class ShipYardController implements Initializable {
         });
         ship_yard_anchor.getChildren().add(back);
         controls.add(back);
-        
+
         Button purchaseWeapon = new Button("Purchase Weapon");
         purchaseWeapon.setLayoutX(200);
         purchaseWeapon.setLayoutY(330);
         purchaseWeapon.setMinSize(200, 50);
         purchaseWeapon.setDisable(true);
-        
+
         ship_yard_anchor.getChildren().add(purchaseWeapon);
         controls.add(purchaseWeapon);
-        
+
         for (Weapon.Type weapon : weapons) {
             Button weaponName = new Button(weapon.toString() + " Laser");
             weaponName.setLayoutX(50);
@@ -292,10 +294,10 @@ public class ShipYardController implements Initializable {
                     purchaseWeapon.setDisable(false);
                 }
             });
-            
+
             ship_yard_anchor.getChildren().add(weaponName);
             controls.add(weaponName);
-            
+
             Label price = new Label(weapon.getPrice() + "");
             price.setLayoutX(250);
             price.setLayoutY(y);
@@ -307,7 +309,7 @@ public class ShipYardController implements Initializable {
                     "-fx-background-radius: 5;");
             ship_yard_anchor.getChildren().add(price);
             controls.add(price);
-            
+
             Label power = new Label(weapon.getDamage() + "");
             power.setLayoutX(400);
             power.setLayoutY(y);
@@ -322,12 +324,12 @@ public class ShipYardController implements Initializable {
         }
         return controls;
     }
-    
+
     private ArrayList<Node> createShields() {
         ArrayList<Node> controls = new ArrayList<>();
         ArrayList<Shield.Type> shields = shipyard.getShields();
         int y = 100;
-        
+
         Button back = new Button("Back");
         back.setLayoutX(10);
         back.setLayoutY(350);
@@ -337,7 +339,7 @@ public class ShipYardController implements Initializable {
         });
         ship_yard_anchor.getChildren().add(back);
         controls.add(back);
-        
+
         Button purchaseShields = new Button("Purchase Shield");
         purchaseShields.setLayoutX(200);
         purchaseShields.setLayoutY(330);
@@ -345,7 +347,7 @@ public class ShipYardController implements Initializable {
         purchaseShields.setDisable(true);
         ship_yard_anchor.getChildren().add(purchaseShields);
         controls.add(purchaseShields);
-        
+
         for (Shield.Type shield : shields) {
             Button shieldName = new Button(shield.toString() +" Shield");
             shieldName.setLayoutX(50);
@@ -366,10 +368,10 @@ public class ShipYardController implements Initializable {
                     purchaseShields.setDisable(false);
                 }
             });
-            
+
             ship_yard_anchor.getChildren().add(shieldName);
             controls.add(shieldName);
-            
+
             Label price = new Label(shield.getPrice() + "");
             price.setLayoutX(250);
             price.setLayoutY(y);
@@ -381,7 +383,7 @@ public class ShipYardController implements Initializable {
                     "-fx-background-radius: 5;");
             ship_yard_anchor.getChildren().add(price);
             controls.add(price);
-            
+
             Label protection = new Label(shield.getStrength() + "");
             protection.setLayoutX(400);
             protection.setLayoutY(y);
@@ -393,16 +395,16 @@ public class ShipYardController implements Initializable {
                     "-fx-background-radius: 5;");
             ship_yard_anchor.getChildren().add(protection);
             controls.add(protection);
-            
+
         }
         return controls;
     }
-    
+
     private ArrayList<Node> createGadgets() {
         ArrayList<Node> controls = new ArrayList<>();
         ArrayList<Gadget.Type> gadgets = shipyard.getGadgets();
         int y = 100;
-        
+
         Button back = new Button("Back");
         back.setLayoutX(10);
         back.setLayoutY(350);
@@ -412,7 +414,7 @@ public class ShipYardController implements Initializable {
         });
         ship_yard_anchor.getChildren().add(back);
         controls.add(back);
-        
+
         Button purchaseGadgets = new Button("Purchase Gadget");
         purchaseGadgets.setLayoutX(200);
         purchaseGadgets.setLayoutY(340);
@@ -420,7 +422,7 @@ public class ShipYardController implements Initializable {
         purchaseGadgets.setDisable(true);
         ship_yard_anchor.getChildren().add(purchaseGadgets);
         controls.add(purchaseGadgets);
-        
+
         Label info = new Label();
         info.setAlignment(Pos.CENTER);
         info.setLayoutX(50);
@@ -433,7 +435,7 @@ public class ShipYardController implements Initializable {
                 "-fx-background-radius: 5;");
         ship_yard_anchor.getChildren().add(info);
         controls.add(info);
-        
+
         for (Gadget.Type gadget : gadgets) {
             Button gadgetName = new Button(gadget.getName());
             gadgetName.setLayoutX(50);
@@ -455,10 +457,10 @@ public class ShipYardController implements Initializable {
                     purchaseGadgets.setDisable(false);
                 }
             });
-            
+
             ship_yard_anchor.getChildren().add(gadgetName);
             controls.add(gadgetName);
-            
+
             Label price = new Label(gadget.getPrice() + "");
             price.setLayoutX(250);
             price.setLayoutY(y);
@@ -473,48 +475,48 @@ public class ShipYardController implements Initializable {
         }
         return controls;
     }
-    
+
     @FXML
     private void purchaseShip() {
         Ship currentShip = GameController.getGameData().getShip();
         GameController.getGameData().getPlayer().spend(typeSelected.price);
         Ship ship = new Ship(typeSelected, GameController.getGameData().getPlayer());
-        
+
         HashMap<CargoItem, Integer> currentCargo = currentShip.getCargoHold().getCargo();
         for (CargoItem item : currentCargo.keySet()) {
             ship.getCargoHold().addItemQuantity(item, Math.min(ship.getType().cargoCapacity
                 - ship.getCargoHold().getCargoQuantity(), currentCargo.get(item)));
         }
-        
+
         GameController.getGameData().getPlayer().setShip(ship);
-        
-        
+
+
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
-    
+
     private void purchaseWeapon(Weapon.Type weapon) {
         GameController.getGameData().getPlayer().spend(weapon.getPrice());
         GameController.getGameData().getShip().addWeapon(new Weapon(weapon));
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
-    
+
     private void purchaseShield(Shield.Type shield) {
         GameController.getGameData().getPlayer().spend(shield.getPrice());
         GameController.getGameData().getShip().addShield(new Shield(shield));
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
-    
+
     private void purchaseGadget(Gadget.Type gadget) {
         GameController.getGameData().getPlayer().spend(gadget.getPrice());
         GameController.getGameData().getShip().addGadget(new Gadget(gadget));
         money_label.setText(GameController.getGameData().getPlayer().getCredits() + "");
     }
-    
+
     @FXML
     private void returnToSpacePort() {
         GameController.getControl().setScreen(Screens.SPACE_PORT);
     }
-    
+
     private void backToMenu(ArrayList<Node> toHide) {
         for (Node c : toHide) {
             fadeOut(c);
@@ -523,7 +525,7 @@ public class ShipYardController implements Initializable {
             fadeIn(b);
         }
     }
-    
+
     @FXML
     private void shipsMode() {
         for (Button b : menuButtons) {
@@ -533,7 +535,7 @@ public class ShipYardController implements Initializable {
             fadeIn(c);
         }
     }
-    
+
     @FXML
     private void weaponsMode() {
         for (Button b : menuButtons) {
@@ -543,7 +545,7 @@ public class ShipYardController implements Initializable {
             fadeIn(c);
         }
     }
-    
+
     @FXML
     private void shieldsMode() {
         for (Button b : menuButtons) {
@@ -553,7 +555,7 @@ public class ShipYardController implements Initializable {
             fadeIn(c);
         }
     }
-    
+
     @FXML
     private void gadgetsMode() {
         for (Button b : menuButtons) {
@@ -563,26 +565,25 @@ public class ShipYardController implements Initializable {
             fadeIn(c);
         }
     }
-    
+
     private void fadeIn(Node node) {
         node.setOpacity(0);
         FadeTransition fadeIn = new FadeTransition(Duration.millis(500), node);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
-        
+
         node.setMouseTransparent(false);
-        
+
         fadeIn.play();
     }
-    
+
     private void fadeOut(Node node) {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(500), node);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
-        
+
         node.setMouseTransparent(true);
-        
+
         fadeOut.play();
     }
-    
 }

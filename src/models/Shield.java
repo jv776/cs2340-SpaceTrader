@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Model of a shield that protects a ship from damage.
  *
- * @author Taylor
+ * @author Taylor, Alex
  */
 public class Shield extends Upgrade implements Serializable {
     public enum Type {
@@ -54,7 +54,7 @@ public class Shield extends Upgrade implements Serializable {
             return description;
         }
     }
-    
+
     private int strength;
     private Type type;
     private int price;
@@ -66,7 +66,7 @@ public class Shield extends Upgrade implements Serializable {
         price = type.getPrice();
         name = type + " Shield";
     }
-    
+
     public Type getType() {
         return type;
     }
@@ -90,7 +90,7 @@ public class Shield extends Upgrade implements Serializable {
     public String getName() {
         return name;
     }
-    
+
     @Override
     public void onEquip(Ship ship) {
         ship.equipShield(this);

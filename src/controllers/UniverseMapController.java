@@ -47,16 +47,16 @@ public class UniverseMapController implements Initializable {
         SolarSystem currentSystem = gameData.getSolarSystem();
 
         ImageView ship = new ImageView(gameData.getPlayer().getShip().getImage());
-        
+
         for(SolarSystem s : gameData.getUniverse().solarSystems) {
             double dist = distance(gameData.getSolarSystem(), s);
-            
+
             Circle star = new Circle();
             star.setCenterX(s.getX());
             star.setCenterY(s.getY());
             star.setRadius(s.getSun().getRadius());
             Color color = s.getSun().computeColor();
-            
+
             RadialGradient radGrad = new RadialGradient(0,
                 0,
                 s.getX(),
@@ -67,9 +67,9 @@ public class UniverseMapController implements Initializable {
                 new Stop(0, color),
                 new Stop(0.5, color),
                 new Stop(1, Color.BLACK));
-            
+
             star.setFill(radGrad);
-            
+
             ColorAdjust adjust = new ColorAdjust();
 
             Circle circle = new Circle();
@@ -109,7 +109,7 @@ public class UniverseMapController implements Initializable {
                 ship.setMouseTransparent(true);
                 ship.setTranslateX(s.getX() - ship.getImage().getWidth() / 2);
                 ship.setTranslateY(s.getY() - ship.getImage().getHeight() / 2);
-                
+
                 ship.setOnMouseClicked((MouseEvent t) -> {
                     GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
                 });
@@ -122,17 +122,17 @@ public class UniverseMapController implements Initializable {
                     circle.setVisible(false);
                 });
             }
-            
+
             star.setOnMouseEntered((MouseEvent t) -> {
-                if(distance(gameData.getSolarSystem(), s) 
+                if(distance(gameData.getSolarSystem(), s)
                         < gameData.getShip().getFuelAmount()) {
                     circle.setVisible(true);
                 }
-                if (s.isDiscovered() || distance(gameData.getSolarSystem(), s) 
+                if (s.isDiscovered() || distance(gameData.getSolarSystem(), s)
                         < gameData.getShip().getFuelAmount()) {
                     double xCoord = universe_anchor.getScene().getWindow().getX();
                     double yCoord = universe_anchor.getScene().getWindow().getY();
-                    systemInfo.show(universe_anchor, xCoord + s.getX() + 30, 
+                    systemInfo.show(universe_anchor, xCoord + s.getX() + 30,
                             yCoord + s.getY() + 40);
                 }
             });
@@ -140,7 +140,7 @@ public class UniverseMapController implements Initializable {
                 circle.setVisible(false);
                 systemInfo.hide();
             });
-            
+
             star.setEffect(adjust);
             circle.setEffect(adjust);
 
@@ -149,10 +149,10 @@ public class UniverseMapController implements Initializable {
                     RotateTransition rotate = new RotateTransition(Duration.millis(500), ship);
                     rotate.setFromAngle(ship.getRotate());
                     if (s.getX() >= currentSystem.getX()) {
-                        rotate.setToAngle(Math.atan((s.getY() - currentSystem.getY() * 1.0) / 
+                        rotate.setToAngle(Math.atan((s.getY() - currentSystem.getY() * 1.0) /
                                 (s.getX() - currentSystem.getX() * 1.0)) * 180.0 / Math.PI);
                     } else {
-                        rotate.setToAngle(Math.atan((s.getY() - currentSystem.getY() * 1.0) / 
+                        rotate.setToAngle(Math.atan((s.getY() - currentSystem.getY() * 1.0) /
                                 (s.getX() - currentSystem.getX() * 1.0)) * 180.0 / Math.PI - 180);
                     }
 
@@ -161,11 +161,11 @@ public class UniverseMapController implements Initializable {
                     line.setX(s.getX());
                     line.setY(s.getY());
                     PathTransition path = new PathTransition();
-                    
+
                     Path flight = new Path();
                     flight.getElements().add(move);
                     flight.getElements().add(line);
-                    
+
                     path.setPath(flight);
                     path.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
                     path.setNode(ship);
@@ -189,31 +189,22 @@ public class UniverseMapController implements Initializable {
 
                         double rTrader = 0.0;
                         rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
-                        
+
                         GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
-                        /*if(policeEvent < rPolice) {
-                            GameController.getControl().setScreen(Screens.POLICE_EVENT);
-                        } else if(pirateEvent < rPirate) {
-                            GameController.getControl().setScreen(Screens.PIRATE_EVENT);
-                        } else if(tradeEvent < rTrader) {
-                            GameController.getControl().setScreen(Screens.TRADE_EVENT);
-                        } else {
-                            GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
-                        }*/
                     });
                     rotate.setOnFinished((ActionEvent event) -> {
                         path.play();
                     });
                     rotate.play();
-                    
+
                 } else if (s == currentSystem) {
                     GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
                 }
             });
-            
+
             universe_anchor.getChildren().add(circle);
             universe_anchor.getChildren().add(star);
-            
+
         }
         universe_anchor.getChildren().add(ship);
     }

@@ -45,7 +45,7 @@ public enum TechLevel {
      * Very advanced technology
      */
     HI_TECH;
-    
+
     @Override
     public String toString() {
         switch (this.ordinal()) {
