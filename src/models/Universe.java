@@ -361,7 +361,7 @@ public class Universe implements Serializable {
 
         for (int i = 0; i < NUM_SOLAR_SYSTEMS; i++) {
 
-            TechLevel tech = TechLevel.HI_TECH;
+            TechLevel tech = randomTechLevel();
             int x = (int) (vanDerCorput(Math.abs(i + offset)) * MAX_X);
             int y = (int) (vanDerCorput(Math.abs(x + offset)) * MAX_Y);
 

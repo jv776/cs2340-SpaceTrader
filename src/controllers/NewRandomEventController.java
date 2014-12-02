@@ -39,6 +39,7 @@ import models.CrewMember;
 import models.Dreadnought;
 import models.Encounterable;
 import models.Pirate;
+import models.Planet;
 import models.Player;
 import models.Police;
 import models.Ship;
@@ -335,7 +336,7 @@ public class NewRandomEventController implements Initializable {
                 fightAnyway = dreadnoughtComply();
             }
             
-            if (true) {
+            if (fightAnyway) {
                 fadeOut(engage);
                 fadeOut(comply);
                 speech.setText(enc.getBadComplyText());
@@ -1169,6 +1170,7 @@ public class NewRandomEventController implements Initializable {
     }
     
     private boolean traderComply() {
+        // Implement Trading :D
         return false;
     }
 }

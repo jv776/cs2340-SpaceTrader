@@ -28,16 +28,7 @@ public class Player extends CrewMember implements Serializable {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         name = playerName;
 
-        ship = new Ship(Ship.Type.Flea, this);
-        
-        ship.equipWeapon(new Weapon(Weapon.Type.Alien));
-        ship.equipShield(new Shield(Shield.Type.Alien));
-        ship.equipShield(new Shield(Shield.Type.Alien));
-        ship.equipShield(new Shield(Shield.Type.Alien));
-        ship.equipShield(new Shield(Shield.Type.Alien));
-        ship.equipShield(new Shield(Shield.Type.Alien));
-        
-        ship.equipGadget(new Gadget(Gadget.Type.HOMING_SHOT));
+        ship = new Ship(Ship.Type.Gnat, this);
         
         firstFight = true;
     }
