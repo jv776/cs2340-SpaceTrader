@@ -1,3 +1,6 @@
+#ignore test
+test/
+
 #ignore netbeans stuff
 nbproject/
 build.xml

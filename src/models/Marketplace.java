@@ -72,7 +72,7 @@ public class Marketplace implements Serializable {
 
             int techLevelFactor = good.getPriceChangePerTechLevel() *
                     (location.getSolarSystem().getTechLevel().ordinal() -
-                            good.getMinTechLevelBuy().ordinal());
+                    good.getMinTechLevelBuy().ordinal());
 
             int variance = r.nextInt(11) - 2;
 
@@ -107,30 +107,18 @@ public class Marketplace implements Serializable {
         return priceMap;
     }
 
-    /**
-     * Determine whether or not the good can be bought at a good price.
-     *
-     * @param good The good requested.
-     * @return True if the buy is good or false if it is not.
-     */
     public boolean isGoodBuy(TradeGood good) {
-        int techLevelFactor = good.getPriceChangePerTechLevel() *
-                (location.getSolarSystem().getTechLevel().ordinal() -
-                        good.getMinTechLevelBuy().ordinal());
+        int techLevelFactor = good.getPriceChangePerTechLevel()*
+            (location.getSolarSystem().getTechLevel().ordinal() -
+            good.getMinTechLevelBuy().ordinal());
         return getPrice(good) < (good.getBasePrice() + techLevelFactor) * .9;
     }
 
-    /**
-     * Determine whether or not a good can be sold at a good price.
-     *
-     * @param good The good being sold.
-     * @return True if the sell is good or false if it is not.
-     */
     public boolean isGoodSell(TradeGood good) {
         int techLevelFactor = good.getPriceChangePerTechLevel() *
-                (location.getSolarSystem().getTechLevel().ordinal() -
-                        good.getMinTechLevelBuy().ordinal());
-        return getSalePrice(good) > (good.getBasePrice() + techLevelFactor);
+            (location.getSolarSystem().getTechLevel().ordinal() -
+            good.getMinTechLevelBuy().ordinal());
+        return getPrice(good) * 0.9 > (good.getBasePrice() + techLevelFactor);
     }
 
     /**
@@ -187,4 +175,16 @@ public class Marketplace implements Serializable {
             prices.put(good, (int)(prices.get(good) * discount));
         }
     }
+
+    /*
+    public void addPurchase(TradeGood good) {
+        //basket.put(good, basket.get(good));
+    }
+
+    public void addSale(TradeGood good) {
+
+    }
+    */
+
+
 }

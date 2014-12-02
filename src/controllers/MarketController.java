@@ -16,7 +16,6 @@ import models.TradeGood;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -24,23 +23,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 /**
- * FXML Controller class.
+ * FXML Controller class
  *
  * @author Alex, John
  */
 public class MarketController implements Initializable {
 
     @FXML
-<<<<<<< HEAD
-=======
-    private Label label_refuelCost;
-    @FXML
-    private Button button_Refuel;
-    @FXML
-    private Label label_fuelAmount;
-
-    @FXML
->>>>>>> master
     private Label buyNarcoticsValueLabel;
 
     @FXML
@@ -266,11 +255,11 @@ public class MarketController implements Initializable {
         market = player.getCurrentPlanet().getMarket();
 
         Label[] buyQuantities = {
-                buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
-                buyOreQuantityLabel, buyGamesQuantityLabel,
-                buyFirearmsQuantityLabel, buyMedicineQuantityLabel,
-                buyMachinesQuantityLabel, buyNarcoticsQuantityLabel,
-                buyRobotsQuantityLabel
+            buyWaterQuantityLabel, buyFoodQuantityLabel, buyFursQuantityLabel,
+            buyOreQuantityLabel, buyGamesQuantityLabel,
+            buyFirearmsQuantityLabel, buyMedicineQuantityLabel,
+            buyMachinesQuantityLabel, buyNarcoticsQuantityLabel,
+            buyRobotsQuantityLabel
         };
         this.buyQuantities = buyQuantities;
 
@@ -280,31 +269,36 @@ public class MarketController implements Initializable {
         }
 
         Label[] buyValues = {
-                buyWaterValueLabel, buyFoodValueLabel, buyFursValueLabel,
-                buyOreValueLabel, buyGamesValueLabel, buyFirearmsValueLabel,
-                buyMedicineValueLabel, buyMachinesValueLabel,
-                buyNarcoticsValueLabel, buyRobotsValueLabel
+            buyWaterValueLabel, buyFoodValueLabel, buyFursValueLabel,
+            buyOreValueLabel, buyGamesValueLabel, buyFirearmsValueLabel,
+            buyMedicineValueLabel, buyMachinesValueLabel,
+            buyNarcoticsValueLabel, buyRobotsValueLabel
         };
         this.buyValues = buyValues;
 
         int trader = player.getTraderSkillPoints();
+
+        System.out.println(market.getPrice(TradeGood.WATER));
+
         market.discountPrices(trader);
+
+        System.out.println(market.getPrice(TradeGood.WATER));
 
         for (int i = 0; i < buyValues.length; i++) {
             int price = market.getPrice(TradeGood.values()[i]);
             buyValues[i].setText(Integer.toString(price));
             if (market.isGoodBuy(TradeGood.values()[i]) && market.getSupply(TradeGood.values()[i]) > 0) {
                 buyValues[i].setBackground(new Background(new BackgroundFill(
-                        Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                    Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             }
         }
 
         Label[] sellQuantities = {
-                sellWaterQuantityLabel, sellFoodQuantityLabel,
-                sellFursQuantityLabel, sellOreQuantityLabel, sellGamesQuantityLabel,
-                sellFirearmsQuantityLabel, sellMedicineQuantityLabel,
-                sellMachinesQuantityLabel, sellNarcoticsQuantityLabel,
-                sellRobotsQuantityLabel
+            sellWaterQuantityLabel, sellFoodQuantityLabel,
+            sellFursQuantityLabel, sellOreQuantityLabel, sellGamesQuantityLabel,
+            sellFirearmsQuantityLabel, sellMedicineQuantityLabel,
+            sellMachinesQuantityLabel, sellNarcoticsQuantityLabel,
+            sellRobotsQuantityLabel
         };
         this.sellQuantities = sellQuantities;
 
@@ -314,12 +308,14 @@ public class MarketController implements Initializable {
         }
 
         Label[] sellValues = {
-                sellWaterValueLabel, sellFoodValueLabel, sellFursValueLabel,
-                sellOreValueLabel, sellGamesValueLabel, sellFirearmsValueLabel,
-                sellMedicineValueLabel, sellMachinesValueLabel,
-                sellNarcoticsValueLabel, sellRobotsValueLabel
+            sellWaterValueLabel, sellFoodValueLabel, sellFursValueLabel,
+            sellOreValueLabel, sellGamesValueLabel, sellFirearmsValueLabel,
+            sellMedicineValueLabel, sellMachinesValueLabel,
+            sellNarcoticsValueLabel, sellRobotsValueLabel
         };
         this.sellValues = sellValues;
+
+
 
         for (int i = 0; i < sellValues.length; i++) {
             int price = market.getSalePrice(TradeGood.values()[i], trader);
@@ -327,14 +323,14 @@ public class MarketController implements Initializable {
             if (market.isGoodSell(TradeGood.values()[i]) &&
                     player.getShip().getCargoHold().getQuantity(TradeGood.values()[i]) > 0) {
                 sellValues[i].setBackground(new Background(new BackgroundFill(
-                        Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                    Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             }
         }
 
         Button[] buyButtons = {
-                buyWaterButton, buyFoodButton, buyFursButton, buyOreButton,
-                buyGamesButton, buyFirearmsButton, buyMedicineButton,
-                buyMachinesButton, buyNarcoticsButton, buyRobotsButton
+            buyWaterButton, buyFoodButton, buyFursButton, buyOreButton,
+            buyGamesButton, buyFirearmsButton, buyMedicineButton,
+            buyMachinesButton, buyNarcoticsButton, buyRobotsButton
         };
         this.buyButtons = buyButtons;
 
@@ -346,9 +342,9 @@ public class MarketController implements Initializable {
         }
 
         Button[] sellButtons = {
-                sellWaterButton, sellFoodButton, sellFursButton, sellOreButton,
-                sellGamesButton, sellFirearmsButton, sellMedicineButton,
-                sellMachinesButton, sellNarcoticsButton, sellRobotsButton
+            sellWaterButton, sellFoodButton, sellFursButton, sellOreButton,
+            sellGamesButton, sellFirearmsButton, sellMedicineButton,
+            sellMachinesButton, sellNarcoticsButton, sellRobotsButton
         };
         this.sellButtons = sellButtons;
 

@@ -14,8 +14,8 @@ public class Trader extends Encounterable {
     /**
      * Create a new trader to be encountered while traveling through a
      * solar system.
-     *
-     * @param traderName   The trader's name.
+     * 
+     * @param traderName The trader's name.
      * @param traderOrigin The trader's home planet.
      */
     public Trader(String traderName, Planet traderOrigin) {

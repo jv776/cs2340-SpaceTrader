@@ -202,9 +202,9 @@ public abstract class RandomEventController implements Initializable {
         speech.setText(encountered.getWinText());
         NWButton.setText("Use Escape Pod");
         NWButton.setOnMouseClicked(t -> {
-            GameController.getGameData().getPlayer().die();
-            exitEvent();
-        });
+                GameController.getGameData().getPlayer().die();
+                exitEvent();
+            });
         NEButton.setDisable(true);
         SEButton.setDisable(true);
         SWButton.setDisable(true);

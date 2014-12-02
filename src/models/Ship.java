@@ -16,112 +16,44 @@ import javafx.scene.image.Image;
  */
 public class Ship implements Serializable {
     public enum Type {
-        /**
-         * The cheapest and most basic type of ship.
-         */
         Flea(10, 0, 0, 0, 1, 20, TechLevel.EARLY_INDUSTRIAL, 1, 2000, 5, 2, 25, 1, 0,
                 new Image("/images/flea.png")),
-        /**
-         * A cheap ship. The player begins the game with a Gnat.
-         */
         Gnat(15, 1, 0, 1, 1, 20, TechLevel.INDUSTRIAL, 2, 10000, 50, 28, 100, 1, 1,
                 new Image("/images/gnat.gif")),
-        /**
-         * A moderately priced ship with decent features.
-         */
         Firefly(20, 1, 1, 1, 1, 17, TechLevel.INDUSTRIAL, 3, 25000, 75, 20, 100, 1, 1,
                 new Image("/images/firefly.png")),
-        /**
-         * An expensive and high-tech ship.
-         */
         Mosquito(15, 2, 1, 1, 1, 13, TechLevel.INDUSTRIAL, 5, 30000, 100, 20, 100, 1, 1,
                 new Image("/images/mosquito.gif")),
-        /**
-         * The largest and most expensive ship available.
-         */
         BumbleBee(25, 1, 2, 2, 2, 15, TechLevel.INDUSTRIAL, 7, 60000, 125, 15, 100, 1, 2,
                 new Image("/images/bumblebee.jpg")),
-        /**
-         * The largest and most expensive ship available.
-         */
         Dragonfly(50, 4, 4, 4, 4, 25, TechLevel.POST_INDUSTRIAL, 10, 200000, 500, 10, 500, 1, 2,
                 new Image("/images/dragonfly.png"));
 
-        /**
-         * The ship's maximum cargo capacity.
-         */
         public final int cargoCapacity;
 
-        /**
-         * The number of weapons the ship can equip.
-         */
         public final int weaponSlots;
-
-        /**
-         * The number of shields the ship can equip.
-         */
         public final int shieldSlots;
-
-        /**
-         * The number of gadgets the ship can equip.
-         */
         public final int gadgetSlots;
 
-        /**
-         * The maximum number of crew members the ship can accommodate.
-         */
         public final int crewCapacity;
-
-        /**
-         * The maximum amount of fuel the ship can hold.
-         */
         public final int fuelCapacity;
 
-        /**
-         * The minimum technology level at which the ship can be bought.
-         */
         public final TechLevel minTechLevel;
 
-        /**
-         * The cost of fuel for the ship.
-         */
         public final int fuelCost;
-
-        /**
-         * The price of the ship.
-         */
         public final int price;
+        public final int bounty;
+        public final int occurrence;
 
-        //public final int bounty;
-        //public final int occurrence;
-
-        /**
-         * The strength of the ship's hull.
-         */
         public final int hullStrength;
-
-        /**
-         * The cost of repairing the ship.
-         */
         public final int repairCost;
-
-        /**
-         * The size of the ship.
-         */
         public final int size;
-
-        /**
-         * The Image that portrays the ship.
-         */
         public final Image image;
 
 
-        Type(int cargoCapacity, int weaponSlots, int shieldSlots,
-             int gadgetSlots, int crewCapacity, int fuelCapacity,
-             TechLevel minTechLevel, int fuelCost, int price, int bounty,
-             int occurrence, int hullStrength, int repairCost, int size,
+        Type(int cargoCapacity, int weaponSlots, int shieldSlots, int gadgetSlots, int crewCapacity, int fuelCapacity,
+             TechLevel minTechLevel, int fuelCost, int price, int bounty, int occurrence, int hullStrength, int repairCost, int size,
              Image image) {
-
             this.cargoCapacity = cargoCapacity;
 
             this.weaponSlots = weaponSlots;
@@ -173,18 +105,10 @@ public class Ship implements Serializable {
     private boolean piercing;
     private double reflectChance;
 
-    private ArrayList<Weapon> weapons;
-
     private ArrayList<Shield> shields;
 
     private ArrayList<Gadget> gadgets;
 
-    /**
-     * Create a new ship of a given type and set its owner.
-     *
-     * @param type  The type of the new ship.
-     * @param owner The owner of the new ship.
-     */
     public Ship(Type type, CrewMember owner) {
         this.type = type;
         this.fuelAmount = type.fuelCapacity;
@@ -207,6 +131,7 @@ public class Ship implements Serializable {
 
         this.owner = owner;
     }
+
 
     /**
      * @return The type of the ship
@@ -243,9 +168,6 @@ public class Ship implements Serializable {
         return hullStrength;
     }
 
-    /**
-     * @return The maximum hull strength of the ship.
-     */
     public int getMaxHullStrength() {
         return type.hullStrength;
     }
@@ -262,11 +184,6 @@ public class Ship implements Serializable {
         return type.repairCost;
     }
 
-    /**
-     * Returns whether ship is dead.
-     *
-     * @return ship is dead
-     */
     public boolean isDead() {
         return hullStrength <= 0;
     }
@@ -280,22 +197,15 @@ public class Ship implements Serializable {
         fuelAmount -= distance;
     }
 
-    /**
-     * Adds fuel to ship.
-     *
-     * @param amount amount of fuel to be added
-     */
     public void addFuel(double amount) {
         if (fuelAmount + amount > type.fuelCapacity) {
             fuelAmount = type.fuelCapacity;
-        } else {
+        }
+        else {
             fuelAmount += amount;
         }
     }
 
-    /**
-     * Restores ship fuel to maximum.
-     */
     public void refuel() {
         fuelAmount = type.fuelCapacity;
     }
@@ -304,18 +214,10 @@ public class Ship implements Serializable {
         hullStrength = type.hullStrength;
     }
 
-    /**
-     * Returns maximum amound of fuel ship can carry
-     *
-     * @return Maximum amount of fuel
-     */
     public int getFuelCapacity() {
         return this.type.fuelCapacity;
     }
 
-    /**
-     * @return The cost of fuel for the ship.
-     */
     public int getFuelCost() {
         return this.type.fuelCost;
     }
@@ -324,11 +226,6 @@ public class Ship implements Serializable {
         return this.type.image;
     }
 
-    /**
-     * Damages ship
-     *
-     * @param damage amount of base damage to be detracted
-     */
     public void takeDamage(int damage){
         if (currentShields < damage) {
             int overflow = damage - getCurrentShields();
@@ -339,12 +236,7 @@ public class Ship implements Serializable {
         }
     }
 
-    /**
-     * Returns the Attack value of the ship.
-     *
-     * @return the attack of the ship
-     */
-    public int calculateAttack() {
+    public int calculateAttack(){
         int attack = 0;
         for (Weapon w : equippedWeapons) {
             attack += w.getType().getDamage();
@@ -360,20 +252,10 @@ public class Ship implements Serializable {
         return defense;
     }
 
-    /**
-     * Tells if the ship is carrying illegal goods
-     *
-     * @return ship has illegal goods
-     */
     public boolean hasIllegalGoods() {
         return cargoHold.hasIllegalGoods();
     }
 
-    /**
-     * Returns weapons on ship
-     *
-     * @return List of weapons equipped
-     */
     public ArrayList<Weapon> getWeapons() {
         return weapons;
     }
@@ -425,20 +307,10 @@ public class Ship implements Serializable {
         return equippedWeapons;
     }
 
-    /**
-     * Returns shields on ship
-     *
-     * @return List of shields equipped
-     */
     public ArrayList<Shield> getShields() {
         return shields;
     }
 
-    /**
-     * Returns gadgets on ship
-     *
-     * @return List of gadgets equipped
-     */
     public ArrayList<Gadget> getGadgets() {
         return gadgets;
     }

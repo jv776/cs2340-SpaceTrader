@@ -40,7 +40,7 @@ public class UpgradeController implements Initializable {
     private Label gadgetCostLabel;
 
     private int selectedItem;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createUpgrades();
@@ -48,11 +48,12 @@ public class UpgradeController implements Initializable {
 //        createUpgradeList();
 //        reloadUpgradeList();
     }
-
+    
     private void createUpgrades() {
         Weapon wup = GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade();
         Shield sup = GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade();
         Gadget gup = GameController.getGameData().getPlanet().getUpgrade().getGadgetUpgrade();
+        Ship ship = GameController.getGameData().getShip();
         weaponButton.setDisable(true);
         shieldButton.setDisable(true);
         gadgetButton.setDisable(true);
@@ -81,14 +82,14 @@ public class UpgradeController implements Initializable {
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getWeaponUpgrade().toString());
         selectedItem = 0;
     }
-
+    
     @FXML
     private void onShieldButtonClicked() {
 //        shieldButton.setEffect(new Glow());
         infoLabel.setText(GameController.getGameData().getPlanet().getUpgrade().getShieldUpgrade().toString());
         selectedItem = 1;
     }
-
+    
     @FXML
     private void onGadgetButtonClicked() {
 //        gadgetButton.setEffect(new Glow());
@@ -130,7 +131,7 @@ public class UpgradeController implements Initializable {
         playerCreditsLabel.setText("Credits: " + GameController.getGameData().getPlayer().getCredits());
 
     }
-
+    
     @FXML
     private void onBuyButtonClicked() {
         Ship ship = GameController.getGameData().getShip();
@@ -150,9 +151,9 @@ public class UpgradeController implements Initializable {
         createUpgrades();
 
     }
-
+    
     @FXML
-    private void onReturnButtonClicked() {
+    private void onReturnButtonClicked(){
         GameController.getControl().setScreen(Screens.SHIP_YARD);
     }
 }

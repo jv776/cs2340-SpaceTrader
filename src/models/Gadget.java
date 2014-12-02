@@ -5,17 +5,11 @@ import java.io.Serializable;
 /**
  * Model of a misc upgrade that can be applied to a ship.
  *
- * @author Taylor, Alex
+ * @author Taylor
  */
+<<<<<<< HEAD
 public class Gadget extends Upgrade implements Serializable {
-    /**
-     * The type of the gadget. Affects how each individual gadget will upgrade
-     * a ship. One of the ugliest java classes I've ever written. - Alex
-     */
     public static enum Type {
-        /**
-         * Increases the amount of cargo a ship has by 5.
-         */
          CARGO_INCREASE("Extra Cargo Bays", TechLevel.EARLY_INDUSTRIAL, 6000,
             "Increases the maximum amount of cargo you can carry by 5.",
             new Effect() {
@@ -30,9 +24,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Increases the player's pilot skill by 5.
-         */
         PILOT_INCREASE("Navigation System", TechLevel.INDUSTRIAL, 15000,
             "Increases the player's pilot skill by 5.",
             new Effect() {
@@ -47,9 +38,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Increases the player's engineer skill by 5.
-         */
         ENGINEER_INCREASE("Auto-Repair System", TechLevel.INDUSTRIAL, 17000,
             "Increases the player's engineer skill by 5.",
             new Effect() {
@@ -64,9 +52,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Increases the player's fighter skill by 5.
-         */
         FIGHTER_INCREASE("Targeting System", TechLevel.POST_INDUSTRIAL, 20000,
             "Increases the player's fighter skill by 5.",
             new Effect() {
@@ -82,10 +67,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Allows the player to fly unnoticed in fights unless enemy
-         * engineer skill is higher.
-         */
         CLOAKING_DEVICE("Cloaking Device", TechLevel.HI_TECH, 30000,
             "Allows player to travel unseen by some ships.",
             new Effect() {
@@ -100,10 +81,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Increase the variance of the direction of a player's shot,
-         * making it easier to hit enemies. This does stack.
-         */
         SCATTER_SHOT("Scatter Shot", TechLevel.HI_TECH, 100000,
             "Adds a scatter effect to all laser shots.",
             new Effect() {
@@ -118,10 +95,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Causes player shots to travel through enemy ships, allowing
-         * a single shot to hit multiple enemies. Does not stack.
-         */
         PIERCING_SHOT("Piercing Shot", TechLevel.HI_TECH, 100000,
             "Lasers travel through enemies, and are not consumed on impact.",
             new Effect() {
@@ -136,11 +109,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Causes a player's shots to home to the nearest enemy.
-         * Equipping multiple homing shots increases the amount of
-         * homing each shot has.
-         */
         HOMING_SHOT("Homing Shot", TechLevel.HI_TECH, 200000,
             "Adds a homing effect to all laser shots. Target nearest enemy.",
             new Effect() {
@@ -155,10 +123,6 @@ public class Gadget extends Upgrade implements Serializable {
                 }
         }),
 
-        /**
-         * Causes 20% of shots that hit the wearer to reflect back in direction
-         * they came from.  Homing shots will home to shooter. This does stack.
-         */
         REFLECTOR("Reflector", TechLevel.HI_TECH, 200000,
             "Adds a 20% chance to reflect enemy fire.",
             new Effect() {
@@ -214,11 +178,6 @@ public class Gadget extends Upgrade implements Serializable {
     private final int price;
     private final String name;
 
-    /**
-     * Create a new Gadget of a given type.
-     *
-     * @param type The type of Gadget to create.
-     */
     public Gadget(Type type) {
         this.type = type;
         this.price = type.getPrice();
@@ -237,9 +196,6 @@ public class Gadget extends Upgrade implements Serializable {
         return name;
     }
 
-    /**
-     * @return A description of the type of the gadget.
-     */
     @Override
     public String toString() {
         return type.getDescription();

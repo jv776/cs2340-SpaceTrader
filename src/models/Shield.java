@@ -10,20 +10,8 @@ import java.io.Serializable;
 public class Shield extends Upgrade implements Serializable {
     public enum Type {
         Energy(25, 5, 1000, TechLevel.EARLY_INDUSTRIAL, "Shield that creates an absorptive energy field around the ship."),
-
-        /**
-         * A moderately powerful reflective shield.
-         */
         Reflective(150, 30, 10000, TechLevel.INDUSTRIAL, "Shield that creates a reflective energy field around the ship."),
-
-        /**
-         * A very powerful reflective shield.
-         */
         Overcharged(150, 40, 10000, TechLevel.POST_INDUSTRIAL, "Shield that creates a reflective energy field around the ship."),
-
-        /**
-         * An extremely strong shield made with alien technology.
-         */
         Alien(150, 50, 10000, TechLevel.HI_TECH, "Shield that creates a reflective energy field around the ship.");
 
         private final int strength;
@@ -72,11 +60,6 @@ public class Shield extends Upgrade implements Serializable {
     private int price;
     private String name;
 
-    /**
-     * Create a new shield of a given type.
-     *
-     * @param type The type of the new shield.
-     */
     public Shield(Type type) {
         this.type = type;
         strength = type.getStrength();
@@ -84,43 +67,26 @@ public class Shield extends Upgrade implements Serializable {
         name = type + " Shield";
     }
 
-
     public Type getType() {
         return type;
     }
 
-    /**
-     * @return The price of the shield.
-     */
     public int getPrice() {
         return price;
     }
 
-    /**
-     * @return The type of slot used by the shield.
-     */
     public String getSlot() {
         return "weapon";
     }
 
-    /**
-     * @return A string describing the shield.
-     */
-    @Override
     public String toString() {
         return type.getDescription() + "\n\nStrength: " + strength;
     }
 
-    /**
-     * @return The minimum tech level required to buy the shield.
-     */
     public TechLevel getTechLevel() {
         return type.getMinTechLevel();
     }
 
-    /**
-     * @return The name of the type of shield.
-     */
     public String getName() {
         return name;
     }
