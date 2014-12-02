@@ -20,13 +20,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Slider;
-<<<<<<< HEAD
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-=======
-import javafx.scene.image.Image;
->>>>>>> master
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -42,55 +38,48 @@ import javafx.scene.layout.GridPane;
 public class CustomizationController implements Initializable {
 
     public final int SKILL_POINT_MAX = 15;
-
+    
     @FXML
     private GridPane grid;
-
+    
     @FXML
     private TextField nameField;
-
+    
     @FXML
     private Label pilotSkillPoints;
-
-    @FXML
+    
+    @FXML 
     private Label fighterSkillPoints;
-
+    
     @FXML
     private Label traderSkillPoints;
-
+    
     @FXML
     private Label engineerSkillPoints;
-
+    
     @FXML
     private Label investorSkillPoints;
-
+    
     @FXML
     private Label skillPointsRemaining;
-
-    @FXML
-    private Slider pilotSlider, fighterSlider, traderSlider, engineerSlider, investorSlider;
-
-    Label[] labels;
-    Slider[] sliders;
-
-
+    
     @FXML
     private Label pilotLabel, fighterLabel, engineerLabel, traderLabel, investorLabel;
-
-    @FXML
+    
+    @FXML 
     private Slider pilotSlider, fighterSlider, traderSlider, engineerSlider, investorSlider;
-
+    
     Label[] labels;
     Slider[] sliders;
-
+    
     Tooltip pilot, fighter, engineer, trader, investor;
-
-
+    
+    
     @FXML
     private Button continueButton;
-
+    
     private int skillPoints;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         grid.setBackground(new Background(new BackgroundImage(
@@ -108,12 +97,12 @@ public class CustomizationController implements Initializable {
                 event.consume();
             }
         });
-
+        
         Slider[] fxsliders = {pilotSlider, fighterSlider, traderSlider, engineerSlider, investorSlider};
         Label[] fxlabels = {pilotSkillPoints, fighterSkillPoints, traderSkillPoints, engineerSkillPoints, investorSkillPoints};
         this.sliders = fxsliders;
         this.labels = fxlabels;
-
+        
         for (int i = 0; i < sliders.length; i++) {
             Slider s = sliders[i];
             final int j = i;
@@ -131,7 +120,7 @@ public class CustomizationController implements Initializable {
                     labels[j].setText(new_val.intValue() + "");
                     skillPointsRemaining.setText("" + skillPoints);
                 }
-
+                
                 if (skillPoints == 0 && !nameField.getText().isEmpty()) {
                     continueButton.setDisable(false);
                 } else {
@@ -139,7 +128,7 @@ public class CustomizationController implements Initializable {
                 }
             });
         }
-
+        
         pilot = new Tooltip("Increases ship speed in battle and makes fleeing and pursing much easier.");
         pilot.setMaxWidth(200);
         pilot.setWrapText(true);
@@ -155,58 +144,59 @@ public class CustomizationController implements Initializable {
         investor = new Tooltip("Increases chances of success in the stoack market.");
         investor.setMaxWidth(200);
         investor.setWrapText(true);
-
+        
         pilotLabel.setOnMouseEntered((MouseEvent t) -> {
             double xCoord = grid.getScene().getWindow().getX();
             double yCoord = grid.getScene().getWindow().getY();
-            pilot.show(grid, xCoord + pilotLabel.getLayoutX() + pilotLabel.getWidth() + 20,
+            pilot.show(grid, xCoord + pilotLabel.getLayoutX() + pilotLabel.getWidth() + 20, 
                     yCoord + pilotLabel.getLayoutY() + 40);
         });
         pilotLabel.setOnMouseExited((MouseEvent t) -> {
             pilot.hide();
         });
-
+        
         fighterLabel.setOnMouseEntered((MouseEvent t) -> {
             double xCoord = grid.getScene().getWindow().getX();
             double yCoord = grid.getScene().getWindow().getY();
-            fighter.show(grid, xCoord + fighterLabel.getLayoutX() + fighterLabel.getWidth() + 20,
+            fighter.show(grid, xCoord + fighterLabel.getLayoutX() + fighterLabel.getWidth() + 20, 
                     yCoord + fighterLabel.getLayoutY() + 40);
         });
         fighterLabel.setOnMouseExited((MouseEvent t) -> {
             fighter.hide();
         });
-
+        
         traderLabel.setOnMouseEntered((MouseEvent t) -> {
             double xCoord = grid.getScene().getWindow().getX();
             double yCoord = grid.getScene().getWindow().getY();
-            trader.show(grid, xCoord + traderLabel.getLayoutX() + + traderLabel.getWidth() + 20,
+            trader.show(grid, xCoord + traderLabel.getLayoutX() + + traderLabel.getWidth() + 20, 
                     yCoord + traderLabel.getLayoutY() + 40);
         });
         traderLabel.setOnMouseExited((MouseEvent t) -> {
             trader.hide();
         });
-
+        
         engineerLabel.setOnMouseEntered((MouseEvent t) -> {
             double xCoord = grid.getScene().getWindow().getX();
             double yCoord = grid.getScene().getWindow().getY();
-            engineer.show(grid, xCoord + engineerLabel.getLayoutX() + engineerLabel.getWidth() + 20,
+            engineer.show(grid, xCoord + engineerLabel.getLayoutX() + engineerLabel.getWidth() + 20, 
                     yCoord + engineerLabel.getLayoutY() + 40);
         });
         engineerLabel.setOnMouseExited((MouseEvent t) -> {
             engineer.hide();
         });
-
+        
         investorLabel.setOnMouseEntered((MouseEvent t) -> {
             double xCoord = grid.getScene().getWindow().getX();
             double yCoord = grid.getScene().getWindow().getY();
-            investor.show(grid, xCoord + investorLabel.getLayoutX() + investorLabel.getWidth() + 20,
+            investor.show(grid, xCoord + investorLabel.getLayoutX() + investorLabel.getWidth() + 20, 
                     yCoord + investorLabel.getLayoutY() + 40);
         });
         investorLabel.setOnMouseExited((MouseEvent t) -> {
             investor.hide();
         });
-    }
-
+        
+    }   
+    
     /**
      * Handles what occurs after player has allocated skill points and given
      * a name to their character.
@@ -214,7 +204,7 @@ public class CustomizationController implements Initializable {
     @FXML
     private void handleContinue() {
         Universe universe = new Universe();
-
+        
         Player player = new Player(nameField.getText(),
             Integer.parseInt(pilotSkillPoints.getText()),
             Integer.parseInt(fighterSkillPoints.getText()),
@@ -222,25 +212,25 @@ public class CustomizationController implements Initializable {
             Integer.parseInt(engineerSkillPoints.getText()),
             Integer.parseInt(investorSkillPoints.getText())
         );
-
+        
         player.earn(10000000); //start with 1000 credits
-
+        
         SolarSystem system = universe.solarSystems[(int) (Math.random() *
                 universe.solarSystems.length)];
         system.discover();
         Planet planet = system.getPlanets()[(int) (Math.random() * system.getPlanets().length)];
-
+        
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);
-
+        
         GameController.getGameData().setPlayer(player);
         GameController.getGameData().setUniverse(universe);
         GameController.getGameData().setSolarSystem(system);
         GameController.getGameData().setPlanet(planet);
-
+        
         GameController.getControl().setScreen(Screens.UNIVERSE_MAP);
     }
-
+    
     /**
      * Returns to the home screen upon clicking the "Cancel" button.
      */
@@ -248,7 +238,7 @@ public class CustomizationController implements Initializable {
     private void handleCancel() {
         GameController.getControl().setScreen(Screens.WELCOME);
     }
-
+    
     /**
      * Checks for an update to the "Continue" button, which can only be
      * enabled when all skill points are allocated and a name is input.
@@ -260,11 +250,11 @@ public class CustomizationController implements Initializable {
             continueButton.setDisable(true);
         }
     }
-
+    
     /**
      * Handles all attribute incrementing and decrementing while checking
      * to see if the "Continue" button should be enabled.
-     * @param attributePoints the Label corresponding to the attribute
+     * @param attributePoints the Label corresponding to the attribute 
      * that is being incremented or decremented
      * @param direction "increase" if incrementing and "decrease" if
      * decrementing
@@ -281,7 +271,7 @@ public class CustomizationController implements Initializable {
                 skillPointsRemaining.setText(++skillPoints + "");
             }
         }
-
+        
         handleNameInput();
     }
 }

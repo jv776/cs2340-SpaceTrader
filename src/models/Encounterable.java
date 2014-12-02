@@ -20,13 +20,13 @@ public abstract class Encounterable extends CrewMember {
      * The text displayed when the person encountered is killed.
      */
     protected String deathText;
-
+    
     /**
      * The text displayed when a player complies with the entity's wishes and
      * the entity responds positively.
      */
     protected String goodComplyText;
-
+    
     /**
      * The text displayed when a player complies with the entity's wishes and
      * the entity responds negatively.
@@ -66,7 +66,7 @@ public abstract class Encounterable extends CrewMember {
         super(0, 0, 0, 0, 0);
         ship = new Ship(Ship.Type.Gnat, this);
     }
-
+    
     /**
      * Creates a new person that can be encountered while traveling through
      * a solar system with the specified skill point distribution.
@@ -76,7 +76,7 @@ public abstract class Encounterable extends CrewMember {
      * @param engineerSP Engineer skill points of the Encounterable.
      * @param investorSP Investor skill points of the Encounterable.
      */
-    public Encounterable(final int pilotSP, final int fighterSP, final int traderSP,
+    public Encounterable(final int pilotSP, final int fighterSP, final int traderSP, 
             final int engineerSP, final int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         ship = new Ship(Ship.Type.Firefly, this);
@@ -127,14 +127,14 @@ public abstract class Encounterable extends CrewMember {
     public int getMaxHullStrength() {
         return ship.getMaxHullStrength();
     }
-
+    
     /**
      * @return The maximum of shields this Encounterable can have.
      */
     public int getMaxShields() {
         return ship.getMaxShields();
     }
-
+    
     /**
      * @return The current amount of shields this Encounterable has.
      */
@@ -163,7 +163,7 @@ public abstract class Encounterable extends CrewMember {
     public String getDeathText() {
         return deathText;
     }
-
+    
     /**
      * Returns the text an entity says when you comply.
      * @return the comply text
@@ -171,12 +171,7 @@ public abstract class Encounterable extends CrewMember {
     public String getGoodComplyText() {
         return goodComplyText;
     }
-
-    /**
-     * Returns the text an Encounterable says when you comply and must fight
-     * anyway.
-     * @return the comply text
-     */
+    
     public String getBadComplyText() {
         return badComplyText;
     }
@@ -187,7 +182,7 @@ public abstract class Encounterable extends CrewMember {
     public int getBounty() {
         return bounty;
     }
-
+    
     /**
      * @return The ship that the Encounterable is using.
      */
@@ -210,7 +205,7 @@ public abstract class Encounterable extends CrewMember {
     public String getFleeFailedText() {
         return fleeFailedText;
     }
-
+    
     public abstract void equipForDifficulty(int difficulty);
 
 }

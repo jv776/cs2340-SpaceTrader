@@ -7,7 +7,6 @@ import java.io.Serializable;
  *
  * @author Taylor
  */
-<<<<<<< HEAD
 public class Gadget extends Upgrade implements Serializable {
     public static enum Type {
          CARGO_INCREASE("Extra Cargo Bays", TechLevel.EARLY_INDUSTRIAL, 6000,
@@ -23,9 +22,9 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.getCargoHold().decreaseCapacity(5);
                 }
         }),
-
+        
         PILOT_INCREASE("Navigation System", TechLevel.INDUSTRIAL, 15000,
-            "Increases the player's pilot skill by 5.",
+            "Increases the player's pilot skill by 5.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -37,9 +36,9 @@ public class Gadget extends Upgrade implements Serializable {
                    ship.getOwner().setPilotSkillPoints(ship.getOwner().getPilotSkillPoints() - 5);
                 }
         }),
-
+        
         ENGINEER_INCREASE("Auto-Repair System", TechLevel.INDUSTRIAL, 17000,
-            "Increases the player's engineer skill by 5.",
+            "Increases the player's engineer skill by 5.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -51,9 +50,9 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.getOwner().setEngineerSkillPoints(ship.getOwner().getEngineerSkillPoints() - 5);
                 }
         }),
-
+        
         FIGHTER_INCREASE("Targeting System", TechLevel.POST_INDUSTRIAL, 20000,
-            "Increases the player's fighter skill by 5.",
+            "Increases the player's fighter skill by 5.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -66,9 +65,9 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.getOwner().setFighterSkillPoints(ship.getOwner().getFighterSkillPoints() - 5);
                 }
         }),
-
+        
         CLOAKING_DEVICE("Cloaking Device", TechLevel.HI_TECH, 30000,
-            "Allows player to travel unseen by some ships.",
+            "Allows player to travel unseen by some ships.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -80,9 +79,9 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.deactivateCloaking();
                 }
         }),
-
+        
         SCATTER_SHOT("Scatter Shot", TechLevel.HI_TECH, 100000,
-            "Adds a scatter effect to all laser shots.",
+            "Adds a scatter effect to all laser shots.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -94,9 +93,9 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.removeScatter();
                 }
         }),
-
+        
         PIERCING_SHOT("Piercing Shot", TechLevel.HI_TECH, 100000,
-            "Lasers travel through enemies, and are not consumed on impact.",
+            "Lasers travel through enemies, and are not consumed on impact.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -108,9 +107,9 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.deactivatePiercing();
                 }
         }),
-
+        
         HOMING_SHOT("Homing Shot", TechLevel.HI_TECH, 200000,
-            "Adds a homing effect to all laser shots. Target nearest enemy.",
+            "Adds a homing effect to all laser shots. Target nearest enemy.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -122,9 +121,9 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.removeHoming();
                 }
         }),
-
+        
         REFLECTOR("Reflector", TechLevel.HI_TECH, 200000,
-            "Adds a 20% chance to reflect enemy fire.",
+            "Adds a 20% chance to reflect enemy fire.", 
             new Effect() {
                 @Override
                 public void onEquip(Ship ship) {
@@ -136,13 +135,13 @@ public class Gadget extends Upgrade implements Serializable {
                     ship.removeReflector();
                 }
         });
-
+        
         private final String name;
         private final TechLevel minTechLevel;
         private final int price;
         private Effect effect;
         private final String description;
-
+        
         Type(String name, TechLevel minTechLevel, int price, String info, Effect effect) {
             this.name = name;
             this.minTechLevel = minTechLevel;
@@ -150,11 +149,11 @@ public class Gadget extends Upgrade implements Serializable {
             this.description = info;
             this.effect = effect;
         }
-
+        
         public String getName() {
             return name;
         }
-
+        
         public TechLevel getMinTechLevel() {
             return minTechLevel;
         }
@@ -200,7 +199,7 @@ public class Gadget extends Upgrade implements Serializable {
     public String toString() {
         return type.getDescription();
     }
-
+    
     @Override
     public void onEquip(Ship ship) {
         type.effect.onEquip(ship);
@@ -210,7 +209,7 @@ public class Gadget extends Upgrade implements Serializable {
     public void onUnequip(Ship ship) {
         type.effect.onUnequip(ship);
     }
-
+    
     static abstract class Effect {
         public abstract void onEquip(Ship ship);
         public abstract void onUnequip(Ship ship);

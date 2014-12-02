@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Model of a weapon that can be attached to a ship to deal damage
  *
- * @author Taylor, Alex
+ * @author Taylor
  */
 public class Weapon extends Upgrade implements Serializable {
     /**
@@ -136,7 +136,7 @@ public class Weapon extends Upgrade implements Serializable {
 
     /**
      * Create a new Weapon of a given type and level of quality.
-     *
+     * 
      * @param type The type of the weapon.
      * @param quality The quality of the weapon.
      */
@@ -149,7 +149,7 @@ public class Weapon extends Upgrade implements Serializable {
 
     /**
      * Create a new Weapon of a given type.
-     *
+     * 
      * @param type The type of the weapon.
      */
     public Weapon(Type type) {
@@ -169,7 +169,7 @@ public class Weapon extends Upgrade implements Serializable {
         damage = (int) (DAMAGE_MODIFIER * (type.getDamage() + quality.getDamage()));
         price = type.getPrice() * quality.getPrice();
     }
-
+    
     public Type getType() {
         return type;
     }
@@ -181,7 +181,6 @@ public class Weapon extends Upgrade implements Serializable {
         return damage;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -202,8 +201,8 @@ public class Weapon extends Upgrade implements Serializable {
     public TechLevel getTechLevel() {
         return type.getMinTechLevel();
     }
-
-
+    
+    
     @Override
     public void onEquip(Ship ship) {
         ship.equipWeapon(this);
@@ -213,4 +212,5 @@ public class Weapon extends Upgrade implements Serializable {
     public void onUnequip(Ship ship) {
         ship.unequipWeapon(this);
     }
+
 }

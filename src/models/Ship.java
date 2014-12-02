@@ -49,7 +49,7 @@ public class Ship implements Serializable {
         public final int repairCost;
         public final int size;
         public final Image image;
-
+        
 
         Type(int cargoCapacity, int weaponSlots, int shieldSlots, int gadgetSlots, int crewCapacity, int fuelCapacity,
              TechLevel minTechLevel, int fuelCost, int price, int bounty, int occurrence, int hullStrength, int repairCost, int size,
@@ -73,7 +73,7 @@ public class Ship implements Serializable {
             this.hullStrength = hullStrength;
             this.repairCost = repairCost;
             this.size = size;
-
+            
             this.image = image;
         }
     }
@@ -81,15 +81,15 @@ public class Ship implements Serializable {
     private Type type;
     private CrewMember owner; //in case the owner is an NPC (i.e. pirates/police)
     private CargoHold cargoHold;
-
+    
     private int numWeapons;
     private int numShields;
     private int numGadgets;
-
+    
     private ArrayList<Weapon> weapons;
     private ArrayList<Shield> shields;
     private ArrayList<Gadget> gadgets;
-
+    
     private ArrayList<Weapon> equippedWeapons;
     private ArrayList<Shield> equippedShields;
     private ArrayList<Gadget> equippedGadgets;
@@ -99,33 +99,29 @@ public class Ship implements Serializable {
     private int hullStrength;
     private int maxShields;
     private double currentShields;
-
+    
     private double scatter;
     private double homing;
     private boolean piercing;
     private double reflectChance;
-
-    private ArrayList<Shield> shields;
-
-    private ArrayList<Gadget> gadgets;
 
     public Ship(Type type, CrewMember owner) {
         this.type = type;
         this.fuelAmount = type.fuelCapacity;
         this.hullStrength = type.hullStrength;
         this.cargoHold = new CargoHold(type.cargoCapacity);
-
+        
         this.weapons = new ArrayList<>();
         this.equippedWeapons = new ArrayList<>();
         this.shields = new ArrayList<>();
         this.equippedShields = new ArrayList<>();
         this.gadgets = new ArrayList<>();
         this.equippedGadgets = new ArrayList<>();
-
+        
         this.numWeapons = 0;
         this.numShields = 0;
         this.numGadgets = 0;
-
+        
         this.maxShields = calculateMaxShields();
         this.currentShields = maxShields;
 
@@ -171,15 +167,15 @@ public class Ship implements Serializable {
     public int getMaxHullStrength() {
         return type.hullStrength;
     }
-
+    
     public int getMaxShields() {
         return maxShields;
     }
-
+    
     public int getCurrentShields() {
         return (int)currentShields;
     }
-
+    
     public int getRepairCost() {
         return type.repairCost;
     }
@@ -209,7 +205,7 @@ public class Ship implements Serializable {
     public void refuel() {
         fuelAmount = type.fuelCapacity;
     }
-
+    
     public void repair() {
         hullStrength = type.hullStrength;
     }
@@ -221,7 +217,7 @@ public class Ship implements Serializable {
     public int getFuelCost() {
         return this.type.fuelCost;
     }
-
+    
     public Image getImage() {
         return this.type.image;
     }
@@ -243,7 +239,7 @@ public class Ship implements Serializable {
         }
         return attack;
     }
-
+    
     private int calculateMaxShields() {
         int defense = 0;
         for (Shield s : equippedShields) {
@@ -269,40 +265,40 @@ public class Ship implements Serializable {
         shields.add(shield);
         numShields++;
     }
-
+    
     public void addGadget(Gadget gadget) {
         gadgets.add(gadget);
         numGadgets++;
     }
-
+    
     public void equipWeapon(Weapon weapon) {
         equippedWeapons.add(weapon);
     }
-
+    
     public void unequipWeapon(Weapon weapon) {
         equippedWeapons.remove(weapon);
     }
-
+    
     public void equipShield(Shield shield) {
         equippedShields.add(shield);
         maxShields = calculateMaxShields();
         currentShields = maxShields;
     }
-
+    
     public void unequipShield(Shield shield) {
         equippedShields.remove(shield);
     }
-
+    
     public void equipGadget(Gadget gadget) {
         gadget.onEquip(this);
         equippedGadgets.add(gadget);
     }
-
+    
     public void unequipGadget(Gadget gadget) {
         gadget.onUnequip(this);
         equippedGadgets.remove(gadget);
     }
-
+    
     public ArrayList<Weapon> getEquippedWeapons() {
         return equippedWeapons;
     }
@@ -314,67 +310,68 @@ public class Ship implements Serializable {
     public ArrayList<Gadget> getGadgets() {
         return gadgets;
     }
-
-    public void addScatter() {
+    
+        public void addScatter() {
         scatter += 10;
     }
-
+    
     public void removeScatter() {
         scatter -= 10;
     }
-
+    
     public double getScatter() {
         return scatter;
     }
-
+    
     public void addHoming() {
         homing += 3;
     }
-
+    
     public void removeHoming() {
         homing -= 3;
     }
-
+    
     public double getHoming() {
         return homing;
     }
-
+    
     public void activatePiercing() {
         piercing = true;
     }
-
+    
     public void deactivatePiercing() {
         piercing = false;
     }
-
+    
     public boolean shouldPierce() {
         return piercing;
     }
-
+    
     public void addReflector() {
         reflectChance += .2;
     }
-
+    
     public void removeReflector() {
         reflectChance -= .2;
     }
-
+    
     public double getReflectChance() {
         return reflectChance;
     }
-
+    
     public void shieldRegen() {
         currentShields += owner.getEngineerSkillPoints() / 10000.0 * maxShields;
         if (currentShields > maxShields) {
             currentShields = maxShields;
         }
     }
-
+        
     public void activateCloaking() {
-
+        
     }
-
+    
     public void deactivateCloaking() {
-
+        
     }
+    
 }

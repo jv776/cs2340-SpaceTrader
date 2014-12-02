@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane fx:id="ship_yard_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -44,6 +47,6 @@
       <Button fx:id="weaponsButton" layoutX="301.0" layoutY="129.0" mnemonicParsing="false" onMouseClicked="#weaponsMode" prefHeight="70.0" prefWidth="200.0" text="Weapons" />
       <Button fx:id="gadgetsButton" layoutX="301.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#gadgetsMode" prefHeight="70.0" prefWidth="200.0" text="Gadgets" />
       <Button fx:id="shieldsButton" layoutX="99.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#shieldsMode" prefHeight="70.0" prefWidth="200.0" text="Shields" />
-
+      
    </children>
 </AnchorPane>
