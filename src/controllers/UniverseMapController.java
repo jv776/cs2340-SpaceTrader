@@ -13,6 +13,9 @@ import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -21,7 +24,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import models.GameData;
 import models.SolarSystem;
-import models.TradeGood;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.CycleMethod;
@@ -30,7 +32,9 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
+import models.Player;
 
 /**
  * Displays and manages the map of the universe.
@@ -175,22 +179,28 @@ public class UniverseMapController implements Initializable {
                         gameData.setSolarSystem(s);
 
                         s.discover();
-                        double policeEvent = Math.random();
-                        double pirateEvent = Math.random();
-                        double tradeEvent = Math.random();
-
-                        double rPolice = 0.0;
-                        rPolice += gameData.getCargoHold().getQuantity(TradeGood.NARCOTICS) * 0.03;
-                        rPolice += gameData.getCargoHold().getQuantity(TradeGood.FIREARMS) * 0.01;
-
-                        double rPirate = 0.0;
-                        rPirate += Math.min(gameData.getCargoHold().getCargoQuantity() * .005
-                                + gameData.getPlayer().getCredits() * .00001, .5);
-
-                        double rTrader = 0.0;
-                        rTrader += gameData.getCargoHold().getCargoQuantity() * .003;
                         
-                        GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
+                        Player p = GameController.getGameData().getPlayer();
+                        
+                        int creditsAfterPayment = p.getCredits() - p.getDailyCost();
+                        System.out.println(creditsAfterPayment);
+                        if (creditsAfterPayment < 0) {
+                            p.spend(p.getCredits());
+                            p.setBounty(p.getBounty() - creditsAfterPayment);
+                            String message = "Bounty increased by " + (-creditsAfterPayment) 
+                                    + " Credits because daily costs could not be paid.";
+                            while (p.getShip().getCrewSize() > 0) {
+                                message += "\n" + p.getShip().getCrew().get(0).getName() 
+                                        + " has left the ship.";
+                                p.getShip().removeCrew(p.getShip().getCrew().get(0));
+                            }
+                            showUpdate(message);
+                        } else {
+                            p.spend(p.getDailyCost());
+                            GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
+                        }
+                        
+                        
                         /*if(policeEvent < rPolice) {
                             GameController.getControl().setScreen(Screens.POLICE_EVENT);
                         } else if(pirateEvent < rPirate) {
@@ -241,5 +251,25 @@ public class UniverseMapController implements Initializable {
         double dy = s1.getY() - s2.getY();
 
         return pixelsToLightYears(Math.sqrt(dx * dx + dy * dy));
+    }
+    
+    @FXML
+    private void shipStatus() {
+        GameController.getControl().setScreen(Screens.SHIP_STATUS);
+    }
+    
+    private void showUpdate(String message) {
+        Label label = new Label(message);
+        label.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0, 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+        label.setWrapText(true);
+        label.setMinSize(600, 400);
+        label.setMaxSize(600, 400);
+        label.setAlignment(Pos.CENTER);
+        label.setFont(Font.font(15));
+        label.setOnMouseClicked((MouseEvent t) -> {
+            GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
+        });
+        universe_anchor.getChildren().add(label);
+        
     }
 }

@@ -13,10 +13,12 @@ public class Mercenary extends CrewMember {
 
     private String name;
     private String info;
+    private int dailyCost;
     
-    public Mercenary(String name, String skill, int power) {
+    public Mercenary(String name, String skill, int power, int dailyCost) {
         super(0, 0, 0, 0, 0);
         this.name = name;
+        this.dailyCost = dailyCost;
         this.info = name + ": +" + power + " " + skill;
         switch (skill) {
             case "Pilot": setPilotSkillPoints(power); break;
@@ -27,7 +29,15 @@ public class Mercenary extends CrewMember {
         }
     }
     
+    public String getName() {
+        return name;
+    }
+    
     public String getInfo() {
         return info;
+    }
+    
+    public int getCost() {
+        return dailyCost;
     }
 }

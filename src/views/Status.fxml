@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="name_label" layoutX="14.0" layoutY="14.0" prefWidth="200.0" text="Character Name" />
+      <Label layoutX="29.0" layoutY="35.0" prefHeight="21.0" prefWidth="50.0" text="Worth:" />
+      <Label layoutX="29.0" layoutY="56.0" prefHeight="21.0" prefWidth="50.0" text="Bounty:" />
+      <Label fx:id="worth_label" layoutX="91.0" layoutY="35.0" prefHeight="21.0" prefWidth="200.0" text="CREDITS Credits" />
+      <Label fx:id="bounty_label" layoutX="91.0" layoutY="56.0" prefHeight="21.0" prefWidth="200.0" text="CREDITS Credits" />
+      <ScrollPane hbarPolicy="NEVER" styleClass="status_scroll" layoutX="315.0" layoutY="3.0" prefHeight="75.0" prefWidth="275.0">
+        <content>
+          <VBox fx:id="cargo_anchor" minHeight="0.0" minWidth="0.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <Label alignment="CENTER" layoutX="226.0" layoutY="18.0" prefHeight="25.0" prefWidth="100.0" text="Cargo" />
+      <Label fx:id="cargo_quantity" alignment="CENTER" layoutX="226.0" layoutY="43.0" prefHeight="25.0" prefWidth="100.0" text="13 / 15" />
+      <ScrollPane hbarPolicy="NEVER" styleClass="status_scroll" layoutX="315.0" layoutY="83.0" prefHeight="75.0" prefWidth="275.0">
+        <content>
+          <VBox fx:id="weapons_anchor" minHeight="0.0" minWidth="0.0" prefWidth="170.0" />
+        </content>
+      </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" styleClass="status_scroll" layoutX="315.0" layoutY="163.0" prefHeight="75.0" prefWidth="275.0">
+         <content>
+            <VBox fx:id="shields_anchor" minHeight="0.0" minWidth="0.0" prefWidth="170.0" />
+         </content>
+      </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" styleClass="status_scroll" layoutX="315.0" layoutY="323.0" prefHeight="75.0" prefWidth="275.0">
+         <content>
+            <VBox fx:id="crew_anchor" minHeight="0.0" minWidth="0.0" prefWidth="170.0" />
+         </content>
+      </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" styleClass="status_scroll" layoutX="315.0" layoutY="243.0" prefHeight="75.0" prefWidth="275.0">
+         <content>
+            <VBox fx:id="gadgets_anchor" minHeight="0.0" minWidth="0.0" prefWidth="170.0" />
+         </content>
+      </ScrollPane>
+      <Label fx:id="weapons_quantity" alignment="CENTER" layoutX="239.0" layoutY="125.0" prefHeight="25.0" prefWidth="75.0" text="13 / 15" />
+      <Label alignment="CENTER" layoutX="239.0" layoutY="100.0" prefHeight="25.0" prefWidth="75.0" text="Weapons" />
+      <Label alignment="CENTER" layoutX="239.0" layoutY="176.0" prefHeight="25.0" prefWidth="75.0" text="Shields" />
+      <Label fx:id="shields_quantity" alignment="CENTER" layoutX="239.0" layoutY="201.0" prefHeight="25.0" prefWidth="75.0" text="13 / 15" />
+      <Label alignment="CENTER" layoutX="239.0" layoutY="256.0" prefHeight="25.0" prefWidth="75.0" text="Gadgets" />
+      <Label fx:id="gadgets_quantity" alignment="CENTER" layoutX="239.0" layoutY="281.0" prefHeight="25.0" prefWidth="75.0" text="13 / 15" />
+      <Label alignment="CENTER" layoutX="239.0" layoutY="336.0" prefHeight="25.0" prefWidth="75.0" text="Crew" />
+      <Label fx:id="crew_quantity" alignment="CENTER" layoutX="239.0" layoutY="361.0" prefHeight="25.0" prefWidth="75.0" text="13 / 15" />
+      <Button layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#returnToMap" prefHeight="50.0" prefWidth="200.0" text="Return To Map" />
+      <Label layoutX="29.0" layoutY="88.0" prefHeight="21.0" prefWidth="50.0" text="Ship:" />
+      <Label fx:id="ship_name" layoutX="79.0" layoutY="88.0" prefHeight="21.0" prefWidth="100.0" text="SHIP_NAME" />
+      <ImageView fx:id="ship_image" fitHeight="40.0" fitWidth="40.0" layoutX="176.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="29.0" layoutY="127.0" prefHeight="21.0" prefWidth="65.0" text="Pilot:" />
+      <Label layoutX="29.0" layoutY="148.0" prefHeight="21.0" prefWidth="65.0" text="Fighter:" />
+      <Label layoutX="29.0" layoutY="190.0" prefHeight="21.0" prefWidth="65.0" text="Trader:" />
+      <Label layoutX="29.0" layoutY="169.0" prefHeight="21.0" prefWidth="65.0" text="Engineer:" />
+      <Label layoutX="29.0" layoutY="211.0" prefHeight="21.0" prefWidth="65.0" text="Investor:" />
+      <Label fx:id="investor_skill" alignment="CENTER_RIGHT" layoutX="96.0" layoutY="211.0" prefHeight="21.0" prefWidth="60.0" text="SKILL" />
+      <Label fx:id="engineer_skill" alignment="CENTER_RIGHT" layoutX="96.0" layoutY="169.0" prefHeight="21.0" prefWidth="60.0" text="SKILL" />
+      <Label fx:id="trader_skill" alignment="CENTER_RIGHT" layoutX="96.0" layoutY="190.0" prefHeight="21.0" prefWidth="60.0" text="SKILL" />
+      <Label fx:id="fighter_skill" alignment="CENTER_RIGHT" layoutX="96.0" layoutY="148.0" prefHeight="21.0" prefWidth="60.0" text="SKILL" />
+      <Label fx:id="pilot_skill" alignment="CENTER_RIGHT" layoutX="96.0" layoutY="127.0" prefHeight="21.0" prefWidth="60.0" text="SKILL" />
+   </children>
+</AnchorPane>

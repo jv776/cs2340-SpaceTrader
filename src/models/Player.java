@@ -14,6 +14,9 @@ import java.io.Serializable;
  * @author Alex, John
  */
 public class Player extends CrewMember implements Serializable {
+    /**
+     * The name of the player's character.
+     */
     public final String name;
     private Ship ship;
     private SolarSystem currentSystem;
@@ -23,6 +26,16 @@ public class Player extends CrewMember implements Serializable {
     private int bounty;
     private boolean firstFight;
 
+    /**
+     * Create a new player with given name and skills.
+     *
+     * @param playerName The player's name.
+     * @param pilotSP    The player's skill as a pilot.
+     * @param fighterSP  The player's skill as a fighter.
+     * @param traderSP   The player's skill as a trader.
+     * @param engineerSP The player's skill as an engineer.
+     * @param investorSP The player's skill as an investor.
+     */
     public Player(String playerName, int pilotSP, int fighterSP, int traderSP,
                   int engineerSP, int investorSP) {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
@@ -31,8 +44,13 @@ public class Player extends CrewMember implements Serializable {
         ship = new Ship(Ship.Type.Gnat, this);
         
         firstFight = true;
+        
+        bounty = 0;
     }
 
+    /**
+     * @return A string giving basic information about the player.
+     */
     @Override
     public String toString() {
         return name + ": Pilot: " + pilotSkill + ", Fighter: "
@@ -50,6 +68,11 @@ public class Player extends CrewMember implements Serializable {
         return ship;
     }
 
+    /**
+     * Set the ship currently owned and in use by the player.
+     *
+     * @param s The player's new ship.
+     */
     public void setShip(Ship s) {
         this.ship = s;
     }
@@ -85,6 +108,9 @@ public class Player extends CrewMember implements Serializable {
         currentSystem = planet.getSolarSystem();
     }
 
+    /**
+     * @return The player's name.
+     */
     public String getName() {
         return name;
     }
@@ -131,30 +157,54 @@ public class Player extends CrewMember implements Serializable {
         return totalCredits;
     }
 
+    /**
+     * @return The amount of damage the player's ship is capable of inflicting.
+     */
     public int calculateAttack() {
         return ship.calculateAttack();
     }
 
+    /**
+     * Damage the player's current ship.
+     *
+     * @param damage The amount of damage to the ship.
+     */
     public void takeDamage(int damage) {
         ship.takeDamage(damage);
     }
 
+    /**
+     * @return The current hull strength of the player's ship.
+     */
     public int getHullStrength() {
         return ship.getHullStrength();
     }
 
+    /**
+     * @return The maximum hull strength of the player's ship
+     */
     public int getMaxHullStrength() {
         return ship.getMaxHullStrength();
     }
 
+    /**
+     * @return True if the player's ship has been destroyed in combat,
+     * otherwise false.
+     */
     public boolean isDead() {
         return ship.isDead();
     }
 
+    /**
+     * @return True if the player has illegal goods, false if not.
+     */
     public boolean hasIllegalGoods() {
         return ship.hasIllegalGoods();
     }
 
+    /**
+     * Destroy the player's ship and give them a new one.
+     */
     public void die() {
         ship = new Ship(Ship.Type.Flea, this);
     }
@@ -163,11 +213,69 @@ public class Player extends CrewMember implements Serializable {
         return bounty;
     }
     
+    public void setBounty(int x) {
+        bounty = x;
+    }
+    
+    public int getDailyCost() {
+        int sum = 0;
+        for (Mercenary m : ship.getCrew()) {
+            sum += m.getCost();
+        }
+        // Implement loans.
+        return sum;
+    }
+    
     public boolean isFirstFight() {
         return firstFight;
     }
     
     public void finishedFirstFight() {
         firstFight = false;
+    }
+    
+    @Override
+    public int getFighterSkillPoints() {
+        int fighter = fighterSkill;
+        for (Mercenary merc : ship.getCrew()) {
+            fighter += merc.getFighterSkillPoints();
+        }
+        return fighter;
+    }
+    
+    @Override
+    public int getPilotSkillPoints() {
+        int pilot = pilotSkill;
+        for (Mercenary merc : ship.getCrew()) {
+            pilot += merc.getPilotSkillPoints();
+        }
+        return pilot;
+    }
+     
+    @Override
+    public int getEngineerSkillPoints() {
+        int engineer = engineerSkill;
+        for (Mercenary merc : ship.getCrew()) {
+            engineer += merc.getEngineerSkillPoints();
+        }
+        return engineer;
+    }
+      
+    @Override
+    public int getTraderSkillPoints() {
+        int trader = traderSkill;
+        for (Mercenary merc : ship.getCrew()) {
+            trader += merc.getTraderSkillPoints();
+        }
+        return trader;
+    }
+       
+    @Override
+    public int getInvestorSkillPoints() {
+        int investor = investorSkill;
+        for (Mercenary merc : ship.getCrew()) {
+            investor += merc.getInvestorSkillPoints();
+        }
+        return investor;
     }
 }

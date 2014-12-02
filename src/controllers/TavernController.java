@@ -74,7 +74,7 @@ public class TavernController implements Initializable {
         });
         
         hire_button.setOnMouseClicked((MouseEvent t) -> {
-            Mercenary merc = new Mercenary(name_field.getText(), selectedSkill.getText(), power);
+            Mercenary merc = new Mercenary(name_field.getText(), selectedSkill.getText(), power, dailyCost);
             player.getShip().addCrew(merc);
             checkForHire();
         });
