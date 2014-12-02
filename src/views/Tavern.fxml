@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" layoutX="11.0" layoutY="162.0" prefHeight="30.0" prefWidth="75.0" text="Skill:" />
+      <Button fx:id="pilot_button" layoutX="90.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Pilot" />
+      <Button fx:id="fighter_button" layoutX="190.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Fighter" />
+      <Button fx:id="engineer_button" layoutX="290.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Engineer" />
+      <Button fx:id="trader_button" layoutX="390.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Trader" />
+      <Button fx:id="investor_button" layoutX="490.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Investor" />
+      <Slider fx:id="power_slider" blockIncrement="1.0" layoutX="90.0" layoutY="250.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="500.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Label alignment="CENTER" layoutX="11.0" layoutY="236.0" prefHeight="30.0" prefWidth="75.0" text="Power:" />
+      <Label fx:id="no_space_label" alignment="CENTER" layoutX="325.0" layoutY="295.0" prefHeight="30.0" prefWidth="300.0" text="No more crew space on ship." textFill="RED" />
+      <Label layoutX="51.0" layoutY="324.0" text="Cost Daily:" />
+      <Label fx:id="credits_label" layoutX="135.0" layoutY="324.0" prefHeight="20.0" prefWidth="200.0" text="CREDITS" />
+      <Button fx:id="hire_button" layoutX="375.0" layoutY="325.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Hire" />
+      <Label alignment="CENTER" layoutX="11.0" layoutY="80.0" prefHeight="30.0" prefWidth="75.0" text="Name:" />
+      <TextField fx:id="name_field" styleClass="text_field" layoutX="87.0" layoutY="80.0" prefHeight="30.0" prefWidth="250.0" />
+      <Label fx:id="stat_name_label" layoutX="51.0" layoutY="350.0" text="New Stats:" />
+      <Label fx:id="stats_label" layoutX="135.0" layoutY="350.0" prefHeight="20.0" prefWidth="200.0" text="SKILLPOINTS" />
+      <Button fx:id="returnButton" layoutX="3.0" layoutY="3.0" mnemonicParsing="false" onMouseClicked="#returnToSpacePort" prefHeight="50.0" prefWidth="200.0" styleClass="button1" text="Return to Space Port" />
+   </children>
+</AnchorPane>

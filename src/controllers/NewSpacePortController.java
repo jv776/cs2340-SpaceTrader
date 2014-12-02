@@ -114,10 +114,10 @@ public class NewSpacePortController implements Initializable {
         GameController.getControl().setScreen(Screens.SHIP_CUSTOMIZATION);
     }
     
-    /*@FXML
+    @FXML
     private void tavern() {
         GameController.getControl().setScreen(Screens.TAVERN);
-    }*/
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
