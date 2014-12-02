@@ -282,11 +282,7 @@ public class MarketController implements Initializable {
         
         int trader = player.getTraderSkillPoints();
         
-        System.out.println(market.getPrice(TradeGood.WATER));
-        
         market.discountPrices(trader);
-        
-        System.out.println(market.getPrice(TradeGood.WATER));
         
         for (int i = 0; i < buyValues.length; i++) {
             int price = market.getPrice(TradeGood.values()[i]);
@@ -551,6 +547,6 @@ public class MarketController implements Initializable {
     
     @FXML
     void returnToSpacePort() {
-        GameController.getControl().setScreen(Screens.SPACE_PORT);
+        GameController.getControl().setScreen(Screens.NEW_SPACE_PORT);
     }
 }

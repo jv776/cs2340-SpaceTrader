@@ -512,7 +512,7 @@ public class ShipYardController implements Initializable {
     
     @FXML
     private void returnToSpacePort() {
-        GameController.getControl().setScreen(Screens.SPACE_PORT);
+        GameController.getControl().setScreen(Screens.NEW_SPACE_PORT);
     }
     
     private void backToMenu(ArrayList<Node> toHide) {

@@ -370,6 +370,6 @@ public class ShipCustomizationController implements Initializable {
     
     @FXML
     private void returnToSpacePort() {
-        GameController.getControl().setScreen(Screens.SPACE_PORT);
+        GameController.getControl().setScreen(Screens.NEW_SPACE_PORT);
     }
 }

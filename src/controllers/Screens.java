@@ -17,7 +17,8 @@ public enum Screens {
     WELCOME("Welcome"),
     SHIP_CUSTOMIZATION("ShipCustomization"),
     NEW_RANDOM_EVENT("NewRandomEvent"),
-    NEW_SOLAR_SYSTEM("NewSolarSystem");
+    NEW_SOLAR_SYSTEM("NewSolarSystem"),
+    NEW_SPACE_PORT("NewSpacePort");
     
     private String name;
     

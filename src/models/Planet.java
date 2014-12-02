@@ -6,7 +6,11 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Random;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -33,29 +37,28 @@ public class Planet implements Serializable {
 
     private final boolean supportsLife; //Whether a planet can support native life
 
-    private boolean colonized;
-
     private Marketplace market;
     private Upgradeplace upgrade;
     private PriceEvent currentEvent;
+    private Color color;
+    private Image diffuseImage;
+    private WritableImage bumpMap;
 
     /**
      * Create a new Planet and calculate it's resources and atmospheric
      * properties.
      *
-     * @param system The solar system in which the planet is located.
-     * @param name The name of the planet.
-     * @param distance The distance of the planet from it's sun.
+     * @param system         The solar system in which the planet is located.
+     * @param name           The name of the planet.
+     * @param distance       The distance of the planet from it's sun.
      * @param sunTemperature The temperature of the sun on the new planet.
      */
     public Planet(SolarSystem system, String name, int distance, int sunTemperature) {
-        Random rand = new Random();
-
         this.solarSystem = system;
         this.name = name;
         this.distance = distance;
         this.resource = randomResource();
-        radius = (int)(5 * Math.random() + 6);
+        radius = (int) (5 * Math.random() + 6);
 
         //need to adjust resource levels
         nitrogen = (Math.random() < 0.95);
@@ -70,25 +73,29 @@ public class Planet implements Serializable {
 
         currentEvent = PriceEvent.NONE;
         market = new Marketplace(this);
-        upgrade = new Upgradeplace(this.getSolarSystem());
+        upgrade = new Upgradeplace(solarSystem);
+        
+        double prop = temperature / 2000.0;
+        color = Color.hsb(240 - 240 * prop, 1, .5);
     }
 
     private int generateAtmosphere() {
         double atm = 0;
 
-        if (isNitrogen()) {
+        if (nitrogen) {
             atm += 15;
         }
 
-        if (isCarbon()) {
+        if (carbon) {
             atm += 7;
         }
 
-        if (isOxygen()) {
+        if (oxygen) {
             atm += 5;
         }
         return (int) (atm - atm * (.50 * (Math.random())));
     }
+
 
     private int generateTemperature(int sunTemp) { //units
         float temp = (float) Math.pow((sunTemp * 1000 / (float) Math.pow(getDistance(), 2)), .50);
@@ -97,17 +104,21 @@ public class Planet implements Serializable {
     }
 
     private boolean generateWater() {
-        return ((isOxygen() && isHydrogen()) && (getTemperature() > 100 && getTemperature() < 400));
+        return ((oxygen && hydrogen) && (temperature > 100 && temperature < 400));
     }
 
+
     private boolean generateLife() {
-        if (isNitrogen() && isCarbon() && isWater() && isMetals()) {
+        if (nitrogen && carbon && water && metals) {
             return true;
         } else {
             return (Math.random() < 0.01);
         }
     }
 
+    /**
+     * @return A string providing information about the planet.
+     */
     @Override
     public String toString() {
         return "Dist: " + getDistance() + "kmE6 \tAtm: " + getAtmosphere() + "% \tTemp: "
@@ -218,34 +229,35 @@ public class Planet implements Serializable {
      */
     private static Resource randomResource() {
         double r = Math.random();
-
-        if (0.0 <= r && r < 0.3) {
-            return Resource.NO_SPECIAL_RESOURCES; //30% chance
-        } else if (0.3 <= r && r < 0.35) {
-            return Resource.MINERAL_RICH; //5% chance
-        } else if (0.35 <= r && r < 0.4) {
-            return Resource.MINERAL_POOR; //5% chance
-        } else if (0.4 <= r && r < 0.5) {
-            return Resource.DESERT; //10% chance
-        } else if (0.5 <= r && r < 0.55) {
-            return Resource.LOTS_OF_WATER; //5% chance
-        } else if (0.55 <= r && r < 0.6) {
-            return Resource.RICH_SOIL; //5% chance
-        } else if (0.6 <= r && r < 0.65) {
-            return Resource.POOR_SOIL; //5% chance
-        } else if (0.65 <= r && r < 0.7) {
-            return Resource.RICH_FAUNA; //5% chance
-        } else if (0.7 <= r && r < 0.85) {
-            return Resource.LIFELESS; //15% chance
-        } else if (0.85 <= r && r < 0.87) {
-            return Resource.WEIRD_MUSHROOMS; //2% chance
-        } else if (0.87 <= r && r < 0.9) {
-            return Resource.LOTS_OF_HERBS; //3% chance
-        } else if (0.9 <= r && r < 0.95) {
-            return Resource.ARTISTIC; //5% chance
-        } else {
-            return Resource.WARLIKE; //5% chance
-        }
+        int resources = Resource.values().length;
+        return Resource.values()[(int) (r * (resources))];
+//        if (0.0 <= r && r < 0.3) {
+//            return Resource.NO_SPECIAL_RESOURCES; //30% chance
+//        } else if (0.3 <= r && r < 0.35) {
+//            return Resource.MINERAL_RICH; //5% chance
+//        } else if (0.35 <= r && r < 0.4) {
+//            return Resource.MINERAL_POOR; //5% chance
+//        } else if (0.4 <= r && r < 0.5) {
+//            return Resource.DESERT; //10% chance
+//        } else if (0.5 <= r && r < 0.55) {
+//            return Resource.LOTS_OF_WATER; //5% chance
+//        } else if (0.55 <= r && r < 0.6) {
+//            return Resource.RICH_SOIL; //5% chance
+//        } else if (0.6 <= r && r < 0.65) {
+//            return Resource.POOR_SOIL; //5% chance
+//        } else if (0.65 <= r && r < 0.7) {
+//            return Resource.RICH_FAUNA; //5% chance
+//        } else if (0.7 <= r && r < 0.85) {
+//            return Resource.LIFELESS; //15% chance
+//        } else if (0.85 <= r && r < 0.87) {
+//            return Resource.WEIRD_MUSHROOMS; //2% chance
+//        } else if (0.87 <= r && r < 0.9) {
+//            return Resource.LOTS_OF_HERBS; //3% chance
+//        } else if (0.9 <= r && r < 0.95) {
+//            return Resource.ARTISTIC; //5% chance
+//        } else {
+//            return Resource.WARLIKE; //5% chance
+//        }
     }
 
     /**
@@ -317,9 +329,87 @@ public class Planet implements Serializable {
     public boolean isSupportsLife() {
         return supportsLife;
     }
-    
+
+    /**
+     * @return The visible color of the planet from space.
+     */
     public Color getColor() {
-        double prop = temperature / 2000.0;
-        return Color.hsb(240 - 240 * prop, 1, .5);
+        return color;
+    }
+    
+    public Image getDiffuseMap() {
+        if (diffuseImage == null) {
+            createDiffuseAndBumpMap();
+        } 
+        return diffuseImage;
+    }
+    
+    public Image getBumpMap() {
+        if (bumpMap == null) {
+            createDiffuseAndBumpMap();
+        }
+        return bumpMap;
+    }
+    
+    private void drawDiffuseCircle(WritableImage wImage, PixelWriter writer, int radius, int centerX, int centerY) {
+        PixelReader reader = wImage.getPixelReader();
+        PixelWriter bumpWriter = bumpMap.getPixelWriter();
+        PixelReader bumpReader = bumpMap.getPixelReader();
+        double brightnessFactor = Math.random() + 0.5;
+        double hueFactor = Math.random() * 20 - 10;
+        double bumpFactor = Math.random() < .5 ? 0 : 128;
+        for (int y = -radius; y < radius; y++) {
+            int width = (int)Math.sqrt(radius * radius - y * y);
+            for (int x = -width; x < width; x++) {
+                double distance = Math.sqrt(x * x + y * y);
+                int centX = (centerX + x) >= 0 ? ((centerX + x) > 2047 ? centerX + x - 2048 : centerX + x) : centerX + x + 2048;
+                int centY = (centerY + y) >= 0 ? ((centerY + y) > 1499 ? centerY + y - 1500 : centerY + y) : centerY + y + 1500;
+                Color color2 = reader.getColor(centX, centY)
+                        .deriveColor(hueFactor < 0 ? Math.max(hueFactor, 2 * hueFactor * (1 - (distance / radius))) : Math.min(hueFactor, 2 * hueFactor * (1 - (distance / radius))), 
+                                1, distance * (1 - brightnessFactor) / radius + brightnessFactor, 1);
+                writer.setColor(centX, centY, color2);
+                double blue = (Math.pow(distance / radius, 2));
+                bumpWriter.setColor(centX, centY, Color.rgb(0, 0, (int)Math.min((bumpFactor == 0 ? blue : 2 - blue) * 255 * bumpReader.getColor(centX, centY).getBlue(), 128)));
+            }
+        }
+        
+    }
+    
+    private void createDiffuseAndBumpMap() {
+        WritableImage diffuse = new WritableImage(2048, 1500);
+        WritableImage bump = new WritableImage(2048, 1500);
+        PixelWriter diffuseWriter = diffuse.getPixelWriter();
+        PixelWriter bumpWriter = bump.getPixelWriter();
+        
+        for(int readY = 0; readY < 1500; readY++){
+            for(int readX = 0; readX < 2048; readX++){
+                diffuseWriter.setColor(readX, readY, color);
+                bumpWriter.setColor(readX, readY, Color.rgb(0, 0, 64));
+                bumpMap = bump;
+            }
+        }
+        
+        int numCircles = 40;
+        for (int i = 0; i < numCircles; i++) {
+            int radiusSpot = (int)(Math.random() * 100) + 200;
+            int centerX = (int)(Math.random() * 2048);
+            int centerY = (int)(Math.random() * 1500);
+            drawDiffuseCircle(diffuse, diffuseWriter, radiusSpot, centerX, centerY);
+        }
+        
+        diffuseImage = diffuse;
+    }
+    
+    private void createBumpMap() {
+        WritableImage wImage = new WritableImage(2048, 1500);
+        PixelWriter pixelWriter = wImage.getPixelWriter();
+        
+        for(int readY = 0; readY < 1500; readY++){
+            for(int readX = 0; readX < 2048; readX++){
+                pixelWriter.setColor(readX, readY, Color.rgb(50, 50, 50));
+            }
+        }
+        
+        bumpMap = wImage;
     }
 }

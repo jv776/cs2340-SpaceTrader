@@ -140,7 +140,7 @@ public class SolarSystemMapController implements Initializable {
             
             orbit.setOnMouseClicked((MouseEvent t) -> {
                 GameController.getGameData().setPlanet(p);
-                GameController.getControl().setScreen(Screens.SPACE_PORT);
+                GameController.getControl().setScreen(Screens.NEW_SPACE_PORT);
             });
             
             double orbitDuration = p.getDistance() / 5 * (.9 + Math.random() / 5);
