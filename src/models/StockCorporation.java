@@ -13,11 +13,22 @@ import java.util.LinkedList;
  * @author John
  */
 public class StockCorporation {
-    private final String name;
+    public final String name;
     private LinkedList<Double> values;
     
+    private static String randomString(int length) {
+        String s = "";
+        
+        for (int i = 0; i < length; i++) {
+            int codePoint = 65 + (int)(Math.random() * (90 - 65));
+            s += (char)codePoint;
+        }
+        
+        return s;
+    }
+    
     public StockCorporation() {
-        name = "test";
+        name = randomString(3);
         values = new LinkedList<>();
         
         values.addFirst(Math.random() * 1000);

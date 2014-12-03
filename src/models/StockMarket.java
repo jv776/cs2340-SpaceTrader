@@ -12,7 +12,7 @@ package models;
  * @author John
  */
 public class StockMarket {
-    private static final int NUM_CORPS = 10;
+    public static final int NUM_CORPS = 10;
     private StockCorporation[] corporations;
     
     public StockMarket() {
@@ -27,5 +27,9 @@ public class StockMarket {
         for (int i = 0; i < NUM_CORPS; i++) {
             corporations[i].updateStock();
         }
+    }
+    
+    public StockCorporation getCorporation(int i) {
+        return corporations[i];
     }
 }

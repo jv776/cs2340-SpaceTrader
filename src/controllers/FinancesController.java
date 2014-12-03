@@ -5,21 +5,27 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import models.Bank;
 import models.Player;
+import models.StockMarket;
 
 /**
  * @author Alex Poole
@@ -375,6 +381,8 @@ public class FinancesController implements Initializable {
         
         //******************STOCK MARKET*******************//
         
+        StockMarket market = GameController.getGameData().getStockMarket();
+        
         stockMarketOptions = new Group();
         
         Button returnToMenuFromSM = new Button("Back");
@@ -385,7 +393,47 @@ public class FinancesController implements Initializable {
             startMenu(stockMarketOptions);
         });
         
-        stockMarketOptions.getChildren().addAll(returnToMenuFromSM);
+        ListView<String> stockList = new ListView<>();
+        ObservableList<String> corps = FXCollections.observableArrayList();
+        
+        for (int i = 0; i < StockMarket.NUM_CORPS; i++) {
+            corps.add(market.getCorporation(i).name);
+        }
+        
+        stockList.setItems(corps);
+        
+        stockList.setPrefSize(200, 260);
+        stockList.setTranslateX(40);
+        stockList.setTranslateY(40);
+        
+        Button buyStock = new Button("Buy share");
+        
+        //buyStock.setPrefSize(70, 25);
+        buyStock.setTranslateX(330);
+        buyStock.setTranslateY(300);
+        
+        Button sellStock = new Button("Sell share");
+        
+        //sellStock.setPrefSize(70, 25);
+        sellStock.setTranslateX(420);
+        sellStock.setTranslateY(300);
+        
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        
+        LineChart<Number, Number> stockChart = new LineChart<>(xAxis, yAxis);
+        
+        stockChart.setTitle("Stock Values");
+        stockChart.setPrefSize(320, 240);
+        stockChart.setTranslateX(260);
+        stockChart.setTranslateY(40);
+        
+        //XYChart.Series<Number, Number> stockValues = new XYChart.Series<>();
+        
+        //for ()
+        
+        stockMarketOptions.getChildren().addAll(returnToMenuFromSM, stockList,
+                buyStock, sellStock, stockChart);
         stockMarketOptions.setOpacity(0);
         stockMarketOptions.setMouseTransparent(true);
         anchor.getChildren().add(stockMarketOptions);
