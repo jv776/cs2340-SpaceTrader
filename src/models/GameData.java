@@ -113,4 +113,12 @@ public class GameData implements Serializable {
     public void setShip(Ship s) {
         player.setShip(s);
     }
+    
+    public Bank getBank() {
+        return player.getBank();
+    }
+    
+    public void setBank(Bank b) {
+        player.setBank(b);
+    }
 }

@@ -29,6 +29,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
+import models.Bank;
 
 /**
  * Customization FXML Controller class
@@ -220,6 +221,8 @@ public class CustomizationController implements Initializable {
         system.discover();
         Planet planet = system.getPlanets()[(int) (Math.random() * system.getPlanets().length)];
         
+        Bank bank = new Bank();
+        
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);
         
@@ -227,6 +230,7 @@ public class CustomizationController implements Initializable {
         GameController.getGameData().setUniverse(universe);
         GameController.getGameData().setSolarSystem(system);
         GameController.getGameData().setPlanet(planet);
+        GameController.getGameData().setBank(bank);
         
         GameController.getControl().setScreen(Screens.UNIVERSE_MAP);
     }
