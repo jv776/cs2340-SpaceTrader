@@ -122,4 +122,13 @@ public class GameData implements Serializable {
     public void setStockMarket(StockMarket market) {
         stockMarket = market;
     }
+
+    public Bank getBank() {
+        return player.getBank();
+    }
+    
+    public void setBank(Bank b) {
+        player.setBank(b);
+    }
+
 }

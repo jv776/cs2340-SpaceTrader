@@ -22,6 +22,7 @@ public class Player extends CrewMember implements Serializable {
     private SolarSystem currentSystem;
     private Planet currentPlanet;
     private StockPortfolio stocks;
+    private Bank bank;
     private int credits;
     private int totalCredits;
     private int bounty;
@@ -44,6 +45,8 @@ public class Player extends CrewMember implements Serializable {
 
         ship = new Ship(Ship.Type.Gnat, this);
         stocks = new StockPortfolio();
+        
+        bank = new Bank();
         
         firstFight = true;
         
@@ -155,6 +158,10 @@ public class Player extends CrewMember implements Serializable {
         totalCredits += amount;
     }
     
+    public void withdraw(int amount) {
+        credits += amount;
+    }
+    
     public int getTotalCredits() {
         return totalCredits;
     }
@@ -224,7 +231,16 @@ public class Player extends CrewMember implements Serializable {
         for (Mercenary m : ship.getCrew()) {
             sum += m.getCost();
         }
-        // Implement loans.
+        
+        if (bank.hasOpenLoan()) {
+            sum += bank.calculateCost();
+            bank.makeLoanPayment(bank.calculateCost());
+            
+            if (bank.paidOff()) {
+                bank.closeLoan();
+            }
+        }
+        
         return sum;
     }
     
@@ -287,5 +303,13 @@ public class Player extends CrewMember implements Serializable {
             investor += merc.getInvestorSkillPoints();
         }
         return investor;
+    }
+    
+    public Bank getBank() {
+        return bank;
+    }
+    
+    public void setBank(Bank b) {
+        bank = b;
     }
 }

@@ -182,10 +182,13 @@ public class UniverseMapController implements Initializable {
                         
                         Player p = GameController.getGameData().getPlayer();
                         
-                        int creditsAfterPayment = p.getCredits() - p.getDailyCost();
-                        System.out.println(creditsAfterPayment);
+                        int dailyCost = p.getDailyCost();
+                        int creditsAfterPayment = p.getCredits() - dailyCost;
                         if (creditsAfterPayment < 0) {
                             p.spend(p.getCredits());
+                            if (p.getBank().hasOpenLoan()) {
+                                creditsAfterPayment -= p.getBank().getLoan().getTotal() - p.getBank().getLoan().getPaidOff();
+                            }
                             p.setBounty(p.getBounty() - creditsAfterPayment);
                             String message = "Bounty increased by " + (-creditsAfterPayment) 
                                     + " Credits because daily costs could not be paid.";
@@ -194,9 +197,14 @@ public class UniverseMapController implements Initializable {
                                         + " has left the ship.";
                                 p.getShip().removeCrew(p.getShip().getCrew().get(0));
                             }
+                            
+                            if (p.getBank().hasOpenLoan()) {
+                                p.getBank().closeLoan();
+                                message += "\nYou have failed to pay your loan.";
+                            }
                             showUpdate(message);
                         } else {
-                            p.spend(p.getDailyCost());
+                            p.spend(dailyCost);
                             GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
                         }
                         
