@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class GameData implements Serializable {
     private Player player;
     private Universe universe;
+    private StockMarket stockMarket;
 
     /**
      * @return The in-game representation of the current player.
@@ -112,5 +113,13 @@ public class GameData implements Serializable {
      */
     public void setShip(Ship s) {
         player.setShip(s);
+    }
+    
+    public StockMarket getStockMarket() {
+        return stockMarket;
+    }
+    
+    public void setStockMarket(StockMarket market) {
+        stockMarket = market;
     }
 }

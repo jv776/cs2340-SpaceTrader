@@ -29,6 +29,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
+import models.StockMarket;
 
 /**
  * Customization FXML Controller class
@@ -223,6 +224,7 @@ public class CustomizationController implements Initializable {
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);
         
+        GameController.getGameData().setStockMarket(new StockMarket());
         GameController.getGameData().setPlayer(player);
         GameController.getGameData().setUniverse(universe);
         GameController.getGameData().setSolarSystem(system);

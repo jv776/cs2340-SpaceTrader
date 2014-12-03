@@ -355,37 +355,42 @@ public class Planet implements Serializable {
         PixelReader reader = wImage.getPixelReader();
         PixelWriter bumpWriter = bumpMap.getPixelWriter();
         PixelReader bumpReader = bumpMap.getPixelReader();
+        
         double brightnessFactor = Math.random() + 0.5;
         double hueFactor = Math.random() * 20 - 10;
         double bumpFactor = Math.random() < .5 ? 0 : 128;
+        
         for (int y = -radius; y < radius; y++) {
             int width = (int)Math.sqrt(radius * radius - y * y);
+            
             for (int x = -width; x < width; x++) {
                 double distance = Math.sqrt(x * x + y * y);
+                
                 int centX = (centerX + x) >= 0 ? ((centerX + x) > 2047 ? centerX + x - 2048 : centerX + x) : centerX + x + 2048;
                 int centY = (centerY + y) >= 0 ? ((centerY + y) > 1499 ? centerY + y - 1500 : centerY + y) : centerY + y + 1500;
+                
                 Color color2 = reader.getColor(centX, centY)
                         .deriveColor(hueFactor < 0 ? Math.max(hueFactor, 2 * hueFactor * (1 - (distance / radius))) : Math.min(hueFactor, 2 * hueFactor * (1 - (distance / radius))), 
                                 1, distance * (1 - brightnessFactor) / radius + brightnessFactor, 1);
+                
                 writer.setColor(centX, centY, color2);
                 double blue = (Math.pow(distance / radius, 2));
                 bumpWriter.setColor(centX, centY, Color.rgb(0, 0, (int)Math.min((bumpFactor == 0 ? blue : 2 - blue) * 255 * bumpReader.getColor(centX, centY).getBlue(), 128)));
             }
         }
-        
     }
     
     private void createDiffuseAndBumpMap() {
         WritableImage diffuse = new WritableImage(2048, 1500);
-        WritableImage bump = new WritableImage(2048, 1500);
+        bumpMap = new WritableImage(2048, 1500);
         PixelWriter diffuseWriter = diffuse.getPixelWriter();
-        PixelWriter bumpWriter = bump.getPixelWriter();
+        PixelWriter bumpWriter = bumpMap.getPixelWriter();
         
         for(int readY = 0; readY < 1500; readY++){
             for(int readX = 0; readX < 2048; readX++){
                 diffuseWriter.setColor(readX, readY, color);
                 bumpWriter.setColor(readX, readY, Color.rgb(0, 0, 64));
-                bumpMap = bump;
+                //bumpMap = bump;
             }
         }
         
