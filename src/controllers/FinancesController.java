@@ -3,6 +3,7 @@ package controllers;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -25,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import models.Bank;
 import models.Player;
+import models.StockCorporation;
 import models.StockMarket;
 
 /**
@@ -46,7 +48,7 @@ public class FinancesController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Player p = GameController.getGameData().getPlayer();
+        Player player = GameController.getGameData().getPlayer();
         myBank = GameController.getGameData().getBank();
         
         //********************Menu**********************//
@@ -126,9 +128,9 @@ public class FinancesController implements Initializable {
         
         depositOptions = new Group();
         
-        Label currentCredits = new Label("Player Credits: " + p.getCredits());
+        Label currentCredits = new Label("Player Credits: " + player.getCredits());
         Label bankCredits = new Label("Bank Credits: " + myBank.getCredits());
-        Label currentCredits2 = new Label("Player Credits: " + p.getCredits());
+        Label currentCredits2 = new Label("Player Credits: " + player.getCredits());
         Label bankCredits2 = new Label("Bank Credits: " + myBank.getCredits());
         
         TextField amountDep = new TextField();
@@ -142,10 +144,10 @@ public class FinancesController implements Initializable {
         depositButton.setTranslateY(250);
         depositButton.setOnMouseClicked((MouseEvent t) -> {
             myBank.deposit(Integer.parseInt(amountDep.getText()));
-            p.spend(Integer.parseInt(amountDep.getText()));
-            currentCredits.setText("Player Credits: " + p.getCredits());
+            player.spend(Integer.parseInt(amountDep.getText()));
+            currentCredits.setText("Player Credits: " + player.getCredits());
             bankCredits.setText("Bank Credits: " + myBank.getCredits());
-            currentCredits2.setText("Player Credits: " + p.getCredits());
+            currentCredits2.setText("Player Credits: " + player.getCredits());
             bankCredits2.setText("Bank Credits: " + myBank.getCredits());
             amountWith.setText("");
             withdrawButton.setDisable(true);
@@ -160,7 +162,7 @@ public class FinancesController implements Initializable {
         });
         
         amountDep.setOnKeyReleased((KeyEvent e) -> {
-            if (amountDep.getText().isEmpty() || (!amountDep.getText().isEmpty() && Integer.parseInt(amountDep.getText()) > p.getCredits())) {
+            if (amountDep.getText().isEmpty() || (!amountDep.getText().isEmpty() && Integer.parseInt(amountDep.getText()) > player.getCredits())) {
                 depositButton.setDisable(true);
             } else {
                 depositButton.setDisable(false);
@@ -207,10 +209,10 @@ public class FinancesController implements Initializable {
         withdrawButton.setTranslateY(250);
         withdrawButton.setOnMouseClicked((MouseEvent t) -> {
             myBank.withdraw(Integer.parseInt(amountWith.getText()));
-            p.withdraw(Integer.parseInt(amountWith.getText()));
-            currentCredits2.setText("Player Credits: " + p.getCredits());
+            player.withdraw(Integer.parseInt(amountWith.getText()));
+            currentCredits2.setText("Player Credits: " + player.getCredits());
             bankCredits2.setText("Bank Credits: " + myBank.getCredits());
-            currentCredits.setText("Player Credits: " + p.getCredits());
+            currentCredits.setText("Player Credits: " + player.getCredits());
             bankCredits.setText("Bank Credits: " + myBank.getCredits());
             amountWith.setText("");
             withdrawButton.setDisable(true);
@@ -285,7 +287,7 @@ public class FinancesController implements Initializable {
         Label dailyCost = new Label("Daily Cost: 0 Credits");
         Label errorMessage = new Label();
         Button accept = new Button("Accept Loan");
-        Label playerCredits = new Label("Current Credits: " + p.getCredits());
+        Label playerCredits = new Label("Current Credits: " + player.getCredits());
         Button returnToMenu = new Button("Back");
         
         dailyCost.setVisible(false);
@@ -348,7 +350,7 @@ public class FinancesController implements Initializable {
         });
         
         apply.setOnMouseClicked((MouseEvent t) -> {
-            String message = myBank.getResponse(Integer.parseInt(loanAmount.getText()), p.getTotalCredits(), p.getBounty());
+            String message = myBank.getResponse(Integer.parseInt(loanAmount.getText()), player.getTotalCredits(), player.getBounty());
             if (!message.isEmpty()) {
                 dailyCost.setVisible(false);
                 accept.setVisible(false);
@@ -357,17 +359,17 @@ public class FinancesController implements Initializable {
                 errorMessage.setVisible(true);
             } else {
                 errorMessage.setVisible(false);
-                int cost = (int)((0.1 - p.getInvestorSkillPoints() * .0025) * Integer.parseInt(loanAmount.getText()));
+                int cost = (int)((0.1 - player.getInvestorSkillPoints() * .0025) * Integer.parseInt(loanAmount.getText()));
                 dailyCost.setText("Daily Cost: " + cost + " Credits");
-                playerCredits.setText("Current Credits: " + p.getCredits());
+                playerCredits.setText("Current Credits: " + player.getCredits());
                 dailyCost.setVisible(true);
                 accept.setVisible(true);
                 playerCredits.setVisible(true);
                 
                 accept.setOnMouseClicked((MouseEvent e) -> {
                     myBank.addLoan(Integer.parseInt(loanAmount.getText()), cost);
-                    p.withdraw(Integer.parseInt(loanAmount.getText()));
-                    playerCredits.setText("Current Credits: " + p.getCredits());
+                    player.withdraw(Integer.parseInt(loanAmount.getText()));
+                    playerCredits.setText("Current Credits: " + player.getCredits());
                     accept.setDisable(true);
                 });
             }
@@ -406,39 +408,83 @@ public class FinancesController implements Initializable {
         stockList.setTranslateX(40);
         stockList.setTranslateY(40);
         
+        
+        
         Button buyStock = new Button("Buy share");
         
-        //buyStock.setPrefSize(70, 25);
         buyStock.setTranslateX(330);
         buyStock.setTranslateY(300);
+        buyStock.setDisable(true);
         
         Button sellStock = new Button("Sell share");
         
-        //sellStock.setPrefSize(70, 25);
         sellStock.setTranslateX(420);
         sellStock.setTranslateY(300);
+        sellStock.setDisable(true);
+        
+        buyStock.setOnMouseClicked((MouseEvent e) -> {
+            StockCorporation corp = market.getCorporation(stockList.getSelectionModel().getSelectedIndex());
+            player.buyStocks(corp, 1);
+            
+            //temporary
+            System.out.println("Current credits: " + player.getCredits());
+            
+            //update buttons
+            buyStock.setDisable(player.getCredits() < corp.currentValue());
+            sellStock.setDisable(!player.hasStock(corp));
+        });
+        
+        sellStock.setOnMouseClicked((MouseEvent e) -> {
+            StockCorporation corp = market.getCorporation(stockList.getSelectionModel().getSelectedIndex());
+            player.sellStocks(corp, 1);
+            
+            //temporary
+            System.out.println("Current credits: " + player.getCredits());
+            
+            //update buttons
+            buyStock.setDisable(player.getCredits() < corp.currentValue());
+            sellStock.setDisable(!player.hasStock(corp));
+        });
+        
+        
         
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         
-        LineChart<Number, Number> stockChart = new LineChart<>(xAxis, yAxis);
+        LineChart stockChart = new LineChart(xAxis, yAxis);
         
         stockChart.setTitle("Stock Values");
         stockChart.setPrefSize(320, 240);
         stockChart.setTranslateX(260);
         stockChart.setTranslateY(40);
         
-        //XYChart.Series<Number, Number> stockValues = new XYChart.Series<>();
-        
-        //for ()
+        stockList.getSelectionModel().selectedIndexProperty().addListener((observable, oldVal, newVal) -> {
+            StockCorporation corp = market.getCorporation(newVal.intValue());
+            
+            //update buttons
+            buyStock.setDisable(player.getCredits() < corp.currentValue());
+            sellStock.setDisable(!player.hasStock(corp));
+            
+            //update stock chart
+            stockChart.setTitle("Stock Values: " + corp.name);
+            stockChart.getData().clear();
+            
+            LineChart.Series series = new XYChart.Series();
+            LinkedList<Double> vals = corp.getValues();
+            
+            for (int i = 0; i < vals.size(); i++) {
+                System.out.println("Should add pair" + i + " and " + vals.get(i));
+                series.getData().add(new LineChart.Data(i, vals.get(i)));
+            }
+            
+            stockChart.getData().add(series);
+        });
         
         stockMarketOptions.getChildren().addAll(returnToMenuFromSM, stockList,
                 buyStock, sellStock, stockChart);
         stockMarketOptions.setOpacity(0);
         stockMarketOptions.setMouseTransparent(true);
         anchor.getChildren().add(stockMarketOptions);
-        
-        
     }
     
     private void startBank(Group oldGroup) {
@@ -455,6 +501,14 @@ public class FinancesController implements Initializable {
     
     private void startStockMarket(Group oldGroup) {
         fadeSwitch(oldGroup, stockMarketOptions);
+    }
+    
+    private void updateStockChart() {
+        
+    }
+    
+    private void updateStockButtons() {
+        
     }
     
     private void fadeSwitch(Group oldGroup, Group newGroup) {

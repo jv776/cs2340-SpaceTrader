@@ -15,6 +15,7 @@ import java.util.LinkedList;
 public class StockCorporation {
     public final String name;
     private LinkedList<Double> values;
+    private double volatility;
     
     private static String randomString(int length) {
         String s = "";
@@ -30,16 +31,17 @@ public class StockCorporation {
     public StockCorporation() {
         name = randomString(3);
         values = new LinkedList<>();
+        volatility = 10 + Math.random() * 100;
         
         values.addFirst(Math.random() * 1000);
         
-        for (int i = 1; i < values.size(); i++) {
-            values.addFirst(values.peekFirst() + Math.random() * 10 - 5);
+        for (int i = 1; i < 30; i++) {
+            values.addFirst(Math.max(values.peekFirst() + Math.random() * volatility - (volatility / 2), 0));
         }
     }
     
     public void updateStock() {
-        values.addFirst(values.peekFirst() + Math.random() * 10 - 5);
+        values.addFirst(Math.max(values.peekFirst() + Math.random() * volatility - (volatility / 2), 0));
         values.removeLast();
     }
     
@@ -59,5 +61,9 @@ public class StockCorporation {
         double prev = previousValue();
         
         return 100 * (now - prev) / prev;
+    }
+    
+    public LinkedList<Double> getValues() {
+        return values;
     }
 }
