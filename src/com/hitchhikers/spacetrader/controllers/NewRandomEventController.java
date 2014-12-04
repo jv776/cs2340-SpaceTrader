@@ -103,7 +103,7 @@ public class NewRandomEventController implements Initializable {
 
         name = "";
 
-        if (Math.random() < 1.0) {//policeChance) {
+        if (Math.random() < policeChance) {
             name = "Police";
             enemy = new Police("Bob");
         } else if (Math.random() < pirateChance) {
