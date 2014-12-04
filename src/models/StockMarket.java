@@ -5,13 +5,15 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  * Class representing the stock market. For simplicity, there is only one stock
  * market that can be invested in from throughout the galaxy
  *
  * @author John
  */
-public class StockMarket {
+public class StockMarket implements Serializable {
     private static final int NUM_CORPS = 10;
     private StockCorporation[] corporations;        
     private int weight;

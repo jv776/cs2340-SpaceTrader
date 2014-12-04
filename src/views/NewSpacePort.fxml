@@ -31,5 +31,6 @@
       <Label fx:id="repairCost" layoutX="429.0" layoutY="10.0" prefHeight="20.0" prefWidth="150.0" text="Repair Cost:" />
       <Label fx:id="refuelCost" layoutX="429.0" layoutY="41.0" prefHeight="20.0" prefWidth="150.0" text="Refuel Cost: " />
       <Button layoutX="436.0" layoutY="238.0" mnemonicParsing="false" onMouseClicked="#tavern" prefHeight="30.0" prefWidth="150.0" text="Tavern" />
+      <Button fx:id="saveButton" layoutX="436.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#handleSaveButton" prefHeight="30.0" prefWidth="150.0" text="Save" />
     </children>
 </AnchorPane>

@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.LinkedList;
  *
  * @author John
  */
-public class StockCorporation {
+public class StockCorporation implements Serializable {
     public final String name;
     private LinkedList<Double> values;
     private double volatility;

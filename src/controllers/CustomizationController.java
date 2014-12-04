@@ -224,9 +224,6 @@ public class CustomizationController implements Initializable {
         
         Bank bank = new Bank();
         StockMarket stockMarket = new StockMarket(player.getInvestorSkillPoints());
-        for (int i = 0; i < 20; i++) {
-            stockMarket.updateStocks();
-        }
         
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);

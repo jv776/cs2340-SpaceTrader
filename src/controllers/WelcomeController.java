@@ -74,7 +74,7 @@ public class WelcomeController implements Initializable {
 
         if (newSave != null) {
             GameController.loadGameData(newSave);
-            GameController.getControl().setScreen(Screens.MARKET);
+            GameController.getControl().setScreen(Screens.NEW_SPACE_PORT);
         }
     }
 }
