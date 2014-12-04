@@ -130,4 +130,5 @@ public class GameData implements Serializable {
     public void setBank(Bank b) {
         player.setBank(b);
     }
+
 }

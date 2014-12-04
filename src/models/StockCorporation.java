@@ -13,33 +13,37 @@ import java.util.LinkedList;
  * @author John
  */
 public class StockCorporation {
-    private final String name;
+    public final String name;
     private LinkedList<Double> values;
+    private double volatility;
+    
+    private static String randomString(int length) {
+        String s = "";
+        
+        for (int i = 0; i < length; i++) {
+            int codePoint = 65 + (int)(Math.random() * (90 - 65));
+            s += (char)codePoint;
+        }
+        
+        return s;
+    }
     
     public StockCorporation() {
-        name = "test";
+        name = randomString(3);
         values = new LinkedList<>();
+        volatility = 10 + Math.random() * 100;
         
         values.addFirst(Math.random() * 1000);
         
-        for (int i = 1; i < values.size(); i++) {
-            values.addFirst(values.peekFirst() + Math.random() * 10 - 5);
+        for (int i = 1; i < 30; i++) {
+            values.addFirst(Math.max(values.peekFirst() + Math.random() * volatility - (volatility / 2), 5));
         }
     }
     
-    public void updateStock() {
-        values.addFirst(values.peekFirst() + Math.random() * 10 - 5);
-        values.removeLast();
-        
-        values = new LinkedList<>();
-        
-        values.addFirst(Math.random() * 500 + 250);
-        values.addFirst(values.peekFirst() + Math.random() * 10 - 5);
-    }
-    
     public void updateStock(int weight) {
-        double randomChange = Math.random() * (50 + weight / 2.0) - 25;
-        values.addFirst((values.peekFirst() + randomChange) < 0 ? 0 : (values.peekFirst() + randomChange));
+        double randomChange = Math.random() * (volatility + weight / 2.0) - (volatility / 2);
+        values.addFirst(Math.max(values.peekFirst() + randomChange, 5));
+        values.removeLast();
     }
     
     public double currentValue() {
@@ -63,8 +67,8 @@ public class StockCorporation {
     public String getName() {
         return name;
     }
-    
-    public LinkedList<Double> getData() {
+
+    public LinkedList<Double> getValues() {
         return values;
     }
 }
