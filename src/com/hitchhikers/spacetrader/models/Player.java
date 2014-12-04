@@ -43,9 +43,36 @@ public class Player extends CrewMember implements Serializable {
         super(pilotSP, fighterSP, traderSP, engineerSP, investorSP);
         name = playerName;
 
-        ship = new Ship(Ship.Type.Gnat, this);
-        stocks = new StockPortfolio();
+        ship = new Ship(Ship.Type.Dragonfly, this);
         
+        ship.equipWeapon(new Weapon(Weapon.Type.Alien));
+        ship.equipWeapon(new Weapon(Weapon.Type.Military));
+        ship.equipWeapon(new Weapon(Weapon.Type.Beam));
+        ship.equipWeapon(new Weapon(Weapon.Type.Pulse));
+        
+        ship.equipShield(new Shield(Shield.Type.Alien));
+        ship.equipShield(new Shield(Shield.Type.Reflective));
+        ship.equipShield(new Shield(Shield.Type.Energy));
+        ship.equipShield(new Shield(Shield.Type.Overcharged));
+        
+        ship.equipGadget(new Gadget(Gadget.Type.SCATTER_SHOT));
+        ship.equipGadget(new Gadget(Gadget.Type.REFLECTOR));
+        ship.equipGadget(new Gadget(Gadget.Type.HOMING_SHOT));
+        ship.equipGadget(new Gadget(Gadget.Type.PIERCING_SHOT));
+        
+        ship.addCrew(new Mercenary("Alex", "Pilot", 5, 250));
+        ship.addCrew(new Mercenary("John", "Fighter", 5, 250));
+        ship.addCrew(new Mercenary("Kevin", "Engineer", 5, 250));
+        ship.addCrew(new Mercenary("Taylor", "Trader", 5, 250));
+        ship.addCrew(new Mercenary("Roi", "Investor", 5, 250));
+        
+        for (int i = 0; i < 12; i++) {
+            ship.getCargoHold().addItem(TradeGood.ROBOTS);
+            ship.getCargoHold().addItem(TradeGood.WATER);
+        }
+        
+        earn(10000000);
+
         stocks = new StockPortfolio();
         
         bank = new Bank();

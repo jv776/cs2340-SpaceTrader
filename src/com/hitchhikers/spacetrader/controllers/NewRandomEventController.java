@@ -1155,7 +1155,8 @@ public class NewRandomEventController implements Initializable {
     }
     
     private boolean traderComply() {
-        // Implement Trading :D
+        GameController.getGameData().setPlanet(((Trader) enemy).getOrigin());
+        GameController.getControl().setScreen(Screens.MARKET);
         return false;
     }
 }

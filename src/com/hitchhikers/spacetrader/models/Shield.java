@@ -9,10 +9,10 @@ import java.io.Serializable;
  */
 public class Shield extends Upgrade implements Serializable {
     public enum Type {
-        Energy(25, 5, 1000, TechLevel.EARLY_INDUSTRIAL, "Shield that creates an absorptive energy field around the ship."),
+        Energy(100, 5, 1000, TechLevel.EARLY_INDUSTRIAL, "Shield that creates an absorptive energy field around the ship."),
         Reflective(150, 30, 10000, TechLevel.INDUSTRIAL, "Shield that creates a reflective energy field around the ship."),
-        Overcharged(150, 40, 10000, TechLevel.POST_INDUSTRIAL, "Shield that creates a reflective energy field around the ship."),
-        Alien(150, 50, 10000, TechLevel.HI_TECH, "Shield that creates a reflective energy field around the ship.");
+        Overcharged(200, 40, 10000, TechLevel.POST_INDUSTRIAL, "Shield that creates an overcharged energy field around the ship."),
+        Alien(300, 50, 10000, TechLevel.HI_TECH, "Shield that creates a reflective energy field around the ship.");
 
         private final int strength;
         private final TechLevel minTechLevel;

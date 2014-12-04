@@ -222,19 +222,6 @@ public class UniverseMapController implements Initializable {
 //                        double encounterChance = Math.max(s.getCrime(),
 //                            s.getLaw());
 //                        if(Math.random()<encounterChance){
-                        final double ENCOUNTER_MODIFIER = 1.0;
-                            if(Math.random() < s.getLaw() *
-                                    ENCOUNTER_MODIFIER) {
-                                GameController.getControl().setScreen(Screens.POLICE_EVENT);
-                            } else if(Math.random() < s.getCrime() *
-                                    ENCOUNTER_MODIFIER) {
-                                GameController.getControl().setScreen(Screens.PIRATE_EVENT);
-                            } else if(Math.random() > .90 *
-                                    ENCOUNTER_MODIFIER) {
-                                GameController.getControl().setScreen(Screens.TRADE_EVENT);
-                            } else {
-                                GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
-                            }
 //                        }
 //                        if(policeEvent < rPolice) {
 //                            GameController.getControl().setScreen(Screens.POLICE_EVENT);

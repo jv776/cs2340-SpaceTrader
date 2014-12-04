@@ -47,7 +47,7 @@ public class Ship implements Serializable {
         /**
          * The largest and most expensive ship available.
          */
-        Dragonfly(50, 4, 4, 4, 4, 25, TechLevel.POST_INDUSTRIAL, 10, 200000, 1200, 1, 2,
+        Dragonfly(50, 4, 4, 4, 5, 25, TechLevel.POST_INDUSTRIAL, 10, 200000, 1200, 1, 2,
                 new Image(Utils.getResourceAsStream("images/dragonfly.png")));
 
         /**
@@ -228,9 +228,11 @@ public class Ship implements Serializable {
     public boolean addCrew(Mercenary merc) {
         if (crew.size() < type.crewCapacity) {
             crew.add(merc);
-            GameController.getGameData().getStockMarket()
-                    .setWeight(GameController.getGameData()
-                            .getPlayer().getInvestorSkillPoints());
+            if (GameController.getGameData().getPlayer() != null) {
+                GameController.getGameData().getStockMarket()
+                        .setWeight(GameController.getGameData()
+                                .getPlayer().getInvestorSkillPoints());
+            }
             //HACK
             return true;
         }
