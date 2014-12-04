@@ -7,7 +7,6 @@ package com.hitchhikers.spacetrader.models;
 
 import java.io.Serializable;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
@@ -40,9 +39,9 @@ public class Planet implements Serializable {
     private Marketplace market;
     private Upgradeplace upgrade;
     private PriceEvent currentEvent;
-    private Color color;
-    private Image diffuseImage;
-    private WritableImage bumpMap;
+    private transient Color color;
+    private transient Image diffuseImage;
+    private transient Image bumpMap;
 
     /**
      * Create a new Planet and calculate it's resources and atmospheric
@@ -351,70 +350,35 @@ public class Planet implements Serializable {
         return bumpMap;
     }
     
-    private void drawDiffuseCircle(WritableImage wImage, PixelWriter writer, int radius, int centerX, int centerY) {
-        PixelReader reader = wImage.getPixelReader();
-        PixelWriter bumpWriter = bumpMap.getPixelWriter();
-        PixelReader bumpReader = bumpMap.getPixelReader();
-        
-        double brightnessFactor = Math.random() + 0.5;
-        double hueFactor = Math.random() * 20 - 10;
-        double bumpFactor = Math.random() < .5 ? 0 : 128;
-        
-        for (int y = -radius; y < radius; y++) {
-            int width = (int)Math.sqrt(radius * radius - y * y);
-            
-            for (int x = -width; x < width; x++) {
-                double distance = Math.sqrt(x * x + y * y);
-                
-                int centX = (centerX + x) >= 0 ? ((centerX + x) > 2047 ? centerX + x - 2048 : centerX + x) : centerX + x + 2048;
-                int centY = (centerY + y) >= 0 ? ((centerY + y) > 1499 ? centerY + y - 1500 : centerY + y) : centerY + y + 1500;
-                
-                Color color2 = reader.getColor(centX, centY)
-                        .deriveColor(hueFactor < 0 ? Math.max(hueFactor, 2 * hueFactor * (1 - (distance / radius))) : Math.min(hueFactor, 2 * hueFactor * (1 - (distance / radius))), 
-                                1, distance * (1 - brightnessFactor) / radius + brightnessFactor, 1);
-                
-                writer.setColor(centX, centY, color2);
-                double blue = (Math.pow(distance / radius, 2));
-                bumpWriter.setColor(centX, centY, Color.rgb(0, 0, (int)Math.min((bumpFactor == 0 ? blue : 2 - blue) * 255 * bumpReader.getColor(centX, centY).getBlue(), 128)));
-            }
-        }
+    private static double clamp(double d) {
+        return Math.max(Math.min(d, 1), 0);
     }
     
     private void createDiffuseAndBumpMap() {
-        WritableImage diffuse = new WritableImage(2048, 1500);
-        bumpMap = new WritableImage(2048, 1500);
+        WritableImage diffuse = new WritableImage(256, 128);
+        WritableImage bump = new WritableImage(256, 128);
         PixelWriter diffuseWriter = diffuse.getPixelWriter();
-        PixelWriter bumpWriter = bumpMap.getPixelWriter();
+        PixelWriter bumpWriter = bump.getPixelWriter();
         
-        for(int readY = 0; readY < 1500; readY++){
-            for(int readX = 0; readX < 2048; readX++){
-                diffuseWriter.setColor(readX, readY, color);
-                bumpWriter.setColor(readX, readY, Color.rgb(0, 0, 64));
-                //bumpMap = bump;
+        if (color == null) {
+            color = new Color(Math.random(), Math.random(), Math.random(), 1.0);
+        }
+        
+        Color c = new Color(Math.random(), Math.random(), Math.random(), 1.0);
+        
+        for (int x = 0; x < diffuse.getWidth(); x++) {
+            for (int y = 0; y < diffuse.getHeight(); y++) {
+                double offset = Math.random() * 2 * Math.PI;
+                int freq = 2 * (1 + (int)(Math.random() * 5));
+                double x1 = freq * Math.PI * x / diffuse.getWidth() + offset;
+                double y1 = freq * Math.PI * y / diffuse.getHeight() + offset;
+                
+                diffuseWriter.setColor(x, y, color.interpolate(c, Math.sin(x1 + Math.random()) * Math.cos(y1 + Math.random())));
+                bumpWriter.setColor(x, y, c.interpolate(c.darker(), Math.random()).desaturate());
             }
         }
         
-        int numCircles = 40;
-        for (int i = 0; i < numCircles; i++) {
-            int radiusSpot = (int)(Math.random() * 100) + 200;
-            int centerX = (int)(Math.random() * 2048);
-            int centerY = (int)(Math.random() * 1500);
-            drawDiffuseCircle(diffuse, diffuseWriter, radiusSpot, centerX, centerY);
-        }
-        
+        bumpMap = bump;
         diffuseImage = diffuse;
-    }
-    
-    private void createBumpMap() {
-        WritableImage wImage = new WritableImage(2048, 1500);
-        PixelWriter pixelWriter = wImage.getPixelWriter();
-        
-        for(int readY = 0; readY < 1500; readY++){
-            for(int readX = 0; readX < 2048; readX++){
-                pixelWriter.setColor(readX, readY, Color.rgb(50, 50, 50));
-            }
-        }
-        
-        bumpMap = wImage;
     }
 }

@@ -46,6 +46,9 @@ public class NewSpacePortController implements Initializable {
     private Button btn_StockMarket;
 
     @FXML
+    private Button saveButton;
+    
+    @FXML
     private ProgressBar health_bar, fuel_bar;
 
     @FXML
@@ -109,6 +112,11 @@ public class NewSpacePortController implements Initializable {
         repairCost.setVisible(false);
     }
 
+    @FXML
+    void handleSaveButton() {
+        GameController.saveGameData();
+    }
+    
     @FXML
     private void shipCustomization() {
         GameController.getControl().setScreen(Screens.SHIP_CUSTOMIZATION);

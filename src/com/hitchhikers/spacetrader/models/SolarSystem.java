@@ -18,6 +18,8 @@ public class SolarSystem implements Serializable {
     private final String name;
     private final int x;
     private final int y;
+    private final double crime;
+    private final double law;
     private final TechLevel tech;
     private final PoliticalSystem government;
     private final Star sun;
@@ -41,6 +43,8 @@ public class SolarSystem implements Serializable {
         y = yLoc;
         tech = techLevel;
         government = governmentType;
+        crime = government.baseCrime + government.crimeVar*Math.random();
+        law = government.baseLaw+ government.lawVar*Math.random();
         sun = new Star(""); //add name
         planets = generatePlanets();
         isDiscovered = false;
@@ -112,6 +116,40 @@ public class SolarSystem implements Serializable {
      */
     public TechLevel getTechLevel() {
         return getTech();
+    }
+
+    private String getLevel(double factor){
+        if(factor ==0){
+            return "absent";
+        } else if(factor <.2){
+            return "very low";
+        } else if(factor <.4){
+            return "low";
+        } else if(factor <.6){
+            return "normal";
+        } else if(factor <.8){
+            return "high";
+        } else if(factor <1){
+            return "very high";
+        } else if(factor == 1){
+            return "total";
+        } else {
+            return "Unknown";
+        }
+    }
+
+    public String getCrimeLevel(){
+        return getLevel(crime);
+    }
+    public String getLawLevel(){
+        return getLevel(law);
+    }
+
+    public double getCrime(){
+        return crime;
+    }
+    public double getLaw(){
+        return law;
     }
 
     /**
