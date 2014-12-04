@@ -89,23 +89,25 @@ public class NewRandomEventController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Player player = GameController.getGameData().getPlayer();
+        
 
+        double pirateChance = player.getCurrentSystem().getCrime();
 
-        double policeChance = 0.05 + player.getShip().getCargoHold().getQuantity(TradeGood.NARCOTICS) * 0.015
-                + player.getShip().getCargoHold().getQuantity(TradeGood.FIREARMS) * 0.005;
-
-        double pirateChance = 0.02 + Math.min(player.getShip().getCargoHold().getCargoQuantity() * .001
-                + player.getCredits() * .00001, .3);
+        double policeChance = player.getCurrentSystem().getLaw();
 
         double traderChance = 0.02;
 
         double bountyHunterChance = player.getBounty() * .00001;
 
         name = "";
+        
+        System.out.println("Police: " + policeChance + " " + player.getCurrentSystem().getLawLevel());
+        System.out.println("Pirate: " + pirateChance + " " + player.getCurrentSystem().getCrimeLevel());
 
-        if (Math.random() < 1.0) {//policeChance) {
+        if (Math.random() < policeChance) {
             name = "Police";
             enemy = new Police("Bob");
+            
         } else if (Math.random() < pirateChance) {
             name = "Pirate";
             enemy = new Pirate("Bob");
@@ -1133,7 +1135,7 @@ public class NewRandomEventController implements Initializable {
         if (Math.random() < 0.05) {
             return true;
         } else {
-            GameController.getGameData().getPlayer().spend(3 * GameController.getGameData().getPlayer().getCredits() / 4);
+            GameController.getGameData().getPlayer().spend(GameController.getGameData().getPlayer().getCredits() / 4);
             return false;
         }
     }
