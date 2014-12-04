@@ -45,7 +45,7 @@ public class Player extends CrewMember implements Serializable {
 
         ship = new Ship(Ship.Type.Dragonfly, this);
         
-        ship.equipWeapon(new Weapon(Weapon.Type.Alien));
+        /*ship.equipWeapon(new Weapon(Weapon.Type.Alien));
         ship.equipWeapon(new Weapon(Weapon.Type.Military));
         ship.equipWeapon(new Weapon(Weapon.Type.Beam));
         ship.equipWeapon(new Weapon(Weapon.Type.Pulse));
@@ -71,7 +71,7 @@ public class Player extends CrewMember implements Serializable {
             ship.getCargoHold().addItem(TradeGood.WATER);
         }
         
-        earn(10000000);
+        earn(10000000);*/
 
         stocks = new StockPortfolio();
         
