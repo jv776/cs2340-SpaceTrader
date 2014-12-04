@@ -84,10 +84,17 @@ public class UniverseMapController implements Initializable {
             circle.setVisible(false);
 
             Tooltip systemInfo = new Tooltip(
-                    String.format("%s\nTech Level: %s\nDistance: %.2f light-years\nStatus: %s",
+                    String.format("%s\nTech Level: %s\nDistance: %.2f light-years\n" +
+                                    "Government: %s\n" +
+                                    "Pirate Activity: %s\n" +
+                                    "Police Activity: %s\n" +
+                                    "Status: %s",
                         s.isDiscovered() ? s.getName() + " System" : "????????",
                         s.isDiscovered() ? s.getTechLevel() : "????????",
                         dist,
+                        s.isDiscovered() ? s.getGovernment() : "????????",
+                        s.isDiscovered() ? s.getCrimeLevel() : "????????",
+                        s.isDiscovered() ? s.getLawLevel() : "????????",
                         s.isDiscovered() ? "Discovered" : "Undiscovered"));
             systemInfo.setAutoHide(false);
 
@@ -210,16 +217,32 @@ public class UniverseMapController implements Initializable {
                             GameController.getControl().setScreen(Screens.NEW_RANDOM_EVENT);
                         }
                         
-                        
-                        /*if(policeEvent < rPolice) {
-                            GameController.getControl().setScreen(Screens.POLICE_EVENT);
-                        } else if(pirateEvent < rPirate) {
-                            GameController.getControl().setScreen(Screens.PIRATE_EVENT);
-                        } else if(tradeEvent < rTrader) {
-                            GameController.getControl().setScreen(Screens.TRADE_EVENT);
-                        } else {
-                            GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
-                        }*/
+//                        double encounterChance = Math.max(s.getCrime(),
+//                            s.getLaw());
+//                        if(Math.random()<encounterChance){
+                        final double ENCOUNTER_MODIFIER = 1.0;
+                            if(Math.random() < s.getLaw() *
+                                    ENCOUNTER_MODIFIER) {
+                                GameController.getControl().setScreen(Screens.POLICE_EVENT);
+                            } else if(Math.random() < s.getCrime() *
+                                    ENCOUNTER_MODIFIER) {
+                                GameController.getControl().setScreen(Screens.PIRATE_EVENT);
+                            } else if(Math.random() > .90 *
+                                    ENCOUNTER_MODIFIER) {
+                                GameController.getControl().setScreen(Screens.TRADE_EVENT);
+                            } else {
+                                GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+                            }
+//                        }
+//                        if(policeEvent < rPolice) {
+//                            GameController.getControl().setScreen(Screens.POLICE_EVENT);
+//                        } else if(pirateEvent < rPirate) {
+//                            GameController.getControl().setScreen(Screens.PIRATE_EVENT);
+//                        } else if(tradeEvent < rTrader) {
+//                            GameController.getControl().setScreen(Screens.TRADE_EVENT);
+//                        } else {
+//                            GameController.getControl().setScreen(Screens.SOLAR_SYSTEM_MAP);
+//                        }
                     });
                     rotate.setOnFinished((ActionEvent event) -> {
                         path.play();
