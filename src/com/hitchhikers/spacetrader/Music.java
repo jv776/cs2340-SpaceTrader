@@ -47,7 +47,6 @@ public class Music {
             currentMusic = MusicOptions.BACKGROUND;
         }
     }
-
     public static void playIntense() {
         AudioPlayer.player.stop(backgroundMusic);
         AudioPlayer.player.stop(soothingMusic);
