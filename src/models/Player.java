@@ -262,6 +262,10 @@ public class Player extends CrewMember implements Serializable {
         earn((int)stocks.sellStock(corp, shares));
     }
     
+    public boolean hasStock(StockCorporation corp) {
+        return stocks.getShares(corp) != 0;
+    }
+    
     @Override
     public int getFighterSkillPoints() {
         int fighter = fighterSkill;

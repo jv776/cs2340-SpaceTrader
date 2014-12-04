@@ -9,6 +9,11 @@ import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import java.util.LinkedList;
+import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -21,6 +26,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -62,7 +68,7 @@ public class FinancesController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Player p = GameController.getGameData().getPlayer();
+        Player player = GameController.getGameData().getPlayer();
         myBank = GameController.getGameData().getBank();
         myStockMarket = GameController.getGameData().getStockMarket();
         
@@ -143,9 +149,9 @@ public class FinancesController implements Initializable {
         
         depositOptions = new Group();
         
-        Label currentCredits = new Label("Player Credits: " + p.getCredits());
+        Label currentCredits = new Label("Player Credits: " + player.getCredits());
         Label bankCredits = new Label("Bank Credits: " + myBank.getCredits());
-        Label currentCredits2 = new Label("Player Credits: " + p.getCredits());
+        Label currentCredits2 = new Label("Player Credits: " + player.getCredits());
         Label bankCredits2 = new Label("Bank Credits: " + myBank.getCredits());
         
         TextField amountDep = new TextField();
@@ -159,10 +165,10 @@ public class FinancesController implements Initializable {
         depositButton.setTranslateY(250);
         depositButton.setOnMouseClicked((MouseEvent t) -> {
             myBank.deposit(Integer.parseInt(amountDep.getText()));
-            p.spend(Integer.parseInt(amountDep.getText()));
-            currentCredits.setText("Player Credits: " + p.getCredits());
+            player.spend(Integer.parseInt(amountDep.getText()));
+            currentCredits.setText("Player Credits: " + player.getCredits());
             bankCredits.setText("Bank Credits: " + myBank.getCredits());
-            currentCredits2.setText("Player Credits: " + p.getCredits());
+            currentCredits2.setText("Player Credits: " + player.getCredits());
             bankCredits2.setText("Bank Credits: " + myBank.getCredits());
             amountWith.setText("");
             withdrawButton.setDisable(true);
@@ -177,7 +183,7 @@ public class FinancesController implements Initializable {
         });
         
         amountDep.setOnKeyReleased((KeyEvent e) -> {
-            if (amountDep.getText().isEmpty() || (!amountDep.getText().isEmpty() && Integer.parseInt(amountDep.getText()) > p.getCredits())) {
+            if (amountDep.getText().isEmpty() || (!amountDep.getText().isEmpty() && Integer.parseInt(amountDep.getText()) > player.getCredits())) {
                 depositButton.setDisable(true);
             } else {
                 depositButton.setDisable(false);
@@ -224,10 +230,10 @@ public class FinancesController implements Initializable {
         withdrawButton.setTranslateY(250);
         withdrawButton.setOnMouseClicked((MouseEvent t) -> {
             myBank.withdraw(Integer.parseInt(amountWith.getText()));
-            p.withdraw(Integer.parseInt(amountWith.getText()));
-            currentCredits2.setText("Player Credits: " + p.getCredits());
+            player.withdraw(Integer.parseInt(amountWith.getText()));
+            currentCredits2.setText("Player Credits: " + player.getCredits());
             bankCredits2.setText("Bank Credits: " + myBank.getCredits());
-            currentCredits.setText("Player Credits: " + p.getCredits());
+            currentCredits.setText("Player Credits: " + player.getCredits());
             bankCredits.setText("Bank Credits: " + myBank.getCredits());
             amountWith.setText("");
             withdrawButton.setDisable(true);
@@ -302,7 +308,7 @@ public class FinancesController implements Initializable {
         Label dailyCost = new Label("Daily Cost: 0 Credits");
         Label errorMessage = new Label();
         Button accept = new Button("Accept Loan");
-        Label playerCredits = new Label("Current Credits: " + p.getCredits());
+        Label playerCredits = new Label("Current Credits: " + player.getCredits());
         Button returnToMenu = new Button("Back");
         
         dailyCost.setVisible(false);
@@ -365,7 +371,7 @@ public class FinancesController implements Initializable {
         });
         
         apply.setOnMouseClicked((MouseEvent t) -> {
-            String message = myBank.getResponse(Integer.parseInt(loanAmount.getText()), p.getTotalCredits(), p.getBounty());
+            String message = myBank.getResponse(Integer.parseInt(loanAmount.getText()), player.getTotalCredits(), player.getBounty());
             if (!message.isEmpty()) {
                 dailyCost.setVisible(false);
                 accept.setVisible(false);
@@ -374,17 +380,17 @@ public class FinancesController implements Initializable {
                 errorMessage.setVisible(true);
             } else {
                 errorMessage.setVisible(false);
-                int cost = (int)((0.1 - p.getInvestorSkillPoints() * .0025) * Integer.parseInt(loanAmount.getText()));
+                int cost = (int)((0.1 - player.getInvestorSkillPoints() * .0025) * Integer.parseInt(loanAmount.getText()));
                 dailyCost.setText("Daily Cost: " + cost + " Credits");
-                playerCredits.setText("Current Credits: " + p.getCredits());
+                playerCredits.setText("Current Credits: " + player.getCredits());
                 dailyCost.setVisible(true);
                 accept.setVisible(true);
                 playerCredits.setVisible(true);
                 
                 accept.setOnMouseClicked((MouseEvent e) -> {
                     myBank.addLoan(Integer.parseInt(loanAmount.getText()), cost);
-                    p.withdraw(Integer.parseInt(loanAmount.getText()));
-                    playerCredits.setText("Current Credits: " + p.getCredits());
+                    player.withdraw(Integer.parseInt(loanAmount.getText()));
+                    playerCredits.setText("Current Credits: " + player.getCredits());
                     accept.setDisable(true);
                 });
             }
@@ -397,6 +403,8 @@ public class FinancesController implements Initializable {
         anchor.getChildren().add(loanOptions);
         
         //******************STOCK MARKET*******************//
+        
+        StockMarket market = GameController.getGameData().getStockMarket();
         
         stockMarketOptions = new Group();
         
@@ -494,14 +502,14 @@ public class FinancesController implements Initializable {
             
             
             ArrayList<XYChart.Data<Integer, Double>> data = new ArrayList<>();
-            for (int j = 0; j < corps[i].getData().size(); j++) {
-                data.add(new XYChart.Data<>(j, corps[i].getData().get(corps[i].getData().size() - (j + 1))));
+            for (int j = 0; j < corps[i].getValues().size(); j++) {
+                data.add(new XYChart.Data<>(j, corps[i].getValues().get(corps[i].getValues().size() - (j + 1))));
             }
             
             XYChart.Series<Integer, Double> series = new XYChart.Series<>(FXCollections.observableList(data));
             ArrayList<XYChart.Series<Integer, Double>> dataList = new ArrayList<>();
             dataList.add(series);
-            LineChart plot = new LineChart(new NumberAxis("Turns", 0, corps[i].getData().size(), corps[i].getData().size() / 5 + 1), new NumberAxis("Price", 0, 1000, 50), FXCollections.observableList(dataList));
+            LineChart plot = new LineChart(new NumberAxis("Turns", 0, corps[i].getValues().size(), corps[i].getValues().size() / 5 + 1), new NumberAxis("Price", 0, 1000, 50), FXCollections.observableList(dataList));
             plot.setMinSize(600, 400);
             plot.setCreateSymbols(false);
             plot.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -556,10 +564,10 @@ public class FinancesController implements Initializable {
             
             Label buyCorpStock = new Label("Buy " + corps[i].getName() + " Stock:");
             Label sellCorpStock = new Label("Sell " + corps[i].getName() + " Stock:");
-            Label ownedStock = new Label(corps[i].getName() + " Stock Owned: " + p.getStockPortfolio().getShares(corps[i]) + " Shares");
+            Label ownedStock = new Label(corps[i].getName() + " Stock Owned: " + player.getStockPortfolio().getShares(corps[i]) + " Shares");
             
-            int maxQuanBuy = (int)(p.getCredits() / corps[i].currentValue());
-            int maxQuanSell = p.getStockPortfolio().getShares(corps[i]);
+            int maxQuanBuy = (int)(player.getCredits() / corps[i].currentValue());
+            int maxQuanSell = player.getStockPortfolio().getShares(corps[i]);
             
             Slider buyStockAmount = new Slider(0, maxQuanBuy, 0.0);
             buyStockAmount.setBlockIncrement(1);
@@ -655,7 +663,7 @@ public class FinancesController implements Initializable {
                 }
             });
             
-            Label credits = new Label("Player Credits: " + p.getCredits());
+            Label credits = new Label("Player Credits: " + player.getCredits());
             credits.setMinSize(200, 30);
             credits.setTranslateX(400);
             credits.setTranslateY(350);
@@ -663,26 +671,28 @@ public class FinancesController implements Initializable {
             
             buyStock.setOnMouseClicked((MouseEvent t) -> {
                 int amount = (int)(buyStockAmount.getValue());
-                p.getStockPortfolio().buyStock(corps[k], amount);
-                p.spend((int)(corps[k].currentValue() * amount));
-                buyStockAmount.setMax((int)(p.getCredits() / corps[k].currentValue()));
-                sellStockAmount.setMax(p.getStockPortfolio().getShares(corps[k]));
+                //p.getStockPortfolio().buyStock(corps[k], amount);
+                //player.spend((int)(corps[k].currentValue() * amount));
+                player.buyStocks(corps[k], amount);
+                buyStockAmount.setMax((int)(player.getCredits() / corps[k].currentValue()));
+                sellStockAmount.setMax(player.getStockPortfolio().getShares(corps[k]));
                 buyStockAmount.setValue(0);
                 sellStockAmount.setValue(0);
-                ownedStock.setText(corps[k].getName() + " Stock Owned: " + p.getStockPortfolio().getShares(corps[k]) + " Shares");
-                credits.setText("Player Credits: " + p.getCredits());
+                ownedStock.setText(corps[k].getName() + " Stock Owned: " + player.getStockPortfolio().getShares(corps[k]) + " Shares");
+                credits.setText("Player Credits: " + player.getCredits());
             });
             
             sellStock.setOnMouseClicked((MouseEvent t) -> {
                 int amount = (int)(sellStockAmount.getValue());
-                p.getStockPortfolio().sellStock(corps[k], amount);
-                p.earn((int)(corps[k].currentValue() * amount));
-                buyStockAmount.setMax((int)(p.getCredits() / corps[k].currentValue()));
-                sellStockAmount.setMax(p.getStockPortfolio().getShares(corps[k]));
+                //p.getStockPortfolio().sellStock(corps[k], amount);
+                //p.earn((int)(corps[k].currentValue() * amount));
+                player.buyStocks(corps[k], amount);
+                buyStockAmount.setMax((int)(player.getCredits() / corps[k].currentValue()));
+                sellStockAmount.setMax(player.getStockPortfolio().getShares(corps[k]));
                 buyStockAmount.setValue(0);
                 sellStockAmount.setValue(0);
-                ownedStock.setText(corps[k].getName() + " Stock Owned: " + p.getStockPortfolio().getShares(corps[k]) + " Shares");
-                credits.setText("Player Credits: " + p.getCredits());
+                ownedStock.setText(corps[k].getName() + " Stock Owned: " + player.getStockPortfolio().getShares(corps[k]) + " Shares");
+                credits.setText("Player Credits: " + player.getCredits());
             });
             
             
@@ -783,11 +793,100 @@ public class FinancesController implements Initializable {
         grid.setTranslateY(10);
         
         stockMarketOptions.getChildren().addAll(grid, returnToMenuFromSM);
+        /*
+        ListView<String> stockList = new ListView<>();
+        ObservableList<String> corps = FXCollections.observableArrayList();
+        
+        for (int i = 0; i < StockMarket.NUM_CORPS; i++) {
+            corps.add(market.getCorporation(i).name);
+        }
+        
+        stockList.setItems(corps);
+        
+        stockList.setPrefSize(200, 260);
+        stockList.setTranslateX(40);
+        stockList.setTranslateY(40);
+        
+        
+        
+        Button buyStock = new Button("Buy share");
+        
+        buyStock.setTranslateX(330);
+        buyStock.setTranslateY(300);
+        buyStock.setDisable(true);
+        
+        Button sellStock = new Button("Sell share");
+        
+        sellStock.setTranslateX(420);
+        sellStock.setTranslateY(300);
+        sellStock.setDisable(true);
+        
+        buyStock.setOnMouseClicked((MouseEvent e) -> {
+            StockCorporation corp = market.getCorporation(stockList.getSelectionModel().getSelectedIndex());
+            player.buyStocks(corp, 1);
+            
+            //temporary
+            System.out.println("Current credits: " + player.getCredits());
+            
+            //update buttons
+            buyStock.setDisable(player.getCredits() < corp.currentValue());
+            sellStock.setDisable(!player.hasStock(corp));
+        });
+        
+        sellStock.setOnMouseClicked((MouseEvent e) -> {
+            StockCorporation corp = market.getCorporation(stockList.getSelectionModel().getSelectedIndex());
+            player.sellStocks(corp, 1);
+            
+            //temporary
+            System.out.println("Current credits: " + player.getCredits());
+            
+            //update buttons
+            buyStock.setDisable(player.getCredits() < corp.currentValue());
+            sellStock.setDisable(!player.hasStock(corp));
+        });
+        
+        
+        
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        
+        LineChart stockChart = new LineChart(xAxis, yAxis);
+        
+        stockChart.setTitle("Stock Values");
+        stockChart.setPrefSize(320, 240);
+        stockChart.setTranslateX(260);
+        stockChart.setTranslateY(40);
+        
+        stockList.getSelectionModel().selectedIndexProperty().addListener((observable, oldVal, newVal) -> {
+            StockCorporation corp = market.getCorporation(newVal.intValue());
+            
+            //update buttons
+            buyStock.setDisable(player.getCredits() < corp.currentValue());
+            sellStock.setDisable(!player.hasStock(corp));
+            
+            //update stock chart
+            stockChart.setTitle("Stock Values: " + corp.name);
+            stockChart.getData().clear();
+            
+            LineChart.Series series = new XYChart.Series();
+            LinkedList<Double> vals = corp.getValues();
+            
+            for (int i = 0; i < vals.size(); i++) {
+                System.out.println("Should add pair" + i + " and " + vals.get(i));
+                series.getData().add(new LineChart.Data(i, vals.get(i)));
+            }
+            
+            stockChart.getData().add(series);
+        });
+        
+        stockMarketOptions.getChildren().addAll(returnToMenuFromSM, stockList,
+                buyStock, sellStock, stockChart);
+                
+        */
+        
         stockMarketOptions.setOpacity(0);
         stockMarketOptions.setMouseTransparent(true);
         anchor.getChildren().add(stockMarketOptions);
-        
-        
     }
     
     private void startBank(Group oldGroup) {
@@ -804,6 +903,14 @@ public class FinancesController implements Initializable {
     
     private void startStockMarket(Group oldGroup) {
         fadeSwitch(oldGroup, stockMarketOptions);
+    }
+    
+    private void updateStockChart() {
+        
+    }
+    
+    private void updateStockButtons() {
+        
     }
     
     private void fadeSwitch(Group oldGroup, Group newGroup) {

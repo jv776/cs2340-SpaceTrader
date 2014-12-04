@@ -28,7 +28,7 @@ public class StockMarket {
     
     public void updateStocks() {
         for (int i = 0; i < NUM_CORPS; i++) {
-            corporations[i].updateStock();
+            corporations[i].updateStock(weight);
         }
     }
     
@@ -38,5 +38,9 @@ public class StockMarket {
     
     public void setWeight(int newWeight) {
         weight = newWeight;
+    }
+    
+    public StockCorporation getCorporation(int i) {
+        return corporations[i];
     }
 }

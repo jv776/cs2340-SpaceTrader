@@ -29,8 +29,8 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
-import models.Bank;
 import models.StockMarket;
+import models.Bank;
 
 /**
  * Customization FXML Controller class
