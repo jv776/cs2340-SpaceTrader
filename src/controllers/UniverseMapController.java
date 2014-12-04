@@ -180,6 +180,8 @@ public class UniverseMapController implements Initializable {
 
                         s.discover();
                         
+                        GameController.getGameData().getStockMarket().updateStocks();
+                        
                         Player p = GameController.getGameData().getPlayer();
                         
                         int dailyCost = p.getDailyCost();

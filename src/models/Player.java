@@ -22,6 +22,7 @@ public class Player extends CrewMember implements Serializable {
     private SolarSystem currentSystem;
     private Planet currentPlanet;
     private Bank bank;
+    private StockPortfolio stocks;
     private int credits;
     private int totalCredits;
     private int bounty;
@@ -43,6 +44,8 @@ public class Player extends CrewMember implements Serializable {
         name = playerName;
 
         ship = new Ship(Ship.Type.Gnat, this);
+        
+        stocks = new StockPortfolio();
         
         bank = new Bank();
         
@@ -250,6 +253,14 @@ public class Player extends CrewMember implements Serializable {
         firstFight = false;
     }
     
+    public void buyStocks(StockCorporation corp, int shares) {
+        spend((int)stocks.buyStock(corp, shares));
+    }
+    
+    public void sellStocks(StockCorporation corp, int shares) {
+        earn((int)stocks.sellStock(corp, shares));
+    }
+    
     @Override
     public int getFighterSkillPoints() {
         int fighter = fighterSkill;
@@ -301,5 +312,9 @@ public class Player extends CrewMember implements Serializable {
     
     public void setBank(Bank b) {
         bank = b;
+    }
+    
+    public StockPortfolio getStockPortfolio() {
+        return stocks;
     }
 }

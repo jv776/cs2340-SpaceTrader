@@ -5,6 +5,7 @@
  */
 package models;
 
+import controllers.GameController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
@@ -225,6 +226,10 @@ public class Ship implements Serializable {
     public boolean addCrew(Mercenary merc) {
         if (crew.size() < type.crewCapacity) {
             crew.add(merc);
+            GameController.getGameData().getStockMarket()
+                    .setWeight(GameController.getGameData()
+                            .getPlayer().getInvestorSkillPoints());
+            //HACK
             return true;
         }
         return false;

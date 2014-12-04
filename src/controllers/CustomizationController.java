@@ -30,6 +30,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import models.Bank;
+import models.StockMarket;
 
 /**
  * Customization FXML Controller class
@@ -142,7 +143,7 @@ public class CustomizationController implements Initializable {
         trader = new Tooltip("Increases sell prices up to 10% of their original value and lowers buy prices the same amount.");
         trader.setMaxWidth(200);
         trader.setWrapText(true);
-        investor = new Tooltip("Increases chances of success in the stoack market.");
+        investor = new Tooltip("Increases chances of success in the stock market.");
         investor.setMaxWidth(200);
         investor.setWrapText(true);
         
@@ -222,10 +223,15 @@ public class CustomizationController implements Initializable {
         Planet planet = system.getPlanets()[(int) (Math.random() * system.getPlanets().length)];
         
         Bank bank = new Bank();
+        StockMarket stockMarket = new StockMarket(player.getInvestorSkillPoints());
+        for (int i = 0; i < 20; i++) {
+            stockMarket.updateStocks();
+        }
         
         player.setCurrentSystem(system);
         player.setCurrentPlanet(planet);
         
+        GameController.getGameData().setStockMarket(stockMarket);
         GameController.getGameData().setPlayer(player);
         GameController.getGameData().setUniverse(universe);
         GameController.getGameData().setSolarSystem(system);
