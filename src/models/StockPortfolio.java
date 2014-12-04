@@ -32,13 +32,14 @@ public class StockPortfolio implements Serializable {
     
     public double sellStock(StockCorporation corp, int shares) {
         if (numShares.containsKey(corp) && numShares.get(corp) >= shares) {
+            numShares.put(corp, numShares.get(corp) - shares);
             return corp.currentValue() * shares;
         }
         
         return 0;
     }
     
-    public double getShares(StockCorporation corp) {
+    public int getShares(StockCorporation corp) {
         return (numShares.get(corp) == null ? 0 : numShares.get(corp));
     }
 }

@@ -29,6 +29,12 @@ and open the template in the editor.
     
 }
 
+#stock_grid .label {
+    -fx-opacity: 0.8;
+    -fx-background-color: #000000;
+    -fx-border-color: #FFFFFF;
+}
+
 .grid_pane {
     -fx-border-color: #FFFFFF;
     -fx-opacity: 1;

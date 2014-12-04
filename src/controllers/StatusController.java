@@ -42,7 +42,7 @@ public class StatusController implements Initializable {
     @FXML
     private Label cargo_quantity, weapons_quantity, shields_quantity, 
             gadgets_quantity, crew_quantity, name_label, worth_label,
-            bounty_label;
+            bounty_label, credits_label, loan_label;
     
     @FXML 
     private Label pilot_skill, fighter_skill, engineer_skill,
@@ -61,6 +61,15 @@ public class StatusController implements Initializable {
         name_label.setText(player.getName());
         worth_label.setText("" + player.getTotalCredits());
         bounty_label.setText("" + player.getBounty());
+        credits_label.setText("" + player.getCredits());
+        if (player.getBank().hasOpenLoan()) {
+            loan_label.setText("" + player.getBank().getLoan().getPaidOff() 
+                + " / " + player.getBank().getLoan().getTotal());
+        } else {
+            loan_label.setText("No current loan");
+        }
+        
+        ship_image.setImage(player.getShip().getImage());
         
         for (CargoItem item : ship.getCargoHold().getCargoItems()) {
             for (int i = 0; i < ship.getCargoHold().getQuantity(item); i++) {

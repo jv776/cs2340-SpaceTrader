@@ -20,7 +20,8 @@ public enum Screens {
     NEW_SOLAR_SYSTEM("NewSolarSystem"),
     NEW_SPACE_PORT("NewSpacePort"),
     TAVERN("Tavern"),
-    SHIP_STATUS("Status");
+    SHIP_STATUS("Status"),
+    FINANCES("Finances");
     
     private String name;
     

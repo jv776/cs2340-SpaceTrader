@@ -82,8 +82,8 @@ public class NewSpacePortController implements Initializable {
     }
 
     @FXML
-    private void onStockMarketClicked() {
-        System.out.println("STOCK MARKET CLICKED WOOOO!");
+    private void onFinancesClicked() {
+        GameController.getControl().setScreen(Screens.FINANCES);
     }
 
     @FXML

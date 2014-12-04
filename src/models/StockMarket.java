@@ -13,10 +13,13 @@ package models;
  */
 public class StockMarket {
     private static final int NUM_CORPS = 10;
-    private StockCorporation[] corporations;
+    private StockCorporation[] corporations;        
+    private int weight;
     
-    public StockMarket() {
+    public StockMarket(int investor) {
         corporations = new StockCorporation[NUM_CORPS];
+        
+        weight = investor;
         
         for (int i = 0; i < NUM_CORPS; i++) {
             corporations[i] = new StockCorporation();
@@ -27,5 +30,13 @@ public class StockMarket {
         for (int i = 0; i < NUM_CORPS; i++) {
             corporations[i].updateStock();
         }
+    }
+    
+    public StockCorporation[] getCorporations() {
+        return corporations;
+    }
+    
+    public void setWeight(int newWeight) {
+        weight = newWeight;
     }
 }
