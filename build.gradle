@@ -9,7 +9,7 @@ sourceSets {
 		}
 		resources {
 			srcDir 'src'
-			includes = ["**/*.png", "**/*.jpg", "**/*.gif", "**/*.css", "**/*.mp3", "**/*.fxml"]
+			includes = ["**/*.png", "**/*.jpg", "**/*.gif", "**/*.css", "**/*.mp3", "**/*.wav", "**/*.fxml"]
 		}
 	}
 }

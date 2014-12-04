@@ -6,7 +6,9 @@
 
 package com.hitchhikers.spacetrader.controllers;
 
+import com.hitchhikers.spacetrader.Music;
 import com.hitchhikers.spacetrader.Utils;
+import com.hitchhikers.spacetrader.models.GameData;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
@@ -14,12 +16,10 @@ import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
-import com.hitchhikers.spacetrader.models.GameData;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -57,6 +57,20 @@ public class GameController extends StackPane implements Serializable {
      * @return true, if the screen is successfully loaded, false otherwise
      */
     public boolean setScreen(Screens screen) {
+        switch(screen) {
+            case POLICE_EVENT:
+            case PIRATE_EVENT:
+            case NEW_RANDOM_EVENT:
+                Music.playIntense();
+                break;
+            case MARKET:
+            case TAVERN:
+                Music.playSoothing();
+                break;
+            default:
+                Music.playBackground();
+        }
+        
         String screenName = screen.getName();
         
         try {
@@ -67,9 +81,9 @@ public class GameController extends StackPane implements Serializable {
             Object[] parameters = {};
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-            loader.setController((Initializable)constructor.newInstance(parameters));
+            loader.setController(constructor.newInstance(parameters));
             
-            Parent loadScreen = (Parent) loader.load();
+            Parent loadScreen = loader.load();
             
             //Is there is more than one screen 
             if(!getChildren().isEmpty()) {

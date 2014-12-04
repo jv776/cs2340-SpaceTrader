@@ -1,23 +1,23 @@
 package com.hitchhikers.spacetrader.controllers;
 
+import com.hitchhikers.spacetrader.models.Planet;
+import com.hitchhikers.spacetrader.models.Player;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.animation.AnimationTimer;
 import javafx.scene.AmbientLight;
 import javafx.scene.PointLight;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
-import com.hitchhikers.spacetrader.models.Planet;
-import com.hitchhikers.spacetrader.models.Player;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * @author Alex Poole
@@ -123,8 +123,13 @@ public class NewSpacePortController implements Initializable {
     }
     
     @FXML
-    private void tavern() {
+    private void onTavernClicked() {
         GameController.getControl().setScreen(Screens.TAVERN);
+    }
+    
+    @FXML
+    private void onMoonsClicked() {
+        
     }
 
     @Override
