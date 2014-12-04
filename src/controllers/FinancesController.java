@@ -509,7 +509,9 @@ public class FinancesController implements Initializable {
             XYChart.Series<Integer, Double> series = new XYChart.Series<>(FXCollections.observableList(data));
             ArrayList<XYChart.Series<Integer, Double>> dataList = new ArrayList<>();
             dataList.add(series);
-            LineChart plot = new LineChart(new NumberAxis("Turns", 0, corps[i].getValues().size(), corps[i].getValues().size() / 5 + 1), new NumberAxis("Price", 0, 1000, 50), FXCollections.observableList(dataList));
+            NumberAxis priceAxis = new NumberAxis();
+            priceAxis.setLabel("Price");
+            LineChart plot = new LineChart(new NumberAxis("Turns", 0, corps[i].getValues().size(), corps[i].getValues().size() / 5 + 1), priceAxis, FXCollections.observableList(dataList));
             plot.setMinSize(600, 400);
             plot.setCreateSymbols(false);
             plot.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -686,7 +688,7 @@ public class FinancesController implements Initializable {
                 int amount = (int)(sellStockAmount.getValue());
                 //p.getStockPortfolio().sellStock(corps[k], amount);
                 //p.earn((int)(corps[k].currentValue() * amount));
-                player.buyStocks(corps[k], amount);
+                player.sellStocks(corps[k], amount);
                 buyStockAmount.setMax((int)(player.getCredits() / corps[k].currentValue()));
                 sellStockAmount.setMax(player.getStockPortfolio().getShares(corps[k]));
                 buyStockAmount.setValue(0);
