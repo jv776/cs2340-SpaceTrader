@@ -51,7 +51,7 @@ public class WelcomeController implements Initializable {
         saveChooser.setTitle("Load previous game");
         saveChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Save files",
                 "*.ser"));
-        saveChooser.setInitialDirectory(new File("saves/"));
+        saveChooser.setInitialDirectory(new File("./"));
     }
 
     /**

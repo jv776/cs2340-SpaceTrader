@@ -137,7 +137,7 @@ public class GameController extends StackPane implements Serializable {
      */
     public static void saveGameData() {
         try {
-            saveFile = new File("saves/" + gameData.getPlayer().name + ".ser");
+            saveFile = new File(gameData.getPlayer().name + ".ser");
             FileOutputStream fos = new FileOutputStream(saveFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             
